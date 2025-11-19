@@ -4,107 +4,65 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
-    <artifactId>scanning</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>scanning</name>
-    <url>http://maven.apache.org</url>
-
-    <!-- Parent do Spring Boot: Gerencia VERSÕES AUTOMATICAMENTE -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.0</version>  <!-- Versão recente; ajuste se precisar de compatibilidade -->
         <relativePath/>
     </parent>
 
+    <groupId>org.example</groupId>
+    <artifactId>busca-automatica-alc</artifactId>  <!-- Nome do seu projeto -->
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>17</java.version>  <!-- Mantenha 17; mude para 21 se quiser suporte mais novo -->
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <selenium.version>4.15.0</selenium.version>  <!-- Versão estável; atualize se necessário -->
+        <java.version>17</java.version>  <!-- Ajuste para sua versão Java (17+ recomendado) -->
+        <selenium.version>4.15.0</selenium.version>  <!-- Versão do Selenium -->
+        <webdrivermanager.version>5.5.3</webdrivermanager.version>
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Web (inclui Jackson, Tomcat, etc.) -->
+        <!-- Spring Boot Web Starter (para REST controllers e web) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring Boot Test (inclui JUnit 5 gerenciado - substitui sua declaração hardcoded) -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Jsoup para parse HTML (útil no scraping) -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.17.2</version>
-        </dependency>
-
-        <!-- Selenium (ÚNICA declaração: inclui API, Chrome Driver, Remote, etc.) -->
+        <!-- Selenium para automação web -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
 
-        <!-- WebDriverManager (gerencia download automático do ChromeDriver) -->
+        <!-- WebDriverManager para gerenciar ChromeDriver automaticamente -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.6.2</version>  <!-- Versão compatível e estável -->
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- JPA e PostgreSQL (COMENTADOS: Desabilita DB se não precisar agora. Descomente para ativar) -->
+        <!-- Jackson para manipulação de JSON (já incluído no starter-web, mas explicitado) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Opcional: Para testes (JUnit 5) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-
-        <!-- Jackson (REMOVIDO: Já incluso no spring-boot-starter-web. Adicione só se precisar de versão específica) -->
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Plugin Spring Boot -->
+            <!-- Plugin do Spring Boot para rodar o app -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- Opcional: JVM args para Netty/Selenium se der conflito -->
-                    <jvmArguments>-Dio.netty.tryReflectionSetAccessible=false</jvmArguments>
-                </configuration>
-            </plugin>
-
-            <!-- Maven Compiler Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <release>${java.version}</release>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <!-- REMOVIDO: <fork> e <executable> para evitar problemas com JAVA_HOME -->
-                </configuration>
             </plugin>
         </plugins>
     </build>

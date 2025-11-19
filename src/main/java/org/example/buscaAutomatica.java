@@ -4,818 +4,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.net.URI;
-import java.net.URLDecoder;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class buscaAutomatica {
 
-    @GetMapping("/login")
-    public String fazerLogin(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /login chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29";
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless");
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            String urlAtual = driver.getCurrentUrl();
-            System.out.println("URL atual após login: " + urlAtual);
-            String sess = extrairParametroSess(urlAtual);
-
-            resultado.put("status", "Login realizado com sucesso");
-            resultado.put("urlAtual", urlAtual);
-            resultado.put("sess", sess);
-
-        } catch (Exception e) {
-            System.err.println("Erro no /login: " + e.toString());
-            resultado.put("status", "Erro no login");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /login");
-        }
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /login: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
-
-    @GetMapping("/desligarAlarme")
-    public String desligarAlarmePsu1(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /desligarAlarme chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29";
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless");
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            // Login (mesmo código do /login)
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            // Sequência para desligar o alarme PSU1
-
-            // Clica no botão para abrir o log de eventos (event log)
-            WebElement eventLogBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("#event_button > a.eventLog.btn100x40_fault")));
-            eventLogBtn.click();
-
-            // Clica no botão setup dentro do log
-            WebElement setupBtn = new WebDriverWait(driver, Duration.ofSeconds(60))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("#btnLogSetup > a#faultlogSet")));
-            setupBtn.click();
-
-            Thread.sleep(1500);
-
-            // Localiza o checkbox para desligar o alarme PSU1
-            WebElement checkboxEnable = new WebDriverWait(driver, Duration.ofSeconds(60))
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector(
-                            "#logCfgTable > div.tableContent > div:nth-child(5) > div.col1.thickBrdrBoth > div.checkbox.wp[name='enable']"
-                    )));
-
-            String classes = checkboxEnable.getAttribute("class");
-            boolean estaMarcado = classes.contains("checked");
-
-            if (estaMarcado) {
-                JavascriptExecutor js = (JavascriptExecutor) driver;
-                js.executeScript("arguments[0].click();", checkboxEnable);
-
-                new WebDriverWait(driver, Duration.ofSeconds(40)).until(ExpectedConditions.not(
-                        ExpectedConditions.attributeContains(checkboxEnable, "class", "checked")
-                ));
-
-                resultado.put("alarmePsu1", "Desligado com sucesso");
-            } else {
-                resultado.put("alarmePsu1", "Já estava desligado");
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro no /desligarAlarme: " + e.toString());
-            resultado.put("status", "Erro ao desligar alarme");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /desligarAlarme");
-        }
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /desligarAlarme: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
-
-    @GetMapping("/alarmess")
-    public String buscarAlarmesAtivos(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /alarmess chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        // Define cidade padrão caso não seja informada
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29";
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        // Monta a URL base para acesso
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        // Configura o driver do Chrome
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            // Acessa a página de login
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            // Preenche o campo usuário
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            // Preenche o campo senha
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            // Clica no botão de login
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            // Aguarda até que a URL contenha "mainPage.html" indicando login bem-sucedido
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            // Clica no botão para abrir o log de eventos (event log)
-            WebElement eventLogBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("#event_button > a.eventLog.btn100x40_fault")));
-            eventLogBtn.click();
-
-            // Aguarda o conteúdo do log estar presente
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.id("log_content")));
-
-            // Busca todos os elementos que representam alarmes ativos (com classe contendo 'ACT')
-            List<WebElement> alarmesAtivos = driver.findElements(By.cssSelector("#log_content > div.c1[class*='ACT']"));
-
-            List<Map<String, String>> listaAlarmes = new ArrayList<>();
-
-            // Itera sobre os alarmes encontrados para extrair informações
-            for (WebElement alarme : alarmesAtivos) {
-                String classe = alarme.getAttribute("class");
-                String tipo = "";
-                if (classe.contains("WarningACT")) {
-                    tipo = "Warning";
-                } else if (classe.contains("FaultACT")) {
-                    tipo = "Fault";
-                } else {
-                    continue; // ignora elementos que não são alarmes Warning ou Fault
-                }
-
-                String msg = "";
-                String date = "";
-                String status = "";
-
-                try {
-                    WebElement msgElem = alarme.findElement(By.cssSelector("div.msg"));
-                    msg = msgElem.getText();
-                } catch (org.openqa.selenium.NoSuchElementException ignored) {}
-
-                try {
-                    WebElement dateElem = alarme.findElement(By.cssSelector("div.date"));
-                    date = dateElem.getText();
-                } catch (org.openqa.selenium.NoSuchElementException ignored) {}
-
-                try {
-                    WebElement statusElem = alarme.findElement(By.cssSelector("div.status"));
-                    status = statusElem.getText();
-                } catch (org.openqa.selenium.NoSuchElementException ignored) {}
-
-                Map<String, String> alarmeInfo = new HashMap<>();
-                alarmeInfo.put("tipo", tipo);
-                alarmeInfo.put("mensagem", msg);
-                alarmeInfo.put("data", date);
-                alarmeInfo.put("status", status);
-                listaAlarmes.add(alarmeInfo);
-            }
-
-            resultado.put("status", "Sucesso");
-            resultado.put("alarmess", listaAlarmes);
-
-        } catch (Exception e) {
-            System.err.println("Erro no /alarmess: " + e.toString());
-            resultado.put("status", "Erro ao buscar alarmes");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /alarmess");
-        }
-
-        // Retorna o resultado em JSON formatado
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /alarmess: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
-
-    @GetMapping("/alarmessSetupFaults")
-    public String buscarAlarmeSetupEspecifico(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /alarmessSetupFaults chamado (focado no alarme específico) ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        // Define cidade padrão caso não seja informada
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29";
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        // Monta a URL base para acesso
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        // Configura o driver do Chrome
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            // Acessa a página de login
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            // Preenche o campo usuário
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            // Preenche o campo senha
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            // Clica no botão de login
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            // Aguarda até que a URL contenha "mainPage.html" indicando login bem-sucedido
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            // Clica no botão para abrir o log de eventos (event log)
-            WebElement eventLogBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("#event_button > a.eventLog.btn100x40_fault")));
-            eventLogBtn.click();
-
-            // Clica no botão setup dentro do log
-            WebElement setupBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#btnLogSetup > a#faultlogSet")));
-            setupBtn.click();
-
-            // Aguarda 5 segundos para o conteúdo carregar
-            Thread.sleep(5000);
-
-            // Seleciona a linha específica (5ª div dentro de tableContent)
-            WebElement linhaEspecifica = wait.until(ExpectedConditions.presenceOfElementLocated(
-                    By.cssSelector("#logCfgTable > div.tableContent > div:nth-child(5)")
-            ));
-
-            // Verifica se a linha está visível (não oculta via CSS)
-            String style = linhaEspecifica.getAttribute("style");
-            if (style != null && style.contains("display: none")) {
-                resultado.put("status", "Linha específica está oculta");
-                resultado.put("fault", Collections.emptyMap());
-            } else {
-                // Pega o status do LED dentro da coluna 3
-                WebElement statusElem = linhaEspecifica.findElement(By.cssSelector("div.col3.thickBrdrRt > div[name='status']"));
-                String classesLed = statusElem.getAttribute("class");
-
-                // Pega a mensagem da coluna 2
-                WebElement msgElem = linhaEspecifica.findElement(By.cssSelector("div.col2[name='message']"));
-                String mensagem = msgElem.getText();
-
-                // Categoria da linha (atributo data-category)
-                String categoria = linhaEspecifica.getAttribute("data-category");
-                if (categoria == null) categoria = "";
-
-                // Tipo de log selecionado (valor do select)
-                WebElement selectTipo = linhaEspecifica.findElement(By.cssSelector("select[name='log_type']"));
-                String tipoLog = selectTipo.getAttribute("value");
-
-                Map<String, String> fault = new HashMap<>();
-                fault.put("mensagem", mensagem);
-                fault.put("categoria", categoria);
-                fault.put("tipoLog", tipoLog);
-                fault.put("statusLed", classesLed);
-
-                resultado.put("status", "Sucesso");
-                resultado.put("fault", fault);
-            }
-
-        } catch (Exception e) {
-            System.err.println("Erro no /alarmessSetupFaults: " + e.toString());
-            resultado.put("status", "Erro ao buscar alarme específico");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /alarmessSetupFaults");
-        }
-
-        // Retorna o resultado em JSON formatado
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /alarmessSetupFaults: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
-
-    @GetMapping("/funcaoRemux")
-    public String funcaoRemux(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /funcaoRemux chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29"; // valor padrão
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            // Login
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            // 1. Clicar em "Go To"
-            WebElement goToBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("a.btn60x22.link_btn[onclick*='modBtnClick(2)']")));
-            goToBtn.click();
-            Thread.sleep(1500);
-
-            // 2. Clicar em "Exciter"
-            WebElement exciterDiv = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div#h_exciter")));
-            exciterDiv.click();
-            Thread.sleep(1500);
-
-            // 3. Clicar em "ISDB-T Modulator"
-            WebElement modulatorLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("estatus_modulator")));
-            modulatorLink.click();
-            Thread.sleep(1500);
-
-            // 4. Clicar em "IsdbT Config"
-            WebElement configLink = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//a[contains(@class,'btn120_default') and contains(text(),'IsdbT Config')]")));
-            configLink.click();
-            Thread.sleep(1500);
-
-            // 5. Alterar o select "Input Mode" para value "3"
-            WebElement inputModeSelect = wait.until(ExpectedConditions.elementToBeClickable(By.id("isdbt_mode")));
-            Select select = new Select(inputModeSelect);
-
-            select.selectByValue("3");
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", inputModeSelect);
-            Thread.sleep(1500);
-
-            // 6. Alterar o select "Input Mode" para value "2" , volta para a configuração de REMUX
-            select.selectByValue("2");
-            js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", inputModeSelect);
-            Thread.sleep(1500);
-
-            resultado.put("status", "Sequência executada com sucesso");
-            resultado.put("inputModeAlterado", "Valor 3 (Async BTS) selecionado e depois voltou para 2 (Remux)");
-
-        } catch (Exception e) {
-            System.err.println("Erro no /funcaoRemux: " + e.toString());
-            resultado.put("status", "Erro ao executar sequência");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /funcaoRemux");
-        }
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /funcaoRemux: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
-
-    @GetMapping("/funcaoTaxa")
-    public String funcaoTaxa(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /funcaoTaxa chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29"; // valor padrão
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            // Login
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            // 1. Clicar em "Go To"
-            WebElement goToBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("a.btn60x22.link_btn[onclick*='modBtnClick(2)']")));
-            goToBtn.click();
-            Thread.sleep(1500);
-
-            // 2. Clicar em "Exciter"
-            WebElement exciterDiv = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div#h_exciter")));
-            exciterDiv.click();
-            Thread.sleep(1500);
-
-            // 3. Clicar em "Input"
-            WebElement inputLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("estatus_inputs")));
-            inputLink.click();
-            Thread.sleep(1500);
-
-            // 4. Pegar o valor da taxa de ASI e ETH
-            WebElement ethDiv = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("in_stat_inputs_br_1")));
-            String ethValue = ethDiv.getText();
-
-            WebElement asiDiv = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("in_stat_inputs_br_3")));
-            String asiValue = asiDiv.getText();
-
-            // Coloca os valores no resultado para retornar
-            resultado.put("status", "Sequência executada com sucesso");
-            resultado.put("taxa_ETH", ethValue);
-            resultado.put("taxa_ASI", asiValue);
-
-        } catch (Exception e) {
-            System.err.println("Erro no /funcaoTaxa: " + e.toString());
-            resultado.put("status", "Erro ao executar sequência");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /funcaoTaxa");
-        }
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /funcaoTaxa: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
-
-    @GetMapping("/funcaoPids")
-    public String funcaoPids(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /funcaoPids chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
-
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29"; // valor padrão
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
-        System.out.println("URL que será acessada: " + urlBase);
-
-        WebDriverManager.chromedriver().setup();
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
-        options.addArguments("--incognito");
-        options.addArguments("--disable-cache");
-
-        WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-
-        Map<String, Object> resultado = new HashMap<>();
-
-        try {
-            // Acessa a página de login
-            driver.get(urlBase);
-            driver.manage().window().maximize();
-
-            // Login
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
-            campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
-
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
-            campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
-
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
-            botaoLogin.click();
-
-            // Aguarda login bem-sucedido
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
-
-            // 1. Clicar em "Go To"
-            WebElement goToBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("a.btn60x22.link_btn[onclick*='modBtnClick(2)']")));
-            goToBtn.click();
-            Thread.sleep(1500);
-
-            // 2. Clicar em "Exciter"
-            WebElement exciterDiv = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div#h_exciter")));
-            exciterDiv.click();
-            Thread.sleep(1500);
-
-            // 3. Clicar em "Input"
-            WebElement inputLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("estatus_inputs")));
-            inputLink.click();
-            Thread.sleep(1500);
-
-            // 4. Clicar em "TS Stats" (corrigido o XPath)
-            WebElement tsStatsBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("ts_stats_btn")));
-            tsStatsBtn.click();
-            Thread.sleep(2000); // aguarda carregamento
-
-            // 5. Aguardar o container dos PIDs estar presente
-            WebElement psiInfoContainer = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("psi_info_tbl")));
-
-            // 6. Extrair informações dos PIDs
-            List<Map<String, String>> listaProgramas = new ArrayList<>();
-
-            // Pegar TS ID
-            try {
-                WebElement tsIdElem = psiInfoContainer.findElement(By.cssSelector("div.rowA div.psiData"));
-                String tsId = tsIdElem.getText();
-                resultado.put("tsId", tsId);
-            } catch (Exception e) {
-                resultado.put("tsId", "Não encontrado");
-            }
-
-            // Buscar todos os programas (linhas com classe rowB)
-            List<WebElement> programas = psiInfoContainer.findElements(By.cssSelector("div.rowB"));
-
-            for (WebElement programa : programas) {
-                Map<String, String> programaInfo = new HashMap<>();
-
-                try {
-                    WebElement programaData = programa.findElement(By.cssSelector("div.psiData"));
-                    String programaTexto = programaData.getText();
-                    programaInfo.put("programa", programaTexto);
-
-                    // Buscar PIDs associados a este programa (próximas linhas rowC após este rowB)
-                    List<String> pidsPrograma = new ArrayList<>();
-                    WebElement proximoElemento = programa;
-
-                    // Pega os próximos elementos irmãos que são rowC (PIDs do programa)
-                    while (true) {
-                        try {
-                            proximoElemento = proximoElemento.findElement(By.xpath("following-sibling::div[1]"));
-                            if (proximoElemento.getAttribute("class").contains("rowC")) {
-                                WebElement pidData = proximoElemento.findElement(By.cssSelector("div.psiData"));
-                                String pidTexto = pidData.getText();
-
-                                // Verifica se tem ícone associado (video, audio, PCR)
-                                String icone = "";
-                                try {
-                                    WebElement iconeElem = proximoElemento.findElement(By.cssSelector("div.icon"));
-                                    icone = iconeElem.getAttribute("class").replace("icon", "").trim();
-                                } catch (Exception ignored) {}
-
-                                if (!icone.isEmpty()) {
-                                    pidTexto += " (" + icone + ")";
-                                }
-
-                                pidsPrograma.add(pidTexto);
-                            } else {
-                                break; // próxima linha não é rowC, fim dos PIDs deste programa
-                            }
-                        } catch (Exception e) {
-                            break; // não há mais elementos ou erro
-                        }
-                    }
-
-                    programaInfo.put("pids", String.join(", ", pidsPrograma));
-                    listaProgramas.add(programaInfo);
-
-                } catch (Exception e) {
-                    // Ignora programas que não conseguir processar
-                }
-            }
-
-            resultado.put("status", "Sequência executada com sucesso");
-            resultado.put("programas", listaProgramas);
-
-        } catch (Exception e) {
-            System.err.println("Erro no /funcaoPids: " + e.toString());
-            resultado.put("status", "Erro ao executar sequência");
-            resultado.put("erro", e.toString());
-        } finally {
-            driver.quit();
-            System.out.println("Driver finalizado no /funcaoPids");
-        }
-
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.enable(SerializationFeature.INDENT_OUTPUT);
-            return mapper.writeValueAsString(resultado);
-        } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /funcaoPids: " + e.toString());
-            return "{\"erro\":\"Falha ao gerar JSON\"}";
-        }
-    }
+    @Value("${app.username}")
+    private String username;
+
+    @Value("${app.password}")
+    private String password;
 
     @GetMapping("/funcaoAlc")
     public String funcaoAlc(@RequestParam(name = "cidade", required = false) String cidade) {
         System.out.println("=== /funcaoAlc chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
+        System.out.println("Calibração");
 
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29"; // valor padrão
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
+        String urlBase = "http://10.10.103.103/login.html";
         System.out.println("URL que será acessada: " + urlBase);
 
         WebDriverManager.chromedriver().setup();
@@ -825,56 +44,230 @@ public class buscaAutomatica {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
+        // options.addArguments("--headless"); // Desativado para exibir o que está sendo feito
         options.addArguments("--incognito");
         options.addArguments("--disable-cache");
 
         WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         Map<String, Object> resultado = new HashMap<>();
 
         try {
             driver.get(urlBase);
-            driver.manage().window().maximize();
 
             // Login
             WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
             campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
+            campoUsuario.sendKeys(username);
 
             WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
             campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
+            campoSenha.sendKeys(password);
 
             WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
             botaoLogin.click();
 
             wait.until(ExpectedConditions.urlContains("mainPage.html"));
 
+            // MTX1
             // 1. Clicar em "Go To"
-            WebElement goToBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("a.btn60x22.link_btn[onclick*='modBtnClick(2)']")));
+            WebElement goToBtn = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a.btn60x22.link_btn[onclick*='modBtnClick(1)']")));
             goToBtn.click();
-            Thread.sleep(1500);
 
             // 2. Clicar em "AMP"
-            WebElement exciterDiv = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("smTri_warn")));
-            exciterDiv.click();
-            Thread.sleep(1500);
+            WebElement buttonAMP1 = wait.until(ExpectedConditions.elementToBeClickable(By.className("smTri_ok")));
+            buttonAMP1.click();
+
+            // 3. Pegar Freqência
+            WebElement getFrequencia1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("out_freq")));
+            String frequencia1 =  getFrequencia1.getText();
 
             // 4. Pegar o estado do ALC
-            WebElement ethDiv = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_alc_stat")));
-            Thread.sleep(1500);
-            String ethValue = ethDiv.getText();
+            WebElement getALC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_alc_stat")));
+            Thread.sleep(2000);
+            String statusALC1 = getALC1.getText();
 
-            // Coloca os valores no resultado para retornar
+            // 5. Pegar o valor do Output DAC
+            WebElement getOutputDAC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_out_dac")));
+            String outputDAC1 = getOutputDAC1.getText();
+
+            // 6. Pegar o valor do Desired DAC
+            WebElement getDesiredDAC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_des_dac")));
+            String desiredDAC1 = getDesiredDAC1.getText();
+
+            System.out.println("frequencia1: " + frequencia1);
+            System.out.println("Status ALC1: " + statusALC1);
+            System.out.println("Output DAC1: " + outputDAC1);
+            System.out.println("Desired DAC1: " + desiredDAC1);
+
+            // MTX2
+            // 7. Clicar em Home
+            WebElement homeBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("firstMenu")));
+            homeBtn.click();
+
+            // 8. Clicar no MTX2
+            WebElement mtx2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href=\"javascript:loadModPage('xmtrhome', 2)\"]")));
+            mtx2.click();
+
+            // 9. Clicar em "AMP"
+            WebElement buttonAMP2 = wait.until(ExpectedConditions.elementToBeClickable(By.className("smTri_ok")));
+            buttonAMP2.click();
+
+            // 10. Pegar Freqência
+            WebElement getFrequencia2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("out_freq")));
+            String frequencia2 =  getFrequencia2.getText();
+
+            // 11. Pegar o estado do ALC
+            WebElement getALC2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_alc_stat")));
+            Thread.sleep(2000);
+            String statusALC2 = getALC2.getText();
+
+            // 12. Pegar o valor do Output DAC
+            WebElement getOutputDAC2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_out_dac")));
+            String outputDAC2 = getOutputDAC2.getText();
+
+            // 13. Pegar o valor do Desired DAC
+            WebElement getDesiredDAC2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_des_dac")));
+            String desiredDAC2 = getDesiredDAC2.getText();
+
+            System.out.println("frequencia2: " + frequencia2);
+            System.out.println("Status ALC2: " + statusALC2);
+            System.out.println("Output DAC2: " + outputDAC2);
+            System.out.println("Desired DAC2: " + desiredDAC2);
+
+            // MTX3
+            // 14. Clicar em Home
+            WebElement homeBtn2 = wait.until(ExpectedConditions.elementToBeClickable(By.id("firstMenu")));
+            homeBtn2.click();
+
+            // 15. Clicar no MTX3
+            WebElement mtx3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href=\"javascript:loadModPage('xmtrhome', 3)\"]")));
+            mtx3.click();
+
+            // 16. Clicar em "AMP"
+            WebElement buttonAMP3 = wait.until(ExpectedConditions.elementToBeClickable(By.className("smTri_ok")));
+            buttonAMP3.click();
+
+            // 17. Pegar Freqência
+            WebElement getFrequencia3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("out_freq")));
+            String frequencia3 =  getFrequencia3.getText();
+
+            // 18. Pegar o estado do ALC
+            WebElement getALC3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_alc_stat")));
+            Thread.sleep(2000);
+            String statusALC3 = getALC3.getText();
+
+            // 19. Pegar o valor do Output DAC
+            WebElement getOutputDAC3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_out_dac")));
+            String outputDAC3 = getOutputDAC3.getText();
+
+            // 20. Pegar o valor do Desired DAC
+            WebElement getDesiredDAC3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_des_dac")));
+            String desiredDAC3 = getDesiredDAC3.getText();
+
+            System.out.println("frequencia3: " + frequencia3);
+            System.out.println("Status ALC3: " + statusALC3);
+            System.out.println("Output DAC3: " + outputDAC3);
+            System.out.println("Desired DAC3: " + desiredDAC3);
+
+            // MTX4
+            // 20. Clicar em Home
+            WebElement homeBtn3 = wait.until(ExpectedConditions.elementToBeClickable(By.id("firstMenu")));
+            homeBtn3.click();
+
+            // 21. Clicar no MTX4
+            WebElement mtx4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[@href=\"javascript:loadModPage('xmtrhome', 4)\"]")));
+            mtx4.click();
+
+            // 22. Clicar em "AMP"
+            WebElement buttonAMP4 = wait.until(ExpectedConditions.elementToBeClickable(By.className("smTri_ok")));
+            buttonAMP4.click();
+
+            // 23. Pega o valor da Frequência
+            WebElement getFrequencia4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("out_freq")));
+            String frequencia4 =  getFrequencia4.getText();
+
+            // 24. Pegar o estado do ALC
+            WebElement getALC4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_alc_stat")));
+            Thread.sleep(2000);
+            String statusALC4 = getALC4.getText();
+
+            // 25. Pegar o valor do Output DAC
+            WebElement getOutputDAC4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_out_dac")));
+            String outputDAC4 = getOutputDAC4.getText();
+
+            // 26. Pegar o valor do Desired DAC
+            WebElement getDesiredDAC4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("pa_stat_des_dac")));
+            String desiredDAC4 = getDesiredDAC4.getText();
+
+            System.out.println("frequencia4: " + frequencia4);
+            System.out.println("Status ALC4: " + statusALC4);
+            System.out.println("Output DAC4: " + outputDAC4);
+            System.out.println("Desired DAC4: " + desiredDAC4);
+
+            // Colocar os valores no resultado
             resultado.put("status", "Checagem executada com sucesso");
-            resultado.put("Status ALC ", ethValue);
+            // MTX1
+            resultado.put("frequencia1", frequencia1);
+            resultado.put("statusAlc1", statusALC1);
+            resultado.put("valorOutputDac1", outputDAC1);
+            resultado.put("valorDesiredDac1", desiredDAC1);
 
+            // MTX2
+            resultado.put("frequencia2", frequencia2);
+            resultado.put("statusAlc2", statusALC2);
+            resultado.put("valorOutputDac2", outputDAC2);
+            resultado.put("valorDesiredDac2", desiredDAC2);
+
+            // MTX3
+            resultado.put("frequencia3", frequencia3);
+            resultado.put("statusAlc3", statusALC3);
+            resultado.put("valorOutputDac3", outputDAC3);
+            resultado.put("valorDesiredDac3", desiredDAC3);
+
+            // MTX4
+            resultado.put("frequencia4", frequencia4);
+            resultado.put("statusAlc4", statusALC4);
+            resultado.put("valorOutputDac4", outputDAC4);
+            resultado.put("valorDesiredDac4", desiredDAC4);
+
+            // Salvar os dados em um arquivo .txt
+            try (FileWriter writer = new FileWriter("dados.txt")) {
+
+                writer.write("frequencia1: " + frequencia1 + " MHz\n");
+                writer.write("Status ALC1: " + statusALC1 + "\n");
+                writer.write("Output DAC1: " + outputDAC1 + "\n");
+                writer.write("Desired DAC1: " + desiredDAC1 + "\n");
+                writer.write("\n");
+
+                writer.write("frequencia2: " + frequencia2 + " MHz\n");
+                writer.write("Status ALC2: " + statusALC2 + "\n");
+                writer.write("Output DAC2: " + outputDAC2 + "\n");
+                writer.write("Desired DAC2: " + desiredDAC2 + "\n");
+                writer.write("\n");
+
+                writer.write("frequencia3: " + frequencia3 + " MHz\n");
+                writer.write("Status ALC3: " + statusALC3 + "\n");
+                writer.write("Output DAC3: " + outputDAC3 + "\n");
+                writer.write("Desired DAC3: " + desiredDAC3 + "\n");
+                writer.write("\n");
+
+                writer.write("frequencia4: " + frequencia4 + " MHz\n");
+                writer.write("Status ALC4: " + statusALC4 + "\n");
+                writer.write("Output DAC4: " + outputDAC4 + "\n");
+                writer.write("Desired DAC4: " + desiredDAC4 + "\n");
+                System.out.println("Dados salvos com sucesso em dados.txt");
+
+            }
+
+        } catch (TimeoutException e) {
+            System.err.println("Timeout no /funcaoAlc: " + e.toString());
+            resultado.put("status", "Erro: Timeout ao executar checagem");
+            resultado.put("erro", e.toString());
         } catch (Exception e) {
             System.err.println("Erro no /funcaoAlc: " + e.toString());
-            resultado.put("status", "Erro ao executar Checagem");
+            resultado.put("status", "Erro ao executar checagem");
             resultado.put("erro", e.toString());
         } finally {
             driver.quit();
@@ -891,17 +284,12 @@ public class buscaAutomatica {
         }
     }
 
-    @GetMapping("/funcaoModulator")
-    public String funcaoModulator(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /funcaoModulator chamado ===");
-        System.out.println("Cidade recebida: " + cidade);
+    @GetMapping("/funcaoAlterarDAC")
+    public String funcaoAlterarDAC(@RequestParam(name = "novoDesiredDac", required = false) String novoDesiredDac) {
+        System.out.println("=== /funcaoAlterarDAC chamado ===");
+        System.out.println("Alteração de DAC no debug");
 
-        if (cidade == null || cidade.isEmpty()) {
-            cidade = "29"; // valor padrão
-            System.out.println("Cidade não informada, usando padrão: " + cidade);
-        }
-
-        String urlBase = "http://172.17.10." + cidade + ":10251/login.html";
+        String urlBase = "http://10.10.103.103/debug/";
         System.out.println("URL que será acessada: " + urlBase);
 
         WebDriverManager.chromedriver().setup();
@@ -911,79 +299,61 @@ public class buscaAutomatica {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-gpu");
-        //options.addArguments("--headless"); // descomente para rodar sem abrir navegador
+        // options.addArguments("--headless"); // Desativado para exibir o que está sendo feito
         options.addArguments("--incognito");
         options.addArguments("--disable-cache");
 
         WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         Map<String, Object> resultado = new HashMap<>();
 
         try {
             driver.get(urlBase);
-            driver.manage().window().maximize();
 
-            // Login
-            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_user")));
+            // Login (corrigido: assumindo classes em vez de IDs inválidos)
+            WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.className("username")));
             campoUsuario.clear();
-            campoUsuario.sendKeys("factory");
+            campoUsuario.sendKeys(username);
 
-            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_pw")));
+            WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.className("password")));
             campoSenha.clear();
-            campoSenha.sendKeys("f@ct0ry");
+            campoSenha.sendKeys(password);
 
-            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.id("hrs_login_loginBtn")));
+            WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.className("input"))); // Assumindo botão com class="input"
             botaoLogin.click();
 
-            wait.until(ExpectedConditions.urlContains("mainPage.html"));
+            wait.until(ExpectedConditions.urlContains("debug")); // Ajuste se a URL muda
 
-            // 1. Clicar em "Go To"
-            WebElement goToBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.cssSelector("a.btn60x22.link_btn[onclick*='modBtnClick(2)']")));
-            goToBtn.click();
-            Thread.sleep(1500);
+            // 1. Navegar para seção de debug
+            WebElement debugBtn = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("PowerAmplifier1___"))); // Corrigido
+            System.out.println("Clicando em PowerAmplifier1___...");
+            debugBtn.click();
 
-            // 2. Clicar em "Exciter"
-            WebElement exciterDiv = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div#h_exciter")));
-            exciterDiv.click();
-            Thread.sleep(1500);
+            // 2. Output DAC
+            WebElement getOutputDAC = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_Measures_output_dac")));
+            String outputDAC = getOutputDAC.getText();
 
-            // 3. Clicar em "ISDB-T Modulator"
-            WebElement modulatorLink = wait.until(ExpectedConditions.elementToBeClickable(By.id("estatus_modulator")));
-            modulatorLink.click();
-            Thread.sleep(1500);
+            // 3. Desired DAC
+            WebElement getDesiredDAC = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_Measures_desired_dac")));
+            String desiredDACAtual = getDesiredDAC.getText();
 
-            // 4. Clicar em "IsdbT Config"
-            WebElement configLink = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//a[contains(@class,'btn120_default') and contains(text(),'IsdbT Config')]")));
-            configLink.click();
-            Thread.sleep(1500);
+            // Colocar os valores no resultado
+            resultado.put("status", "Operação no debug executada com sucesso");
+            resultado.put("valorOutputDac", outputDAC);
+            resultado.put("valorDesiredDacAtual", desiredDACAtual);
 
-            // 5. Alterar o select "Input Mode" para value "3"
-            WebElement inputModeSelect = wait.until(ExpectedConditions.elementToBeClickable(By.id("isdbt_mode")));
-            Select select = new Select(inputModeSelect);
-
-            select.selectByValue("3");
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", inputModeSelect);
-            Thread.sleep(1500);
-
-            // 6. Alterar o select "Input Mode" para value "2" , volta para a configuração de REMUX
-            select.selectByValue("2");
-            js.executeScript("arguments[0].dispatchEvent(new Event('change', { bubbles: true }));", inputModeSelect);
-            Thread.sleep(1500);
-
-            resultado.put("status", "Sequência executada com sucesso");
-            resultado.put("inputModeAlterado", "Valor 3 (Async BTS) selecionado e depois voltou para 2 (Remux)");
-
+        } catch (TimeoutException e) {
+            System.err.println("Timeout no /funcaoAlterarDAC: " + e.toString());
+            resultado.put("status", "Erro: Timeout ao executar alteração");
+            resultado.put("erro", e.toString());
         } catch (Exception e) {
-            System.err.println("Erro no /funcaoRemux: " + e.toString());
-            resultado.put("status", "Erro ao executar sequência");
+            System.err.println("Erro no /funcaoAlterarDAC: " + e.toString());
+            resultado.put("status", "Erro ao executar alteração");
             resultado.put("erro", e.toString());
         } finally {
             driver.quit();
-            System.out.println("Driver finalizado no /funcaoRemux");
+            System.out.println("Driver finalizado no /funcaoAlterarDAC");
         }
 
         try {
@@ -991,25 +361,9 @@ public class buscaAutomatica {
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             return mapper.writeValueAsString(resultado);
         } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /funcaoRemux: " + e.toString());
+            System.err.println("Erro ao gerar JSON no /funcaoAlterarDAC: " + e.toString());
             return "{\"erro\":\"Falha ao gerar JSON\"}";
         }
     }
 
-    private String extrairParametroSess(String url) {
-        try {
-            URI uri = new URI(url);
-            String query = uri.getQuery();
-            if (query == null) return null;
-            for (String param : query.split("&")) {
-                String[] par = param.split("=");
-                if (par.length == 2 && par[0].equals("sess")) {
-                    return URLDecoder.decode(par[1], "UTF-8");
-                }
-            }
-        } catch (Exception e) {
-            // Ignorar erros e retornar null
-        }
-        return null;
-    }
 }

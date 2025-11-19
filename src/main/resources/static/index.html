@@ -1,125 +1,172 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foccus Digital-Login</title>
-    <link rel="icon" href="../../../../../scanning/src/main/resources/static/logo/icon.png" type="image/png">
+    <title>Busca Automática ALC</title>
     <style>
         body {
-            background-color: #222;
-            color: white;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            margin: 20px;
+            background-color: #000; /* Preto */
+            color: #f00; /* Vermelho */
         }
-
-        .login-box {
-            background-color: #333;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 0 10px #000;
+        h1 { color: #f00; }
+        .casa {
+            display: inline-block;
+            width: 20%;
+            margin: 10px;
+            padding: 20px;
+            border: 2px solid #f00;
+            background: #111; /* Preto escuro */
+            color: #f00;
             text-align: center;
+            vertical-align: top;
         }
-
-        .login-box input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
+        button {
+            padding: 15px 30px;
+            background: #f00; /* Vermelho */
+            color: #000; /* Preto */
             border: none;
-            font-size: 16px;
-            text-align: center;
-        }
-
-        .login-box button {
-            width: 100%;
-            padding: 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .login-box button:hover {
-            background-color: #cc0000;
-        }
-
-        .logo {
-            width: 300px;
-            height: auto;
+            font-size: 18px;
             margin-bottom: 20px;
         }
-
-        #loginError {
-            color: red;
-            display: none;
-            margin-top: 10px;
-        }
-
-        label {
-            display: inline-flex; /* Muda para inline-flex para manter na mesma linha */
-            align-items: center; /* Alinha verticalmente */
-            margin-bottom: 10px; /* Mantém a margem inferior */
-        }
+        button:hover { background: #c00; } /* Vermelho escuro */
+        button:disabled { background: #666; cursor: not-allowed; }
+        #status { margin-top: 20px; color: #f00; }
     </style>
 </head>
 <body>
+<h1>Calibração Automática</h1>
 
-<div class="login-box">
-    <img src="logo/logo.png" alt="Logo" class="logo">
-    <h2>Login</h2>
-    <input type="text" id="username" placeholder="Usuário">
-    <input type="password" id="password" placeholder="Senha">
-    <label><input type="checkbox" id="rememberMe"> Lembrar login</label>
-    <button onclick="login()">Entrar</button>
-    <p id="loginError">Usuário ou senha inválidos</p>
+<button id="runBtn" onclick="executarChecagem()">Rodar</button>
+
+<div id="casas" style="display: none;">
+
+    <h1> MTX1 </h1>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequencia1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Output DAC</h3>
+        <p id="outputDac1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Desired DAC</h3>
+        <p id="desiredDac1">Carregando...</p>
+    </div>
+
+    <h1> MTX2 </h1>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequencia2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Output DAC</h3>
+        <p id="outputDac2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Desired DAC</h3>
+        <p id="desiredDac2">Carregando...</p>
+    </div>
+
+    <h1> MTX3 </h1>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequencia3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Output DAC</h3>
+        <p id="outputDac3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Desired DAC</h3>
+        <p id="desiredDac3">Carregando...</p>
+    </div>
+
+    <h1> MTX4 </h1>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequencia4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Output DAC</h3>
+        <p id="outputDac4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Valor Desired DAC</h3>
+        <p id="desiredDac4">Carregando...</p>
+    </div>
 </div>
 
+<div id="status"></div>
+
 <script>
-    window.onload = function () {
-        const savedUser  = localStorage.getItem("savedUser ");
-        const savedPass = localStorage.getItem("savedPass");
+    async function executarChecagem() {
+        const runBtn = document.getElementById('runBtn');
+        runBtn.disabled = true;
+        runBtn.textContent = 'Executando...';
 
-        if (savedUser  && savedPass) {
-            document.getElementById("username").value = savedUser ;
-            document.getElementById("password").value = savedPass;
-            document.getElementById("rememberMe").checked = true;
-        }
-    };
+        const url = 'http://localhost:8087/funcaoAlc';
+        const statusDiv = document.getElementById('status');
+        const casasDiv = document.getElementById('casas');
 
-    function login() {
-        const user = document.getElementById("username").value;
-        const pass = document.getElementById("password").value;
-        const remember = document.getElementById("rememberMe").checked;
+        statusDiv.textContent = 'Carregando dados...';
+        casasDiv.style.display = 'block';
 
-        if (user === "Admin" && pass === "Admin") {
-            if (remember) {7070
-                localStorage.setItem("savedUser ", user);
-                localStorage.setItem("savedPass", pass);
-            } else {
-                localStorage.removeItem("savedUser ");
-                localStorage.removeItem("savedPass");
-            }
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+            const data = await response.json();
 
-            // Redireciona para a página principal
-            window.location.href = "pagina_inicial_2.html";
-        } else {
-            document.getElementById("loginError").style.display = "block";
+            // Preencher as casas com os valores
+            document.getElementById('frequencia1').textContent = data.frequencia1 || 'N/A';
+            document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
+            document.getElementById('outputDac1').textContent = data.valorOutputDac1 || 'N/A';
+            document.getElementById('desiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+
+            document.getElementById('frequencia2').textContent = data.frequencia2 || 'N/A';
+            document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
+            document.getElementById('outputDac2').textContent = data.valorOutputDac2 || 'N/A';
+            document.getElementById('desiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+
+            document.getElementById('frequencia3').textContent = data.frequencia3 || 'N/A';
+            document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
+            document.getElementById('outputDac3').textContent = data.valorOutputDac3 || 'N/A';
+            document.getElementById('desiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+
+            document.getElementById('frequencia4').textContent = data.frequencia4 || 'N/A';
+            document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
+            document.getElementById('outputDac4').textContent = data.valorOutputDac4 || 'N/A';
+            document.getElementById('desiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+
+            statusDiv.textContent = data.status || 'Dados carregados com sucesso';
+        } catch (error) {
+            statusDiv.textContent = `Erro: ${error.message}`;
+            casasDiv.style.display = 'none';
+        } finally {
+            runBtn.disabled = false;
+            runBtn.textContent = 'Rodar';
         }
     }
-
 </script>
-
 </body>
 </html>

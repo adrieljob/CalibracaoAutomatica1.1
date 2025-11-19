@@ -1,3 +1,4 @@
+/*
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -205,3 +206,5 @@ public class DashboardController { // Renomeado de DashboardController_orgn
         return dados;
     }
 }
+
+ */
