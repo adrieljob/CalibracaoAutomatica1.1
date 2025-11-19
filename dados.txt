@@ -1,0 +1,19 @@
+frequencia1: 629.142857 MHz MHz
+Status ALC1: Running
+Output DAC1: 0
+Desired DAC1: 37379
+
+frequencia2: 695.142857 MHz MHz
+Status ALC2: Running
+Output DAC2: 0
+Desired DAC2: 37212
+
+frequencia3: 593.142857 MHz MHz
+Status ALC3: Running
+Output DAC3: 26628
+Desired DAC3: 27284
+
+frequencia4: 629.142857 MHz MHz
+Status ALC4: Running
+Output DAC4: 36250
+Desired DAC4: 37213
