@@ -376,6 +376,7 @@ public class buscaAutomatica {
                 writer.write("Potencia Refletida4: " + refletida4 + "\n");
                 writer.write("\n");
 
+
                 System.out.println("Dados salvos em: " + filePath);
             } catch (IOException e) {
                 System.err.println("Erro ao salvar dados: " + e.getMessage());
