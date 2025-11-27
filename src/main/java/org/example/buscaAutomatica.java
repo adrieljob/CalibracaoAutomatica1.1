@@ -120,6 +120,14 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String desiredDAC1 = getDesiredDAC1.getText().trim();
 
+            WebElement getPotencia1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_ForwardPower")));
+            Thread.sleep(300);
+            String potencia1 = getPotencia1.getText().trim();
+
+            WebElement getRefletida1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_ReflectedPower")));
+            Thread.sleep(300);
+            String refletida1 = getRefletida1.getText().trim();
+
             System.out.println("Dados extraídos:");
             System.out.println("MTX1");
             System.out.println("Numero do canal1: " + chanelNumber1);
@@ -128,6 +136,8 @@ public class buscaAutomatica {
             System.out.println("Status ALC1: " + statusALC1);
             System.out.println("Output DAC1: " + outputDAC1);
             System.out.println("Desired DAC1: " + desiredDAC1);
+            System.out.println("Potencia Direta1: " + potencia1);
+            System.out.println("Potencia Refletida1: " + refletida1);
 
             // MTX2
             WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator2___']/input")));
@@ -162,6 +172,14 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String desiredDAC2 = getDesiredDAC2.getText().trim();
 
+            WebElement getPotencia2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_ForwardPower")));
+            Thread.sleep(300);
+            String potencia2 = getPotencia2.getText().trim();
+
+            WebElement getRefletida2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_ReflectedPower")));
+            Thread.sleep(300);
+            String refletida2 = getRefletida2.getText().trim();
+
             System.out.println("MTX2");
             System.out.println("Numero do canal2: " + chanelNumber2);
             System.out.println("Frequencia2: " + frequency2);
@@ -169,6 +187,8 @@ public class buscaAutomatica {
             System.out.println("Status ALC2: " + statusALC2);
             System.out.println("Output DAC2: " + outputDAC2);
             System.out.println("Desired DAC2: " + desiredDAC2);
+            System.out.println("Potencia Direta2: " + potencia2);
+            System.out.println("Potencia Refletida2: " + refletida2);
 
             // MTX3
             WebElement modulator3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator3___']/input")));
@@ -202,6 +222,14 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String desiredDAC3 = getDesiredDAC3.getText().trim();
 
+            WebElement getPotencia3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_ForwardPower")));
+            Thread.sleep(300);
+            String potencia3 = getPotencia3.getText().trim();
+
+            WebElement getRefletida3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_ReflectedPower")));
+            Thread.sleep(300);
+            String refletida3 = getRefletida3.getText().trim();
+
             System.out.println("MTX3");
             System.out.println("Numero do canal3: " + chanelNumber3);
             System.out.println("Frequencia3: " + frequency3);
@@ -209,6 +237,8 @@ public class buscaAutomatica {
             System.out.println("Status ALC3: " + statusALC3);
             System.out.println("Output DAC3: " + outputDAC3);
             System.out.println("Desired DAC3: " + desiredDAC3);
+            System.out.println("Potencia Direta3: " + potencia3);
+            System.out.println("Potencia Refletida3: " + refletida3);
 
             // MTX4
             WebElement modulator4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator4___']/input")));
@@ -243,6 +273,14 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String desiredDAC4 = getDesiredDAC4.getText().trim();
 
+            WebElement getPotencia4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_ForwardPower")));
+            Thread.sleep(300);
+            String potencia4 = getPotencia4.getText().trim();
+
+            WebElement getRefletida4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_ReflectedPower")));
+            Thread.sleep(300);
+            String refletida4 = getRefletida4.getText().trim();
+
             System.out.println("MTX4");
             System.out.println("Numero do canal4: " + chanelNumber4);
             System.out.println("Frequencia4: " + frequency4);
@@ -250,6 +288,8 @@ public class buscaAutomatica {
             System.out.println("Status ALC4: " + statusALC4);
             System.out.println("Output DAC4: " + outputDAC4);
             System.out.println("Desired DAC4: " + desiredDAC4);
+            System.out.println("Potencia Direta4: " + potencia4);
+            System.out.println("Potencia Refletida4: " + refletida4);
 
             // Colocar os valores no resultado (removi chaves vazias)
             resultado.put("status", "Checagem executada com sucesso");
@@ -259,6 +299,8 @@ public class buscaAutomatica {
             resultado.put("statusAlc1", statusALC1);
             resultado.put("valorOutputDac1", outputDAC1);
             resultado.put("valorDesiredDac1", desiredDAC1);
+            resultado.put("potecia1", potencia1);
+            resultado.put("refletida1", refletida1);
 
             resultado.put("chanelnumber2", chanelNumber2);
             resultado.put("frequency2", frequency2);
@@ -266,6 +308,8 @@ public class buscaAutomatica {
             resultado.put("statusAlc2", statusALC2);
             resultado.put("valorOutputDac2", outputDAC2);
             resultado.put("valorDesiredDac2", desiredDAC2);
+            resultado.put("potecia2", potencia2);
+            resultado.put("refletida2", refletida2);
 
             resultado.put("chanelnumber3", chanelNumber3);
             resultado.put("frequency3", frequency3);
@@ -273,6 +317,8 @@ public class buscaAutomatica {
             resultado.put("statusAlc3", statusALC3);
             resultado.put("valorOutputDac3", outputDAC3);
             resultado.put("valorDesiredDac3", desiredDAC3);
+            resultado.put("potecia3", potencia3);
+            resultado.put("refletida3", refletida3);
 
             resultado.put("chanelnumber4", chanelNumber4);
             resultado.put("frequency4", frequency4);
@@ -280,6 +326,8 @@ public class buscaAutomatica {
             resultado.put("statusAlc4", statusALC4);
             resultado.put("valorOutputDac4", outputDAC4);
             resultado.put("valorDesiredDac4", desiredDAC4);
+            resultado.put("potecia4", potencia4);
+            resultado.put("refletida4", refletida4);
 
             // Salvar os dados em um arquivo .txt (caminho melhorado)
             String filePath = System.getProperty("user.dir") + "/dados.txt";
@@ -291,6 +339,8 @@ public class buscaAutomatica {
                 writer.write("Status ALC1: " + statusALC1 + "\n");
                 writer.write("Output DAC1: " + outputDAC1 + "\n");
                 writer.write("Desired DAC1: " + desiredDAC1 + "\n");
+                writer.write("Potencia Direta1: " + potencia1 + "\n");
+                writer.write("Potencia Refletida1: " + refletida1 + "\n");
                 writer.write("\n");
 
                 // MTX2
@@ -300,6 +350,8 @@ public class buscaAutomatica {
                 writer.write("Status ALC2: " + statusALC2 + "\n");
                 writer.write("Output DAC2: " + outputDAC2 + "\n");
                 writer.write("Desired DAC2: " + desiredDAC2 + "\n");
+                writer.write("Potencia Direta2: " + potencia2 + "\n");
+                writer.write("Potencia Refletida2: " + refletida2 + "\n");
                 writer.write("\n");
 
                 // MTX3
@@ -309,6 +361,8 @@ public class buscaAutomatica {
                 writer.write("Status ALC3: " + statusALC3 + "\n");
                 writer.write("Output DAC3: " + outputDAC3 + "\n");
                 writer.write("Desired DAC3: " + desiredDAC3 + "\n");
+                writer.write("Potencia Direta3: " + potencia3 + "\n");
+                writer.write("Potencia Refletida3: " + refletida3 + "\n");
                 writer.write("\n");
 
                 // MTX4
@@ -318,6 +372,8 @@ public class buscaAutomatica {
                 writer.write("Status ALC4: " + statusALC4 + "\n");
                 writer.write("Output DAC4: " + outputDAC4 + "\n");
                 writer.write("Desired DAC4: " + desiredDAC4 + "\n");
+                writer.write("Potencia Direta4: " + potencia4 + "\n");
+                writer.write("Potencia Refletida4: " + refletida4 + "\n");
                 writer.write("\n");
 
                 System.out.println("Dados salvos em: " + filePath);
@@ -361,11 +417,18 @@ public class buscaAutomatica {
                         .body(resource);
             } else {
                 System.out.println("Arquivo dados.txt não encontrado: " + filePath);
-                return ResponseEntity.notFound().build();
+                // Cria um arquivo vazio temporário
+                try (FileWriter writer = new FileWriter(filePath.toFile())) {
+                    writer.write("Aguardando primeira execução...\n");
+                }
+                Resource newResource = new UrlResource(filePath.toUri());
+                return ResponseEntity.ok()
+                        .header("Content-Type", "text/plain; charset=UTF-8")
+                        .body(newResource);
             }
         } catch (Exception e) {
             System.err.println("Erro ao servir dados.txt: " + e.getMessage());
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(500).build();
         }
     }
 

@@ -83,6 +83,14 @@
         <h3>Desired DAC</h3>
         <p id="valorDesiredDac1">Carregando...</p>
     </div>
+    <div class="casa">
+        <h3>Potencia  Direta</h3>
+        <p id="potencia1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Potencia Refletida</h3>
+        <p id="refletida1">Carregando...</p>
+    </div>
 
     <h1>MTX2</h1>
     <div class="casa">
@@ -108,6 +116,14 @@
     <div class="casa">
         <h3>Desired DAC</h3>
         <p id="valorDesiredDac2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Potencia  Direta</h3>
+        <p id="potencia2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Potencia Refletida</h3>
+        <p id="refletida2">Carregando...</p>
     </div>
 
     <h1>MTX3</h1>
@@ -135,6 +151,14 @@
         <h3>Desired DAC</h3>
         <p id="valorDesiredDac3">Carregando...</p>
     </div>
+    <div class="casa">
+        <h3>Potencia  Direta</h3>
+        <p id="potencia3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Potencia Refletida</h3>
+        <p id="refletida3">Carregando...</p>
+    </div>
 
     <h1>MTX4</h1>
     <div class="casa">
@@ -161,111 +185,138 @@
         <h3>Desired DAC</h3>
         <p id="valorDesiredDac4">Carregando...</p>
     </div>
+    <div class="casa">
+        <h3>Potencia  Direta</h3>
+        <p id="potencia4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Potencia Refletida</h3>
+        <p id="refletida4">Carregando...</p>
+    </div>
 </div>
 
 <div id="status">Última atualização: Carregando...</div>
 
 <script>
     async function carregarDados() {
-const statusDiv = document.getElementById('status');
+      const statusDiv = document.getElementById('status');
 
-try {
-    // Tenta buscar do arquivo dados.txt que seu Java gera
-    const response = await fetch('http://localhost:8087/dados.txt');
+      try {
+          // Tenta buscar do arquivo dados.txt que seu Java gera
+          const response = await fetch('http://localhost:8087/dados.txt');
 
-    if (!response.ok) {
-        throw new Error(`Erro HTTP: ${response.status}`);
-    }
+          if (!response.ok) {
+              throw new Error(`Erro HTTP: ${response.status}`);
+          }
 
-    const content = await response.text();
-    const lines = content.split('\n');
-    const data = {};
+          const content = await response.text();
+          const lines = content.split('\n');
+          const data = {};
 
-    // Parse do arquivo dados.txt - EXTRAI APENAS OS NÚMEROS
-    lines.forEach(line => {
-        const trimmed = line.trim();
+          // Parse do arquivo dados.txt - EXTRAI APENAS OS NÚMEROS
+          lines.forEach(line => {
+              const trimmed = line.trim();
 
-        // Função para extrair apenas o número depois do "="
-        const extrairNumero = (texto) => {
-            if (!texto) return 'N/A';
-            // Procura por padrão "= número" e retorna apenas o número
-            const match = texto.match(/=\s*(\d+)/);
-            return match ? match[1] : 'N/A';
-        };
+              // Função para extrair apenas o número depois do "="
+              const extrairNumero = (texto) => {
+                  if (!texto) return 'N/A';
+                  // Procura por padrão "= número" e retorna apenas o número
+                  const match = texto.match(/=\s*([\d.-]+)/);  // CORREÇÃO: aceita números negativos também
+                  return match ? match[1] : 'N/A';
+              };
 
-        if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
+              if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Direta1:')) data.potencia1 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Refletida1:')) data.refletida1 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO: "Refletida" não "Reflrtida"
 
-        else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Direta2:')) data.potencia2 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Refletida2:')) data.refletida2 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO
 
-        else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Direta3:')) data.potencia3 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Refletida3:')) data.refletida3 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO
 
-        else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = extrairNumero(trimmed.split(':')[1]);
-        else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
-    });
+              else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Direta4:')) data.potencia4 = extrairNumero(trimmed.split(':')[1]);
+              else if (trimmed.startsWith('Potencia Refletida4:')) data.refletida4 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO
+          });
 
-    // Preenche os campos
-    document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
-    document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
-    document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
-    document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
-    document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
-    document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+          // DEBUG: Mostra o que foi extraído
+          console.log('Dados extraídos:', data);
 
-    document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
-    document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
-    document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
-    document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
-    document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
-    document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+          // Preenche os campos
+          document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
+          document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
+          document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
+          document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
+          document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
+          document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+          document.getElementById('potencia1').textContent = data.potencia1 || 'N/A';
+          document.getElementById('refletida1').textContent = data.refletida1 || 'N/A'; // CORREÇÃO: refletida1 minúsculo
 
-    document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
-    document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
-    document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
-    document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
-    document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
-    document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+          document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
+          document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
+          document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
+          document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
+          document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
+          document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+          document.getElementById('potencia2').textContent = data.potencia2 || 'N/A';
+          document.getElementById('refletida2').textContent = data.refletida2 || 'N/A'; // CORREÇÃO
 
-    document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
-    document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
-    document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
-    document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
-    document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
-    document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+          document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
+          document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
+          document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
+          document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
+          document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
+          document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+          document.getElementById('potencia3').textContent = data.potencia3 || 'N/A';
+          document.getElementById('refletida3').textContent = data.refletida3 || 'N/A'; // CORREÇÃO
 
-    statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
-    statusDiv.style.color = '#0f0';
+          document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
+          document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
+          document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
+          document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
+          document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
+          document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+          document.getElementById('potencia4').textContent = data.potencia4 || 'N/A';
+          document.getElementById('refletida4').textContent = data.refletida4 || 'N/A'; // CORREÇÃO
 
-} catch (error) {
-    statusDiv.textContent = `Erro: ${error.message} - Verifique se o Spring Boot está rodando`;
-    statusDiv.style.color = '#f00';
-    console.error('Erro ao carregar dados:', error);
-}
-}
+          statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+          statusDiv.style.color = '#0f0';
 
-// Execute imediatamente ao carregar
-carregarDados();
+      } catch (error) {
+          statusDiv.textContent = `Erro: ${error.message} - Verifique se o Spring Boot está rodando`;
+          statusDiv.style.color = '#f00';
+          console.error('Erro ao carregar dados:', error);
+      }
+  }
 
-// Atualize a cada 2 minutos (120.000 ms)
-setInterval(carregarDados, 120000);
+  // Execute imediatamente ao carregar
+  carregarDados();
+
+  // Atualize a cada 2 minutos (120.000 ms)
+  setInterval(carregarDados, 120000);
 </script>
 </body>
 </html>
