@@ -1,19 +1,28 @@
-frequencia1: 629.142857 MHz MHz
-Status ALC1: Running
-Output DAC1: 0
-Desired DAC1: 37379
+chanel number1: Modulator1.Config.UpConverter.ChannelNumber = 14
+frequency1: Modulator1.Status.FrequencyChannel = 473142857
+forwardDBM1: PowerAmplifier1.Config.OutputPower = 430 dBM
+Status ALC1: PowerAmplifier1.Status.AlcStatus = 1
+Output DAC1: PowerAmplifier1.Status.Measures.output_dac = 38706
+Desired DAC1: PowerAmplifier1.Status.Measures.desired_dac = 40149
 
-frequencia2: 695.142857 MHz MHz
-Status ALC2: Running
-Output DAC2: 0
-Desired DAC2: 37212
+chanel number2: Modulator2.Config.UpConverter.ChannelNumber = 14
+frequency2: Modulator2.Status.FrequencyChannel = 473142857
+forwardDBM2: PowerAmplifier2.Config.OutputPower = 486 dBM
+Status ALC2: PowerAmplifier2.Status.AlcStatus = 1
+Output DAC2: PowerAmplifier2.Status.Measures.output_dac = 43351
+Desired DAC2: PowerAmplifier2.Status.Measures.desired_dac = 44655
 
-frequencia3: 593.142857 MHz MHz
-Status ALC3: Running
-Output DAC3: 26628
-Desired DAC3: 27284
+chanel number3: Modulator3.Config.UpConverter.ChannelNumber = 34
+frequency3: Modulator3.Status.FrequencyChannel = 593142857
+forwardDBM3: PowerAmplifier3.Config.OutputPower = 486 dBM
+Status ALC3: PowerAmplifier3.Status.AlcStatus = 2
+Output DAC3: PowerAmplifier3.Status.Measures.output_dac = 48098
+Desired DAC3: PowerAmplifier3.Status.Measures.desired_dac = 48098
 
-frequencia4: 629.142857 MHz MHz
-Status ALC4: Running
-Output DAC4: 36250
-Desired DAC4: 37213
+chanel number4: Modulator4.Config.UpConverter.ChannelNumber = 51
+frequency4: Modulator4.Status.FrequencyChannel = 0
+forwardDBM4: PowerAmplifier4.Config.OutputPower = 340 dBM
+Status ALC4: PowerAmplifier4.Status.AlcStatus = 0
+Output DAC4: PowerAmplifier4.Status.Measures.output_dac = 0
+Desired DAC4: PowerAmplifier4.Status.Measures.desired_dac = 0
+
