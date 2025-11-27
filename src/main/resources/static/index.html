@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-<h1>Calibração Automática</h1>
+<h1>Calibração Automática 1.0</h1>
 
 <div id="casas">
     <h1>MTX1</h1>
@@ -167,96 +167,105 @@
 
 <script>
     async function carregarDados() {
-        const statusDiv = document.getElementById('status');
+const statusDiv = document.getElementById('status');
 
-        try {
-            // Tenta buscar do arquivo dados.txt que seu Java gera
-            const response = await fetch('http://localhost:8087/funcaoAlcDebug');
+try {
+    // Tenta buscar do arquivo dados.txt que seu Java gera
+    const response = await fetch('http://localhost:8087/dados.txt');
 
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-
-            const content = await response.text();
-            const lines = content.split('\n');
-            const data = {};
-
-            // Parse do arquivo dados.txt
-            lines.forEach(line => {
-                const trimmed = line.trim();
-                if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('frequency1:')) data.frequency1 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = trimmed.split(':')[1].trim().replace(' dBM', '');
-                else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = trimmed.split(':')[1].trim();
-
-                else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('frequency2:')) data.frequency2 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = trimmed.split(':')[1].trim().replace(' dBM', '');
-                else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = trimmed.split(':')[1].trim();
-
-                else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('frequency3:')) data.frequency3 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = trimmed.split(':')[1].trim().replace(' dBM', '');
-                else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = trimmed.split(':')[1].trim();
-
-                else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('frequency4:')) data.frequency4 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = trimmed.split(':')[1].trim().replace(' dBM', '');
-                else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = trimmed.split(':')[1].trim();
-                else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = trimmed.split(':')[1].trim();
-            });
-
-            // Preenche os campos
-            document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
-            document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
-            document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
-            document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
-            document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
-            document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
-
-            document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
-            document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
-            document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
-            document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
-            document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
-            document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
-
-            document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
-            document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
-            document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
-            document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
-            document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
-            document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
-
-            document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
-            document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
-            document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
-            document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
-            document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
-            document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
-
-            statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
-            statusDiv.style.color = '#0f0';
-
-        } catch (error) {
-            statusDiv.textContent = `Erro: ${error.message} - Verifique se o Spring Boot está rodando`;
-            statusDiv.style.color = '#f00';
-            console.error('Erro ao carregar dados:', error);
-        }
+    if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
     }
 
-    // Execute imediatamente ao carregar
-    carregarDados();
+    const content = await response.text();
+    const lines = content.split('\n');
+    const data = {};
 
-    // Atualize a cada 2 minutos (120.000 ms)
-    setInterval(carregarDados, 120000);
+    // Parse do arquivo dados.txt - EXTRAI APENAS OS NÚMEROS
+    lines.forEach(line => {
+        const trimmed = line.trim();
+
+        // Função para extrair apenas o número depois do "="
+        const extrairNumero = (texto) => {
+            if (!texto) return 'N/A';
+            // Procura por padrão "= número" e retorna apenas o número
+            const match = texto.match(/=\s*(\d+)/);
+            return match ? match[1] : 'N/A';
+        };
+
+        if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
+
+        else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
+
+        else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
+
+        else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = extrairNumero(trimmed.split(':')[1]);
+        else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
+    });
+
+    // Preenche os campos
+    document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
+    document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
+    document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
+    document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
+    document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
+    document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+
+    document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
+    document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
+    document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
+    document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
+    document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
+    document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+
+    document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
+    document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
+    document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
+    document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
+    document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
+    document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+
+    document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
+    document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
+    document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
+    document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
+    document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
+    document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+
+    statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+    statusDiv.style.color = '#0f0';
+
+} catch (error) {
+    statusDiv.textContent = `Erro: ${error.message} - Verifique se o Spring Boot está rodando`;
+    statusDiv.style.color = '#f00';
+    console.error('Erro ao carregar dados:', error);
+}
+}
+
+// Execute imediatamente ao carregar
+carregarDados();
+
+// Atualize a cada 2 minutos (120.000 ms)
+setInterval(carregarDados, 120000);
 </script>
 </body>
 </html>

@@ -2,14 +2,14 @@ chanel number1: Modulator1.Config.UpConverter.ChannelNumber = 14
 frequency1: Modulator1.Status.FrequencyChannel = 473142857
 forwardDBM1: PowerAmplifier1.Config.OutputPower = 430 dBM
 Status ALC1: PowerAmplifier1.Status.AlcStatus = 1
-Output DAC1: PowerAmplifier1.Status.Measures.output_dac = 38739
+Output DAC1: PowerAmplifier1.Status.Measures.output_dac = 38740
 Desired DAC1: PowerAmplifier1.Status.Measures.desired_dac = 40149
 
 chanel number2: Modulator2.Config.UpConverter.ChannelNumber = 14
 frequency2: Modulator2.Status.FrequencyChannel = 473142857
 forwardDBM2: PowerAmplifier2.Config.OutputPower = 486 dBM
 Status ALC2: PowerAmplifier2.Status.AlcStatus = 1
-Output DAC2: PowerAmplifier2.Status.Measures.output_dac = 43400
+Output DAC2: PowerAmplifier2.Status.Measures.output_dac = 43399
 Desired DAC2: PowerAmplifier2.Status.Measures.desired_dac = 44655
 
 chanel number3: Modulator3.Config.UpConverter.ChannelNumber = 34

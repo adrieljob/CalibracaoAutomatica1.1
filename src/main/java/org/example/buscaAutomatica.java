@@ -14,7 +14,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.ResponseEntity;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
@@ -33,18 +38,21 @@ public class buscaAutomatica {
     private String password;
 
     // Método agendado que roda a cada 2 minutos
-    // @Scheduled(fixedRate = 120000)
-    // public void executarBuscaAgendada() {
-    //     System.out.println("=== Execução agendada iniciada ===");
-    //     funcaoAlcDebug();
-    // }
+    @Scheduled(fixedRate = 120000)
+    public void executarBuscaAgendada() {
+        System.out.println("=== Execução agendada iniciada ===");
+        coletarDadosESalvar();
+    }
 
-    // Endpoint REST para executar manualmente
+    /*
     @GetMapping("/funcaoAlcDebug")
     public String funcaoAlcDebug() {
         System.out.println("=== /funcaoAlcDebug chamado ===");
         System.out.println("Calibração");
-
+        // ... resto do código ...
+    }
+    */
+    private String coletarDadosESalvar() {
         String urlBase = "http://10.10.103.103/debug/";
         System.out.println("URL que será acessada: " + urlBase);
 
@@ -340,4 +348,25 @@ public class buscaAutomatica {
             return "{\"erro\":\"Falha ao gerar JSON\"}";
         }
     }
+
+    @GetMapping("/dados.txt")
+    public ResponseEntity<Resource> servirDadosTxt() {
+        try {
+            Path filePath = Paths.get(System.getProperty("user.dir")).resolve("dados.txt");
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (resource.exists() && resource.isReadable()) {
+                return ResponseEntity.ok()
+                        .header("Content-Type", "text/plain; charset=UTF-8")
+                        .body(resource);
+            } else {
+                System.out.println("Arquivo dados.txt não encontrado: " + filePath);
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao servir dados.txt: " + e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
