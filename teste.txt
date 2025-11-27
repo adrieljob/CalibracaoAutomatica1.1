@@ -1,0 +1,3 @@
+Numero do canal: Modulator1.Config.UpConverter.ChannelNumber = 0 
+Frequencia: Modulator1.Config.UpConverter.ChannelFrequency = 0 
+
