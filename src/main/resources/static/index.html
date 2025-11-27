@@ -4,544 +4,259 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitoramento MTX - ALC</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
+            margin: 20px;
             background-color: #000;
             color: #f00;
-            min-height: 100vh;
-            padding: 20px;
         }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        h1 {
+            color: #f00;
+            margin: 20px 0 10px 0;
         }
-
-        .header {
+        .casa {
+            display: inline-block;
+            width: 20%;
+            margin: 10px;
+            padding: 15px;
+            border: 2px solid #f00;
+            background: #111;
+            color: #f00;
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-bottom: 2px solid #f00;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .header h1 i {
-            margin-right: 15px;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            background: #f00;
-            color: #000;
-            border: none;
+            vertical-align: top;
             border-radius: 8px;
-            cursor: pointer;
+        }
+        .casa h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #f00;
+        }
+        .casa p {
+            margin: 0;
             font-size: 16px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn:hover {
-            background: #c00;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-        }
-
-        .btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .btn-secondary {
-            background: #333;
-            color: #f00;
-        }
-
-        .btn-secondary:hover {
-            background: #444;
-        }
-
-        .status-info {
-            color: #0f0;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .mtx-section {
-            margin-bottom: 40px;
-            border: 2px solid #f00;
-            border-radius: 15px;
-            padding: 20px;
-            background: #111;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f00;
-        }
-
-        .section-title {
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .status-badge {
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .status-on {
-            background: #0f0;
-            color: #000;
-        }
-
-        .status-off {
-            background: #f00;
-            color: #000;
-        }
-
-        .status-unknown {
-            background: #ff0;
-            color: #000;
-        }
-
-        .data-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .data-card {
-            background: #222;
-            border: 1px solid #f00;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .data-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-            border-color: #0f0;
-        }
-
-        .data-card h3 {
-            font-size: 14px;
-            color: #f00;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .data-value {
-            font-size: 18px;
-            font-weight: bold;
             color: #fff;
-            font-family: 'Courier New', monospace;
         }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-            display: none;
-        }
-
-        .spinner {
-            border: 4px solid #333;
-            border-top: 4px solid #f00;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .error {
-            background: #300;
-            color: #f00;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: bold;
-            border: 1px solid #f00;
-        }
-
-        .last-update {
+        #status {
+            margin-top: 20px;
             color: #0f0;
-            font-size: 14px;
             font-weight: bold;
+            padding: 10px;
+            background: #111;
+            border-radius: 5px;
+            text-align: center;
         }
-
-        /* Animações */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .value-updated {
-            animation: highlight 1s ease;
-        }
-
-        @keyframes highlight {
-            0% { background-color: #330000; }
-            100% { background-color: #222; }
-        }
-
-        /* Responsividade */
         @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-            }
-
-            .data-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-header {
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
+            .casa {
+                width: 45%;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1><i class="fas fa-satellite-dish"></i> Monitoramento MTX - ALC</h1>
-        <p>Sistema de Calibração Automática</p>
+<h1>Calibração Automática</h1>
+
+<div id="casas">
+    <h1>MTX1</h1>
+    <div class="casa">
+        <h3>Canal</h3>
+        <p id="chanelnumber1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequency1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Forward dBM</h3>
+        <p id="forwardDBM1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Output DAC</h3>
+        <p id="valorOutputDac1">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Desired DAC</h3>
+        <p id="valorDesiredDac1">Carregando...</p>
     </div>
 
-    <div class="controls">
-        <button id="runBtn" class="btn" onclick="executarChecagem()">
-            <i class="fas fa-play"></i> Executar Checagem
-        </button>
-        <button id="autoRefreshBtn" class="btn btn-secondary" onclick="toggleAutoRefresh()">
-            <i class="fas fa-sync-alt"></i> Auto-Refresh
-        </button>
-        <span class="last-update" id="lastUpdate">Última atualização: --</span>
+    <h1>MTX2</h1>
+    <div class="casa">
+        <h3>Canal</h3>
+        <p id="chanelnumber2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequency2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Forward dBM</h3>
+        <p id="forwardDBM2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Output DAC</h3>
+        <p id="valorOutputDac2">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Desired DAC</h3>
+        <p id="valorDesiredDac2">Carregando...</p>
     </div>
 
-    <div class="loading" id="loading">
-        <div class="spinner"></div>
-        <p>Coletando dados dos transmissores...</p>
+    <h1>MTX3</h1>
+    <div class="casa">
+        <h3>Canal</h3>
+        <p id="chanelnumber3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequency3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Forward dBM</h3>
+        <p id="forwardDBM3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Output DAC</h3>
+        <p id="valorOutputDac3">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Desired DAC</h3>
+        <p id="valorDesiredDac3">Carregando...</p>
     </div>
 
-    <div class="error" id="error">
-        <i class="fas fa-exclamation-triangle"></i>
-        <span id="errorMessage">Erro ao carregar dados</span>
+    <h1>MTX4</h1>
+    <div class="casa">
+        <h3>Canal</h3>
+        <p id="chanelnumber4">Carregando...</p>
     </div>
-
-    <div id="mtxContainer">
-        <!-- MTX 1 -->
-        <div class="mtx-section fade-in">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-broadcast-tower"></i> MTX 1</h2>
-                <span class="status-badge status-unknown" id="statusBadge1">--</span>
-            </div>
-            <div class="data-grid">
-                <div class="data-card">
-                    <h3>Canal</h3>
-                    <p class="data-value" id="chanelNumber1">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Frequência</h3>
-                    <p class="data-value" id="frequency1">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Forward Power</h3>
-                    <p class="data-value" id="forwardDBM1">-- dBm</p>
-                </div>
-                <div class="data-card">
-                    <h3>Status ALC</h3>
-                    <p class="data-value" id="statusAlc1">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Output DAC</h3>
-                    <p class="data-value" id="outputDac1">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Desired DAC</h3>
-                    <p class="data-value" id="desiredDac1">--</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MTX 2 -->
-        <div class="mtx-section fade-in">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-broadcast-tower"></i> MTX 2</h2>
-                <span class="status-badge status-unknown" id="statusBadge2">--</span>
-            </div>
-            <div class="data-grid">
-                <div class="data-card">
-                    <h3>Canal</h3>
-                    <p class="data-value" id="chanelNumber2">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Frequência</h3>
-                    <p class="data-value" id="frequency2">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Forward Power</h3>
-                    <p class="data-value" id="forwardDBM2">-- dBm</p>
-                </div>
-                <div class="data-card">
-                    <h3>Status ALC</h3>
-                    <p class="data-value" id="statusAlc2">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Output DAC</h3>
-                    <p class="data-value" id="outputDac2">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Desired DAC</h3>
-                    <p class="data-value" id="desiredDac2">--</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MTX 3 -->
-        <div class="mtx-section fade-in">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-broadcast-tower"></i> MTX 3</h2>
-                <span class="status-badge status-unknown" id="statusBadge3">--</span>
-            </div>
-            <div class="data-grid">
-                <div class="data-card">
-                    <h3>Canal</h3>
-                    <p class="data-value" id="chanelNumber3">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Frequência</h3>
-                    <p class="data-value" id="frequency3">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Forward Power</h3>
-                    <p class="data-value" id="forwardDBM3">-- dBm</p>
-                </div>
-                <div class="data-card">
-                    <h3>Status ALC</h3>
-                    <p class="data-value" id="statusAlc3">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Output DAC</h3>
-                    <p class="data-value" id="outputDac3">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Desired DAC</h3>
-                    <p class="data-value" id="desiredDac3">--</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- MTX 4 -->
-        <div class="mtx-section fade-in">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-broadcast-tower"></i> MTX 4</h2>
-                <span class="statusBadge4 status-unknown" id="statusBadge4">--</span>
-            </div>
-            <div class="data-grid">
-                <div class="data-card">
-                    <h3>Canal</h3>
-                    <p class="data-value" id="chanelNumber4">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Frequência</h3>
-                    <p class="data-value" id="frequency4">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Forward Power</h3>
-                    <p class="data-value" id="forwardDBM4">-- dBm</p>
-                </div>
-                <div class="data-card">
-                    <h3>Status ALC</h3>
-                    <p class="data-value" id="statusAlc4">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Output DAC</h3>
-                    <p class="data-value" id="outputDac4">--</p>
-                </div>
-                <div class="data-card">
-                    <h3>Desired DAC</h3>
-                    <p class="data-value" id="desiredDac4">--</p>
-                </div>
-            </div>
-        </div>
+    <div class="casa">
+        <h3>Frequência</h3>
+        <p id="frequency4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Forward dBM</h3>
+        <p id="forwardDBM4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Status ALC</h3>
+        <p id="statusAlc4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Output DAC</h3>
+        <p id="valorOutputDac4">Carregando...</p>
+    </div>
+    <div class="casa">
+        <h3>Desired DAC</h3>
+        <p id="valorDesiredDac4">Carregando...</p>
     </div>
 </div>
 
+<div id="status">Última atualização: Carregando...</div>
+
 <script>
-    let autoRefreshInterval = null;
-    let isAutoRefreshing = false;
-
-    async function executarChecagem() {
-        const runBtn = document.getElementById('runBtn');
-        const loading = document.getElementById('loading');
-        const error = document.getElementById('error');
-
-        runBtn.disabled = true;
-        runBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Executando...';
-        loading.style.display = 'block';
-        error.style.display = 'none';
-
-        const url = 'http://localhost:8080/funcaoAlcDebug'; // Ajuste a porta conforme necessário
+    async function carregarDados() {
+        const statusDiv = document.getElementById('status');
 
         try {
-            // Para teste, usando dados mock - remova quando seu backend estiver pronto
-            const data = await getMockData();
+            // Tenta buscar do arquivo dados.txt que seu Java gera
+            const response = await fetch('http://localhost:8087/funcaoAlcDebug');
 
-            // Quando seu backend estiver pronto, descomente:
-            // const response = await fetch(url);
-            // if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
-            // const data = await response.json();
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
 
-            updateDisplay(data);
-            updateLastUpdateTime();
-            showSuccess('Dados atualizados com sucesso!');
+            const content = await response.text();
+            const lines = content.split('\n');
+            const data = {};
+
+            // Parse do arquivo dados.txt
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('frequency1:')) data.frequency1 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = trimmed.split(':')[1].trim().replace(' dBM', '');
+                else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = trimmed.split(':')[1].trim();
+
+                else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('frequency2:')) data.frequency2 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = trimmed.split(':')[1].trim().replace(' dBM', '');
+                else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = trimmed.split(':')[1].trim();
+
+                else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('frequency3:')) data.frequency3 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = trimmed.split(':')[1].trim().replace(' dBM', '');
+                else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = trimmed.split(':')[1].trim();
+
+                else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('frequency4:')) data.frequency4 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = trimmed.split(':')[1].trim().replace(' dBM', '');
+                else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = trimmed.split(':')[1].trim();
+                else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = trimmed.split(':')[1].trim();
+            });
+
+            // Preenche os campos
+            document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
+            document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
+            document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
+            document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
+            document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
+            document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+
+            document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
+            document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
+            document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
+            document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
+            document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
+            document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+
+            document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
+            document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
+            document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
+            document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
+            document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
+            document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+
+            document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
+            document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
+            document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
+            document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
+            document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
+            document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+
+            statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+            statusDiv.style.color = '#0f0';
 
         } catch (error) {
-            showError(`Erro: ${error.message}`);
-            console.error('Erro:', error);
-        } finally {
-            runBtn.disabled = false;
-            runBtn.innerHTML = '<i class="fas fa-play"></i> Executar Checagem';
-            loading.style.display = 'none';
+            statusDiv.textContent = `Erro: ${error.message} - Verifique se o Spring Boot está rodando`;
+            statusDiv.style.color = '#f00';
+            console.error('Erro ao carregar dados:', error);
         }
     }
 
-    function updateDisplay(data) {
-        for (let i = 1; i <= 4; i++) {
-            // Atualizar valores
-            updateValue(`chanelNumber${i}`, data[`chanelnumber${i}`] || 'N/A');
-            updateValue(`frequency${i}`, data[`frequency${i}`] || 'N/A');
-            updateValue(`forwardDBM${i}`, data[`forwardDBM${i}`] ? data[`forwardDBM${i}`] + ' dBm' : 'N/A');
-            updateValue(`statusAlc${i}`, data[`statusAlc${i}`] || 'N/A');
-            updateValue(`outputDac${i}`, data[`valorOutputDac${i}`] || 'N/A');
-            updateValue(`desiredDac${i}`, data[`valorDesiredDac${i}`] || 'N/A');
+    // Execute imediatamente ao carregar
+    carregarDados();
 
-            // Atualizar badge de status
-            const alcStatus = data[`statusAlc${i}`];
-            const badge = document.getElementById(`statusBadge${i}`);
-            if (alcStatus === 'ON') {
-                badge.className = 'status-badge status-on';
-                badge.textContent = 'ON';
-            } else if (alcStatus === 'OFF') {
-                badge.className = 'status-badge status-off';
-                badge.textContent = 'OFF';
-            } else {
-                badge.className = 'status-badge status-unknown';
-                badge.textContent = alcStatus || 'N/A';
-            }
-        }
-    }
-
-    function updateValue(elementId, value) {
-        const element = document.getElementById(elementId);
-        if (element && element.textContent !== value) {
-            element.textContent = value;
-            element.parentElement.classList.add('value-updated');
-            setTimeout(() => {
-                element.parentElement.classList.remove('value-updated');
-            }, 1000);
-        }
-    }
-
-    function updateLastUpdateTime() {
-        const now = new Date();
-        const timeString = now.toLocaleTimeString('pt-BR');
-        document.getElementById('lastUpdate').textContent =
-            `Última atualização: ${timeString}`;
-    }
-
-    function toggleAutoRefresh() {
-        const button = document.getElementById('autoRefreshBtn');
-
-        if (isAutoRefreshing) {
-            clearInterval(autoRefreshInterval);
-            isAutoRefreshing = false;
-            button.innerHTML = '<i class="fas fa-sync-alt"></i> Auto-Refresh';
-            button.classList.remove('btn-danger');
-            showSuccess('Auto-Refresh desativado');
-        } else {
-            autoRefreshInterval = setInterval(() => {
-                executarChecagem();
-            }, 120000); // 2 minutos
-
-            isAutoRefreshing = true;
-            button.innerHTML = '<i class="fas fa-stop"></i> Parar Auto';
-            showSuccess('Auto-Refresh ativado (2min)');
-        }
-    }
-
-    function showError(message) {
-        const errorDiv = document.getElementById('error');
-        const errorMessage = document.getElementById('errorMessage');
-
-        errorMessage.textContent = message;
-        errorDiv.style.display = 'flex';
-    }
-
-    function showSuccess(message) {
-        // Você pode adicionar um toast de sucesso aqui
-        console.log('Sucesso:', message);
-    }
-
-    // Executar automaticamente quando a página carregar
-    document.addEventListener('DOMContentLoaded', function() {
-        executarChecagem();
-    });
+    // Atualize a cada 2 minutos (120.000 ms)
+    setInterval(carregarDados, 120000);
 </script>
 </body>
 </html>

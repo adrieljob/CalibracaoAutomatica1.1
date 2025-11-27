@@ -11,10 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.FileWriter;
@@ -23,8 +21,8 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component  // Para o Spring gerenciar
-@EnableScheduling  // Habilita agendamento (adicione na classe principal se não estiver)
+@Component
+@EnableScheduling
 @RestController
 public class buscaAutomatica {
 
@@ -33,15 +31,18 @@ public class buscaAutomatica {
 
     @Value("${app.password}")
     private String password;
-/*
+
+    // Método agendado que roda a cada 2 minutos
+    // @Scheduled(fixedRate = 120000)
+    // public void executarBuscaAgendada() {
+    //     System.out.println("=== Execução agendada iniciada ===");
+    //     funcaoAlcDebug();
+    // }
+
+    // Endpoint REST para executar manualmente
     @GetMapping("/funcaoAlcDebug")
-    public String funcaoAlcDebug(@RequestParam(name = "cidade", required = false) String cidade) {
-        System.out.println("=== /funcaoAlc chamado ===");
-        System.out.println("Calibração");
-*/
-        @Scheduled(fixedRate = 120000)
-        public void funcaoAlcDebug() {
-        System.out.println("=== /funcaoAlc chamado (agendado) ===");
+    public String funcaoAlcDebug() {
+        System.out.println("=== /funcaoAlcDebug chamado ===");
         System.out.println("Calibração");
 
         String urlBase = "http://10.10.103.103/debug/";
@@ -59,66 +60,54 @@ public class buscaAutomatica {
         options.addArguments("--disable-cache");
 
         WebDriver driver = new ChromeDriver(options);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));  // Aumentei timeout
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         Map<String, Object> resultado = new HashMap<>();
 
         try {
             driver.get(urlBase);
-            // MTX1
 
-            // escreve o usuario (application.properties)
+            // Login
             WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='text']")));
             campoUsuario.clear();
             campoUsuario.sendKeys(username);
 
-            // escreve a senha (application.properties)
             WebElement campoSenha = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='password']")));
             campoSenha.clear();
             campoSenha.sendKeys(password);
 
-            // clica no botão de login
             WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Sign In']")));
             botaoLogin.click();
 
-            // clica em modulador 1
+            // MTX1
             WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator1___']/input")));
             Thread.sleep(300);
             modulator1.click();
 
-            // pega o numero do canal
             WebElement getChanelNumber1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator1_Config_UpConverter_ChannelNumber")));
             Thread.sleep(300);
             String chanelNumber1 = getChanelNumber1.getText().trim();
-            //if (chanelNumber1.isEmpty()) throw new RuntimeException("Número do canal 1 vazio");
 
-            // pega a frequencia
             WebElement getFrequency1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator1_Status_FrequencyChannel")));
             Thread.sleep(300);
-
             String frequency1 = getFrequency1.getText().trim();
 
-            // clica em poweramplifier1
             WebElement powerAmp1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier1___']/input")));
             Thread.sleep(300);
             powerAmp1.click();
 
-            // pega o forward dbs
             WebElement getForwardDBM1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Config_OutputPower")));
             Thread.sleep(300);
             String forwardDBM1 = getForwardDBM1.getText().trim();
 
-            // pega o ALC
             WebElement getALC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_AlcStatus")));
             Thread.sleep(300);
             String statusALC1 = getALC1.getText().trim();
 
-            // pega o output DAC
             WebElement getOutputDAC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_Measures_output_dac")));
             Thread.sleep(300);
             String outputDAC1 = getOutputDAC1.getText().trim();
 
-            // pega o desired DAC
             WebElement getDesiredDAC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_Measures_desired_dac")));
             Thread.sleep(300);
             String desiredDAC1 = getDesiredDAC1.getText().trim();
@@ -133,44 +122,34 @@ public class buscaAutomatica {
             System.out.println("Desired DAC1: " + desiredDAC1);
 
             // MTX2
-
-            // clica em modulador 2
             WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator2___']/input")));
             Thread.sleep(300);
             modulator2.click();
 
-            // pega o numero do canal
             WebElement getChanelNumber2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator2_Config_UpConverter_ChannelNumber")));
             Thread.sleep(300);
             String chanelNumber2 = getChanelNumber2.getText().trim();
-            //if (chanelNumber2.isEmpty()) throw new RuntimeException("Número do canal 2 vazio");
 
-            // pega a frequencia
             WebElement getFrequency2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator2_Status_FrequencyChannel")));
             Thread.sleep(300);
             String frequency2 = getFrequency2.getText().trim();
 
-            // clica em poweramplifier2
             WebElement powerAmp2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier2___']/input")));
             Thread.sleep(300);
             powerAmp2.click();
 
-            // pega o forward dbs
             WebElement getForwardDBM2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Config_OutputPower")));
             Thread.sleep(300);
             String forwardDBM2 = getForwardDBM2.getText().trim();
 
-            // pega o ALC
             WebElement getALC2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_AlcStatus")));
             Thread.sleep(300);
             String statusALC2 = getALC2.getText().trim();
 
-            // pega o output DAC
             WebElement getOutputDAC2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_Measures_output_dac")));
             Thread.sleep(300);
             String outputDAC2 = getOutputDAC2.getText().trim();
 
-            // pega o desired DAC
             WebElement getDesiredDAC2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_Measures_desired_dac")));
             Thread.sleep(300);
             String desiredDAC2 = getDesiredDAC2.getText().trim();
@@ -184,43 +163,33 @@ public class buscaAutomatica {
             System.out.println("Desired DAC2: " + desiredDAC2);
 
             // MTX3
-
-            // clica em modulador 3
             WebElement modulator3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator3___']/input")));
             modulator3.click();
 
-            // pega o numero do canal
             WebElement getChanelNumber3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator3_Config_UpConverter_ChannelNumber")));
             Thread.sleep(300);
             String chanelNumber3 = getChanelNumber3.getText().trim();
-            //if (chanelNumber3.isEmpty()) throw new RuntimeException("Número do canal 3 vazio");
 
-            // pega a frequencia
             WebElement getFrequency3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator3_Status_FrequencyChannel")));
             Thread.sleep(300);
             String frequency3 = getFrequency3.getText().trim();
 
-            // clica em poweramplifier3
             WebElement powerAmp3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier3___']/input")));
             Thread.sleep(300);
             powerAmp3.click();
 
-            // pega o forward dbs
             WebElement getForwardDBM3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Config_OutputPower")));
             Thread.sleep(300);
             String forwardDBM3 = getForwardDBM3.getText().trim();
 
-            // pega o ALC
             WebElement getALC3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_AlcStatus")));
             Thread.sleep(300);
             String statusALC3 = getALC3.getText().trim();
 
-            // pega o output DAC
             WebElement getOutputDAC3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_Measures_output_dac")));
             Thread.sleep(300);
             String outputDAC3 = getOutputDAC3.getText().trim();
 
-            // pega o desired DAC
             WebElement getDesiredDAC3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_Measures_desired_dac")));
             Thread.sleep(300);
             String desiredDAC3 = getDesiredDAC3.getText().trim();
@@ -234,44 +203,34 @@ public class buscaAutomatica {
             System.out.println("Desired DAC3: " + desiredDAC3);
 
             // MTX4
-
-            // clica em modulador 4
             WebElement modulator4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator4___']/input")));
             Thread.sleep(300);
             modulator4.click();
 
-            // pega o numero do canal
             WebElement getChanelNumber4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator4_Config_UpConverter_ChannelNumber")));
             Thread.sleep(300);
             String chanelNumber4 = getChanelNumber4.getText().trim();
-            //if (chanelNumber4.isEmpty()) throw new RuntimeException("Número do canal 4 vazio");
 
-            // pega a frequencia
             WebElement getFrequency4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator4_Status_FrequencyChannel")));
             Thread.sleep(300);
             String frequency4 = getFrequency4.getText().trim();
 
-            // clica em poweramplifier4
             WebElement powerAmp4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier4___']/input")));
             Thread.sleep(300);
             powerAmp4.click();
 
-            // pega o forward dbs
             WebElement getForwardDBM4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Config_OutputPower")));
             Thread.sleep(300);
             String forwardDBM4 = getForwardDBM4.getText().trim();
 
-            // pega o ALC
             WebElement getALC4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_AlcStatus")));
             Thread.sleep(300);
             String statusALC4 = getALC4.getText().trim();
 
-            // pega o output DAC
             WebElement getOutputDAC4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_Measures_output_dac")));
             Thread.sleep(300);
             String outputDAC4 = getOutputDAC4.getText().trim();
 
-            // pega o desired DAC
             WebElement getDesiredDAC4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_Measures_desired_dac")));
             Thread.sleep(300);
             String desiredDAC4 = getDesiredDAC4.getText().trim();
@@ -371,7 +330,7 @@ public class buscaAutomatica {
             driver.quit();
             System.out.println("Driver finalizado no /funcaoAlc");
         }
-/*
+
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
@@ -380,7 +339,5 @@ public class buscaAutomatica {
             System.err.println("Erro ao gerar JSON no /funcaoAlc: " + e.toString());
             return "{\"erro\":\"Falha ao gerar JSON\"}";
         }
-
- */
     }
 }

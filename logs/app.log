@@ -1345,3 +1345,847 @@
 2025-11-27T14:28:51.338-03:00  INFO 1844 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
 2025-11-27T14:28:52.226-03:00  WARN 1844 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
 2025-11-27T14:28:52.226-03:00  WARN 1844 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:30:51.434-03:00  INFO 1844 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:30:51.471-03:00  INFO 1844 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:30:52.639-03:00  WARN 1844 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:30:52.640-03:00  WARN 1844 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:31:53.266-03:00  INFO 29612 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 29612 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:31:53.271-03:00 DEBUG 29612 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:31:53.273-03:00  INFO 29612 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:31:55.311-03:00  INFO 29612 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:31:55.330-03:00  INFO 29612 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:31:55.331-03:00  INFO 29612 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:31:55.472-03:00  INFO 29612 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:31:55.473-03:00  INFO 29612 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2006 ms
+2025-11-27T14:31:55.722-03:00  INFO 29612 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:31:55.842-03:00 DEBUG 29612 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:31:55.906-03:00 DEBUG 29612 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:31:55.958-03:00 DEBUG 29612 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:31:56.009-03:00 DEBUG 29612 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:31:56.229-03:00  INFO 29612 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:31:56.241-03:00  INFO 29612 --- [main] org.example.App                          : Started App in 4.134 seconds (process running for 5.273)
+2025-11-27T14:31:56.810-03:00  INFO 29612 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:31:56.838-03:00  INFO 29612 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:31:58.406-03:00  WARN 29612 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:31:58.407-03:00  WARN 29612 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:33:56.341-03:00  INFO 29612 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:33:56.362-03:00  INFO 29612 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:33:57.829-03:00  WARN 29612 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:33:57.829-03:00  WARN 29612 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:35:04.044-03:00  INFO 4676 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 4676 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:35:04.047-03:00 DEBUG 4676 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:35:04.049-03:00  INFO 4676 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:35:05.509-03:00  INFO 4676 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:35:05.518-03:00  INFO 4676 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:35:05.518-03:00  INFO 4676 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:35:05.587-03:00  INFO 4676 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:35:05.587-03:00  INFO 4676 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1442 ms
+2025-11-27T14:35:05.746-03:00  INFO 4676 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:35:05.838-03:00 DEBUG 4676 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:35:05.880-03:00 DEBUG 4676 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:35:05.915-03:00 DEBUG 4676 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:35:05.947-03:00 DEBUG 4676 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:35:06.122-03:00  INFO 4676 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:35:06.130-03:00  INFO 4676 --- [main] org.example.App                          : Started App in 2.765 seconds (process running for 3.534)
+2025-11-27T14:35:06.465-03:00  INFO 4676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:35:06.486-03:00  INFO 4676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:35:07.809-03:00  WARN 4676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:35:07.810-03:00  WARN 4676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:35:16.913-03:00  INFO 4676 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:35:16.914-03:00  INFO 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:35:16.914-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:35:16.914-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:35:16.914-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:35:16.916-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@ae202c6
+2025-11-27T14:35:16.916-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@51a6cc2a
+2025-11-27T14:35:16.916-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:35:16.917-03:00  INFO 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T14:35:16.927-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:35:16.940-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:35:16.959-03:00 DEBUG 4676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:35:17.038-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:35:17.039-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:35:17.041-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:35:17.045-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:35:17.046-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:35:17.052-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:35:17.055-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:35:17.089-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:35:17.092-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:35:17 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:35:17.136-03:00 DEBUG 4676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:37:06.540-03:00  INFO 4676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:37:06.586-03:00  INFO 4676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:37:08.107-03:00  WARN 4676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:37:08.109-03:00  WARN 4676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:37:50.256-03:00  INFO 27952 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 27952 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:37:50.259-03:00 DEBUG 27952 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:37:50.260-03:00  INFO 27952 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:37:51.686-03:00  INFO 27952 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:37:51.699-03:00  INFO 27952 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:37:51.699-03:00  INFO 27952 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:37:51.783-03:00  INFO 27952 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:37:51.783-03:00  INFO 27952 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1429 ms
+2025-11-27T14:37:51.952-03:00  INFO 27952 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:37:52.054-03:00 DEBUG 27952 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:37:52.096-03:00 DEBUG 27952 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:37:52.121-03:00 DEBUG 27952 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:37:52.148-03:00 DEBUG 27952 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:37:52.289-03:00  INFO 27952 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:37:52.297-03:00  INFO 27952 --- [main] org.example.App                          : Started App in 2.762 seconds (process running for 3.528)
+2025-11-27T14:37:52.669-03:00  INFO 27952 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:37:52.688-03:00  INFO 27952 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:37:54.801-03:00  WARN 27952 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:37:54.802-03:00  WARN 27952 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:38:14.879-03:00  INFO 27952 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:38:14.880-03:00  INFO 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:38:14.880-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:38:14.880-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:38:14.880-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:38:14.881-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6e7c351d
+2025-11-27T14:38:14.881-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@73d4066e
+2025-11-27T14:38:14.881-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:38:14.881-03:00  INFO 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-11-27T14:38:14.891-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:38:14.904-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:38:14.923-03:00 DEBUG 27952 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:38:16.071-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:38:16.072-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:38:16.074-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:38:16.077-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:38:16.078-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:38:16.099-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:38:16.102-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:38:16.132-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:38:16.135-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:38:16 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:38:16.170-03:00 DEBUG 27952 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:38:17.557-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:38:17.558-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:38:17.558-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:38:17.559-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:38:17.559-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:38:17.559-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:38:17.559-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:38:17.560-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:38:17.560-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:38:17 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:38:17.561-03:00 DEBUG 27952 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:38:25.353-03:00  INFO 28800 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 28800 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:38:25.356-03:00 DEBUG 28800 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:38:25.357-03:00  INFO 28800 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:38:26.469-03:00  INFO 28800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:38:26.477-03:00  INFO 28800 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:38:26.477-03:00  INFO 28800 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:38:26.544-03:00  INFO 28800 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:38:26.545-03:00  INFO 28800 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1118 ms
+2025-11-27T14:38:26.742-03:00  INFO 28800 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:38:26.849-03:00 DEBUG 28800 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:38:26.899-03:00 DEBUG 28800 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:38:26.936-03:00 DEBUG 28800 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:38:26.974-03:00 DEBUG 28800 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:38:27.146-03:00  INFO 28800 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:38:27.158-03:00  INFO 28800 --- [main] org.example.App                          : Started App in 2.248 seconds (process running for 2.619)
+2025-11-27T14:38:27.292-03:00  INFO 28800 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:38:27.293-03:00  INFO 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:38:27.293-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:38:27.293-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:38:27.293-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:38:27.294-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6a818392
+2025-11-27T14:38:27.294-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@103082dd
+2025-11-27T14:38:27.295-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:38:27.295-03:00  INFO 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-11-27T14:38:27.307-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:38:27.322-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:38:27.333-03:00 DEBUG 28800 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2025-11-27T14:38:27.594-03:00  INFO 28800 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:38:27.617-03:00  INFO 28800 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:38:28.852-03:00  WARN 28800 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:38:28.853-03:00  WARN 28800 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:38:33.905-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:38:33.906-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:38:33.910-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:38:33.919-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:38:33.920-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:38:33.930-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:38:33.933-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:38:33.982-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:38:33.985-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:38:33 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:38:34.031-03:00 DEBUG 28800 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:39:29.052-03:00  INFO 4784 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 4784 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:39:29.054-03:00 DEBUG 4784 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:39:29.055-03:00  INFO 4784 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:39:30.583-03:00  INFO 4784 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:39:30.592-03:00  INFO 4784 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:39:30.592-03:00  INFO 4784 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:39:30.672-03:00  INFO 4784 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:39:30.673-03:00  INFO 4784 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1520 ms
+2025-11-27T14:39:30.815-03:00  INFO 4784 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:39:30.906-03:00 DEBUG 4784 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:39:30.944-03:00 DEBUG 4784 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:39:30.972-03:00 DEBUG 4784 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:39:30.999-03:00 DEBUG 4784 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:39:31.151-03:00  INFO 4784 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:39:31.165-03:00  INFO 4784 --- [main] org.example.App                          : Started App in 2.95 seconds (process running for 3.967)
+2025-11-27T14:39:31.566-03:00  INFO 4784 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:39:31.599-03:00  INFO 4784 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:39:32.904-03:00  WARN 4784 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:39:32.905-03:00  WARN 4784 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:39:59.827-03:00  INFO 4784 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:39:59.830-03:00  INFO 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:39:59.830-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:39:59.831-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:39:59.831-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:39:59.834-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6cd3ad8a
+2025-11-27T14:39:59.834-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@67efd2c2
+2025-11-27T14:39:59.834-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:39:59.835-03:00  INFO 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-11-27T14:39:59.847-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:39:59.861-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:39:59.881-03:00 DEBUG 4784 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:40:01.445-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:40:01.446-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:40:01.449-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:40:01.454-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:40:01.455-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:40:01.461-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:40:01.464-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:40:01.525-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:40:01.546-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:40:01 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:40:01.645-03:00 DEBUG 4784 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:40:02.475-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:40:02.476-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:40:02.478-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:40:02.478-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:40:02.479-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:40:02.479-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:40:02.480-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:40:02.481-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:40:02.481-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:40:02 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:40:02.482-03:00 DEBUG 4784 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:41:11.289-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:41:11.301-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:41:11.378-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:41:11.380-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:41:11.380-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:41:11.382-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:41:11.384-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:41:11.390-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:41:11.392-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:41:11 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:41:11.397-03:00 DEBUG 4784 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:41:31.277-03:00  INFO 4784 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:41:31.297-03:00  INFO 4784 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:41:32.644-03:00  WARN 4784 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:41:32.645-03:00  WARN 4784 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:41:52.989-03:00  INFO 22504 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 22504 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:41:52.992-03:00 DEBUG 22504 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:41:52.994-03:00  INFO 22504 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:41:55.032-03:00  INFO 22504 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:41:55.041-03:00  INFO 22504 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:41:55.041-03:00  INFO 22504 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:41:55.181-03:00  INFO 22504 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:41:55.181-03:00  INFO 22504 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2047 ms
+2025-11-27T14:41:55.311-03:00  INFO 22504 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:41:55.393-03:00 DEBUG 22504 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:41:55.452-03:00 DEBUG 22504 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:41:55.484-03:00 DEBUG 22504 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:41:55.523-03:00 DEBUG 22504 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:41:55.682-03:00  INFO 22504 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:41:55.690-03:00  INFO 22504 --- [main] org.example.App                          : Started App in 3.926 seconds (process running for 4.883)
+2025-11-27T14:41:55.806-03:00  INFO 22504 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:41:55.806-03:00  INFO 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:41:55.806-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:41:55.806-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:41:55.806-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:41:55.807-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6ada9c0c
+2025-11-27T14:41:55.808-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5555ffcf
+2025-11-27T14:41:55.809-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:41:55.809-03:00  INFO 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T14:41:55.826-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:41:55.837-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:41:55.857-03:00 DEBUG 22504 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:41:55.942-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:41:55.942-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:41:55.945-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:41:55.948-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:41:55.948-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:41:55.952-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:41:55.952-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:41:55.953-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:41:55.954-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:41:55.954-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:41:55.954-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:41:55.955-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:41:55.955-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:41:55.955-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:41:56.014-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:41:56.014-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:41:56.030-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:41:55 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:41:56.030-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:41:55 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:41:56.087-03:00 DEBUG 22504 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:41:56.087-03:00 DEBUG 22504 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:41:56.318-03:00  INFO 22504 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:41:56.350-03:00  INFO 22504 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:41:57.924-03:00  WARN 22504 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:41:57.925-03:00  WARN 22504 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:42:21.162-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:42:21.163-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:42:21.169-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:42:21.169-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:42:21.170-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:42:21.170-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:42:21.171-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:42:21.172-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:42:21.172-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:42:21 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:42:21.173-03:00 DEBUG 22504 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:42:50.350-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:42:50.351-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:42:50.366-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:42:50.366-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:42:50.366-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:42:50.367-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:42:50.368-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:42:50.368-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:42:50.369-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:42:50 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:42:50.370-03:00 DEBUG 22504 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:43:49.961-03:00  INFO 17048 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 17048 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:43:49.967-03:00 DEBUG 17048 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:43:49.967-03:00  INFO 17048 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:43:51.706-03:00  INFO 17048 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:43:51.714-03:00  INFO 17048 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:43:51.714-03:00  INFO 17048 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:43:51.791-03:00  INFO 17048 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:43:51.792-03:00  INFO 17048 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1722 ms
+2025-11-27T14:43:51.964-03:00  INFO 17048 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:43:52.069-03:00 DEBUG 17048 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:43:52.107-03:00 DEBUG 17048 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:43:52.134-03:00 DEBUG 17048 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:43:52.167-03:00 DEBUG 17048 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:43:52.321-03:00  INFO 17048 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:43:52.329-03:00  INFO 17048 --- [main] org.example.App                          : Started App in 2.973 seconds (process running for 3.833)
+2025-11-27T14:43:52.696-03:00  INFO 17048 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:43:52.717-03:00  INFO 17048 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:43:54.130-03:00  WARN 17048 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:43:54.131-03:00  WARN 17048 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:43:56.848-03:00  INFO 17048 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:43:56.848-03:00  INFO 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:43:56.848-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:43:56.848-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:43:56.850-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:43:56.851-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6e7c351d
+2025-11-27T14:43:56.851-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@73d4066e
+2025-11-27T14:43:56.852-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:43:56.852-03:00  INFO 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-11-27T14:43:56.863-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:43:56.876-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:43:56.886-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:43:56.890-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:43:56.891-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:43:56.896-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:43:56.900-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:43:56.931-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:43:56.933-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:43:56 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:43:56.962-03:00 DEBUG 17048 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:44:11.689-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:44:11.691-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:44:11.693-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:44:11.694-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:44:11.694-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:44:11.695-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:44:11.695-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:44:11.696-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:44:11.697-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:44:11 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:44:11.698-03:00 DEBUG 17048 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:44:13.270-03:00 DEBUG 17048 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:44:13.272-03:00 DEBUG 17048 --- [http-nio-8087-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:44:13.274-03:00 DEBUG 17048 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2025-11-27T14:44:13.294-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:44:13.295-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:44:13.299-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:44:13.299-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:44:13.299-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:44:13.300-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:44:13.301-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:44:13.302-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:44:13.302-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:44:13 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:44:13.304-03:00 DEBUG 17048 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:44:13.305-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:44:13.305-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:44:13.306-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:44:13.307-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:44:13.307-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:44:13.308-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:44:13.309-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:44:13.309-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:44:13.310-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:44:13 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:44:13.311-03:00 DEBUG 17048 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:45:52.454-03:00  INFO 17048 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:45:52.511-03:00  INFO 17048 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:45:53.922-03:00  WARN 17048 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:45:53.923-03:00  WARN 17048 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:46:13.794-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:46:13.800-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:46:13.805-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:46:13.806-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:46:13.806-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:46:13.808-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:46:13.810-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:46:13.814-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:46:13.815-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:46:13 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:46:13.818-03:00 DEBUG 17048 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:47:52.465-03:00  INFO 17048 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:47:52.487-03:00  INFO 17048 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:47:53.957-03:00  WARN 17048 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:47:53.957-03:00  WARN 17048 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:48:13.812-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:48:13.831-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:48:13.843-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:48:13.854-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:48:13.854-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:48:13.858-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:48:13.862-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:48:13.881-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:48:13.885-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:48:13 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:48:13.893-03:00 DEBUG 17048 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:49:30.598-03:00  INFO 13668 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 13668 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:49:30.601-03:00 DEBUG 13668 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:49:30.602-03:00  INFO 13668 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:49:31.932-03:00  INFO 13668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:49:31.944-03:00  INFO 13668 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:49:31.945-03:00  INFO 13668 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:49:32.046-03:00  INFO 13668 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:49:32.047-03:00  INFO 13668 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1382 ms
+2025-11-27T14:49:32.216-03:00  INFO 13668 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:49:32.306-03:00 DEBUG 13668 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:49:32.352-03:00 DEBUG 13668 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:49:32.394-03:00 DEBUG 13668 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:49:32.431-03:00 DEBUG 13668 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:49:32.593-03:00  INFO 13668 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:49:32.601-03:00  INFO 13668 --- [main] org.example.App                          : Started App in 2.547 seconds (process running for 3.152)
+2025-11-27T14:49:32.994-03:00  INFO 13668 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:49:33.017-03:00  INFO 13668 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:49:34.415-03:00  WARN 13668 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:49:34.416-03:00  WARN 13668 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:49:47.197-03:00  INFO 13668 --- [http-nio-8087-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:49:47.198-03:00  INFO 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:49:47.198-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:49:47.198-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:49:47.199-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:49:47.200-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6e7c351d
+2025-11-27T14:49:47.200-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@73d4066e
+2025-11-27T14:49:47.201-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:49:47.201-03:00  INFO 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T14:49:47.214-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:49:47.229-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:49:47.249-03:00 DEBUG 13668 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:49:47.286-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:49:47.286-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:49:47.288-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:49:47.292-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:49:47.293-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:49:47.299-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:49:47.302-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:49:47.340-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:49:47.344-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:49:47 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:49:47.401-03:00 DEBUG 13668 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:51:32.708-03:00  INFO 13668 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:51:32.728-03:00  INFO 13668 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:51:33.824-03:00  WARN 13668 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:51:33.825-03:00  WARN 13668 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:53:32.743-03:00  INFO 13668 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:53:32.771-03:00  INFO 13668 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:53:33.812-03:00  WARN 13668 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:53:33.812-03:00  WARN 13668 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:54:24.332-03:00  INFO 22416 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 22416 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:54:24.333-03:00 DEBUG 22416 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:54:24.334-03:00  INFO 22416 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:54:25.914-03:00  INFO 22416 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:54:25.929-03:00  INFO 22416 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:54:25.930-03:00  INFO 22416 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:54:26.060-03:00  INFO 22416 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:54:26.060-03:00  INFO 22416 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1648 ms
+2025-11-27T14:54:26.287-03:00  INFO 22416 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:54:26.392-03:00 DEBUG 22416 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:54:26.455-03:00 DEBUG 22416 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:54:26.488-03:00 DEBUG 22416 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:54:26.530-03:00 DEBUG 22416 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:54:26.728-03:00  INFO 22416 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:54:26.741-03:00  INFO 22416 --- [main] org.example.App                          : Started App in 2.968 seconds (process running for 3.538)
+2025-11-27T14:54:26.821-03:00  INFO 22416 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:54:26.821-03:00  INFO 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:54:26.821-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:54:26.821-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:54:26.822-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:54:26.822-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@46aa712c
+2025-11-27T14:54:26.823-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@22a0d4ea
+2025-11-27T14:54:26.824-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:54:26.824-03:00  INFO 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T14:54:26.844-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:54:26.863-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:54:26.888-03:00 DEBUG 22416 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:54:26.992-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:54:26.993-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:54:26.993-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:54:26.994-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:54:26.995-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:54:26.996-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:54:27.000-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:54:27.000-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:54:27.001-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:54:27.001-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:54:27.006-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:54:27.006-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:54:27.013-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:54:27.013-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:54:27.072-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:54:27.072-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:54:27.085-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:54:27 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:54:27.085-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:54:27 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:54:27.180-03:00 DEBUG 22416 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:54:27.180-03:00 DEBUG 22416 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:54:27.470-03:00  INFO 22416 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:54:27.490-03:00  INFO 22416 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:54:28.955-03:00  WARN 22416 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:54:28.956-03:00  WARN 22416 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:56:26.765-03:00  INFO 22416 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:56:26.775-03:00  INFO 22416 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:56:27.598-03:00  WARN 22416 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:56:27.598-03:00  WARN 22416 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:56:27.903-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T14:56:27.926-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:56:27.984-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:56:27.998-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource funcaoAlcDebug.]
+2025-11-27T14:56:27.999-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:56:28.012-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:56:28.019-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:56:28.043-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:56:28.051-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:56:28 GMT-03:00 2025, status=404, error=Not Found, path=/funcaoAlcDebug}]
+2025-11-27T14:56:28.064-03:00 DEBUG 22416 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:57:40.131-03:00  INFO 16676 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 16676 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T14:57:40.133-03:00 DEBUG 16676 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T14:57:40.134-03:00  INFO 16676 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T14:57:41.510-03:00  INFO 16676 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T14:57:41.522-03:00  INFO 16676 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T14:57:41.522-03:00  INFO 16676 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T14:57:41.628-03:00  INFO 16676 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T14:57:41.628-03:00  INFO 16676 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1415 ms
+2025-11-27T14:57:41.849-03:00  INFO 16676 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T14:57:41.978-03:00 DEBUG 16676 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2025-11-27T14:57:42.010-03:00 DEBUG 16676 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T14:57:42.037-03:00 DEBUG 16676 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T14:57:42.064-03:00 DEBUG 16676 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T14:57:42.206-03:00  INFO 16676 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T14:57:42.217-03:00  INFO 16676 --- [main] org.example.App                          : Started App in 2.728 seconds (process running for 3.412)
+2025-11-27T14:57:42.563-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:57:42.590-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:57:44.112-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:57:44.113-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:57:47.745-03:00  INFO 16676 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T14:57:47.745-03:00  INFO 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T14:57:47.746-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T14:57:47.746-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T14:57:47.746-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T14:57:47.747-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@15c4af7a
+2025-11-27T14:57:47.747-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@10fda3d0
+2025-11-27T14:57:47.747-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T14:57:47.748-03:00  INFO 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T14:57:47.761-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:57:47.776-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:57:47.791-03:00 DEBUG 16676 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T14:57:47.832-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:57:47.832-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:57:47.835-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:57:47.840-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:57:47.840-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:57:47.841-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T14:57:47.842-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:57:47.844-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:57:47.845-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T14:57:47.845-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:57:47.846-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:57:47.846-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:57:47.849-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:57:47.849-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:57:47.887-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:57:47.887-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:57:47.890-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:57:47 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:57:47.890-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:57:47 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T14:57:47.934-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:57:47.934-03:00 DEBUG 16676 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:57:52.807-03:00 DEBUG 16676 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T14:57:52.808-03:00 DEBUG 16676 --- [http-nio-8087-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:57:52.810-03:00 DEBUG 16676 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2025-11-27T14:57:52.848-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T14:57:52.849-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:57:52.851-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T14:57:52.851-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:57:52.869-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:57:52.869-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:57:52.869-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T14:57:52.869-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T14:57:52.869-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:57:52.869-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:57:52.870-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:57:52.870-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:57:52.870-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:57:52.871-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:57:52.871-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:57:52.871-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:57:52.871-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:57:52 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T14:57:52.871-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:57:52 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T14:57:52.872-03:00 DEBUG 16676 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:57:52.872-03:00 DEBUG 16676 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T14:59:42.309-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T14:59:42.325-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T14:59:43.625-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T14:59:43.626-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T14:59:53.976-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T14:59:54.026-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T14:59:54.046-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T14:59:54.059-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T14:59:54.060-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T14:59:54.070-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T14:59:54.075-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T14:59:54.097-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T14:59:54.104-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 14:59:54 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T14:59:54.131-03:00 DEBUG 16676 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:01:42.455-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:01:42.498-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:01:43.863-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:01:43.864-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:01:53.795-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T15:01:53.801-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:01:53.805-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:01:53.806-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T15:01:53.806-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:01:53.808-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:01:53.808-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:01:53.811-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:01:53.812-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:01:53 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T15:01:53.815-03:00 DEBUG 16676 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:03:43.678-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:03:43.692-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:03:44.805-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:03:44.807-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:03:53.790-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T15:03:53.798-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:03:53.801-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:03:53.803-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T15:03:53.803-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:03:53.804-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:03:53.805-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:03:53.812-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:03:53.813-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:03:53 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T15:03:53.818-03:00 DEBUG 16676 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:05:42.639-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:05:42.675-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:05:43.867-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:05:43.868-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:07:42.247-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:07:42.257-03:00  INFO 16676 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:07:43.077-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:07:43.077-03:00  WARN 16676 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:08:29.005-03:00  INFO 27352 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 27352 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T15:08:29.007-03:00 DEBUG 27352 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T15:08:29.008-03:00  INFO 27352 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T15:08:30.461-03:00  INFO 27352 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T15:08:30.479-03:00  INFO 27352 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T15:08:30.479-03:00  INFO 27352 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T15:08:30.545-03:00  INFO 27352 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T15:08:30.545-03:00  INFO 27352 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1455 ms
+2025-11-27T15:08:30.704-03:00  INFO 27352 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T15:08:30.771-03:00 DEBUG 27352 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 3 mappings in 'requestMappingHandlerMapping'
+2025-11-27T15:08:30.821-03:00 DEBUG 27352 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T15:08:30.846-03:00 DEBUG 27352 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T15:08:30.880-03:00 DEBUG 27352 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T15:08:31.027-03:00  INFO 27352 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T15:08:31.036-03:00  INFO 27352 --- [main] org.example.App                          : Started App in 2.609 seconds (process running for 3.035)
+2025-11-27T15:08:31.417-03:00  INFO 27352 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:08:31.435-03:00  INFO 27352 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:08:33.189-03:00  WARN 27352 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:08:33.190-03:00  WARN 27352 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:08:36.390-03:00  INFO 27352 --- [http-nio-8087-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T15:08:36.390-03:00  INFO 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T15:08:36.390-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T15:08:36.390-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T15:08:36.391-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T15:08:36.392-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@298f0a0b
+2025-11-27T15:08:36.392-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@4f6b687e
+2025-11-27T15:08:36.393-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T15:08:36.393-03:00  INFO 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T15:08:36.404-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T15:08:36.419-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:08:36.429-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:08:36.438-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T15:08:36.438-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:08:36.447-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:08:36.450-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:08:36.481-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:08:36.483-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:08:36 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T15:08:36.523-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:08:41.825-03:00 DEBUG 27352 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T15:08:41.829-03:00 DEBUG 27352 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:08:41.831-03:00 DEBUG 27352 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2025-11-27T15:08:41.876-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T15:08:41.877-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:08:41.881-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:08:41.881-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T15:08:41.882-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:08:41.882-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:08:41.883-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:08:41.884-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:08:41.885-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:08:41 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T15:08:41.886-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:08:41.896-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T15:08:41.900-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:08:41.902-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:08:41.903-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T15:08:41.903-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:08:41.904-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:08:41.904-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:08:41.905-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:08:41.906-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:08:41 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T15:08:41.907-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:10:08.542-03:00 DEBUG 27352 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T15:10:08.547-03:00 DEBUG 27352 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#funcaoAlcDebug()
+2025-11-27T15:10:08.736-03:00  INFO 27352 --- [http-nio-8087-exec-8] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:10:08.752-03:00  INFO 27352 --- [http-nio-8087-exec-8] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:10:09.814-03:00  WARN 27352 --- [http-nio-8087-exec-8] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:10:09.815-03:00  WARN 27352 --- [http-nio-8087-exec-8] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:10:25.002-03:00 DEBUG 27352 --- [http-nio-8087-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [text/plain, */*, application/json, application/*+json]
+2025-11-27T15:10:25.003-03:00 DEBUG 27352 --- [http-nio-8087-exec-8] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "forwardDBM1" : "PowerAmplifier1.Config.OutputPower = 430",<EOL><EOL>  "frequency4" : "Modulator4.Statu (truncated)..."]
+2025-11-27T15:10:25.004-03:00 DEBUG 27352 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T15:10:31.048-03:00  INFO 27352 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:10:31.054-03:00  INFO 27352 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:10:31.812-03:00  WARN 27352 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:10:31.812-03:00  WARN 27352 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:10:42.761-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T15:10:42.766-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:10:42.771-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:10:42.772-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T15:10:42.772-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:10:42.774-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:10:42.775-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:10:42.779-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:10:42.780-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:10:42 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T15:10:42.783-03:00 DEBUG 27352 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:11:43.893-03:00 DEBUG 27352 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T15:11:43.905-03:00 DEBUG 27352 --- [http-nio-8087-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:11:43.914-03:00 DEBUG 27352 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2025-11-27T15:11:43.951-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-11-27T15:11:43.953-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:11:43.956-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:11:43.957-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource dados.txt.]
+2025-11-27T15:11:43.958-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:11:43.959-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:11:43.959-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T15:11:43.960-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:11:43.964-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:11:43.965-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T15:11:43.965-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:11:43.966-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:11:43.966-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:11:43.966-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:11:43.973-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:11:43.973-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:11:43.975-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:11:43 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T15:11:43.975-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:11:43 GMT-03:00 2025, status=404, error=Not Found, path=/dados.txt}]
+2025-11-27T15:11:43.979-03:00 DEBUG 27352 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:11:43.979-03:00 DEBUG 27352 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:12:31.125-03:00  INFO 27352 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:12:31.141-03:00  INFO 27352 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:12:32.205-03:00  WARN 27352 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:12:32.206-03:00  WARN 27352 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:13:14.001-03:00  INFO 15492 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 15492 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T15:13:14.004-03:00 DEBUG 15492 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T15:13:14.005-03:00  INFO 15492 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T15:13:15.631-03:00  INFO 15492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T15:13:15.647-03:00  INFO 15492 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T15:13:15.647-03:00  INFO 15492 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T15:13:15.822-03:00  INFO 15492 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T15:13:15.823-03:00  INFO 15492 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1742 ms
+2025-11-27T15:13:16.057-03:00  INFO 15492 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T15:13:16.171-03:00 DEBUG 15492 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 3 mappings in 'requestMappingHandlerMapping'
+2025-11-27T15:13:16.219-03:00 DEBUG 15492 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T15:13:16.258-03:00 DEBUG 15492 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T15:13:16.311-03:00 DEBUG 15492 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T15:13:16.533-03:00  INFO 15492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T15:13:16.546-03:00  INFO 15492 --- [main] org.example.App                          : Started App in 3.061 seconds (process running for 3.707)
+2025-11-27T15:13:16.672-03:00  INFO 15492 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T15:13:16.672-03:00  INFO 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T15:13:16.672-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T15:13:16.672-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T15:13:16.673-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T15:13:16.673-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@6e7c351d
+2025-11-27T15:13:16.673-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@5555ffcf
+2025-11-27T15:13:16.675-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T15:13:16.676-03:00  INFO 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2025-11-27T15:13:16.695-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T15:13:16.722-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:13:16.793-03:00 DEBUG 15492 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T15:13:17.041-03:00 DEBUG 15492 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T15:13:17.045-03:00 DEBUG 15492 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#funcaoAlcDebug()
+2025-11-27T15:13:17.109-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/.well-known/appspecific/com.chrome.devtools.json", parameters={}
+2025-11-27T15:13:17.110-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:13:17.118-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2025-11-27T15:13:17.123-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource .well-known/appspecific/com.chrome.devtools.json.]
+2025-11-27T15:13:17.124-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2025-11-27T15:13:17.129-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2025-11-27T15:13:17.131-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2025-11-27T15:13:17.161-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-11-27T15:13:17.192-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Nov 27 15:13:17 GMT-03:00 2025, status=404, error=Not Found, path=/.well-known/appspe (truncated)...]
+2025-11-27T15:13:17.279-03:00 DEBUG 15492 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
+2025-11-27T15:13:17.463-03:00  INFO 15492 --- [http-nio-8087-exec-2] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:13:17.463-03:00  INFO 15492 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:13:17.501-03:00  INFO 15492 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:13:17.501-03:00  INFO 15492 --- [http-nio-8087-exec-2] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:13:19.197-03:00  WARN 15492 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:13:19.197-03:00  WARN 15492 --- [http-nio-8087-exec-2] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:13:19.199-03:00  WARN 15492 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:13:19.199-03:00  WARN 15492 --- [http-nio-8087-exec-2] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:13:33.670-03:00 DEBUG 15492 --- [http-nio-8087-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-11-27T15:13:33.672-03:00 DEBUG 15492 --- [http-nio-8087-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "forwardDBM1" : "PowerAmplifier1.Config.OutputPower = 430",<EOL><EOL>  "frequency4" : "Modulator4.Statu (truncated)..."]
+2025-11-27T15:13:33.674-03:00 DEBUG 15492 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T15:15:16.581-03:00  INFO 15492 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:15:16.586-03:00  INFO 15492 --- [scheduling-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:15:17.058-03:00 DEBUG 15492 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T15:15:17.062-03:00 DEBUG 15492 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#funcaoAlcDebug()
+2025-11-27T15:15:17.089-03:00  INFO 15492 --- [http-nio-8087-exec-3] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:15:17.099-03:00  INFO 15492 --- [http-nio-8087-exec-3] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:15:17.393-03:00  WARN 15492 --- [scheduling-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:15:17.393-03:00  WARN 15492 --- [scheduling-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:15:17.911-03:00  WARN 15492 --- [http-nio-8087-exec-3] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:15:17.912-03:00  WARN 15492 --- [http-nio-8087-exec-3] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-11-27T15:15:25.657-03:00 DEBUG 15492 --- [http-nio-8087-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/plain', given [*/*] and supported [text/plain, */*, application/json, application/*+json]
+2025-11-27T15:15:25.658-03:00 DEBUG 15492 --- [http-nio-8087-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{<EOL><EOL>  "erro" : "org.openqa.selenium.NoSuchSessionException: invalid session id: session deleted as th (truncated)..."]
+2025-11-27T15:15:25.660-03:00 DEBUG 15492 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-11-27T15:17:21.754-03:00  INFO 12336 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 12336 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-11-27T15:17:21.756-03:00 DEBUG 12336 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-11-27T15:17:21.758-03:00  INFO 12336 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-11-27T15:17:23.368-03:00  INFO 12336 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-11-27T15:17:23.378-03:00  INFO 12336 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-11-27T15:17:23.378-03:00  INFO 12336 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-11-27T15:17:23.442-03:00  INFO 12336 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-11-27T15:17:23.442-03:00  INFO 12336 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1559 ms
+2025-11-27T15:17:23.631-03:00  INFO 12336 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-11-27T15:17:23.748-03:00 DEBUG 12336 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 3 mappings in 'requestMappingHandlerMapping'
+2025-11-27T15:17:23.795-03:00 DEBUG 12336 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-11-27T15:17:23.841-03:00 DEBUG 12336 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-11-27T15:17:23.877-03:00 DEBUG 12336 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-11-27T15:17:24.065-03:00  INFO 12336 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-11-27T15:17:24.075-03:00  INFO 12336 --- [main] org.example.App                          : Started App in 3.392 seconds (process running for 4.074)
+2025-11-27T15:17:30.097-03:00  INFO 12336 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-11-27T15:17:30.097-03:00  INFO 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-11-27T15:17:30.097-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2025-11-27T15:17:30.097-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2025-11-27T15:17:30.097-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2025-11-27T15:17:30.098-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@79a04e5f
+2025-11-27T15:17:30.099-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@1a2909ae
+2025-11-27T15:17:30.100-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-11-27T15:17:30.100-03:00  INFO 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2025-11-27T15:17:30.111-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
+2025-11-27T15:17:30.127-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2025-11-27T15:17:30.144-03:00 DEBUG 12336 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2025-11-27T15:17:30.201-03:00 DEBUG 12336 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/funcaoAlcDebug", parameters={}
+2025-11-27T15:17:30.203-03:00 DEBUG 12336 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#funcaoAlcDebug()
+2025-11-27T15:17:30.842-03:00  INFO 12336 --- [http-nio-8087-exec-2] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-11-27T15:17:30.877-03:00  INFO 12336 --- [http-nio-8087-exec-2] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-11-27T15:17:33.276-03:00  WARN 12336 --- [http-nio-8087-exec-2] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-11-27T15:17:33.283-03:00  WARN 12336 --- [http-nio-8087-exec-2] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
