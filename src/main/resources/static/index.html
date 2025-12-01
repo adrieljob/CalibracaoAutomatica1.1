@@ -38,6 +38,85 @@
             font-weight: bold;
             color: #fff;
         }
+
+        /* Dropdown minimalista no canto superior direito */
+        .dropdown-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .dropdown-btn {
+            padding: 8px 15px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .dropdown-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            background: #111;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            min-width: 120px;
+            padding: 5px 0;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 15px;
+            color: #f00;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .dropdown-item.disabled {
+            color: #888;
+            cursor: default;
+        }
+
+        .dropdown-item.disabled:hover {
+            background: transparent;
+            color: #888;
+        }
+
+        .dropdown-item.selected {
+            background: #f00;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #f00;
+            margin: 5px 0;
+        }
+
         #status {
             margin-top: 20px;
             color: #0f0;
@@ -47,15 +126,40 @@
             border-radius: 5px;
             text-align: center;
         }
+
         @media (max-width: 768px) {
             .casa {
                 width: 45%;
+            }
+            .dropdown-container {
+                top: 10px;
+                right: 10px;
             }
         }
     </style>
 </head>
 <body>
-<h1>Calibração Automática 1.0</h1>
+
+<!-- Dropdown no canto superior direito -->
+<div class="dropdown-container">
+    <button class="dropdown-btn" onclick="toggleDropdown()">Atualizar: 1m</button>
+    <div class="dropdown-content" id="dropdownContent">
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" onclick="setIntervalo(30000)">30s</button>
+        <button class="dropdown-item" onclick="setIntervalo(60000)">1m</button>
+        <button class="dropdown-item" onclick="setIntervalo(300000)">5m</button>
+        <button class="dropdown-item" onclick="setIntervalo(600000)">10m</button>
+        <button class="dropdown-item" onclick="setIntervalo(900000)">15m</button>
+        <button class="dropdown-item" onclick="setIntervalo(1800000)">30m</button>
+        <button class="dropdown-item" onclick="setIntervalo(3600000)">1h</button>
+        <button class="dropdown-item" onclick="setIntervalo(21600000)">6h</button>
+        <button class="dropdown-item" onclick="setIntervalo(43200000)">12h</button>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item" onclick="desativarAtualizacao()">Disabled</button>
+    </div>
+</div>
+
+<h1>Calibração Automática 1.3</h1>
 
 <div id="casas">
     <h1>MTX1</h1>
@@ -195,129 +299,286 @@
     </div>
 </div>
 
-
 <div id="status">Última atualização: Carregando...</div>
 
 <script>
+    let dropdownAberto = false;
+    let intervaloAtual = 30000;
+    let atualizacaoAtiva = true;
+    let timerAtualizacao = null;
+    let ultimaOpcaoSelecionada = '30s';
+
+    // Mapeamento para texto amigável
+    const intervalosTextos = {
+        30000: "30s",
+        60000: "1m",
+        300000: "5m",
+        600000: "10m",
+        900000: "15m",
+        1800000: "30m",
+        3600000: "1h",
+        21600000: "6h",
+        43200000: "12h",
+        'disabled': 'Disabled'
+    };
+
+    // Alternar dropdown
+    function toggleDropdown() {
+        const dropdown = document.getElementById('dropdownContent');
+        dropdown.classList.toggle('show');
+        dropdownAberto = !dropdownAberto;
+    }
+
+    // Fechar dropdown ao clicar fora
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('dropdownContent');
+        const botao = document.querySelector('.dropdown-btn');
+
+        if (!dropdown.contains(event.target) && !botao.contains(event.target)) {
+            dropdown.classList.remove('show');
+            dropdownAberto = false;
+        }
+    });
+
+    // Remover seleção de todos os itens
+    function removerSelecoes() {
+        const itens = document.querySelectorAll('.dropdown-item');
+        itens.forEach(item => {
+            item.classList.remove('selected');
+        });
+    }
+
+    // Configurar intervalo
+    async function setIntervalo(ms) {
+        try {
+            // Configura no backend
+            const response = await fetch(`/configurar-intervalo?milissegundos=${ms}`, {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                // Atualiza localmente
+                intervaloAtual = ms;
+                atualizacaoAtiva = true;
+
+                // Atualiza o texto do botão
+                const texto = intervalosTextos[ms];
+                document.querySelector('.dropdown-btn').textContent = `Atualizar: ${texto}`;
+                ultimaOpcaoSelecionada = texto;
+
+                // Remove seleções anteriores e seleciona a atual
+                removerSelecoes();
+                event.target.classList.add('selected');
+
+                // Fecha o dropdown
+                toggleDropdown();
+
+                // Reinicia o timer
+                reiniciarTimerAtualizacao();
+
+                // Ativa o agendamento no backend
+                await fetch('/toggle-agendamento?ativo=true', { method: 'POST' });
+
+                // Feedback
+                atualizarStatus(`Atualização: ${texto}`);
+
+                // Carrega dados imediatamente
+                carregarDados();
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            atualizarStatus('Erro ao configurar');
+        }
+    }
+
+    // Desativar atualização automática
+    async function desativarAtualizacao() {
+        try {
+            // Desativa no backend
+            await fetch('/toggle-agendamento?ativo=false', {
+                method: 'POST'
+            });
+
+            // Atualiza localmente
+            atualizacaoAtiva = false;
+
+            // Atualiza o texto do botão
+            document.querySelector('.dropdown-btn').textContent = 'Atualizar: Disabled';
+            ultimaOpcaoSelecionada = 'disabled';
+
+            // Remove seleções anteriores e seleciona "Disabled"
+            removerSelecoes();
+            event.target.classList.add('selected');
+
+            // Fecha o dropdown
+            toggleDropdown();
+
+            // Para o timer
+            if (timerAtualizacao) {
+                clearInterval(timerAtualizacao);
+                timerAtualizacao = null;
+            }
+
+            // Feedback
+            atualizarStatus('Atualização automática desativada');
+        } catch (error) {
+            console.error('Erro:', error);
+            atualizarStatus('Erro ao desativar');
+        }
+    }
+
+    // Reiniciar timer de atualização
+    function reiniciarTimerAtualizacao() {
+        if (timerAtualizacao) {
+            clearInterval(timerAtualizacao);
+        }
+
+        if (atualizacaoAtiva) {
+            timerAtualizacao = setInterval(carregarDados, intervaloAtual);
+        }
+    }
+
+    // Atualizar mensagem de status
+    function atualizarStatus(mensagem) {
+        const statusDiv = document.getElementById('status');
+        statusDiv.textContent = mensagem;
+        statusDiv.style.color = '#0ff';
+
+        setTimeout(() => {
+            if (!mensagem.includes('desativada')) {
+                statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+                statusDiv.style.color = '#0f0';
+            }
+        }, 3000);
+    }
+
+    // Carregar dados (sua função original)
     async function carregarDados() {
-      const statusDiv = document.getElementById('status');
+        // Se a atualização estiver desativada, não faz nada
+        if (!atualizacaoAtiva) {
+            return;
+        }
 
-      try {
-          // Tenta buscar do arquivo dados.txt que seu Java gera
-          const response = await fetch('http://localhost:8087/dados.txt');
+        const statusDiv = document.getElementById('status');
 
-          if (!response.ok) {
-              throw new Error(`Erro HTTP: ${response.status}`);
-          }
+        try {
+            const response = await fetch('http://localhost:8087/dados.txt');
 
-          const content = await response.text();
-          const lines = content.split('\n');
-          const data = {};
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
 
-          // Parse do arquivo dados.txt - EXTRAI APENAS OS NÚMEROS
-          lines.forEach(line => {
-              const trimmed = line.trim();
+            const content = await response.text();
+            const lines = content.split('\n');
+            const data = {};
 
-              // Função para extrair apenas o número depois do "="
-              const extrairNumero = (texto) => {
-                  if (!texto) return 'N/A';
-                  // Procura por padrão "= número" e retorna apenas o número
-                  const match = texto.match(/=\s*([\d.-]+)/);  // CORREÇÃO: aceita números negativos também
-                  return match ? match[1] : 'N/A';
-              };
+            // Parse do arquivo dados.txt
+            lines.forEach(line => {
+                const trimmed = line.trim();
 
-              if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Direta1:')) data.potencia1 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Refletida1:')) data.refletida1 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO: "Refletida" não "Reflrtida"
+                const extrairNumero = (texto) => {
+                    if (!texto) return 'N/A';
+                    const match = texto.match(/=\s*([\d.-]+)/);
+                    return match ? match[1] : 'N/A';
+                };
 
-              else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Direta2:')) data.potencia2 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Refletida2:')) data.refletida2 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO
+                if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta1:')) data.potencia1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida1:')) data.refletida1 = extrairNumero(trimmed.split(':')[1]);
 
-              else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Direta3:')) data.potencia3 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Refletida3:')) data.refletida3 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO
+                else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta2:')) data.potencia2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida2:')) data.refletida2 = extrairNumero(trimmed.split(':')[1]);
 
-              else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Direta4:')) data.potencia4 = extrairNumero(trimmed.split(':')[1]);
-              else if (trimmed.startsWith('Potencia Refletida4:')) data.refletida4 = extrairNumero(trimmed.split(':')[1]); // CORREÇÃO
-          });
+                else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta3:')) data.potencia3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida3:')) data.refletida3 = extrairNumero(trimmed.split(':')[1]);
 
-          // DEBUG: Mostra o que foi extraído
-          console.log('Dados extraídos:', data);
+                else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta4:')) data.potencia4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida4:')) data.refletida4 = extrairNumero(trimmed.split(':')[1]);
+            });
 
-          // Preenche os campos
-          document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
-          document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
-          document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
-          document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
-          document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
-          document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
-          document.getElementById('potencia1').textContent = data.potencia1 || 'N/A';
-          document.getElementById('refletida1').textContent = data.refletida1 || 'N/A'; // CORREÇÃO: refletida1 minúsculo
+            // Preenche os campos (mantido igual)
+            document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
+            document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
+            document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
+            document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
+            document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
+            document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+            document.getElementById('potencia1').textContent = data.potencia1 || 'N/A';
+            document.getElementById('refletida1').textContent = data.refletida1 || 'N/A';
 
-          document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
-          document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
-          document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
-          document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
-          document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
-          document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
-          document.getElementById('potencia2').textContent = data.potencia2 || 'N/A';
-          document.getElementById('refletida2').textContent = data.refletida2 || 'N/A'; // CORREÇÃO
+            document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
+            document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
+            document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
+            document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
+            document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
+            document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+            document.getElementById('potencia2').textContent = data.potencia2 || 'N/A';
+            document.getElementById('refletida2').textContent = data.refletida2 || 'N/A';
 
-          document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
-          document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
-          document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
-          document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
-          document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
-          document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
-          document.getElementById('potencia3').textContent = data.potencia3 || 'N/A';
-          document.getElementById('refletida3').textContent = data.refletida3 || 'N/A'; // CORREÇÃO
+            document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
+            document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
+            document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
+            document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
+            document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
+            document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+            document.getElementById('potencia3').textContent = data.potencia3 || 'N/A';
+            document.getElementById('refletida3').textContent = data.refletida3 || 'N/A';
 
-          document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
-          document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
-          document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
-          document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
-          document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
-          document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
-          document.getElementById('potencia4').textContent = data.potencia4 || 'N/A';
-          document.getElementById('refletida4').textContent = data.refletida4 || 'N/A'; // CORREÇÃO
+            document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
+            document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
+            document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
+            document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
+            document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
+            document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+            document.getElementById('potencia4').textContent = data.potencia4 || 'N/A';
+            document.getElementById('refletida4').textContent = data.refletida4 || 'N/A';
 
-          statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
-          statusDiv.style.color = '#0f0';
+            statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+            statusDiv.style.color = '#0f0';
 
-      } catch (error) {
-          statusDiv.textContent = `Erro: ${error.message} - Verifique se o Spring Boot está rodando`;
-          statusDiv.style.color = '#f00';
-          console.error('Erro ao carregar dados:', error);
-      }
-  }
+        } catch (error) {
+            statusDiv.textContent = `Erro: ${error.message}`;
+            statusDiv.style.color = '#f00';
+            console.error('Erro ao carregar dados:', error);
+        }
+    }
 
-  // Execute imediatamente ao carregar
-  carregarDados();
+    // Inicialização
+    window.onload = function() {
+        // Seleciona a opção padrão (30s)
+        const opcoes = document.querySelectorAll('.dropdown-item');
+        opcoes.forEach(opcao => {
+            if (opcao.textContent === '30s') {
+                opcao.classList.add('selected');
+            }
+        });
 
-  // Atualize a cada 2 minutos (120.000 ms)
-  setInterval(carregarDados, 120000);
+        carregarDados();
+        reiniciarTimerAtualizacao();
+    };
 </script>
 </body>
 </html>

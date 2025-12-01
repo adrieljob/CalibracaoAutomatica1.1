@@ -8,16 +8,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 
+import jakarta.annotation.PostConstruct; // Usando jakarta (Java 11+)
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.FileWriter;
@@ -25,9 +27,10 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 @Component
-@EnableScheduling
+@EnableScheduling  // ← ESTA LINHA É IMPORTANTE!
 @RestController
 public class buscaAutomatica {
 
@@ -37,21 +40,187 @@ public class buscaAutomatica {
     @Value("${app.password}")
     private String password;
 
-    // Método agendado que roda a cada 2 minutos
-    @Scheduled(fixedRate = 120000)
-    public void executarBuscaAgendada() {
-        System.out.println("=== Execução agendada iniciada ===");
-        coletarDadosESalvar();
+    @Autowired
+    private TaskScheduler taskScheduler;
+
+    private ScheduledFuture<?> tarefaAgendada;
+    private long intervaloAtual = 60000; // 1 minuto padrão
+    private boolean agendamentoAtivo = true;
+
+    // Inicia o agendamento ao iniciar a aplicação
+    @PostConstruct
+    public void iniciarAgendamento() {
+        agendarTarefa(intervaloAtual);
     }
 
-    /*
+    // Método para agendar/reagendar a tarefa
+    private void agendarTarefa(long intervaloMs) {
+        // Cancela a tarefa anterior se existir
+        if (tarefaAgendada != null) {
+            tarefaAgendada.cancel(false);
+        }
+
+        if (agendamentoAtivo) {
+            // Cria um trigger periódico com o intervalo especificado
+            PeriodicTrigger trigger = new PeriodicTrigger(Duration.ofMillis(intervaloMs));
+            trigger.setFixedRate(true); // Executa em intervalo fixo
+
+            // Agenda a nova tarefa
+            tarefaAgendada = taskScheduler.schedule(this::executarColeta, trigger);
+
+            System.out.println("Tarefa agendada com intervalo de " + intervaloMs + "ms");
+            this.intervaloAtual = intervaloMs;
+        }
+    }
+
+    // Método que será executado periodicamente
+    private void executarColeta() {
+        System.out.println("=== Execução agendada iniciada ===");
+        System.out.println("Intervalo atual: " + intervaloAtual + "ms");
+
+        try {
+            String resultado = coletarDadosESalvar();
+            System.out.println("Coleta executada com sucesso");
+        } catch (Exception e) {
+            System.err.println("Erro na execução agendada: " + e.getMessage());
+        }
+    }
+
+    // Endpoint para alterar o intervalo DINAMICAMENTE
+    @PostMapping("/configurar-intervalo")
+    public ResponseEntity<Map<String, Object>> configurarIntervalo(@RequestParam long milissegundos) {
+        Map<String, Object> resposta = new HashMap<>();
+
+        if (milissegundos < 2000) { // Mínimo de 2 segundos
+            resposta.put("erro", "Intervalo mínimo é 2000ms (2 segundos)");
+            return ResponseEntity.badRequest().body(resposta);
+        }
+
+        // Atualiza o intervalo e reage a tarefa
+        this.intervaloAtual = milissegundos;
+        agendarTarefa(milissegundos);
+
+        resposta.put("mensagem", "Intervalo configurado para " + milissegundos + "ms");
+        resposta.put("intervalo", milissegundos);
+        resposta.put("legivel", formatarIntervalo(milissegundos));
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    // Endpoint para pausar/retomar
+    @PostMapping("/toggle-agendamento")
+    public ResponseEntity<Map<String, Object>> toggleAgendamento(@RequestParam boolean ativo) {
+        Map<String, Object> resposta = new HashMap<>();
+
+        this.agendamentoAtivo = ativo;
+
+        if (ativo) {
+            // Se está ativando, agenda a tarefa
+            agendarTarefa(this.intervaloAtual);
+            resposta.put("mensagem", "Agendamento ativado");
+        } else {
+            // Se está desativando, cancela a tarefa
+            if (tarefaAgendada != null) {
+                tarefaAgendada.cancel(false);
+                tarefaAgendada = null;
+            }
+            resposta.put("mensagem", "Agendamento desativado");
+        }
+
+        resposta.put("ativo", ativo);
+        return ResponseEntity.ok(resposta);
+    }
+
+    // Endpoint com opções pré-definidas
+    @PostMapping("/configurar-intervalo-predefinido")
+    public ResponseEntity<Map<String, Object>> configurarIntervaloPredefinido(@RequestParam String opcao) {
+        Map<String, Long> opcoes = new HashMap<>();
+        opcoes.put("2s", 2000L);
+        opcoes.put("5s", 5000L);
+        opcoes.put("15s", 15000L);
+        opcoes.put("30s", 30000L);
+        opcoes.put("1min", 60000L);
+        opcoes.put("2min", 120000L);
+        opcoes.put("5min", 300000L);
+        opcoes.put("10min", 600000L);
+        opcoes.put("15min", 900000L);
+        opcoes.put("30min", 1800000L);
+        opcoes.put("1h", 3600000L);
+        opcoes.put("6h", 21600000L);
+        opcoes.put("12h", 43200000L);
+
+        Map<String, Object> resposta = new HashMap<>();
+
+        if (opcoes.containsKey(opcao)) {
+            this.intervaloAtual = opcoes.get(opcao);
+            agendarTarefa(opcoes.get(opcao));
+
+            resposta.put("mensagem", "Intervalo configurado para " + opcao);
+            resposta.put("opcao", opcao);
+            resposta.put("intervalo", opcoes.get(opcao));
+            resposta.put("legivel", formatarIntervalo(opcoes.get(opcao)));
+
+            return ResponseEntity.ok(resposta);
+        } else {
+            resposta.put("erro", "Opção inválida");
+            resposta.put("opcoes_validas", opcoes.keySet());
+            return ResponseEntity.badRequest().body(resposta);
+        }
+    }
+
+    // Endpoint para executar manualmente
+    @PostMapping("/executar-manualmente")
+    public ResponseEntity<Map<String, Object>> executarManualmente() {
+        Map<String, Object> resposta = new HashMap<>();
+
+        try {
+            System.out.println("=== Execução manual solicitada ===");
+            String resultado = coletarDadosESalvar();
+
+            resposta.put("mensagem", "Execução manual realizada com sucesso");
+            resposta.put("status", "sucesso");
+
+            return ResponseEntity.ok(resposta);
+        } catch (Exception e) {
+            resposta.put("erro", "Falha na execução manual: " + e.getMessage());
+            resposta.put("status", "erro");
+
+            return ResponseEntity.status(500).body(resposta);
+        }
+    }
+
+    // Endpoint para obter status atual
+    @GetMapping("/status-agendamento")
+    public ResponseEntity<Map<String, Object>> getStatus() {
+        Map<String, Object> resposta = new HashMap<>();
+
+        boolean tarefaAtiva = tarefaAgendada != null && !tarefaAgendada.isCancelled();
+
+        resposta.put("agendamentoAtivo", agendamentoAtivo && tarefaAtiva);
+        resposta.put("intervaloAtual", intervaloAtual);
+        resposta.put("intervaloLegivel", formatarIntervalo(intervaloAtual));
+        resposta.put("username", username != null ? "configurado" : "não configurado");
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    private String formatarIntervalo(long ms) {
+        if (ms < 60000) {
+            return (ms / 1000) + " segundos";
+        } else if (ms < 3600000) {
+            return (ms / 60000) + " minutos";
+        } else {
+            return (ms / 3600000) + " horas";
+        }
+    }
+
+    // Endpoint de debug (opcional)
     @GetMapping("/funcaoAlcDebug")
     public String funcaoAlcDebug() {
         System.out.println("=== /funcaoAlcDebug chamado ===");
-        System.out.println("Calibração");
-        // ... resto do código ...
+        return "Calibração - Sistema operacional";
     }
-    */
+
     private String coletarDadosESalvar() {
         String urlBase = "http://10.10.103.103/debug/";
         System.out.println("URL que será acessada: " + urlBase);
@@ -291,7 +460,7 @@ public class buscaAutomatica {
             System.out.println("Potencia Direta4: " + potencia4);
             System.out.println("Potencia Refletida4: " + refletida4);
 
-            // Colocar os valores no resultado (removi chaves vazias)
+            // Colocar os valores no resultado
             resultado.put("status", "Checagem executada com sucesso");
             resultado.put("chanelnumber1", chanelNumber1);
             resultado.put("frequency1", frequency1);
@@ -329,7 +498,7 @@ public class buscaAutomatica {
             resultado.put("potecia4", potencia4);
             resultado.put("refletida4", refletida4);
 
-            // Salvar os dados em um arquivo .txt (caminho melhorado)
+            // Salvar os dados em um arquivo .txt
             String filePath = System.getProperty("user.dir") + "/dados.txt";
             try (FileWriter writer = new FileWriter(filePath)) {
                 // MTX1
@@ -376,7 +545,6 @@ public class buscaAutomatica {
                 writer.write("Potencia Refletida4: " + refletida4 + "\n");
                 writer.write("\n");
 
-
                 System.out.println("Dados salvos em: " + filePath);
             } catch (IOException e) {
                 System.err.println("Erro ao salvar dados: " + e.getMessage());
@@ -384,16 +552,16 @@ public class buscaAutomatica {
             }
 
         } catch (TimeoutException e) {
-            System.err.println("Timeout no /funcaoAlc: " + e.toString());
+            System.err.println("Timeout: " + e.toString());
             resultado.put("status", "Erro: Timeout ao executar checagem");
             resultado.put("erro", e.toString());
         } catch (Exception e) {
-            System.err.println("Erro no /funcaoAlc: " + e.toString());
+            System.err.println("Erro: " + e.toString());
             resultado.put("status", "Erro ao executar checagem");
             resultado.put("erro", e.toString());
         } finally {
             driver.quit();
-            System.out.println("Driver finalizado no /funcaoAlc");
+            System.out.println("Driver finalizado");
         }
 
         try {
@@ -401,7 +569,7 @@ public class buscaAutomatica {
             mapper.enable(SerializationFeature.INDENT_OUTPUT);
             return mapper.writeValueAsString(resultado);
         } catch (Exception e) {
-            System.err.println("Erro ao gerar JSON no /funcaoAlc: " + e.toString());
+            System.err.println("Erro ao gerar JSON: " + e.toString());
             return "{\"erro\":\"Falha ao gerar JSON\"}";
         }
     }
@@ -432,5 +600,4 @@ public class buscaAutomatica {
             return ResponseEntity.status(500).build();
         }
     }
-
 }
