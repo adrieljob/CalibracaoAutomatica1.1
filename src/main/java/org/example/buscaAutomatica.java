@@ -44,7 +44,7 @@ public class buscaAutomatica {
     private TaskScheduler taskScheduler;
 
     private ScheduledFuture<?> tarefaAgendada;
-    private long intervaloAtual = 60000; // 1 minuto padrão
+    private long intervaloAtual = 60000; // padrão 1 minuto
     private boolean agendamentoAtivo = true;
 
     // Inicia o agendamento ao iniciar a aplicação
@@ -135,9 +135,6 @@ public class buscaAutomatica {
     @PostMapping("/configurar-intervalo-predefinido")
     public ResponseEntity<Map<String, Object>> configurarIntervaloPredefinido(@RequestParam String opcao) {
         Map<String, Long> opcoes = new HashMap<>();
-        opcoes.put("2s", 2000L);
-        opcoes.put("5s", 5000L);
-        opcoes.put("15s", 15000L);
         opcoes.put("30s", 30000L);
         opcoes.put("1min", 60000L);
         opcoes.put("2min", 120000L);
@@ -148,6 +145,7 @@ public class buscaAutomatica {
         opcoes.put("1h", 3600000L);
         opcoes.put("6h", 21600000L);
         opcoes.put("12h", 43200000L);
+        opcoes.put("Disabled", 0L);
 
         Map<String, Object> resposta = new HashMap<>();
 
@@ -257,45 +255,70 @@ public class buscaAutomatica {
             botaoLogin.click();
 
             // MTX1
+            // clica em modulador
             WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator1___']/input")));
             Thread.sleep(300);
             modulator1.click();
 
+            // pega o numero do canal
             WebElement getChanelNumber1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator1_Config_UpConverter_ChannelNumber")));
             Thread.sleep(300);
             String chanelNumber1 = getChanelNumber1.getText().trim();
 
+            // pega a qfrequencia
             WebElement getFrequency1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Modulator1_Status_FrequencyChannel")));
             Thread.sleep(300);
             String frequency1 = getFrequency1.getText().trim();
 
+            // clica em powerAmplifier
             WebElement powerAmp1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier1___']/input")));
             Thread.sleep(300);
             powerAmp1.click();
 
+            // pega a potencia em dbm
             WebElement getForwardDBM1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Config_OutputPower")));
             Thread.sleep(300);
             String forwardDBM1 = getForwardDBM1.getText().trim();
 
+            // pega o status ALC
             WebElement getALC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_AlcStatus")));
             Thread.sleep(300);
             String statusALC1 = getALC1.getText().trim();
 
+            // pega o DAC output
             WebElement getOutputDAC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_Measures_output_dac")));
             Thread.sleep(300);
             String outputDAC1 = getOutputDAC1.getText().trim();
 
+            // pega o DAC disered
             WebElement getDesiredDAC1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_Measures_desired_dac")));
             Thread.sleep(300);
             String desiredDAC1 = getDesiredDAC1.getText().trim();
 
+            // pega a potencia
             WebElement getPotencia1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_ForwardPower")));
             Thread.sleep(300);
             String potencia1 = getPotencia1.getText().trim();
 
+            // pega a potencia refletida
             WebElement getRefletida1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_ReflectedPower")));
             Thread.sleep(300);
             String refletida1 = getRefletida1.getText().trim();
+
+            // pega a  temperatura
+            WebElement getTemperatura1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_FanControl_ActualTemperature")));
+            Thread.sleep(300);
+            String temperatura1 = getTemperatura1.getText().trim();
+
+            // pega a FAN 1
+            WebElement getFan1MTX1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_FanControl_Fan1Speed")));
+            Thread.sleep(300);
+            String fan1MTX1 = getFan1MTX1.getText().trim();
+
+            // pega a FAN 2
+            WebElement getFan2MTX1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_FanControl_Fan2Speed")));
+            Thread.sleep(300);
+            String fan2MTX1 = getFan2MTX1.getText().trim();
 
             System.out.println("Dados extraídos:");
             System.out.println("MTX1");
@@ -307,6 +330,9 @@ public class buscaAutomatica {
             System.out.println("Desired DAC1: " + desiredDAC1);
             System.out.println("Potencia Direta1: " + potencia1);
             System.out.println("Potencia Refletida1: " + refletida1);
+            System.out.println("Temperatura1: " + temperatura1);
+            System.out.println("FAN1 MTX1: " + fan1MTX1);
+            System.out.println("FAN2 MTX1: " + fan2MTX1);
 
             // MTX2
             WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator2___']/input")));
@@ -349,6 +375,18 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String refletida2 = getRefletida2.getText().trim();
 
+            WebElement getTemperatura2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_FanControl_ActualTemperature")));
+            Thread.sleep(300);
+            String temperatura2 = getTemperatura2.getText().trim();
+
+            WebElement getFan1MTX2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_FanControl_Fan1Speed")));
+            Thread.sleep(300);
+            String fan1MTX2 = getFan1MTX2.getText().trim();
+
+            WebElement getFan2MTX2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier2_Status_FanControl_Fan2Speed")));
+            Thread.sleep(300);
+            String fan2MTX2 = getFan2MTX2.getText().trim();
+
             System.out.println("MTX2");
             System.out.println("Numero do canal2: " + chanelNumber2);
             System.out.println("Frequencia2: " + frequency2);
@@ -358,6 +396,9 @@ public class buscaAutomatica {
             System.out.println("Desired DAC2: " + desiredDAC2);
             System.out.println("Potencia Direta2: " + potencia2);
             System.out.println("Potencia Refletida2: " + refletida2);
+            System.out.println("Temperatura2: " + temperatura2);
+            System.out.println("FAN1 MTX2: " + fan1MTX2);
+            System.out.println("FAN2 MTX2: " + fan2MTX2);
 
             // MTX3
             WebElement modulator3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator3___']/input")));
@@ -399,6 +440,18 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String refletida3 = getRefletida3.getText().trim();
 
+            WebElement getTemperatura3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_FanControl_ActualTemperature")));
+            Thread.sleep(300);
+            String temperatura3 = getTemperatura3.getText().trim();
+
+            WebElement getFan1MTX3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_FanControl_Fan1Speed")));
+            Thread.sleep(300);
+            String fan1MTX3 = getFan1MTX3.getText().trim();
+
+            WebElement getFan2MTX3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier3_Status_FanControl_Fan2Speed")));
+            Thread.sleep(300);
+            String fan2MTX3 = getFan2MTX3.getText().trim();
+
             System.out.println("MTX3");
             System.out.println("Numero do canal3: " + chanelNumber3);
             System.out.println("Frequencia3: " + frequency3);
@@ -408,6 +461,9 @@ public class buscaAutomatica {
             System.out.println("Desired DAC3: " + desiredDAC3);
             System.out.println("Potencia Direta3: " + potencia3);
             System.out.println("Potencia Refletida3: " + refletida3);
+            System.out.println("Temperatura3: " + temperatura3);
+            System.out.println("FAN1 MTX3: " + fan1MTX3);
+            System.out.println("FAN2 MTX3: " + fan2MTX3);
 
             // MTX4
             WebElement modulator4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator4___']/input")));
@@ -450,6 +506,18 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String refletida4 = getRefletida4.getText().trim();
 
+            WebElement getTemperatura4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_FanControl_ActualTemperature")));
+            Thread.sleep(300);
+            String temperatura4 = getTemperatura4.getText().trim();
+
+            WebElement getFan1MTX4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_FanControl_Fan1Speed")));
+            Thread.sleep(300);
+            String fan1MTX4 = getFan1MTX4.getText().trim();
+
+            WebElement getFan2MTX4 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier4_Status_FanControl_Fan2Speed")));
+            Thread.sleep(300);
+            String fan2MTX4 = getFan2MTX4.getText().trim();
+
             System.out.println("MTX4");
             System.out.println("Numero do canal4: " + chanelNumber4);
             System.out.println("Frequencia4: " + frequency4);
@@ -459,6 +527,9 @@ public class buscaAutomatica {
             System.out.println("Desired DAC4: " + desiredDAC4);
             System.out.println("Potencia Direta4: " + potencia4);
             System.out.println("Potencia Refletida4: " + refletida4);
+            System.out.println("Temperatura4: " + temperatura4);
+            System.out.println("FAN1 MTX4: " + fan1MTX4);
+            System.out.println("FAN2 MTX4: " + fan2MTX4);
 
             // Colocar os valores no resultado
             resultado.put("status", "Checagem executada com sucesso");
@@ -470,6 +541,9 @@ public class buscaAutomatica {
             resultado.put("valorDesiredDac1", desiredDAC1);
             resultado.put("potecia1", potencia1);
             resultado.put("refletida1", refletida1);
+            resultado.put("temperatura1", temperatura1);
+            resultado.put("fan1MTX1", fan1MTX1);
+            resultado.put("fan2MTX1", fan2MTX1);
 
             resultado.put("chanelnumber2", chanelNumber2);
             resultado.put("frequency2", frequency2);
@@ -479,6 +553,9 @@ public class buscaAutomatica {
             resultado.put("valorDesiredDac2", desiredDAC2);
             resultado.put("potecia2", potencia2);
             resultado.put("refletida2", refletida2);
+            resultado.put("temperatura2", temperatura2);
+            resultado.put("fan1MTX2", fan1MTX2);
+            resultado.put("fan2MTX2", fan2MTX2);
 
             resultado.put("chanelnumber3", chanelNumber3);
             resultado.put("frequency3", frequency3);
@@ -488,6 +565,9 @@ public class buscaAutomatica {
             resultado.put("valorDesiredDac3", desiredDAC3);
             resultado.put("potecia3", potencia3);
             resultado.put("refletida3", refletida3);
+            resultado.put("temperatura3", temperatura3);
+            resultado.put("fan1MTX3", fan1MTX3);
+            resultado.put("fan2MTX3", fan2MTX3);
 
             resultado.put("chanelnumber4", chanelNumber4);
             resultado.put("frequency4", frequency4);
@@ -497,6 +577,9 @@ public class buscaAutomatica {
             resultado.put("valorDesiredDac4", desiredDAC4);
             resultado.put("potecia4", potencia4);
             resultado.put("refletida4", refletida4);
+            resultado.put("temperatura4", temperatura4);
+            resultado.put("fan1MTX4", fan1MTX4);
+            resultado.put("fan2MTX4", fan2MTX4);
 
             // Salvar os dados em um arquivo .txt
             String filePath = System.getProperty("user.dir") + "/dados.txt";
@@ -510,6 +593,9 @@ public class buscaAutomatica {
                 writer.write("Desired DAC1: " + desiredDAC1 + "\n");
                 writer.write("Potencia Direta1: " + potencia1 + "\n");
                 writer.write("Potencia Refletida1: " + refletida1 + "\n");
+                writer.write("Temperatura1: " + temperatura1 + "\n");
+                writer.write("FAN1 MTX1: " + fan1MTX1 + "\n");
+                writer.write("FAN2 MTX1: " + fan2MTX1 + "\n");
                 writer.write("\n");
 
                 // MTX2
@@ -521,6 +607,9 @@ public class buscaAutomatica {
                 writer.write("Desired DAC2: " + desiredDAC2 + "\n");
                 writer.write("Potencia Direta2: " + potencia2 + "\n");
                 writer.write("Potencia Refletida2: " + refletida2 + "\n");
+                writer.write("Temperatura2: " + temperatura2 + "\n");
+                writer.write("FAN1 MTX2: " + fan1MTX2 + "\n");
+                writer.write("FAN2 MTX2: " + fan2MTX2 + "\n");
                 writer.write("\n");
 
                 // MTX3
@@ -532,6 +621,9 @@ public class buscaAutomatica {
                 writer.write("Desired DAC3: " + desiredDAC3 + "\n");
                 writer.write("Potencia Direta3: " + potencia3 + "\n");
                 writer.write("Potencia Refletida3: " + refletida3 + "\n");
+                writer.write("Temperatura3: " + temperatura3 + "\n");
+                writer.write("FAN1 MTX3: " + fan1MTX3 + "\n");
+                writer.write("FAN2 MTX3: " + fan2MTX3 + "\n");
                 writer.write("\n");
 
                 // MTX4
@@ -543,6 +635,9 @@ public class buscaAutomatica {
                 writer.write("Desired DAC4: " + desiredDAC4 + "\n");
                 writer.write("Potencia Direta4: " + potencia4 + "\n");
                 writer.write("Potencia Refletida4: " + refletida4 + "\n");
+                writer.write("Temperatura4: " + temperatura4 + "\n");
+                writer.write("FAN1 MTX4: " + fan1MTX4 + "\n");
+                writer.write("FAN2 MTX4: " + fan2MTX4 + "\n");
                 writer.write("\n");
 
                 System.out.println("Dados salvos em: " + filePath);

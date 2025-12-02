@@ -39,12 +39,72 @@
             color: #fff;
         }
 
-        /* Dropdown minimalista no canto superior direito */
-        .dropdown-container {
+        /* Nova classe para a casa grande */
+        .casa-grande {
+            border: 3px solid #f00;
+            background: #111;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .casa-grande h1 {
+            margin-bottom: 15px;
+            align-self: center;
+        }
+        .casa-grande .casas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        /* Container para botões de potência */
+        .potencia-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .potencia-btn {
+            padding: 6px 12px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .potencia-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .potencia-btn.active {
+            background: #f00;
+            color: #000;
+        }
+
+        /* Containers para os dropdowns */
+        .dropdowns-container {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .dropdown-container {
+            position: relative;
         }
 
         .dropdown-btn {
@@ -56,6 +116,7 @@
             cursor: pointer;
             font-size: 14px;
             font-weight: bold;
+            white-space: nowrap;
         }
 
         .dropdown-btn:hover {
@@ -73,6 +134,7 @@
             border-radius: 4px;
             min-width: 120px;
             padding: 5px 0;
+            z-index: 1001;
         }
 
         .dropdown-content.show {
@@ -93,16 +155,6 @@
         .dropdown-item:hover {
             background: #f00;
             color: #000;
-        }
-
-        .dropdown-item.disabled {
-            color: #888;
-            cursor: default;
-        }
-
-        .dropdown-item.disabled:hover {
-            background: transparent;
-            color: #888;
         }
 
         .dropdown-item.selected {
@@ -127,220 +179,616 @@
             text-align: center;
         }
 
+        /* Status message para potência */
+        .potencia-status {
+            margin: 10px auto;
+            padding: 8px 12px;
+            background: #111;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .status-success {
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+
+        .status-error {
+            color: #f00;
+            border: 1px solid #f00;
+        }
+
+        .status-loading {
+            color: #f00;
+            border: 1px solid #f00;
+        }
+
         @media (max-width: 768px) {
             .casa {
                 width: 45%;
             }
-            .dropdown-container {
+            .casa-grande {
+                padding: 10px;
+            }
+            .casa-grande .casas-container {
+                flex-direction: column;
+            }
+            .dropdowns-container {
                 top: 10px;
                 right: 10px;
+                flex-direction: column;
+                gap: 5px;
             }
+            .potencia-container {
+                gap: 5px;
+            }
+            .potencia-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+        }
+        /* Container para botões de canal */
+        .canal-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .canal-btn {
+            padding: 6px 12px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .canal-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .canal-btn.active {
+            background: #f00;
+            color: #000;
+        }
+
+        /* Status para canal */
+        .canal-status {
+            margin: 10px auto;
+            padding: 8px 12px;
+            background: #111;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .status-success {
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+
+        .status-error {
+            color: #f00;
+            border: 1px solid #f00;
+        }
+
+        .status-loading {
+            color: #f00;
+            border: 1px solid #f00;
         }
     </style>
 </head>
 <body>
 
-<!-- Dropdown no canto superior direito -->
-<div class="dropdown-container">
-    <button class="dropdown-btn" onclick="toggleDropdown()">Atualizar: 1m</button>
-    <div class="dropdown-content" id="dropdownContent">
-        <div class="dropdown-divider"></div>
-        <button class="dropdown-item" onclick="setIntervalo(30000)">30s</button>
-        <button class="dropdown-item" onclick="setIntervalo(60000)">1m</button>
-        <button class="dropdown-item" onclick="setIntervalo(300000)">5m</button>
-        <button class="dropdown-item" onclick="setIntervalo(600000)">10m</button>
-        <button class="dropdown-item" onclick="setIntervalo(900000)">15m</button>
-        <button class="dropdown-item" onclick="setIntervalo(1800000)">30m</button>
-        <button class="dropdown-item" onclick="setIntervalo(3600000)">1h</button>
-        <button class="dropdown-item" onclick="setIntervalo(21600000)">6h</button>
-        <button class="dropdown-item" onclick="setIntervalo(43200000)">12h</button>
-        <div class="dropdown-divider"></div>
-        <button class="dropdown-item" onclick="desativarAtualizacao()">Disabled</button>
+<!-- Dropdown de Atualização -->
+<div class="dropdowns-container">
+    <div class="dropdown-container">
+        <button class="dropdown-btn" onclick="toggleDropdown('atualizar')">Atualizar: 1m</button>
+        <div class="dropdown-content" id="dropdownAtualizar">
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" onclick="setIntervalo(30000)">30s</button>
+            <button class="dropdown-item" onclick="setIntervalo(60000)">1m</button>
+            <button class="dropdown-item" onclick="setIntervalo(300000)">5m</button>
+            <button class="dropdown-item" onclick="setIntervalo(600000)">10m</button>
+            <button class="dropdown-item" onclick="setIntervalo(900000)">15m</button>
+            <button class="dropdown-item" onclick="setIntervalo(1800000)">30m</button>
+            <button class="dropdown-item" onclick="setIntervalo(3600000)">1h</button>
+            <button class="dropdown-item" onclick="setIntervalo(21600000)">6h</button>
+            <button class="dropdown-item" onclick="setIntervalo(43200000)">12h</button>
+            <button class="dropdown-item" onclick="desativarAtualizacao()">Disabled</button>
+        </div>
     </div>
 </div>
 
 <h1>Calibração Automática 1.3</h1>
 
-<div id="casas">
+<!-- MTX 1 -->
+<div class="casa-grande" id="mtx1">
     <h1>MTX1</h1>
-    <div class="casa">
-        <h3>Canal</h3>
-        <p id="chanelnumber1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequency1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Forward dBM</h3>
-        <p id="forwardDBM1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Output DAC</h3>
-        <p id="valorOutputDac1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Desired DAC</h3>
-        <p id="valorDesiredDac1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia  Direta</h3>
-        <p id="potencia1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia Refletida</h3>
-        <p id="refletida1">Carregando...</p>
+
+    <div class="potencia-container">
+        <button class="potencia-btn" onclick="setarPotencia('1', '300')">1W</button>
+        <button class="potencia-btn" onclick="setarPotencia('1', '340')">2.5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('1', '370')">5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('1', '430')">10W</button>
+        <button class="potencia-btn" onclick="setarPotencia('1', '486')">72W</button>
     </div>
 
+    <div class="potencia-status" id="potenciaStatus1"></div>
+
+    <div class="canal-container">
+        <button class="canal-btn" onclick="setarCanal('1', '14')">14</button>
+        <button class="canal-btn" onclick="setarCanal('1', '34')">34</button>
+        <button class="canal-btn" onclick="setarCanal('1', '51')">51</button>
+    </div>
+
+    <div class="canal-status" id="canalStatus1"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3></h3>
+            <p></p>
+        </div>
+    </div>
+</div>
+
+<!-- MTX 2 -->
+<div class="casa-grande" id="mtx2">
     <h1>MTX2</h1>
-    <div class="casa">
-        <h3>Canal</h3>
-        <p id="chanelnumber2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequency2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Forward dBM</h3>
-        <p id="forwardDBM2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Output DAC</h3>
-        <p id="valorOutputDac2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Desired DAC</h3>
-        <p id="valorDesiredDac2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia  Direta</h3>
-        <p id="potencia2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia Refletida</h3>
-        <p id="refletida2">Carregando...</p>
+
+    <div class="potencia-container">
+        <button class="potencia-btn" onclick="setarPotencia('2', '300')">1W</button>
+        <button class="potencia-btn" onclick="setarPotencia('2', '340')">2.5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('2', '370')">5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('2', '430')">10W</button>
+        <button class="potencia-btn" onclick="setarPotencia('2', '486')">72W</button>
     </div>
 
+    <div class="potencia-status" id="potenciaStatus2"></div>
+
+    <div class="canal-container">
+        <button class="canal-btn" onclick="setarCanal('2', '14')">14</button>
+        <button class="canal-btn" onclick="setarCanal('2', '34')">34</button>
+        <button class="canal-btn" onclick="setarCanal('2', '51')">51</button>
+    </div>
+
+    <div class="canal-status" id="canalStatus2"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3></h3>
+            <p></p>
+        </div>
+    </div>
+</div>
+
+<!-- MTX 3 -->
+<div class="casa-grande" id="mtx3">
     <h1>MTX3</h1>
-    <div class="casa">
-        <h3>Canal</h3>
-        <p id="chanelnumber3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequency3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Forward dBM</h3>
-        <p id="forwardDBM3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Output DAC</h3>
-        <p id="valorOutputDac3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Desired DAC</h3>
-        <p id="valorDesiredDac3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia  Direta</h3>
-        <p id="potencia3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia Refletida</h3>
-        <p id="refletida3">Carregando...</p>
+
+    <div class="potencia-container">
+        <button class="potencia-btn" onclick="setarPotencia('3', '300')">1W</button>
+        <button class="potencia-btn" onclick="setarPotencia('3', '340')">2.5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('3', '370')">5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('3', '430')">10W</button>
+        <button class="potencia-btn" onclick="setarPotencia('3', '486')">72W</button>
     </div>
 
+    <div class="potencia-status" id="potenciaStatus3"></div>
+
+    <div class="canal-container">
+        <button class="canal-btn" onclick="setarCanal('3', '14')">14</button>
+        <button class="canal-btn" onclick="setarCanal('3', '34')">34</button>
+        <button class="canal-btn" onclick="setarCanal('3', '51')">51</button>
+    </div>
+
+    <div class="canal-status" id="canalStatus3"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3></h3>
+            <p></p>
+        </div>
+    </div>
+</div>
+
+<!-- MTX 4 -->
+<div class="casa-grande" id="mtx4">
     <h1>MTX4</h1>
-    <div class="casa">
-        <h3>Canal</h3>
-        <p id="chanelnumber4">Carregando...</p>
+
+    <div class="potencia-container">
+        <button class="potencia-btn" onclick="setarPotencia('4', '300')">1W</button>
+        <button class="potencia-btn" onclick="setarPotencia('4', '340')">2.5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('4', '370')">5W</button>
+        <button class="potencia-btn" onclick="setarPotencia('4', '430')">10W</button>
+        <button class="potencia-btn" onclick="setarPotencia('4', '486')">72W</button>
     </div>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequency4">Carregando...</p>
+
+    <div class="potencia-status" id="potenciaStatus4"></div>
+
+    <div class="canal-container">
+        <button class="canal-btn" onclick="setarCanal('4', '14')">14</button>
+        <button class="canal-btn" onclick="setarCanal('4', '34')">34</button>
+        <button class="canal-btn" onclick="setarCanal('4', '51')">51</button>
     </div>
-    <div class="casa">
-        <h3>Forward dBM</h3>
-        <p id="forwardDBM4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Output DAC</h3>
-        <p id="valorOutputDac4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Desired DAC</h3>
-        <p id="valorDesiredDac4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia  Direta</h3>
-        <p id="potencia4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Potencia Refletida</h3>
-        <p id="refletida4">Carregando...</p>
+
+    <div class="canal-status" id="canalStatus4"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3></h3>
+            <p></p>
+        </div>
     </div>
 </div>
 
 <div id="status">Última atualização: Carregando...</div>
 
 <script>
-    let dropdownAberto = false;
+    // ============ VARIÁVEIS GLOBAIS ============
     let intervaloAtual = 30000;
     let atualizacaoAtiva = true;
     let timerAtualizacao = null;
-    let ultimaOpcaoSelecionada = '30s';
 
-    // Mapeamento para texto amigável
+    // Labels das potências
+    const powerLabels = {
+        '300': '1W',
+        '340': '2.5W',
+        '370': '5W',
+        '430': '10W',
+        '486': '72W'
+    };
+
+    // ============ FUNÇÕES DE POTÊNCIA ============
+   async function setarPotencia(mtx, valorDAC) {
+    // Atualiza botões ativos
+    const buttons = document.querySelectorAll(`#mtx${mtx} .potencia-btn`);
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    // Mostra mensagem de carregamento
+    mostrarPotenciaStatus(mtx, 'Aplicando...', 'loading');
+
+    try {
+        // Determina qual endpoint chamar baseado no MTX
+        let endpoint = '';
+        switch(mtx) {
+            case '1':
+                endpoint = `/mudar-potencia-mtx1?valorPotencia=${valorDAC}`;
+                break;
+            case '2':
+                endpoint = `/mudar-potencia-mtx2?valorPotencia=${valorDAC}`;
+                break;
+            case '3':
+                endpoint = `/mudar-potencia-mtx3?valorPotencia=${valorDAC}`;
+                break;
+            case '4':
+                endpoint = `/mudar-potencia-mtx4?valorPotencia=${valorDAC}`;
+                break;
+            default:
+                throw new Error('MTX inválido');
+        }
+
+        const response = await fetch(endpoint, {
+            method: 'POST'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok && resultado.status === 'sucesso') {
+            const label = powerLabels[valorDAC] || valorDAC;
+            mostrarPotenciaStatus(mtx, `${label} aplicado!`, 'success');
+
+            // Recarrega dados após 2 segundos
+            setTimeout(() => {
+                carregarDados();
+            }, 2000);
+
+        } else {
+            mostrarPotenciaStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+        }
+
+        } catch (error) {
+            mostrarPotenciaStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro:', error);
+        }
+    }
+
+    function mostrarPotenciaStatus(mtx, mensagem, tipo) {
+        const statusDiv = document.getElementById(`potenciaStatus${mtx}`);
+        statusDiv.textContent = mensagem;
+        statusDiv.className = 'potencia-status';
+
+        if (tipo === 'success') {
+            statusDiv.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusDiv.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusDiv.classList.add('status-loading');
+        }
+
+        statusDiv.style.display = 'block';
+
+        // Esconde após 3 segundos
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    // ============ FUNÇÕES DE CANAL ============
+    async function setarCanal(mtx, canal) {
+    const canalButtons = document.querySelectorAll(`#mtx${mtx} .canal-btn`);
+    canalButtons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    mostrarCanalStatus(mtx, `Aplicando canal ${canal}...`, 'loading');
+
+    try {
+        const response = await fetch(`/mudar-canal-mtx${mtx}?canal=${canal}`, {
+            method: 'POST'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok && resultado.status === 'sucesso') {
+            mostrarCanalStatus(mtx, `Canal ${canal} aplicado!`, 'success');
+
+            setTimeout(() => {
+                carregarDados();
+            }, 2000);
+        } else {
+            mostrarCanalStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+        }
+    } catch (error) {
+        mostrarCanalStatus(mtx, 'Erro de conexão', 'error');
+        console.error('Erro:', error);
+    }
+}
+
+function mostrarCanalStatus(mtx, mensagem, tipo) {
+    const statusDiv = document.getElementById(`canalStatus${mtx}`);
+    statusDiv.textContent = mensagem;
+    statusDiv.className = 'canal-status';
+
+    if (tipo === 'success') {
+        statusDiv.classList.add('status-success');
+    } else if (tipo === 'error') {
+        statusDiv.classList.add('status-error');
+    } else if (tipo === 'loading') {
+        statusDiv.classList.add('status-loading');
+    }
+
+    statusDiv.style.display = 'block';
+
+    // Esconde após 3 segundos
+    setTimeout(() => {
+        statusDiv.style.display = 'none';
+    }, 3000);
+}
+
+    // ============ FUNÇÕES DE ATUALIZAÇÃO ============
+    let dropdownAberto = {
+        atualizar: false
+    };
+
     const intervalosTextos = {
         30000: "30s",
-        60000: "1m",
-        300000: "5m",
-        600000: "10m",
-        900000: "15m",
-        1800000: "30m",
+        60000: "1min",
+        300000: "5min",
+        600000: "10min",
+        900000: "15min",
+        1800000: "30min",
         3600000: "1h",
         21600000: "6h",
         43200000: "12h",
         'disabled': 'Disabled'
     };
 
-    // Alternar dropdown
-    function toggleDropdown() {
-        const dropdown = document.getElementById('dropdownContent');
+    function toggleDropdown(tipo) {
+        const dropdown = document.getElementById(`dropdown${tipo.charAt(0).toUpperCase() + tipo.slice(1)}`);
         dropdown.classList.toggle('show');
-        dropdownAberto = !dropdownAberto;
+        dropdownAberto[tipo] = !dropdownAberto[tipo];
     }
 
-    // Fechar dropdown ao clicar fora
     document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('dropdownContent');
-        const botao = document.querySelector('.dropdown-btn');
+        const dropdownAtualizar = document.getElementById('dropdownAtualizar');
+        const botaoAtualizar = document.querySelector('.dropdown-btn');
 
-        if (!dropdown.contains(event.target) && !botao.contains(event.target)) {
-            dropdown.classList.remove('show');
-            dropdownAberto = false;
+        // Fecha dropdown se clicar fora
+        if (!dropdownAtualizar.contains(event.target) && !botaoAtualizar.contains(event.target)) {
+            dropdownAtualizar.classList.remove('show');
+            dropdownAberto.atualizar = false;
         }
     });
 
-    // Remover seleção de todos os itens
     function removerSelecoes() {
         const itens = document.querySelectorAll('.dropdown-item');
         itens.forEach(item => {
@@ -348,41 +796,27 @@
         });
     }
 
-    // Configurar intervalo
     async function setIntervalo(ms) {
         try {
-            // Configura no backend
             const response = await fetch(`/configurar-intervalo?milissegundos=${ms}`, {
                 method: 'POST'
             });
 
             if (response.ok) {
-                // Atualiza localmente
                 intervaloAtual = ms;
                 atualizacaoAtiva = true;
 
-                // Atualiza o texto do botão
                 const texto = intervalosTextos[ms];
                 document.querySelector('.dropdown-btn').textContent = `Atualizar: ${texto}`;
-                ultimaOpcaoSelecionada = texto;
 
-                // Remove seleções anteriores e seleciona a atual
                 removerSelecoes();
                 event.target.classList.add('selected');
 
-                // Fecha o dropdown
-                toggleDropdown();
-
-                // Reinicia o timer
+                toggleDropdown('atualizar');
                 reiniciarTimerAtualizacao();
 
-                // Ativa o agendamento no backend
                 await fetch('/toggle-agendamento?ativo=true', { method: 'POST' });
-
-                // Feedback
                 atualizarStatus(`Atualização: ${texto}`);
-
-                // Carrega dados imediatamente
                 carregarDados();
             }
         } catch (error) {
@@ -391,35 +825,25 @@
         }
     }
 
-    // Desativar atualização automática
     async function desativarAtualizacao() {
         try {
-            // Desativa no backend
             await fetch('/toggle-agendamento?ativo=false', {
                 method: 'POST'
             });
 
-            // Atualiza localmente
             atualizacaoAtiva = false;
-
-            // Atualiza o texto do botão
             document.querySelector('.dropdown-btn').textContent = 'Atualizar: Disabled';
-            ultimaOpcaoSelecionada = 'disabled';
 
-            // Remove seleções anteriores e seleciona "Disabled"
             removerSelecoes();
             event.target.classList.add('selected');
 
-            // Fecha o dropdown
-            toggleDropdown();
+            toggleDropdown('atualizar');
 
-            // Para o timer
             if (timerAtualizacao) {
                 clearInterval(timerAtualizacao);
                 timerAtualizacao = null;
             }
 
-            // Feedback
             atualizarStatus('Atualização automática desativada');
         } catch (error) {
             console.error('Erro:', error);
@@ -427,7 +851,6 @@
         }
     }
 
-    // Reiniciar timer de atualização
     function reiniciarTimerAtualizacao() {
         if (timerAtualizacao) {
             clearInterval(timerAtualizacao);
@@ -438,11 +861,10 @@
         }
     }
 
-    // Atualizar mensagem de status
     function atualizarStatus(mensagem) {
         const statusDiv = document.getElementById('status');
         statusDiv.textContent = mensagem;
-        statusDiv.style.color = '#0ff';
+        statusDiv.style.color = '#f00';
 
         setTimeout(() => {
             if (!mensagem.includes('desativada')) {
@@ -452,9 +874,7 @@
         }, 3000);
     }
 
-    // Carregar dados (sua função original)
     async function carregarDados() {
-        // Se a atualização estiver desativada, não faz nada
         if (!atualizacaoAtiva) {
             return;
         }
@@ -472,7 +892,6 @@
             const lines = content.split('\n');
             const data = {};
 
-            // Parse do arquivo dados.txt
             lines.forEach(line => {
                 const trimmed = line.trim();
 
@@ -482,7 +901,8 @@
                     return match ? match[1] : 'N/A';
                 };
 
-                if (trimmed.startsWith('chanel number1:')) data.chanelnumber1 = extrairNumero(trimmed.split(':')[1]);
+                // MTX 1
+                if (trimmed.startsWith('chanel number1:')) data.chanelNumber1 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
@@ -490,8 +910,12 @@
                 else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Direta1:')) data.potencia1 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Refletida1:')) data.refletida1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura1')) data.temperatura1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX1')) data.fan1MTX1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX1')) data.fan2MTX1 = extrairNumero(trimmed.split(':')[1]);
 
-                else if (trimmed.startsWith('chanel number2:')) data.chanelnumber2 = extrairNumero(trimmed.split(':')[1]);
+                // MTX 2
+                else if (trimmed.startsWith('chanel number2:')) data.chanelNumber2 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
@@ -499,8 +923,12 @@
                 else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Direta2:')) data.potencia2 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Refletida2:')) data.refletida2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura2')) data.temperatura2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX2')) data.fan1MTX2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX2')) data.fan2MTX2 = extrairNumero(trimmed.split(':')[1]);
 
-                else if (trimmed.startsWith('chanel number3:')) data.chanelnumber3 = extrairNumero(trimmed.split(':')[1]);
+                // MTX 3
+                else if (trimmed.startsWith('chanel number3:')) data.chanelNumber3 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
@@ -508,8 +936,12 @@
                 else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Direta3:')) data.potencia3 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Refletida3:')) data.refletida3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura3')) data.temperatura3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX3')) data.fan1MTX3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX3')) data.fan2MTX3 = extrairNumero(trimmed.split(':')[1]);
 
-                else if (trimmed.startsWith('chanel number4:')) data.chanelnumber4 = extrairNumero(trimmed.split(':')[1]);
+                // MTX 4
+                else if (trimmed.startsWith('chanel number4:')) data.chanelNumber4 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
@@ -517,44 +949,25 @@
                 else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Direta4:')) data.potencia4 = extrairNumero(trimmed.split(':')[1]);
                 else if (trimmed.startsWith('Potencia Refletida4:')) data.refletida4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura4')) data.temperatura4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX4')) data.fan1MTX4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX4')) data.fan2MTX4 = extrairNumero(trimmed.split(':')[1]);
             });
 
-            // Preenche os campos (mantido igual)
-            document.getElementById('chanelnumber1').textContent = data.chanelnumber1 || 'N/A';
-            document.getElementById('frequency1').textContent = data.frequency1 || 'N/A';
-            document.getElementById('forwardDBM1').textContent = data.forwardDBM1 || 'N/A';
-            document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
-            document.getElementById('valorOutputDac1').textContent = data.valorOutputDac1 || 'N/A';
-            document.getElementById('valorDesiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
-            document.getElementById('potencia1').textContent = data.potencia1 || 'N/A';
-            document.getElementById('refletida1').textContent = data.refletida1 || 'N/A';
-
-            document.getElementById('chanelnumber2').textContent = data.chanelnumber2 || 'N/A';
-            document.getElementById('frequency2').textContent = data.frequency2 || 'N/A';
-            document.getElementById('forwardDBM2').textContent = data.forwardDBM2 || 'N/A';
-            document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
-            document.getElementById('valorOutputDac2').textContent = data.valorOutputDac2 || 'N/A';
-            document.getElementById('valorDesiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
-            document.getElementById('potencia2').textContent = data.potencia2 || 'N/A';
-            document.getElementById('refletida2').textContent = data.refletida2 || 'N/A';
-
-            document.getElementById('chanelnumber3').textContent = data.chanelnumber3 || 'N/A';
-            document.getElementById('frequency3').textContent = data.frequency3 || 'N/A';
-            document.getElementById('forwardDBM3').textContent = data.forwardDBM3 || 'N/A';
-            document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
-            document.getElementById('valorOutputDac3').textContent = data.valorOutputDac3 || 'N/A';
-            document.getElementById('valorDesiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
-            document.getElementById('potencia3').textContent = data.potencia3 || 'N/A';
-            document.getElementById('refletida3').textContent = data.refletida3 || 'N/A';
-
-            document.getElementById('chanelnumber4').textContent = data.chanelnumber4 || 'N/A';
-            document.getElementById('frequency4').textContent = data.frequency4 || 'N/A';
-            document.getElementById('forwardDBM4').textContent = data.forwardDBM4 || 'N/A';
-            document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
-            document.getElementById('valorOutputDac4').textContent = data.valorOutputDac4 || 'N/A';
-            document.getElementById('valorDesiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
-            document.getElementById('potencia4').textContent = data.potencia4 || 'N/A';
-            document.getElementById('refletida4').textContent = data.refletida4 || 'N/A';
+            // Preenche os campos para todos os MTXs
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`chanelNumber${i}`).textContent = data[`chanelNumber${i}`] || 'N/A';
+                document.getElementById(`frequency${i}`).textContent = data[`frequency${i}`] || 'N/A';
+                document.getElementById(`forwardDBM${i}`).textContent = data[`forwardDBM${i}`] || 'N/A';
+                document.getElementById(`statusAlc${i}`).textContent = data[`statusAlc${i}`] || 'N/A';
+                document.getElementById(`valorOutputDac${i}`).textContent = data[`valorOutputDac${i}`] || 'N/A';
+                document.getElementById(`valorDesiredDac${i}`).textContent = data[`valorDesiredDac${i}`] || 'N/A';
+                document.getElementById(`potencia${i}`).textContent = data[`potencia${i}`] || 'N/A';
+                document.getElementById(`refletida${i}`).textContent = data[`refletida${i}`] || 'N/A';
+                document.getElementById(`temperatura${i}`).textContent = data[`temperatura${i}`] || 'N/A';
+                document.getElementById(`fan1MTX${i}`).textContent = data[`fan1MTX${i}`] || 'N/A';
+                document.getElementById(`fan2MTX${i}`).textContent = data[`fan2MTX${i}`] || 'N/A';
+            }
 
             statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
             statusDiv.style.color = '#0f0';
@@ -566,7 +979,7 @@
         }
     }
 
-    // Inicialização
+    // ============ INICIALIZAÇÃO ============
     window.onload = function() {
         // Seleciona a opção padrão (30s)
         const opcoes = document.querySelectorAll('.dropdown-item');
@@ -575,6 +988,9 @@
                 opcao.classList.add('selected');
             }
         });
+
+        // Marca 10W como ativo para MTX2
+        document.querySelector('#mtx2 .potencia-btn:nth-child(2)').classList.add('active');
 
         carregarDados();
         reiniciarTimerAtualizacao();
