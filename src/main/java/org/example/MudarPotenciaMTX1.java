@@ -410,6 +410,7 @@ public class MudarPotenciaMTX1 {
         System.out.println("=== FIM DEBUG ===\n");
     }
 
+    // checar essa parte agr
     // Endpoint para testar todas as potências em sequência
     @PostMapping("/testar-todas-potencias1")
     public ResponseEntity<Map<String, Object>> testarTodasPotencias1() {
