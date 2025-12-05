@@ -12,8 +12,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class MudarPotenciaMTX3 {
@@ -25,9 +28,13 @@ public class MudarPotenciaMTX3 {
         VALORES_POTENCIA.put("300", "1W");
         VALORES_POTENCIA.put("340", "2.5W");
         VALORES_POTENCIA.put("370", "5W");
-        VALORES_POTENCIA.put("430", "10W");
-        VALORES_POTENCIA.put("486", "72.4W");
+        VALORES_POTENCIA.put("430", "20W");
+        VALORES_POTENCIA.put("486", "67.3W");
     }
+
+    // Variáveis para o loop cíclico
+    private static final Map<String, Object> TESTE_STATUS = new ConcurrentHashMap<>();
+    private static ExecutorService executorService = null;
 
     @Value("${app.username}")
     private String username;
@@ -114,9 +121,9 @@ public class MudarPotenciaMTX3 {
             System.out.println("Login realizado");
 
             // Aguardar carregamento
-            Thread.sleep(300);
+            //Thread.sleep(300);
 
-            // Acessa PowerAmp 3
+            // Acessa PowerAmp 1
             WebElement powerAmp3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier3___']/input")));
             powerAmp3.click();
             Thread.sleep(300);
@@ -139,7 +146,7 @@ public class MudarPotenciaMTX3 {
                 System.out.println("OutputPower encontrado pelo ID exato");
             } catch (Exception e1) {
                 try {
-                    // Tentativa 2: Pelo ID com underscore
+                    // Tentativa 1: Pelo ID com underscore
                     outputPower = wait.until(ExpectedConditions.elementToBeClickable(
                             By.id("PowerAmplifier3_Config_OutputPower")));
                     System.out.println("OutputPower encontrado pelo ID com underscore");
@@ -371,107 +378,215 @@ public class MudarPotenciaMTX3 {
         return resultado;
     }
 
-    // Método auxiliar para debug
-    private void debugElementosPagina3(WebDriver driver) {
-        System.out.println("\n=== DEBUG: Elementos da Página ===");
-
-        // Contar elementos
-        java.util.List<WebElement> todosInputs = driver.findElements(By.tagName("input"));
-        System.out.println("Total de inputs: " + todosInputs.size());
-
-        java.util.List<WebElement> todosBotoes = driver.findElements(By.tagName("button"));
-        System.out.println("Total de botões: " + todosBotoes.size());
-
-        // Mostrar inputs visíveis
-        System.out.println("\n--- Inputs Visíveis ---");
-        for (int i = 0; i < Math.min(todosInputs.size(), 10); i++) {
-            WebElement input = todosInputs.get(i);
-            if (input.isDisplayed()) {
-                System.out.println("Input " + i + ": " +
-                        "ID='" + input.getAttribute("id") + "', " +
-                        "Name='" + input.getAttribute("name") + "', " +
-                        "Type='" + input.getAttribute("type") + "', " +
-                        "Value='" + input.getAttribute("value") + "'");
-            }
-        }
-
-        // Mostrar botões visíveis
-        System.out.println("\n--- Botões Visíveis ---");
-        for (int i = 0; i < Math.min(todosBotoes.size(), 10); i++) {
-            WebElement botao = todosBotoes.get(i);
-            if (botao.isDisplayed()) {
-                System.out.println("Botão " + i + ": " +
-                        "Texto='" + botao.getText() + "', " +
-                        "ID='" + botao.getAttribute("id") + "', " +
-                        "Class='" + botao.getAttribute("class") + "'");
-            }
-        }
-
-        System.out.println("=== FIM DEBUG ===\n");
-    }
-
-    // Endpoint para testar todas as potências em sequência
+    // Loop pelas potencias
     @PostMapping("/testar-todas-potencias3")
     public ResponseEntity<Map<String, Object>> testarTodasPotencias3() {
         Map<String, Object> resposta = new HashMap<>();
 
-        new Thread(() -> {
-            System.out.println("=== INICIANDO TESTE DE TODAS AS POTÊNCIAS ===");
+        // Verificar se já está em execução
+        if (executorService != null && !executorService.isShutdown()) {
+            resposta.put("status", "ja_em_execucao");
+            resposta.put("mensagem", "Loop cíclico já está em execução");
+            resposta.put("ultima_potencia", TESTE_STATUS.get("potencia_atual"));
+            resposta.put("ciclo_atual", TESTE_STATUS.get("ciclo_atual"));
+            return ResponseEntity.ok(resposta);
+        }
 
-            for (String valor : VALORES_POTENCIA.keySet()) {
-                try {
-                    System.out.println("\n>>> Testando: " + valor + " (" + VALORES_POTENCIA.get(valor) + ")");
+        // Resetar status
+        TESTE_STATUS.clear();
+        TESTE_STATUS.put("status_geral", "executando");
+        TESTE_STATUS.put("inicio", LocalDateTime.now());
+        TESTE_STATUS.put("ciclo_atual", 1);
+        TESTE_STATUS.put("modo", "loop_ciclico_5min");
+        TESTE_STATUS.put("duracao_por_potencia", "5 minutos");
 
-                    Map<String, Object> resultado = configurarPotenciaMTX3(valor);
-                    System.out.println("Resultado: " + resultado);
+        // Ordem das potências para o ciclo
+        List<String> ordemPotencia = Arrays.asList("300", "340", "370", "430", "486");
+        TESTE_STATUS.put("ordem_potencias", ordemPotencia);
 
-                    Thread.sleep(300);
+        // Criar executor com thread única
+        executorService = Executors.newSingleThreadExecutor();
 
-                } catch (Exception e) {
-                    System.err.println("Erro em " + valor + ": " + e.getMessage());
+        executorService.submit(() -> {
+            try {
+                System.out.println("=== INICIANDO LOOP CÍCLICO DE POTÊNCIAS MTX3 ===");
+                System.out.println("Data/Hora: " + LocalDateTime.now());
+                System.out.println("Modo: Loop cíclico de 5 minutos por potência");
+                System.out.println("Ordem: " + ordemPotencia);
+                System.out.println("Duração por potência: 5 minutos");
+                System.out.println("Ciclo completo: 25 minutos (5 potências x 5 minutos)");
+
+                int ciclo = 1;
+
+                // Loop infinito (até ser cancelado)
+                while (!Thread.currentThread().isInterrupted()) {
+                    System.out.println("\n" + "=".repeat(60));
+                    System.out.println("CICLO " + ciclo);
+                    System.out.println("=".repeat(60));
+
+                    for (int i = 0; i < ordemPotencia.size(); i++) {
+                        // Verificar se foi solicitado cancelamento
+                        if (Thread.currentThread().isInterrupted()) {
+                            System.out.println("Loop interrompido por cancelamento");
+                            return;
+                        }
+
+                        String valorDAC = ordemPotencia.get(i);
+                        String potencia = VALORES_POTENCIA.get(valorDAC);
+                        int posicao = i + 1;
+
+                        // Atualizar status
+                        TESTE_STATUS.put("ciclo_atual", ciclo);
+                        TESTE_STATUS.put("posicao_ciclo", posicao + "/" + ordemPotencia.size());
+                        TESTE_STATUS.put("valor_atual", valorDAC);
+                        TESTE_STATUS.put("potencia_atual", potencia);
+                        TESTE_STATUS.put("inicio_potencia", LocalDateTime.now().toString());
+                        TESTE_STATUS.put("proxima_troca", LocalDateTime.now().plusMinutes(5).toString());
+
+                        System.out.println("\n" + "-".repeat(50));
+                        System.out.println("CICLO " + ciclo + " - POTÊNCIA " + posicao + "/" + ordemPotencia.size());
+                        System.out.println("Aplicando: " + potencia + " (DAC: " + valorDAC + ")");
+                        System.out.println("Início: " + LocalDateTime.now());
+                        System.out.println("Próxima troca: " + LocalDateTime.now().plusMinutes(5));
+                        System.out.println("-".repeat(50));
+
+                        // Aplicar a potência
+                        try {
+                            Map<String, Object> resultado = configurarPotenciaMTX3(valorDAC);
+
+                            if ("sucesso".equals(resultado.get("status"))) {
+                                System.out.println(potencia + " aplicada com sucesso");
+                                System.out.println("Potência antes: " + resultado.get("potencia_antes"));
+                                System.out.println("Potência depois: " + resultado.get("potencia_depois"));
+                            } else {
+                                System.out.println("Falha ao aplicar " + potencia + ": " + resultado.get("mensagem"));
+                            }
+
+
+                        } catch (Exception e) {
+                            System.err.println("ERRO ao aplicar " + potencia + ": " + e.getMessage());
+                            e.printStackTrace();
+                        }
+
+                        // Aguardar 5 minutos (300000 milissegundos)
+                        System.out.println("\nAguardando 1 minuto...");
+
+                        // Aguardar em blocos de 1 minuto para permitir cancelamento mais rápido
+                        for (int minuto = 1; minuto <= 1; minuto++) {
+                            if (Thread.currentThread().isInterrupted()) {
+                                System.out.println("Aguardar interrompido no minuto " + minuto);
+                                return;
+                            }
+
+                            TESTE_STATUS.put("tempo_restante_minutos", 1 - minuto);
+                            TESTE_STATUS.put("minuto_atual", minuto + "/5");
+
+                            System.out.println("Minuto " + minuto + "/5 - Próxima troca em " + (1 - minuto) + " minutos");
+
+                            try {
+                                Thread.sleep(60000); // 1 minuto
+                            } catch (InterruptedException e) {
+                                System.out.println("Thread interrompida durante a espera");
+                                Thread.currentThread().interrupt();
+                                return;
+                            }
+                        }
+
+                        System.out.println("5 minutos concluídos! Próxima potência...");
+                    }
+
+                    // Incrementar ciclo
+                    ciclo++;
+                    TESTE_STATUS.put("ciclo_atual", ciclo);
+
+                    System.out.println("\nCICLO " + (ciclo-1) + " COMPLETO!");
+                    System.out.println("Iniciando próximo ciclo em 10 segundos...");
+
+                    // Pequena pausa entre ciclos
+                    Thread.sleep(10000);
                 }
+
+            } catch (Exception e) {
+                System.err.println("ERRO FATAL no loop cíclico: " + e.getMessage());
+                e.printStackTrace();
+
+                TESTE_STATUS.put("status_geral", "erro_fatal");
+                TESTE_STATUS.put("erro", e.getMessage());
+                TESTE_STATUS.put("fim", LocalDateTime.now().toString());
+            } finally {
+                if (executorService != null) {
+                    executorService.shutdown();
+                }
+
+                System.out.println("LOOP CÍCLICO FINALIZADO");
+                TESTE_STATUS.put("status_geral", "finalizado");
+                TESTE_STATUS.put("fim", LocalDateTime.now().toString());
             }
+        });
 
-            System.out.println("=== TESTE CONCLUÍDO ===");
-        }).start();
-
-        resposta.put("status", "teste_iniciado");
-        resposta.put("mensagem", "Teste de todas as potências iniciado");
-        resposta.put("total_potencias", VALORES_POTENCIA.size());
+        resposta.put("status", "loop_iniciado");
+        resposta.put("mensagem", "Loop cíclico de potências iniciado");
+        resposta.put("modo", "5_minutos_por_potencia");
+        resposta.put("ordem", ordemPotencia);
+        resposta.put("duracao_ciclo_completo", "25 minutos (5x5)");
+        resposta.put("data_hora_inicio", LocalDateTime.now().toString()); // AQUI ESTÁ A CORREÇÃO
+        resposta.put("instrucao_cancelamento", "Use POST /cancelar-loop-potencias3 para parar");
 
         return ResponseEntity.ok(resposta);
     }
 
-    // Endpoint para testar sequência específica
-    @PostMapping("/testar-sequencia-potencias3")
-    public ResponseEntity<Map<String, Object>> testarSequencia3(@RequestParam String sequencia) {
+    // Endpoint para cancelar o loop
+    @PostMapping("/cancelar-loop-potencias3")
+    public ResponseEntity<Map<String, Object>> cancelarLoopPotencias3() {
         Map<String, Object> resposta = new HashMap<>();
 
-        String[] valores = sequencia.split(",");
+        if (executorService == null || executorService.isShutdown()) {
+            resposta.put("status", "nao_em_execucao");
+            resposta.put("mensagem", "Nenhum loop está em execução");
+            return ResponseEntity.ok(resposta);
+        }
 
-        new Thread(() -> {
-            System.out.println("=== INICIANDO SEQUÊNCIA PERSONALIZADA ===");
+        // Marcar como cancelando
+        TESTE_STATUS.put("status_geral", "cancelando");
 
-            for (int i = 0; i < valores.length; i++) {
-                String valor = valores[i].trim();
-                try {
-                    System.out.println("Teste " + (i+1) + "/" + valores.length +
-                            ": " + valor + " (" + VALORES_POTENCIA.get(valor) + ")");
+        try {
+            // Enviar interrupção para todas as threads
+            executorService.shutdownNow();
 
-                    configurarPotenciaMTX3(valor);
-                    Thread.sleep(300);
+            // Aguardar término
+            boolean terminado = executorService.awaitTermination(10, TimeUnit.SECONDS);
 
-                } catch (Exception e) {
-                    System.err.println("Erro em " + valor + ": " + e.getMessage());
-                }
+            resposta.put("status", "cancelado");
+            resposta.put("mensagem", "Loop cancelado com sucesso");
+            resposta.put("finalizado_completamente", terminado);
+            resposta.put("data_hora_cancelamento", LocalDateTime.now().toString()); // AQUI
+            resposta.put("ciclo_parcial", TESTE_STATUS.get("ciclo_atual"));
+            resposta.put("potencia_parcial", TESTE_STATUS.get("potencia_atual"));
+
+            TESTE_STATUS.put("status_geral", "cancelado");
+            TESTE_STATUS.put("fim", LocalDateTime.now().toString()); // AQUI
+
+        } catch (InterruptedException e) {
+            resposta.put("status", "erro_cancelamento");
+            resposta.put("mensagem", "Erro ao cancelar: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok(resposta);
+    }
+
+    // Endpoint para ver status atual
+    @GetMapping("/status-loop-potencias3")
+    public ResponseEntity<Map<String, Object>> getStatusLoopPotencias3() {
+        Map<String, Object> resposta = new HashMap<>(TESTE_STATUS);
+
+        if (executorService == null || executorService.isShutdown()) {
+            resposta.put("loop_ativo", false);
+            if (!resposta.containsKey("status_geral")) {
+                resposta.put("status_geral", "parado");
             }
-
-            System.out.println("=== SEQUÊNCIA CONCLUÍDA ===");
-        }).start();
-
-        resposta.put("status", "sequencia_iniciada");
-        resposta.put("mensagem", "Sequência iniciada em background");
-        resposta.put("total_valores", valores.length);
+        } else {
+            resposta.put("loop_ativo", true);
+        }
 
         return ResponseEntity.ok(resposta);
     }

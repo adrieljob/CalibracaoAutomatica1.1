@@ -3,170 +3,1623 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busca Automática ALC</title>
+    <title>Monitoramento MTX - ALC</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
-            background-color: #000; /* Preto */
-            color: #f00; /* Vermelho */
+            background-color: #000;
+            color: #f00;
         }
-        h1 { color: #f00; }
+        h1 {
+            color: #f00;
+            margin: 20px 0 10px 0;
+        }
         .casa {
             display: inline-block;
             width: 20%;
             margin: 10px;
-            padding: 20px;
+            padding: 15px;
             border: 2px solid #f00;
-            background: #111; /* Preto escuro */
+            background: #111;
             color: #f00;
             text-align: center;
             vertical-align: top;
+            border-radius: 8px;
         }
-        button {
-            padding: 15px 30px;
-            background: #f00; /* Vermelho */
-            color: #000; /* Preto */
-            border: none;
+        .casa h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #f00;
+        }
+        .casa p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Nova classe para a casa grande */
+        .casa-grande {
+            border: 3px solid #f00;
+            background: #111;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .casa-grande h1 {
+            margin-bottom: 15px;
+            align-self: center;
+        }
+        .casa-grande .casas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        /* Container para dropdowns dentro das casas grandes */
+        .casa-grande .dropdowns-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            position: static;
+            top: auto;
+            right: auto;
+        }
+
+        .casa-grande .dropdowns-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        /* Containers para os dropdowns */
+        .dropdowns-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .dropdown-container {
+            position: relative;
+        }
+
+        .dropdown-btn {
+            padding: 8px 15px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            white-space: nowrap;
         }
-        button:hover { background: #c00; } /* Vermelho escuro */
-        button:disabled { background: #666; cursor: not-allowed; }
-        #status { margin-top: 20px; color: #f00; }
+
+        .dropdown-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 35px;
+            background: #111;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            min-width: 120px;
+            padding: 5px 0;
+            z-index: 1001;
+        }
+
+        .dropdown-content.show {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 8px 15px;
+            color: #f00;
+            cursor: pointer;
+            font-size: 14px;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .dropdown-item.selected {
+            background: #f00;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #f00;
+            margin: 5px 0;
+        }
+
+        #status {
+            margin-top: 20px;
+            color: #0f0;
+            font-weight: bold;
+            padding: 10px;
+            background: #111;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* Status message para potência e canal */
+        .potencia-status, .canal-status {
+            margin: 10px auto;
+            padding: 8px 12px;
+            background: #111;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .status-success {
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+
+        .status-error {
+            color: #f00;
+            border: 1px solid #f00;
+        }
+
+        .status-loading {
+            color: #f00;
+            border: 1px solid #f00;
+        }
+
+        /* Container para loop */
+        .loop-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .loop-btn {
+            padding: 6px 12px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .loop-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .loop-btn.ativo {
+            background: #000;
+            color: #000;
+        }
+
+        .loop-btn.parar {
+            color: #f00;
+            border: 2px solid #f00;
+        }
+
+        .loop-btn.parar:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        /* Status do loop */
+        .loop-status {
+            margin: 10px auto;
+            padding: 8px 12px;
+            background: #111;
+            border-radius: 4px;
+            font-size: 12px;
+            display: none;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        @media (max-width: 768px) {
+            .casa {
+                width: 45%;
+            }
+            .casa-grande {
+                padding: 10px;
+            }
+            .casa-grande .casas-container {
+                flex-direction: column;
+            }
+            .dropdowns-container {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .casa-grande .dropdowns-container {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .loop-container {
+                gap: 5px;
+            }
+            .loop-btn {
+                padding: 4px 8px;
+                font-size: 11px;
+            }
+        }
+
+        /* Botões de Status MTX (mesmo estilo do loop) */
+        .status-container {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .status-btn {
+            padding: 6px 12px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .status-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .status-btn.ativo {
+            background: #000;
+        color: #0f0;
+        }
+
+        .status-btn.desligar {
+            color: #f00;
+            border: 2px solid #f00;
+        }
+
+        .status-btn.desligar:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .status-btn.desligar.ativo {
+            background: #f00;
+            color: #000;
+        }
     </style>
 </head>
 <body>
-<h1>Calibração Automática</h1>
 
-<button id="runBtn" onclick="executarChecagem()">Rodar</button>
-
-<div id="casas" style="display: none;">
-
-    <h1> MTX1 </h1>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequencia1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Output DAC</h3>
-        <p id="outputDac1">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Desired DAC</h3>
-        <p id="desiredDac1">Carregando...</p>
-    </div>
-
-    <h1> MTX2 </h1>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequencia2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Output DAC</h3>
-        <p id="outputDac2">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Desired DAC</h3>
-        <p id="desiredDac2">Carregando...</p>
-    </div>
-
-    <h1> MTX3 </h1>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequencia3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Output DAC</h3>
-        <p id="outputDac3">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Desired DAC</h3>
-        <p id="desiredDac3">Carregando...</p>
-    </div>
-
-    <h1> MTX4 </h1>
-    <div class="casa">
-        <h3>Frequência</h3>
-        <p id="frequencia4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Status ALC</h3>
-        <p id="statusAlc4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Output DAC</h3>
-        <p id="outputDac4">Carregando...</p>
-    </div>
-    <div class="casa">
-        <h3>Valor Desired DAC</h3>
-        <p id="desiredDac4">Carregando...</p>
+<!-- Dropdown de Atualização -->
+<div class="dropdowns-container">
+    <div class="dropdown-container">
+        <button class="dropdown-btn" onclick="toggleDropdown('Atualizar')">Atualizar: 1m</button>
+        <div class="dropdown-content" id="dropdownAtualizar">
+            <div class="dropdown-divider"></div>
+            <button class="dropdown-item" onclick="setIntervalo(30000)">30s</button>
+            <button class="dropdown-item" onclick="setIntervalo(60000)">1m</button>
+            <button class="dropdown-item" onclick="setIntervalo(300000)">5m</button>
+            <button class="dropdown-item" onclick="setIntervalo(600000)">10m</button>
+            <button class="dropdown-item" onclick="setIntervalo(900000)">15m</button>
+            <button class="dropdown-item" onclick="setIntervalo(1800000)">30m</button>
+            <button class="dropdown-item" onclick="setIntervalo(3600000)">1h</button>
+            <button class="dropdown-item" onclick="setIntervalo(21600000)">6h</button>
+            <button class="dropdown-item" onclick="setIntervalo(43200000)">12h</button>
+            <button class="dropdown-item" onclick="desativarAtualizacao()">Disabled</button>
+        </div>
     </div>
 </div>
 
-<div id="status"></div>
+<h1>Calibração Automática 1.3</h1>
+
+<!-- MTX 1 -->
+<div class="casa-grande" id="mtx1">
+    <h1>MTX1</h1>
+
+    <div class="dropdowns-container">
+        <!-- Dropdown de Potência -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Potencia1')" id="potenciaBtn1">Potência: 1W</button>
+            <div class="dropdown-content" id="dropdownPotencia1">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('1', '300', '1W')">1W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('1', '340', '2.5W')">2.5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('1', '370', '5W')">5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('1', '430', '20W')">20W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('1', '486', '67.3W')">67.3W</button>
+            </div>
+        </div>
+
+        <!-- Dropdown de Canal -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal1')" id="canalBtn1">Canal: 14</button>
+            <div class="dropdown-content" id="dropdownCanal1">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarCanalDropdown('1', '14', '14')">14</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('1', '34', '34')">34</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('1', '51', '51')">51</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="potencia-status" id="potenciaStatus1"></div>
+    <div class="canal-status" id="canalStatus1"></div>
+
+    <!-- Container para botões de loop -->
+    <div class="loop-container">
+        <button class="loop-btn" onclick="iniciarLoopPotencia('1')" id="loopBtn1">
+            Iniciar Loop
+        </button>
+        <button class="loop-btn parar" onclick="pararLoopPotencia('1')" id="pararLoopBtn1" style="display: none;">
+            Parar Loop
+        </button>
+    </div>
+
+    <!-- Container para botões de status (Ligar/Desligar) -->
+    <div class="status-container">
+        <button class="loop-btn" onclick="ligarMTX('1')" id="ligarBtn1">
+            LIGAR
+        </button>
+        <button class="loop-btn parar" onclick="desligarMTX('1')" id="desligarBtn1" style="display: none;">
+            DESLIGAR
+        </button>
+    </div>
+
+    <!-- Status Messages -->
+    <div class="loop-status" id="loopStatus1"></div>
+    <div class="loop-status" id="mtxStatus1"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX1">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>OffSet</h3>
+            <p id="offSetMtx1">Carregando...</p>
+        </div>
+    </div>
+</div>
+
+<!-- MTX 2 -->
+<div class="casa-grande" id="mtx2">
+    <h1>MTX2</h1>
+
+    <div class="dropdowns-container">
+        <!-- Dropdown de Potência -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Potencia2')" id="potenciaBtn2">Potência: 1W</button>
+            <div class="dropdown-content" id="dropdownPotencia2">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('2', '300', '1W')">1W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('2', '340', '2.5W')">2.5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('2', '370', '5W')">5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('2', '430', '20W')">20W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('2', '486', '67.3W')">67.3W</button>
+            </div>
+        </div>
+
+        <!-- Dropdown de Canal -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal2')" id="canalBtn2">Canal: 14</button>
+            <div class="dropdown-content" id="dropdownCanal2">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarCanalDropdown('2', '14', '14')">14</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('2', '34', '34')">34</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('2', '51', '51')">51</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="potencia-status" id="potenciaStatus2"></div>
+    <div class="canal-status" id="canalStatus2"></div>
+
+    <!-- Container para botões de loop -->
+    <div class="loop-container">
+        <button class="loop-btn" onclick="iniciarLoopPotencia('2')" id="loopBtn2">
+            Iniciar Loop
+        </button>
+        <button class="loop-btn parar" onclick="pararLoopPotencia('2')" id="pararLoopBtn2" style="display: none;">
+            Parar Loop
+        </button>
+    </div>
+
+    <!-- Container para botões de status (Ligar/Desligar) -->
+    <div class="status-container">
+        <button class="loop-btn" onclick="ligarMTX('2')" id="ligarBtn2">
+            LIGAR
+        </button>
+        <button class="loop-btn parar" onclick="deslig0arMTX('2')" id="desligarBtn2" style="display: none;">
+            DESLIGAR
+        </button>
+    </div>
+
+    <!-- Status Messages -->
+    <div class="loop-status" id="loopStatus2"></div>
+    <div class="loop-status" id="mtxStatus2"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX2">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>OffSet</h3>
+            <p id="offSetMtx2">Carregando...</p>
+        </div>
+    </div>
+</div>
+
+<!-- MTX 3 -->
+<div class="casa-grande" id="mtx3">
+    <h1>MTX3</h1>
+
+    <div class="dropdowns-container">
+        <!-- Dropdown de Potência -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Potencia3')" id="potenciaBtn3">Potência: 1W</button>
+            <div class="dropdown-content" id="dropdownPotencia3">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('3', '300', '1W')">1W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('3', '340', '2.5W')">2.5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('3', '370', '5W')">5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('3', '430', '20W')">20W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('3', '486', '67.3W')">67.3W</button>
+            </div>
+        </div>
+
+        <!-- Dropdown de Canal -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal3')" id="canalBtn3">Canal: 14</button>
+            <div class="dropdown-content" id="dropdownCanal3">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarCanalDropdown('3', '14', '14')">14</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('3', '34', '34')">34</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('3', '51', '51')">51</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="potencia-status" id="potenciaStatus3"></div>
+    <div class="canal-status" id="canalStatus3"></div>
+
+    <!-- Container para botões de loop -->
+    <div class="loop-container">
+        <button class="loop-btn" onclick="iniciarLoopPotencia('3')" id="loopBtn3">
+            Iniciar Loop
+        </button>
+        <button class="loop-btn parar" onclick="pararLoopPotencia('3')" id="pararLoopBtn3" style="display: none;">
+            Parar Loop
+        </button>
+    </div>
+
+    <!-- Container para botões de status (Ligar/Desligar) -->
+    <div class="status-container">
+        <button class="loop-btn" onclick="ligarMTX('3')" id="ligarBtn3">
+            LIGAR
+        </button>
+        <button class="loop-btn parar" onclick="desligarMTX('3')" id="desligarBtn3" style="display: none;">
+            DESLIGAR
+        </button>
+    </div>
+
+    <!-- Status Messages -->
+    <div class="loop-status" id="loopStatus3"></div>
+    <div class="loop-status" id="mtxStatus3"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX3">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>OffSet</h3>
+            <p id="offSetMtx3">Carregando...</p>
+        </div>
+    </div>
+</div>
+
+<!-- MTX 4 -->
+<div class="casa-grande" id="mtx4">
+    <h1>MTX4</h1>
+
+    <div class="dropdowns-container">
+        <!-- Dropdown de Potência -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Potencia4')" id="potenciaBtn4">Potência: 1W</button>
+            <div class="dropdown-content" id="dropdownPotencia4">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('4', '300', '1W')">1W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('4', '340', '2.5W')">2.5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('4', '370', '5W')">5W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('4', '430', '20W')">20W</button>
+                <button class="dropdown-item" onclick="setarPotenciaDropdown('4', '486', '67.3W')">67.3W</button>
+            </div>
+        </div>
+
+        <!-- Dropdown de Canal -->
+        <div class="dropdown-container">
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal4')" id="canalBtn4">Canal: 14</button>
+            <div class="dropdown-content" id="dropdownCanal4">
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="setarCanalDropdown('4', '14', '14')">14</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('4', '34', '34')">34</button>
+                <button class="dropdown-item" onclick="setarCanalDropdown('4', '51', '51')">51</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="potencia-status" id="potenciaStatus4"></div>
+    <div class="canal-status" id="canalStatus4"></div>
+
+    <!-- Container para botões de loop -->
+    <div class="loop-container">
+        <button class="loop-btn" onclick="iniciarLoopPotencia('4')" id="loopBtn4">
+            Iniciar Loop
+        </button>
+        <button class="loop-btn parar" onclick="pararLoopPotencia('4')" id="pararLoopBtn4" style="display: none;">
+            Parar Loop
+        </button>
+    </div>
+
+    <!-- Container para botões de status (Ligar/Desligar) -->
+    <div class="status-container">
+        <button class="loop-btn" onclick="ligarMTX('4')" id="ligarBtn4">
+            LIGAR
+        </button>
+        <button class="loop-btn parar" onclick="desligarMTX('4')" id="desligarBtn4" style="display: none;">
+            DESLIGAR
+        </button>
+    </div>
+
+    <!-- Status Messages -->
+    <div class="loop-status" id="loopStatus4"></div>
+    <div class="loop-status" id="mtxStatus4"></div>
+
+    <div class="casas-container">
+        <div class="casa">
+            <h3>Canal</h3>
+            <p id="chanelNumber4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Frequência</h3>
+            <p id="frequency4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Forward dBM</h3>
+            <p id="forwardDBM4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Status ALC</h3>
+            <p id="statusAlc4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Output DAC</h3>
+            <p id="valorOutputDac4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Desired DAC</h3>
+            <p id="valorDesiredDac4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Direta</h3>
+            <p id="potencia4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Potencia Refletida</h3>
+            <p id="refletida4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>Temperatura</h3>
+            <p id="temperatura4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 1</h3>
+            <p id="fan1MTX4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>FAN 2</h3>
+            <p id="fan2MTX4">Carregando...</p>
+        </div>
+        <div class="casa">
+            <h3>OffSet</h3>
+            <p id="offSetMtx4">Carregando...</p>
+        </div>
+    </div>
+</div>
+
+<div id="status">Última atualização: Carregando...</div>
 
 <script>
-    async function executarChecagem() {
-        const runBtn = document.getElementById('runBtn');
-        runBtn.disabled = true;
-        runBtn.textContent = 'Executando...';
+    // ============ VARIÁVEIS GLOBAIS ============
+    let intervaloAtual = 30000;
+    let atualizacaoAtiva = true;
+    let timerAtualizacao = null;
 
-        const url = 'http://localhost:8087/funcaoAlc';
-        const statusDiv = document.getElementById('status');
-        const casasDiv = document.getElementById('casas');
+    // Labels das potências
+    const powerLabels = {
+        '300': '1W',
+        '340': '2.5W',
+        '370': '5W',
+        '430': '20W',
+        '486': '67.3W'
+    };
 
-        statusDiv.textContent = 'Carregando dados...';
-        casasDiv.style.display = 'block';
+    // ============ FUNÇÕES PARA LIGAR/DESLIGAR MTX ============
 
-        try {
-            const response = await fetch(url);
-            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
-            const data = await response.json();
+// Mostrar status
+function mostrarMtxStatus(mtx, mensagem, tipo) {
+    const statusDiv = document.getElementById(`mtxStatus${mtx}`);
+    if (!statusDiv) return;
 
-            // Preencher as casas com os valores
-            document.getElementById('frequencia1').textContent = data.frequencia1 || 'N/A';
-            document.getElementById('statusAlc1').textContent = data.statusAlc1 || 'N/A';
-            document.getElementById('outputDac1').textContent = data.valorOutputDac1 || 'N/A';
-            document.getElementById('desiredDac1').textContent = data.valorDesiredDac1 || 'N/A';
+    statusDiv.textContent = mensagem;
+    statusDiv.className = 'loop-status';
 
-            document.getElementById('frequencia2').textContent = data.frequencia2 || 'N/A';
-            document.getElementById('statusAlc2').textContent = data.statusAlc2 || 'N/A';
-            document.getElementById('outputDac2').textContent = data.valorOutputDac2 || 'N/A';
-            document.getElementById('desiredDac2').textContent = data.valorDesiredDac2 || 'N/A';
+    if (tipo === 'success') {
+        statusDiv.classList.add('status-success');
+    } else if (tipo === 'error') {
+        statusDiv.classList.add('status-error');
+    } else if (tipo === 'loading') {
+        statusDiv.classList.add('status-loading');
+    }
 
-            document.getElementById('frequencia3').textContent = data.frequencia3 || 'N/A';
-            document.getElementById('statusAlc3').textContent = data.statusAlc3 || 'N/A';
-            document.getElementById('outputDac3').textContent = data.valorOutputDac3 || 'N/A';
-            document.getElementById('desiredDac3').textContent = data.valorDesiredDac3 || 'N/A';
+    statusDiv.style.display = 'block';
 
-            document.getElementById('frequencia4').textContent = data.frequencia4 || 'N/A';
-            document.getElementById('statusAlc4').textContent = data.statusAlc4 || 'N/A';
-            document.getElementById('outputDac4').textContent = data.valorOutputDac4 || 'N/A';
-            document.getElementById('desiredDac4').textContent = data.valorDesiredDac4 || 'N/A';
+    // Esconde após 3 segundos
+    setTimeout(() => {
+        statusDiv.style.display = 'none';
+    }, 3000);
+}
 
-            statusDiv.textContent = data.status || 'Dados carregados com sucesso';
-        } catch (error) {
-            statusDiv.textContent = `Erro: ${error.message}`;
-            casasDiv.style.display = 'none';
-        } finally {
-            runBtn.disabled = false;
-            runBtn.textContent = 'Rodar';
+// Função para ligar MTX
+async function ligarMTX(mtx) {
+    const ligarBtn = document.getElementById(`ligarBtn${mtx}`);
+    const desligarBtn = document.getElementById(`desligarBtn${mtx}`);
+
+    mostrarMtxStatus(mtx, 'Ligando MTX...', 'loading');
+
+    try {
+        // Determina qual endpoint chamar baseado no MTX
+        let endpoint = '';
+        switch(mtx) {
+            case '1':
+                endpoint = `/ligarMtx1`;
+                break;
+            case '2':
+                endpoint = `/ligarMtx2`;
+                break;
+            case '3':
+                endpoint = `/ligarMtx3`;
+                break;
+            case '4':
+                endpoint = `/ligarMtx4`;
+                break;
+            default:
+                throw new Error('MTX inválido');
+        }
+
+        // ADICIONE ESTA LINHA (está faltando no seu código):
+        const response = await fetch(endpoint, {
+            method: 'POST'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok && resultado.status === 'sucesso') {
+            if (ligarBtn && desligarBtn) {
+                ligarBtn.style.display = 'none';
+                desligarBtn.style.display = 'inline-block';
+                desligarBtn.classList.add('ativo');
+            }
+
+            mostrarMtxStatus(mtx, 'MTX ligado!', 'success');
+
+            setTimeout(() => {
+                carregarDados();
+            }, 2000);
+
+        } else {
+            mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+        }
+
+    } catch (error) {
+        mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+        console.error('Erro ao ligar MTX:', error);
+    }
+}
+
+// Função para desligar MTX - CORRIGIDA
+async function desligarMTX(mtx) {
+    const ligarBtn = document.getElementById(`ligarBtn${mtx}`);
+    const desligarBtn = document.getElementById(`desligarBtn${mtx}`);
+
+    mostrarMtxStatus(mtx, 'Desligando MTX...', 'loading');
+
+    try {
+        // Determina qual endpoint chamar baseado no MTX
+        let endpoint = '';
+        switch(mtx) {
+            case '1':
+                endpoint = `/desligarMtx1`;
+                break;
+            case '2':
+                endpoint = `/desligarMtx2`;
+                break;
+            case '3':
+                endpoint = `/desligarMtx3`;
+                break;
+            case '4':
+                endpoint = `/desligarMtx4`;
+                break;
+            default:
+                throw new Error('MTX inválido');
+        }
+
+        // ADICIONE ESTA LINHA (está faltando no seu código):
+        const response = await fetch(endpoint, {
+            method: 'POST'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok && resultado.status === 'sucesso') {
+            if (ligarBtn && desligarBtn) {
+                ligarBtn.style.display = 'inline-block';
+                desligarBtn.style.display = 'none';
+                desligarBtn.classList.remove('ativo');
+            }
+
+            mostrarMtxStatus(mtx, 'MTX desligado!', 'success');
+
+            setTimeout(() => {
+                carregarDados();
+            }, 2000);
+
+        } else {
+            mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+        }
+
+    } catch (error) {
+        mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+        console.error('Erro ao desligar MTX:', error);
+    }
+}
+
+    // ============ FUNÇÕES PARA DROPDOWNS ============
+    function toggleDropdown(tipo) {
+        // Encontra o dropdown específico
+        const dropdown = document.getElementById(`dropdown${tipo}`);
+
+        // Verifica se o dropdown já está aberto
+        const isOpen = dropdown.classList.contains('show');
+
+        // Fecha todos os dropdowns primeiro
+        document.querySelectorAll('.dropdown-content').forEach(d => {
+            d.classList.remove('show');
+        });
+
+        // Se não estava aberto, abre este
+        if (!isOpen) {
+            dropdown.classList.add('show');
         }
     }
+
+    // Fechar dropdowns ao clicar fora
+    document.addEventListener('click', function(event) {
+        const isDropdownBtn = event.target.classList.contains('dropdown-btn');
+        const isDropdownItem = event.target.classList.contains('dropdown-item');
+
+        if (!isDropdownBtn && !isDropdownItem) {
+            document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                dropdown.classList.remove('show');
+            });
+        }
+    });
+
+    async function setarPotenciaDropdown(mtx, valorDAC, label) {
+        // Mostra mensagem de carregamento
+        mostrarPotenciaStatus(mtx, 'Aplicando...', 'loading');
+
+        try {
+            // Determina qual endpoint chamar baseado no MTX
+            let endpoint = '';
+            switch(mtx) {
+                case '1':
+                    endpoint = `/mudar-potencia-mtx1?valorPotencia=${valorDAC}`;
+                    break;
+                case '2':
+                    endpoint = `/mudar-potencia-mtx2?valorPotencia=${valorDAC}`;
+                    break;
+                case '3':
+                    endpoint = `/mudar-potencia-mtx3?valorPotencia=${valorDAC}`;
+                    break;
+                case '4':
+                    endpoint = `/mudar-potencia-mtx4?valorPotencia=${valorDAC}`;
+                    break;
+                default:
+                    throw new Error('MTX inválido');
+            }
+
+            const response = await fetch(endpoint, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                // Atualiza o botão do dropdown
+                document.getElementById(`potenciaBtn${mtx}`).textContent = `Potência: ${label}`;
+                mostrarPotenciaStatus(mtx, `${label} aplicado!`, 'success');
+
+                // Fecha o dropdown
+                document.getElementById(`dropdownPotencia${mtx}`).classList.remove('show');
+
+                // Recarrega dados após 2 segundos
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarPotenciaStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarPotenciaStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro:', error);
+        }
+    }
+
+    async function setarCanalDropdown(mtx, canal, label) {
+        mostrarCanalStatus(mtx, `Aplicando canal ${canal}...`, 'loading');
+
+        try {
+            const response = await fetch(`/mudar-canal-mtx${mtx}?canal=${canal}`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                // Atualiza o botão do dropdown
+                document.getElementById(`canalBtn${mtx}`).textContent = `Canal: ${label}`;
+                mostrarCanalStatus(mtx, `Canal ${canal} aplicado!`, 'success');
+
+                // Fecha o dropdown
+                document.getElementById(`dropdownCanal${mtx}`).classList.remove('show');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+            } else {
+                mostrarCanalStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+        } catch (error) {
+            mostrarCanalStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro:', error);
+        }
+    }
+
+    function mostrarPotenciaStatus(mtx, mensagem, tipo) {
+        const statusDiv = document.getElementById(`potenciaStatus${mtx}`);
+        statusDiv.textContent = mensagem;
+        statusDiv.className = 'potencia-status';
+
+        if (tipo === 'success') {
+            statusDiv.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusDiv.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusDiv.classList.add('status-loading');
+        }
+
+        statusDiv.style.display = 'block';
+
+        // Esconde após 3 segundos
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    function mostrarCanalStatus(mtx, mensagem, tipo) {
+        const statusDiv = document.getElementById(`canalStatus${mtx}`);
+        statusDiv.textContent = mensagem;
+        statusDiv.className = 'canal-status';
+
+        if (tipo === 'success') {
+            statusDiv.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusDiv.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusDiv.classList.add('status-loading');
+        }
+
+        statusDiv.style.display = 'block';
+
+        // Esconde após 3 segundos
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    // ============ FUNÇÕES DE ATUALIZAÇÃO ============
+    const intervalosTextos = {
+        30000: "30s",
+        60000: "1min",
+        300000: "5min",
+        600000: "10min",
+        900000: "15min",
+        1800000: "30min",
+        3600000: "1h",
+        21600000: "6h",
+        43200000: "12h",
+        'disabled': 'Disabled'
+    };
+
+    function removerSelecoes() {
+        const itens = document.querySelectorAll('.dropdown-item');
+        itens.forEach(item => {
+            item.classList.remove('selected');
+        });
+    }
+
+    async function setIntervalo(ms) {
+        try {
+            const response = await fetch(`/configurar-intervalo?milissegundos=${ms}`, {
+                method: 'POST'
+            });
+
+            if (response.ok) {
+                intervaloAtual = ms;
+                atualizacaoAtiva = true;
+
+                const texto = intervalosTextos[ms];
+                document.querySelector('.dropdown-btn').textContent = `Atualizar: ${texto}`;
+
+                removerSelecoes();
+                event.target.classList.add('selected');
+
+                // Fecha o dropdown
+                document.getElementById('dropdownAtualizar').classList.remove('show');
+
+                reiniciarTimerAtualizacao();
+
+                await fetch('/toggle-agendamento?ativo=true', { method: 'POST' });
+                atualizarStatus(`Atualização: ${texto}`);
+                carregarDados();
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            atualizarStatus('Erro ao configurar');
+        }
+    }
+
+    async function desativarAtualizacao() {
+        try {
+            await fetch('/toggle-agendamento?ativo=false', {
+                method: 'POST'
+            });
+
+            atualizacaoAtiva = false;
+            document.querySelector('.dropdown-btn').textContent = 'Atualizar: Disabled';
+
+            removerSelecoes();
+            event.target.classList.add('selected');
+
+            // Fecha o dropdown
+            document.getElementById('dropdownAtualizar').classList.remove('show');
+
+            if (timerAtualizacao) {
+                clearInterval(timerAtualizacao);
+                timerAtualizacao = null;
+            }
+
+            atualizarStatus('Atualização automática desativada');
+        } catch (error) {
+            console.error('Erro:', error);
+            atualizarStatus('Erro ao desativar');
+        }
+    }
+
+    function reiniciarTimerAtualizacao() {
+        if (timerAtualizacao) {
+            clearInterval(timerAtualizacao);
+        }
+
+        if (atualizacaoAtiva) {
+            timerAtualizacao = setInterval(carregarDados, intervaloAtual);
+        }
+    }
+
+    function atualizarStatus(mensagem) {
+        const statusDiv = document.getElementById('status');
+        statusDiv.textContent = mensagem;
+        statusDiv.style.color = '#f00';
+
+        setTimeout(() => {
+            if (!mensagem.includes('desativada')) {
+                statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+                statusDiv.style.color = '#0f0';
+            }
+        }, 3000);
+    }
+
+    // ============ FUNÇÕES PARA LOOP CÍCLICO ============
+
+    // Controles de loop para cada MTX
+    const loopsAtivos = {
+        mtx1: false,
+        mtx2: false,
+        mtx3: false,
+        mtx4: false
+    };
+
+    const intervalosStatusLoop = {
+        mtx1: null,
+        mtx2: null,
+        mtx3: null,
+        mtx4: null
+    };
+
+    // Função para mostrar status do loop
+    function mostrarLoopStatus(mtx, mensagem, tipo) {
+        const statusDiv = document.getElementById(`loopStatus${mtx}`);
+        if (!statusDiv) return;
+
+        statusDiv.textContent = mensagem;
+        statusDiv.className = 'loop-status';
+
+        if (tipo === 'success') {
+            statusDiv.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusDiv.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusDiv.classList.add('status-loading');
+        } else if (tipo === 'ativo') {
+            statusDiv.classList.add('loop-ativo');
+        }
+
+        statusDiv.style.display = 'block';
+    }
+
+    // Função para verificar status do loop no backend
+    async function verificarStatusLoop(mtx) {
+        try {
+            const response = await fetch(`/status-loop-potencias${mtx}`);
+
+            if (response.ok) {
+                const status = await response.json();
+                return status;
+            }
+        } catch (error) {
+            console.error(`Erro ao verificar status do loop MTX${mtx}:`, error);
+        }
+        return null;
+    }
+
+    // Função para atualizar a exibição do status do loop
+    function atualizarDisplayStatusLoop(mtx, status) {
+        const statusDiv = document.getElementById(`loopStatus${mtx}`);
+        if (!statusDiv) return;
+
+        if (status && status.status_geral === 'executando') {
+            // Formata informações do loop em execução
+            const ciclo = status.ciclo_atual || 1;
+            const potencia = status.potencia_atual || 'N/A';
+            const dac = status.valor_atual || 'N/A';
+            //const posicao = status.posicao_ciclo || '1/5';
+            //const tempoRestante = status.tempo_restante_minutos || status.proxima_troca_em || 'Calculando...';
+
+            statusDiv.innerHTML = `
+                <strong>LOOP ATIVO - MTX${mtx}</strong><br>
+                Ciclo: ${ciclo} | ${posicao} | ${potencia} (DAC: ${dac})<br>
+                Próxima troca em: ${tempoRestante}
+            `;
+            statusDiv.className = 'loop-status loop-ativo';
+            statusDiv.style.display = 'block';
+
+            // Garante que os botões estão corretos
+            const btnIniciar = document.getElementById(`loopBtn${mtx}`);
+            const btnParar = document.getElementById(`pararLoopBtn${mtx}`);
+
+            if (btnIniciar && btnParar) {
+                btnIniciar.style.display = 'none';
+                btnParar.style.display = 'inline-block';
+                btnParar.classList.add('ativo');
+            }
+
+        } else if (status && (status.status_geral === 'concluido' || status.status_geral === 'cancelado')) {
+            statusDiv.textContent = `Loop ${status.status_geral} - MTX${mtx}`;
+            statusDiv.className = 'loop-status status-success';
+            statusDiv.style.display = 'block';
+
+            // Reseta botões
+            const btnIniciar = document.getElementById(`loopBtn${mtx}`);
+            const btnParar = document.getElementById(`pararLoopBtn${mtx}`);
+
+            if (btnIniciar && btnParar) {
+                btnIniciar.style.display = 'inline-block';
+                btnParar.style.display = 'none';
+                btnParar.classList.remove('ativo');
+            }
+
+            loopsAtivos[`mtx${mtx}`] = false;
+
+            // Esconde após 5 segundos
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+
+        } else if (status && status.status_geral === 'nao_iniciado') {
+            statusDiv.style.display = 'none';
+            loopsAtivos[`mtx${mtx}`] = false;
+        } else if (status && status.status_geral === 'ja_em_execucao') {
+            mostrarLoopStatus(mtx, ' Loop já está em execução', 'loading');
+        }
+    }
+
+    // Função para iniciar monitoramento do loop
+    function iniciarMonitoramentoLoop(mtx) {
+        // Para monitoramento anterior se existir
+        if (intervalosStatusLoop[`mtx${mtx}`]) {
+            clearInterval(intervalosStatusLoop[`mtx${mtx}`]);
+        }
+
+        // Verifica status a cada 15 segundos
+        intervalosStatusLoop[`mtx${mtx}`] = setInterval(async () => {
+            const status = await verificarStatusLoop(mtx);
+
+            if (status) {
+                atualizarDisplayStatusLoop(mtx, status);
+
+                // Se o loop não está mais ativo, para o monitoramento
+                if (status.status_geral === 'concluido' ||
+                    status.status_geral === 'cancelado' ||
+                    status.status_geral === 'nao_iniciado' ||
+                    status.status_geral === 'erro_fatal') {
+                    pararMonitoramentoLoop(mtx);
+                }
+            }
+        }, 15000); // 15 segundos
+    }
+
+    // Função para parar monitoramento do loop
+    function pararMonitoramentoLoop(mtx) {
+        if (intervalosStatusLoop[`mtx${mtx}`]) {
+            clearInterval(intervalosStatusLoop[`mtx${mtx}`]);
+            intervalosStatusLoop[`mtx${mtx}`] = null;
+        }
+    }
+
+    // Função para iniciar loop de potência
+    async function iniciarLoopPotencia(mtx) {
+        // Desativa botão de iniciar e ativa botão de parar
+        const btnIniciar = document.getElementById(`loopBtn${mtx}`);
+        const btnParar = document.getElementById(`pararLoopBtn${mtx}`);
+
+        if (btnIniciar && btnParar) {
+            btnIniciar.style.display = 'none';
+            btnParar.style.display = 'inline-block';
+        }
+
+        // Mostra status de carregamento
+        mostrarLoopStatus(mtx, 'Iniciando loop cíclico...', 'loading');
+
+        try {
+            // Chama o endpoint do backend
+            const response = await fetch(`/testar-todas-potencias${mtx}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok) {
+                mostrarLoopStatus(mtx, 'Loop iniciado!', 'success');
+                loopsAtivos[`mtx${mtx}`] = true;
+
+                // Marca botão como ativo
+                if (btnParar) {
+                    btnParar.classList.add('ativo');
+                }
+
+                // Inicia monitoramento do status
+                iniciarMonitoramentoLoop(mtx);
+
+                // Atualiza dados automaticamente
+                if (atualizacaoAtiva) {
+                    setTimeout(() => {
+                        carregarDados();
+                    }, 3000);
+                }
+            } else {
+                mostrarLoopStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+                // Reativa botão de iniciar
+                if (btnIniciar && btnParar) {
+                    btnIniciar.style.display = 'inline-block';
+                    btnParar.style.display = 'none';
+                    btnParar.classList.remove('ativo');
+                }
+            }
+
+        } catch (error) {
+            mostrarLoopStatus(mtx, 'Erro de conexão ao iniciar loop', 'error');
+            console.error('Erro ao iniciar loop:', error);
+
+            // Reativa botão de iniciar
+            if (btnIniciar && btnParar) {
+                btnIniciar.style.display = 'inline-block';
+                btnParar.style.display = 'none';
+                btnParar.classList.remove('ativo');
+            }
+        }
+    }
+
+    // Função para parar loop de potência
+    async function pararLoopPotencia(mtx) {
+        // Mostra status de carregamento
+        mostrarLoopStatus(mtx, 'Parando loop...', 'loading');
+
+        try {
+            // Chama o endpoint de cancelamento
+            const response = await fetch(`/cancelar-loop-potencias${mtx}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok) {
+                mostrarLoopStatus(mtx, 'Loop parado!', 'success');
+                loopsAtivos[`mtx${mtx}`] = false;
+
+                // Para o monitoramento
+                pararMonitoramentoLoop(mtx);
+
+                // Troca botões
+                const btnIniciar = document.getElementById(`loopBtn${mtx}`);
+                const btnParar = document.getElementById(`pararLoopBtn${mtx}`);
+
+                if (btnIniciar && btnParar) {
+                    btnIniciar.style.display = 'inline-block';
+                    btnParar.style.display = 'none';
+                    btnParar.classList.remove('ativo');
+                }
+
+                // Atualiza dados
+                if (atualizacaoAtiva) {
+                    setTimeout(() => {
+                        carregarDados();
+                    }, 2000);
+                }
+
+                // Esconde status após 3 segundos
+                setTimeout(() => {
+                    const statusDiv = document.getElementById(`loopStatus${mtx}`);
+                    if (statusDiv) {
+                        statusDiv.style.display = 'none';
+                    }
+                }, 3000);
+
+            } else {
+                mostrarLoopStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarLoopStatus(mtx, 'Erro de conexão ao parar loop', 'error');
+            console.error('Erro ao parar loop:', error);
+        }
+    }
+
+    // Função para verificar loops ativos ao carregar a página
+    async function verificarLoopsAtivos() {
+        for (let mtx = 1; mtx <= 4; mtx++) {
+            const status = await verificarStatusLoop(mtx.toString());
+
+            if (status && status.status_geral === 'executando') {
+                // Se há loop ativo, ajusta os botões
+                const btnIniciar = document.getElementById(`loopBtn${mtx}`);
+                const btnParar = document.getElementById(`pararLoopBtn${mtx}`);
+
+                if (btnIniciar && btnParar) {
+                    btnIniciar.style.display = 'none';
+                    btnParar.style.display = 'inline-block';
+                    btnParar.classList.add('ativo');
+                    loopsAtivos[`mtx${mtx}`] = true;
+                    iniciarMonitoramentoLoop(mtx.toString());
+                }
+            }
+        }
+    }
+
+    async function carregarDados() {
+        if (!atualizacaoAtiva) {
+            return;
+        }
+
+        // ============ FUNÇÃO PRINCIPAL ============
+        const statusDiv = document.getElementById('status');
+
+        try {
+            const response = await fetch('http://localhost:8087/dados.txt');
+
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+
+            const content = await response.text();
+            const lines = content.split('\n');
+            const data = {};
+
+            lines.forEach(line => {
+                const trimmed = line.trim();
+
+                const extrairNumero = (texto) => {
+                    if (!texto) return 'N/A';
+                    const match = texto.match(/=\s*([\d.-]+)/);
+                    return match ? match[1] : 'N/A';
+                };
+
+                // MTX 1
+                if (trimmed.startsWith('chanel number1:')) data.chanelNumber1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency1:')) data.frequency1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM1:')) data.forwardDBM1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC1:')) data.statusAlc1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC1:')) data.valorOutputDac1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC1:')) data.valorDesiredDac1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta1:')) data.potencia1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida1:')) data.refletida1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura1')) data.temperatura1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX1')) data.fan1MTX1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX1')) data.fan2MTX1 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('offSetMtx1')) data.offSetMtx1 = extrairNumero(trimmed.split(':')[1]);
+
+                // MTX 2
+                else if (trimmed.startsWith('chanel number2:')) data.chanelNumber2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency2:')) data.frequency2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM2:')) data.forwardDBM2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC2:')) data.statusAlc2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC2:')) data.valorOutputDac2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC2:')) data.valorDesiredDac2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta2:')) data.potencia2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida2:')) data.refletida2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura2')) data.temperatura2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX2')) data.fan1MTX2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX2')) data.fan2MTX2 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('offSetMtx2')) data.offSetMtx2 = extrairNumero(trimmed.split(':')[1]);
+
+                // MTX 3
+                else if (trimmed.startsWith('chanel number3:')) data.chanelNumber3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency3:')) data.frequency3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM3:')) data.forwardDBM3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC3:')) data.statusAlc3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC3:')) data.valorOutputDac3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC3:')) data.valorDesiredDac3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta3:')) data.potencia3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida3:')) data.refletida3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura3')) data.temperatura3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX3')) data.fan1MTX3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX3')) data.fan2MTX3 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('offSetMtx3')) data.offSetMtx3 = extrairNumero(trimmed.split(':')[1]);
+
+                // MTX 4
+                else if (trimmed.startsWith('chanel number4:')) data.chanelNumber4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('frequency4:')) data.frequency4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('forwardDBM4:')) data.forwardDBM4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Status ALC4:')) data.statusAlc4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Output DAC4:')) data.valorOutputDac4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Desired DAC4:')) data.valorDesiredDac4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Direta4:')) data.potencia4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Potencia Refletida4:')) data.refletida4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('Temperatura4')) data.temperatura4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN1 MTX4')) data.fan1MTX4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('FAN2 MTX4')) data.fan2MTX4 = extrairNumero(trimmed.split(':')[1]);
+                else if (trimmed.startsWith('offSetMtx4')) data.offSetMtx4 = extrairNumero(trimmed.split(':')[1]);
+            });
+
+            // Preenche os campos para todos os MTXs
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById(`chanelNumber${i}`).textContent = data[`chanelNumber${i}`] || 'N/A';
+                document.getElementById(`frequency${i}`).textContent = data[`frequency${i}`] || 'N/A';
+                document.getElementById(`forwardDBM${i}`).textContent = data[`forwardDBM${i}`] || 'N/A';
+                document.getElementById(`statusAlc${i}`).textContent = data[`statusAlc${i}`] || 'N/A';
+                document.getElementById(`valorOutputDac${i}`).textContent = data[`valorOutputDac${i}`] || 'N/A';
+                document.getElementById(`valorDesiredDac${i}`).textContent = data[`valorDesiredDac${i}`] || 'N/A';
+                document.getElementById(`potencia${i}`).textContent = data[`potencia${i}`] || 'N/A';
+                document.getElementById(`refletida${i}`).textContent = data[`refletida${i}`] || 'N/A';
+                document.getElementById(`temperatura${i}`).textContent = data[`temperatura${i}`] || 'N/A';
+                document.getElementById(`fan1MTX${i}`).textContent = data[`fan1MTX${i}`] || 'N/A';
+                document.getElementById(`fan2MTX${i}`).textContent = data[`fan2MTX${i}`] || 'N/A';
+                document.getElementById(`offSetMtx${i}`).textContent = data[`offSetMtx${i}`] || 'N/A';
+            }
+
+            statusDiv.textContent = `Última atualização: ${new Date().toLocaleString('pt-BR')}`;
+            statusDiv.style.color = '#0f0';
+
+        } catch (error) {
+            statusDiv.textContent = `Erro: ${error.message}`;
+            statusDiv.style.color = '#f00';
+            console.error('Erro ao carregar dados:', error);
+        }
+    }
+
+    // ============ INICIALIZAÇÃO ============
+window.onload = function() {
+    // Seleciona a opção padrão (30s)
+    const opcoes = document.querySelectorAll('.dropdown-item');
+    opcoes.forEach(opcao => {
+        if (opcao.textContent === '30s') {
+            opcao.classList.add('selected');
+        }
+    });
+
+    carregarDados();
+    reiniciarTimerAtualizacao();
+
+    // Verifica se há loops ativos ao carregar a página
+    setTimeout(() => {
+        verificarLoopsAtivos();
+    }, 2000);
+};
 </script>
 </body>
 </html>

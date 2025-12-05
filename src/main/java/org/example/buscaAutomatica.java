@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
 @Component
-@EnableScheduling  // ← ESTA LINHA É IMPORTANTE!
+@EnableScheduling
 @RestController
 public class buscaAutomatica {
 
@@ -320,6 +320,17 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String fan2MTX1 = getFan2MTX1.getText().trim();
 
+            // clica em INTERNAL
+            WebElement internal1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Internal1___']/input")));
+            Thread.sleep(300);
+            internal1.click();
+
+            // pega o OFFSET
+            WebElement getOffSetMtx1 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Internal1_power_offset")));
+            Thread.sleep(300);
+            String offSetMtx1 = getOffSetMtx1.getText().trim();
+
+
             System.out.println("Dados extraídos:");
             System.out.println("MTX1");
             System.out.println("Numero do canal1: " + chanelNumber1);
@@ -333,6 +344,7 @@ public class buscaAutomatica {
             System.out.println("Temperatura1: " + temperatura1);
             System.out.println("FAN1 MTX1: " + fan1MTX1);
             System.out.println("FAN2 MTX1: " + fan2MTX1);
+            System.out.println("offSetMtx1: " + offSetMtx1);
 
             // MTX2
             WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator2___']/input")));
@@ -387,6 +399,16 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String fan2MTX2 = getFan2MTX2.getText().trim();
 
+            // clica em INTERNAL
+            WebElement internal2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Internal2___']/input")));
+            Thread.sleep(300);
+            internal2.click();
+
+            // pega o OFFSET
+            WebElement getOffSetMtx2 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Internal2_power_offset")));
+            Thread.sleep(300);
+            String offSetMtx2 = getOffSetMtx2.getText().trim();
+
             System.out.println("MTX2");
             System.out.println("Numero do canal2: " + chanelNumber2);
             System.out.println("Frequencia2: " + frequency2);
@@ -399,6 +421,7 @@ public class buscaAutomatica {
             System.out.println("Temperatura2: " + temperatura2);
             System.out.println("FAN1 MTX2: " + fan1MTX2);
             System.out.println("FAN2 MTX2: " + fan2MTX2);
+            System.out.println("offSetMtx2: " + offSetMtx2);
 
             // MTX3
             WebElement modulator3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator3___']/input")));
@@ -452,6 +475,16 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String fan2MTX3 = getFan2MTX3.getText().trim();
 
+            // clica em INTERNAL
+            WebElement internal3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Internal3___']/input")));
+            Thread.sleep(300);
+            internal3.click();
+
+            // pega o OFFSET
+            WebElement getOffSetMtx3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Internal3_power_offset")));
+            Thread.sleep(300);
+            String offSetMtx3 = getOffSetMtx3.getText().trim();
+
             System.out.println("MTX3");
             System.out.println("Numero do canal3: " + chanelNumber3);
             System.out.println("Frequencia3: " + frequency3);
@@ -464,6 +497,7 @@ public class buscaAutomatica {
             System.out.println("Temperatura3: " + temperatura3);
             System.out.println("FAN1 MTX3: " + fan1MTX3);
             System.out.println("FAN2 MTX3: " + fan2MTX3);
+            System.out.println("offSetMtx3: " + offSetMtx3);
 
             // MTX4
             WebElement modulator4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator4___']/input")));
@@ -518,6 +552,16 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String fan2MTX4 = getFan2MTX4.getText().trim();
 
+            // clica em INTERNAL
+            WebElement internal4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Internal4___']/input")));
+            Thread.sleep(300);
+            internal4.click();
+
+            // pega o OFFSET
+            WebElement getOffSetMtx4= wait.until(ExpectedConditions.presenceOfElementLocated(By.id("Internal4_power_offset")));
+            Thread.sleep(300);
+            String offSetMtx4 = getOffSetMtx4.getText().trim();
+
             System.out.println("MTX4");
             System.out.println("Numero do canal4: " + chanelNumber4);
             System.out.println("Frequencia4: " + frequency4);
@@ -530,6 +574,7 @@ public class buscaAutomatica {
             System.out.println("Temperatura4: " + temperatura4);
             System.out.println("FAN1 MTX4: " + fan1MTX4);
             System.out.println("FAN2 MTX4: " + fan2MTX4);
+            System.out.println("offSetMtx4: " + offSetMtx4);
 
             // Colocar os valores no resultado
             resultado.put("status", "Checagem executada com sucesso");
@@ -544,6 +589,7 @@ public class buscaAutomatica {
             resultado.put("temperatura1", temperatura1);
             resultado.put("fan1MTX1", fan1MTX1);
             resultado.put("fan2MTX1", fan2MTX1);
+            resultado.put("offSetMtx1", offSetMtx1);
 
             resultado.put("chanelnumber2", chanelNumber2);
             resultado.put("frequency2", frequency2);
@@ -556,6 +602,7 @@ public class buscaAutomatica {
             resultado.put("temperatura2", temperatura2);
             resultado.put("fan1MTX2", fan1MTX2);
             resultado.put("fan2MTX2", fan2MTX2);
+            resultado.put("offSetMtx2", offSetMtx2);
 
             resultado.put("chanelnumber3", chanelNumber3);
             resultado.put("frequency3", frequency3);
@@ -568,6 +615,7 @@ public class buscaAutomatica {
             resultado.put("temperatura3", temperatura3);
             resultado.put("fan1MTX3", fan1MTX3);
             resultado.put("fan2MTX3", fan2MTX3);
+            resultado.put("offSetMtx3", offSetMtx3);
 
             resultado.put("chanelnumber4", chanelNumber4);
             resultado.put("frequency4", frequency4);
@@ -580,6 +628,7 @@ public class buscaAutomatica {
             resultado.put("temperatura4", temperatura4);
             resultado.put("fan1MTX4", fan1MTX4);
             resultado.put("fan2MTX4", fan2MTX4);
+            resultado.put("offSetMtx4", offSetMtx4);
 
             // Salvar os dados em um arquivo .txt
             String filePath = System.getProperty("user.dir") + "/dados.txt";
@@ -596,6 +645,7 @@ public class buscaAutomatica {
                 writer.write("Temperatura1: " + temperatura1 + "\n");
                 writer.write("FAN1 MTX1: " + fan1MTX1 + "\n");
                 writer.write("FAN2 MTX1: " + fan2MTX1 + "\n");
+                writer.write("offSetMtx1: " + offSetMtx1 + "\n");
                 writer.write("\n");
 
                 // MTX2
@@ -610,6 +660,7 @@ public class buscaAutomatica {
                 writer.write("Temperatura2: " + temperatura2 + "\n");
                 writer.write("FAN1 MTX2: " + fan1MTX2 + "\n");
                 writer.write("FAN2 MTX2: " + fan2MTX2 + "\n");
+                writer.write("offSetMtx2: " + offSetMtx2 + "\n");
                 writer.write("\n");
 
                 // MTX3
@@ -624,6 +675,7 @@ public class buscaAutomatica {
                 writer.write("Temperatura3: " + temperatura3 + "\n");
                 writer.write("FAN1 MTX3: " + fan1MTX3 + "\n");
                 writer.write("FAN2 MTX3: " + fan2MTX3 + "\n");
+                writer.write("offSetMtx3: " + offSetMtx3 + "\n");
                 writer.write("\n");
 
                 // MTX4
@@ -638,6 +690,7 @@ public class buscaAutomatica {
                 writer.write("Temperatura4: " + temperatura4 + "\n");
                 writer.write("FAN1 MTX4: " + fan1MTX4 + "\n");
                 writer.write("FAN2 MTX4: " + fan2MTX4 + "\n");
+                writer.write("offSetMtx4: " + offSetMtx4 + "\n");
                 writer.write("\n");
 
                 System.out.println("Dados salvos em: " + filePath);

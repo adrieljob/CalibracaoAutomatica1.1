@@ -1,4 +1,3 @@
-/*
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -19,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class MudarCanalMTX1 {
+public class RotinaparaOffset {
 
     @Value("${app.username}")
     private String username;
@@ -28,7 +27,7 @@ public class MudarCanalMTX1 {
     private String password;
 
     @PostMapping("/mudar-canal-mtx1")
-    public ResponseEntity<Map<String, Object>> RotinaOffSet(@RequestParam String canal) {
+    public ResponseEntity<Map<String, Object>> mudarCanalMTX1(@RequestParam String canal) {
         Map<String, Object> resposta = new HashMap<>();
 
         try {
@@ -70,6 +69,7 @@ public class MudarCanalMTX1 {
         }
     }
 
+    // FUNÇÃO "PRINCIPAL"
     private Map<String, Object> executarMudancaCanal(String canal) {
         Map<String, Object> resultado = new HashMap<>();
         WebDriver driver = null;
@@ -117,7 +117,7 @@ public class MudarCanalMTX1 {
             System.out.println("Novo canal preenchido: " + canal);
 
             // 7. Confirmar
-            confirmarMudanca(driver, wait);
+            confirmarMudancaCanal(driver, wait);
             System.out.println("Mudança confirmada");
 
             // 8. Aguardar aplicação
@@ -150,6 +150,7 @@ public class MudarCanalMTX1 {
         return resultado;
     }
 
+    // FAZER LOGIN
     private void fazerLogin(WebDriver driver, WebDriverWait wait) throws Exception {
         WebElement usernameField = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//input[@type='text']")));
@@ -169,6 +170,7 @@ public class MudarCanalMTX1 {
         Thread.sleep(300);
     }
 
+    // ACESSAR MODULADOR
     private void acessarModulator1(WebDriver driver, WebDriverWait wait) throws Exception {
         WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//label[@link='Modulator1___']/input")));
@@ -176,6 +178,24 @@ public class MudarCanalMTX1 {
         Thread.sleep(300);
     }
 
+    // ACESSAR POWERAMP
+    private void acessarPowerAmp1(WebDriver driver, WebDriverWait wait) throws Exception {
+        WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[@link='PowerAmplifier1___']/input")));
+        modulator1.click();
+        Thread.sleep(300);
+    }
+
+    // ACESSAR INTERNAL
+    private void acessarInternal1(WebDriver driver, WebDriverWait wait) throws Exception {
+        WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[@link='Internal1___']/input")));
+        modulator1.click();
+        Thread.sleep(300);
+    }
+
+    // COMBO PARA FAZER A MUDANÇA DE VALORES DO CANAL
+    // ETAPA 1
     private String obterCanalAtual(WebDriver driver, WebDriverWait wait) throws Exception {
         try {
             // Tentar diferentes formas de obter o canal
@@ -194,6 +214,7 @@ public class MudarCanalMTX1 {
         }
     }
 
+    // ETAPA 2
     private void clicarParaEditarCanal(WebDriver driver, WebDriverWait wait) throws Exception {
         // Tentar clicar no elemento do canal
         WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
@@ -207,6 +228,7 @@ public class MudarCanalMTX1 {
         Thread.sleep(300);
     }
 
+    // ETAPA 3
     private void preencherNovoCanal(WebDriver driver, WebDriverWait wait, String canal) throws Exception {
         // Procurar campo de input ativo (diálogo deve estar aberto)
         WebElement activeElement = driver.switchTo().activeElement();
@@ -226,7 +248,8 @@ public class MudarCanalMTX1 {
         }
     }
 
-    private void confirmarMudanca(WebDriver driver, WebDriverWait wait) throws Exception {
+    // ETAPA 4
+    private void confirmarMudancaCanal(WebDriver driver, WebDriverWait wait) throws Exception {
         // Pressionar Enter
         new org.openqa.selenium.interactions.Actions(driver)
                 .sendKeys(Keys.ENTER)
@@ -246,6 +269,232 @@ public class MudarCanalMTX1 {
         }
     }
 
+    // COMBO PARA FAZER A MUDANÇA DE VALORES DO OFFSET
+    // ETAPA 1
+    private String obterOffSetAtual(WebDriver driver, WebDriverWait wait) throws Exception {
+        try {
+            // Tentar diferentes formas de obter o canal
+            WebElement canalElement = driver.findElement(
+                    By.id("Internal1_power_offset"));
+
+            String canal = canalElement.getText();
+            if (canal == null || canal.trim().isEmpty()) {
+                canal = canalElement.getAttribute("value");
+            }
+
+            return canal != null ? canal.trim() : "N/A";
+
+        } catch (Exception e) {
+            return "N/A";
+        }
+    }
+
+    // ETAPA 2
+    private void clicarParaEditarOffSet(WebDriver driver, WebDriverWait wait) throws Exception {
+        // Tentar clicar no elemento do canal
+        WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
+                By.id("Internal1_power_offset")));
+
+        // Dar duplo clique para editar
+        new org.openqa.selenium.interactions.Actions(driver)
+                .doubleClick(canalElement)
+                .perform();
+
+        Thread.sleep(300);
+    }
+
+    // ETAPA 3
+    private void preencherNovoOffSet(WebDriver driver, WebDriverWait wait, String canal) throws Exception {
+        // Procurar campo de input ativo (diálogo deve estar aberto)
+        WebElement activeElement = driver.switchTo().activeElement();
+
+        if (activeElement.getTagName().equals("input")) {
+            // Limpar e preencher
+            activeElement.clear();
+            Thread.sleep(300);
+            activeElement.sendKeys(canal);
+        } else {
+            // Alternativa: procurar por qualquer input
+            WebElement inputField = driver.findElement(
+                    By.xpath("//input[@type='text' or @type='number']"));
+            inputField.clear();
+            Thread.sleep(300);
+            inputField.sendKeys(canal);
+        }
+    }
+
+    // ETAPA 4
+    private void confirmarMudancaOffSet(WebDriver driver, WebDriverWait wait) throws Exception {
+        // Pressionar Enter
+        new org.openqa.selenium.interactions.Actions(driver)
+                .sendKeys(Keys.ENTER)
+                .perform();
+
+        Thread.sleep(300);
+
+        // Tentar clicar em OK se existir
+        try {
+            WebElement okButton = driver.findElement(
+                    By.xpath("//button[contains(text(), 'OK') or contains(text(), 'Apply')]"));
+            if (okButton.isDisplayed()) {
+                okButton.click();
+            }
+        } catch (Exception e) {
+            // Ignorar se não encontrar botão OK
+        }
+    }
+
+    // COMBO PARA FAZER A MUDANÇA DE VALORES DA POTENCIA
+    // ETAPA 1
+    private String obterPotenciaAtual(WebDriver driver, WebDriverWait wait) throws Exception {
+        try {
+            // Tentar diferentes formas de obter o canal
+            WebElement canalElement = driver.findElement(
+                    By.id("PowerAmplifier1_Config_OutputPower"));
+
+            String canal = canalElement.getText();
+            if (canal == null || canal.trim().isEmpty()) {
+                canal = canalElement.getAttribute("value");
+            }
+
+            return canal != null ? canal.trim() : "N/A";
+
+        } catch (Exception e) {
+            return "N/A";
+        }
+    }
+
+    // ETAPA 2
+    private void clicarParaEditarPotencia(WebDriver driver, WebDriverWait wait) throws Exception {
+        // Tentar clicar no elemento do canal
+        WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
+                By.id("PowerAmplifier1_Config_OutputPower")));
+
+        // Dar duplo clique para editar
+        new org.openqa.selenium.interactions.Actions(driver)
+                .doubleClick(canalElement)
+                .perform();
+
+        Thread.sleep(300);
+    }
+
+    // ETAPA 3
+    private void preencherNovaPotencia(WebDriver driver, WebDriverWait wait, String canal) throws Exception {
+        // Procurar campo de input ativo (diálogo deve estar aberto)
+        WebElement activeElement = driver.switchTo().activeElement();
+
+        if (activeElement.getTagName().equals("input")) {
+            // Limpar e preencher
+            activeElement.clear();
+            Thread.sleep(300);
+            activeElement.sendKeys(canal);
+        } else {
+            // Alternativa: procurar por qualquer input
+            WebElement inputField = driver.findElement(
+                    By.xpath("//input[@type='text' or @type='number']"));
+            inputField.clear();
+            Thread.sleep(300);
+            inputField.sendKeys(canal);
+        }
+    }
+
+    // ETAPA 4
+    private void confirmarMudancaPotencia(WebDriver driver, WebDriverWait wait) throws Exception {
+        // Pressionar Enter
+        new org.openqa.selenium.interactions.Actions(driver)
+                .sendKeys(Keys.ENTER)
+                .perform();
+
+        Thread.sleep(300);
+
+        // Tentar clicar em OK se existir
+        try {
+            WebElement okButton = driver.findElement(
+                    By.xpath("//button[contains(text(), 'OK') or contains(text(), 'Apply')]"));
+            if (okButton.isDisplayed()) {
+                okButton.click();
+            }
+        } catch (Exception e) {
+            // Ignorar se não encontrar botão OK
+        }
+    }
+
+    // COMBO PARA FAZER A MUDANÇA DE VALORES DO RFMASTER
+    // ETAPA 1
+    private String obterRfMasterAtual(WebDriver driver, WebDriverWait wait) throws Exception {
+        try {
+            // Tentar diferentes formas de obter o canal
+            WebElement canalElement = driver.findElement(
+                    By.id("PowerAmplifier1_Config_RfMasterOn"));
+
+            String canal = canalElement.getText();
+            if (canal == null || canal.trim().isEmpty()) {
+                canal = canalElement.getAttribute("value");
+            }
+
+            return canal != null ? canal.trim() : "N/A";
+
+        } catch (Exception e) {
+            return "N/A";
+        }
+    }
+
+    // ETAPA 2
+    private void clicarParaEditarRfMaster(WebDriver driver, WebDriverWait wait) throws Exception {
+        // Tentar clicar no elemento do canal
+        WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
+                By.id("PowerAmplifier1_Config_RfMasterOn")));
+
+        // Dar duplo clique para editar
+        new org.openqa.selenium.interactions.Actions(driver)
+                .doubleClick(canalElement)
+                .perform();
+
+        Thread.sleep(300);
+    }
+
+    // ETAPA 3
+    private void preencherNovoRfMaster(WebDriver driver, WebDriverWait wait, String canal) throws Exception {
+        // Procurar campo de input ativo (diálogo deve estar aberto)
+        WebElement activeElement = driver.switchTo().activeElement();
+
+        if (activeElement.getTagName().equals("input")) {
+            // Limpar e preencher
+            activeElement.clear();
+            Thread.sleep(300);
+            activeElement.sendKeys(canal);
+        } else {
+            // Alternativa: procurar por qualquer input
+            WebElement inputField = driver.findElement(
+                    By.xpath("//input[@type='text' or @type='number']"));
+            inputField.clear();
+            Thread.sleep(300);
+            inputField.sendKeys(canal);
+        }
+    }
+
+    // ETAPA 4
+    private void confirmarMudancaRfMaster(WebDriver driver, WebDriverWait wait) throws Exception {
+        // Pressionar Enter
+        new org.openqa.selenium.interactions.Actions(driver)
+                .sendKeys(Keys.ENTER)
+                .perform();
+
+        Thread.sleep(300);
+
+        // Tentar clicar em OK se existir
+        try {
+            WebElement okButton = driver.findElement(
+                    By.xpath("//button[contains(text(), 'OK') or contains(text(), 'Apply')]"));
+            if (okButton.isDisplayed()) {
+                okButton.click();
+            }
+        } catch (Exception e) {
+            // Ignorar se não encontrar botão OK
+        }
+    }
+
+
     private void salvarLog(String canal, String antes, String depois) {
         String filePath = System.getProperty("user.dir") + "/logs_canal_mtx1.txt";
         try (java.io.FileWriter writer = new java.io.FileWriter(filePath, true)) {
@@ -259,5 +508,3 @@ public class MudarCanalMTX1 {
         }
     }
 }
-
- */
