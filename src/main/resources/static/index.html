@@ -305,7 +305,7 @@
 
         .status-btn.ativo {
             background: #000;
-        color: #0f0;
+            color: #0f0;
         }
 
         .status-btn.desligar {
@@ -320,6 +320,135 @@
 
         .status-btn.desligar.ativo {
             background: #f00;
+            color: #000;
+        }
+
+        /* Container para potência/calibração */
+        .potencia-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+         /* Container para linearização */
+        .linearizacao-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+         /* Container para potência geral */
+        .potencia-geral-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Container para procedimento completo */
+        .procedimento-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .procedimento-btn {
+            padding: 8px 16px;
+            background: transparent;
+            color: #f00;
+            border: 2px solid #f00;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .procedimento-btn:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .procedimento-btn.ativo {
+            background: #f00;
+            color: #000;
+        }
+
+        .procedimento-btn.parar {
+            color: #f00;
+            border: 2px solid #f00;
+        }
+
+        .procedimento-btn.parar:hover {
+            background: #f00;
+            color: #000;
+        }
+
+        .tentar-novamente-btn {
+            margin-top: 5px;
+            padding: 3px 8px;
+            background-color: #f00;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .tentar-novamente-btn:hover {
+            background-color: #c00;
+        }
+
+        /* Container para todos os canais */
+        .procedimento-todos-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .procedimento-todos-btn {
+            padding: 8px 16px;
+            background: transparent;
+            color: #0ff;
+            border: 2px solid #0ff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .procedimento-todos-btn:hover {
+            background: #0ff;
+            color: #000;
+        }
+
+        .procedimento-todos-btn.ativo {
+            background: #0ff;
+            color: #000;
+        }
+
+        .procedimento-todos-btn.parar {
+            color: #0ff;
+            border: 2px solid #0ff;
+        }
+
+        .procedimento-todos-btn.parar:hover {
+            background: #0ff;
             color: #000;
         }
     </style>
@@ -401,9 +530,64 @@
         </button>
     </div>
 
+    <!-- Container para PROCEDIMENTO COMPLETO (canal específico) -->
+    <div class="procedimento-container">
+        <button class="procedimento-btn" onclick="iniciarProcedimentoCanal('1')" id="procedimentoCanalBtn1">
+            PROCEDIMENTO COMPLETO
+        </button>
+        <button class="procedimento-btn parar" onclick="cancelarProcedimentoCanal('1')" id="cancelarProcedimentoCanalBtn1" style="display: none;">
+            CANCELAR
+        </button>
+    </div>
+
+    <!-- Container para PROCEDIMENTO TODOS OS CANAIS -->
+    <div class="procedimento-todos-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanais('1')" id="procedimentoTodosBtn1">
+            PROCEDIMENTO TODOS OS CANAIS
+        </button>
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosCanais('1')" id="cancelarProcedimentoTodosBtn1" style="display: none;">
+            CANCELAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina offset específica para cada canal -->
+    <div class="potencia-container">
+        <button class="loop-btn" onclick="iniciarcalibracao('1')" id="comecarcalibracaoBtn1">
+            AJUSTE OFFSET
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracao('1')" id="pararcalibracaoBtn1" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina offset para todos os canais -->
+    <div class="potencia-geral-container">
+        <button class="loop-btn" onclick="iniciarcalibracaogeral('1')" id="comecarcalibracaogeralBtn1">
+            AJUSTE OFFSET TODOS
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracaogeral('1')" id="pararcalibracaogeralBtn1" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina de linearização específica para cada canal -->
+    <div class="linearizacao-container">
+        <button class="loop-btn" onclick="iniciarlinearizacao('1')" id="comecarlinearizacaoBtn1">
+            LINEARIZAÇÃO
+        </button>
+        <button class="loop-btn parar" onclick="finalizarlinearizacao('1')" id="pararlinearizacaoBtn1" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
     <!-- Status Messages -->
     <div class="loop-status" id="loopStatus1"></div>
     <div class="loop-status" id="mtxStatus1"></div>
+    <div class="loop-status" id="loopPotencia1"></div>
+    <div class="loop-status" id="loopPotenciageral1"></div>
+    <div class="loop-status" id="loopLinearizacao1"></div>
+    <div class="loop-status" id="procedimentoStatus1"></div>
+    <div class="loop-status" id="procedimentoTodosStatus1"></div>
 
     <div class="casas-container">
         <div class="casa">
@@ -457,6 +641,7 @@
     </div>
 </div>
 
+
 <!-- MTX 2 -->
 <div class="casa-grande" id="mtx2">
     <h1>MTX2</h1>
@@ -505,14 +690,47 @@
         <button class="loop-btn" onclick="ligarMTX('2')" id="ligarBtn2">
             LIGAR
         </button>
-        <button class="loop-btn parar" onclick="deslig0arMTX('2')" id="desligarBtn2" style="display: none;">
+        <button class="loop-btn parar" onclick="desligarMTX('2')" id="desligarBtn2" style="display: none;">
             DESLIGAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina offset 2 especifica para cada canal -->
+    <div class="potencia-container">
+        <button class="loop-btn" onclick="iniciarcalibracao('2')" id="comecarcalibracaoBtn2">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracao('2')" id="pararcalibracaoBtn2" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina offset 2 para todos os canais -->
+    <div class="potencia-geral-container">
+        <button class="loop-btn" onclick="iniciarcalibracaogeral('2')" id="comecarcalibracaogeralBtn2">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracaogeral('2')" id="pararcalibracaogeralBtn2" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina de linearização 2 especifica para cada canal -->
+    <div class="linearizacao-container">
+        <button class="loop-btn" onclick="iniciarlinearizacao('2')" id="comecarlinearizacaoBtn2">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarlinearizacao('2')" id="pararlinearizacaoBtn2" style="display: none;">
+            PARAR
         </button>
     </div>
 
     <!-- Status Messages -->
     <div class="loop-status" id="loopStatus2"></div>
     <div class="loop-status" id="mtxStatus2"></div>
+    <div class="loop-status" id="loopPotencia2"></div>
+    <div class="loop-status" id="loopPotenciageral2"></div>
+    <div class="loop-status" id="loopLinearizacao2"></div>
 
     <div class="casas-container">
         <div class="casa">
@@ -619,9 +837,42 @@
         </button>
     </div>
 
+    <!-- Container para botões de rotina offset 3 especifica para cada canal -->
+    <div class="potencia-container">
+        <button class="loop-btn" onclick="iniciarcalibracao('3')" id="comecarcalibracaoBtn3">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracao('3')" id="pararcalibracaoBtn3" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina offset 3 para todos os canais -->
+    <div class="potencia-geral-container">
+        <button class="loop-btn" onclick="iniciarcalibracaogeral('3')" id="comecarcalibracaogeralBtn3">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarlinearizacao('3')" id="pararlinearizacaoBtn3" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina de linearização 3 especifica para cada canal -->
+    <div class="linearizacao-container">
+        <button class="loop-btn" onclick="iniciarlinearizacao('3')" id="comecarlinearizacaoBtn3">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarlinearizacao('3')" id="pararlinearizacaoBtn3" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
     <!-- Status Messages -->
     <div class="loop-status" id="loopStatus3"></div>
     <div class="loop-status" id="mtxStatus3"></div>
+    <div class="loop-status" id="loopPotencia3"></div>
+    <div class="loop-status" id="loopPotenciageral3"></div>
+    <div class="loop-status" id="loopLinearizacao3"></div>
 
     <div class="casas-container">
         <div class="casa">
@@ -728,9 +979,43 @@
         </button>
     </div>
 
+    <!-- Container para botões de rotina offset 4 especifica para cada canal -->
+    <div class="potencia-container">
+        <button class="loop-btn" onclick="iniciarcalibracao('4')" id="comecarcalibracaoBtn4">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracao('4')" id="pararcalibracaoBtn4" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina offset 4 para todos os canais -->
+    <div class="potencia-geral-container">
+        <button class="loop-btn" onclick="iniciarcalibracaogeral('4')" id="comecarcalibracaogeralBtn4">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarcalibracaogeral('4')" id="pararcalibracaogeralBtn4" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+    <!-- Container para botões de rotina de linearização 4 especifica para cada canal -->
+    <div class="linearizacao-container">
+        <button class="loop-btn" onclick="iniciarlinearizacao('4')" id="comecarlinearizacaoBtn4">
+            INICIAR
+        </button>
+        <button class="loop-btn parar" onclick="finalizarlinearizacao('4')" id="pararlinearizacaoBtn4" style="display: none;">
+            PARAR
+        </button>
+    </div>
+
+
     <!-- Status Messages -->
     <div class="loop-status" id="loopStatus4"></div>
     <div class="loop-status" id="mtxStatus4"></div>
+    <div class="loop-status" id="loopPotencia4"></div>
+    <div class="loop-status" id="loopPotenciageral4"></div>
+    <div class="loop-status" id="looplinearizacao4"></div>
 
     <div class="casas-container">
         <div class="casa">
@@ -801,145 +1086,771 @@
         '486': '67.3W'
     };
 
+
+    // ============  FUNÇÕES PARA PROCEDIMENTO COMPLETO ============
+
+    // Função para iniciar procedimento para canal específico
+    async function iniciarProcedimentoCanal(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+        const statusDiv = document.getElementById(`procedimentoStatus${mtx}`);
+
+        // Obter o canal atual do botão
+        const canalBtn = document.getElementById(`canalBtn${mtx}`);
+        const canal = canalBtn.textContent.split(': ')[1]; // Ex: "Canal: 14" -> "14"
+
+        // Atualiza botões
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'none';
+            cancelarBtn.style.display = 'inline-block';
+            cancelarBtn.classList.add('ativo');
+        }
+
+        // Mostra status inicial
+        mostrarProcedimentoStatus(mtx, `Iniciando procedimento completo para canal ${canal}...`, 'loading');
+
+        try {
+            // Chama o endpoint do ProcedimentoMtx1
+            const response = await fetch(`/executar-procedimento-canal?canal=${canal}`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                // Formata mensagem de sucesso com detalhes
+                const ajusteOffset = resultado.ajuste_offset || {};
+                const linearizacao = resultado.linearizacao || {};
+
+                const mensagemDetalhada = `
+                    <strong>PROCEDIMENTO COMPLETO CONCLUÍDO!</strong><br><br>
+                    <strong>Canal:</strong> ${canal}<br>
+                    <strong>Hora início:</strong> ${resultado.hora_inicio}<br>
+                    <strong>Hora fim:</strong> ${resultado.hora_fim}<br><br>
+                    <strong>Ajuste Offset:</strong> ${ajusteOffset.status || 'N/A'}<br>
+                    <strong>Linearização:</strong> ${linearizacao.status || 'N/A'}<br><br>
+                    ${resultado.mensagem}
+                `;
+
+                mostrarProcedimentoStatus(mtx, mensagemDetalhada, 'success');
+
+                // Resetar botões após 5 segundos
+                setTimeout(() => {
+                    if (iniciarBtn && cancelarBtn) {
+                        iniciarBtn.style.display = 'inline-block';
+                        cancelarBtn.style.display = 'none';
+                        cancelarBtn.classList.remove('ativo');
+                    }
+                }, 5000);
+
+                // Atualizar dados após 3 segundos
+                setTimeout(() => {
+                    carregarDados();
+                }, 3000);
+
+            } else {
+                // Em caso de erro
+                mostrarProcedimentoStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+
+                // Resetar botões
+                if (iniciarBtn && cancelarBtn) {
+                    iniciarBtn.style.display = 'inline-block';
+                    cancelarBtn.style.display = 'none';
+                    cancelarBtn.classList.remove('ativo');
+                }
+            }
+
+        } catch (error) {
+            mostrarProcedimentoStatus(mtx, 'Erro de conexão com o servidor', 'error');
+            console.error('Erro ao iniciar procedimento:', error);
+
+            // Resetar botões
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'inline-block';
+                cancelarBtn.style.display = 'none';
+                cancelarBtn.classList.remove('ativo');
+            }
+        }
+    }
+
+    // Função para cancelar procedimento de canal específico
+    async function cancelarProcedimentoCanal(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+        const statusDiv = document.getElementById(`procedimentoStatus${mtx}`);
+
+        mostrarProcedimentoStatus(mtx, 'Cancelando procedimento...', 'loading');
+
+        try {
+            const response = await fetch(`/cancelar-procedimento`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarProcedimentoStatus(mtx, 'Procedimento cancelado com sucesso!', 'success');
+
+                // Resetar botões
+                if (iniciarBtn && cancelarBtn) {
+                    iniciarBtn.style.display = 'inline-block';
+                    cancelarBtn.style.display = 'none';
+                    cancelarBtn.classList.remove('ativo');
+                }
+
+                // Esconde status após 3 segundos
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 3000);
+
+            } else {
+                mostrarProcedimentoStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarProcedimentoStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao cancelar procedimento:', error);
+        }
+    }
+
+    // Função para iniciar procedimento para todos os canais
+    async function iniciarProcedimentoTodosCanais(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoTodosBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoTodosBtn${mtx}`);
+        const statusDiv = document.getElementById(`procedimentoTodosStatus${mtx}`);
+
+        // Atualiza botões
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'none';
+            cancelarBtn.style.display = 'inline-block';
+            cancelarBtn.classList.add('ativo');
+        }
+
+        // Mostra status inicial
+        mostrarProcedimentoTodosStatus(mtx, 'Iniciando procedimento para todos os canais...<br>Esta operação pode levar vários minutos.', 'loading');
+
+        try {
+            // Chama o endpoint do ProcedimentoMtx1 para todos os canais
+            const response = await fetch(`/executar-procedimento-completo`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                // Formata mensagem de sucesso com detalhes
+                const resultados = resultado.resultados || {};
+                const canais = ['14', '34', '51'];
+
+                let mensagemDetalhada = `
+                    <strong>PROCEDIMENTO COMPLETO CONCLUÍDO!</strong><br><br>
+                    <strong>Hora início:</strong> ${resultado.hora_inicio}<br>
+                    <strong>Hora fim:</strong> ${resultado.hora_fim}<br>
+                    <strong>Sequência:</strong> ${resultado.sequencia_canais || '14 → 34 → 51'}<br><br>
+                `;
+
+                // Adiciona status de cada canal
+                canais.forEach(canal => {
+                    const canalResultado = resultados[`canal_${canal}_status`] || 'N/A';
+                    mensagemDetalhada += `<strong>Canal ${canal}:</strong> ${canalResultado}<br>`;
+                });
+
+                mensagemDetalhada += `<br>${resultado.mensagem}`;
+
+                mostrarProcedimentoTodosStatus(mtx, mensagemDetalhada, 'success');
+
+                // Resetar botões após 8 segundos
+                setTimeout(() => {
+                    if (iniciarBtn && cancelarBtn) {
+                        iniciarBtn.style.display = 'inline-block';
+                        cancelarBtn.style.display = 'none';
+                        cancelarBtn.classList.remove('ativo');
+                    }
+                }, 8000);
+
+                // Atualizar dados após 5 segundos
+                setTimeout(() => {
+                    carregarDados();
+                }, 5000);
+
+            } else {
+                mostrarProcedimentoTodosStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+
+                // Resetar botões
+                if (iniciarBtn && cancelarBtn) {
+                    iniciarBtn.style.display = 'inline-block';
+                    cancelarBtn.style.display = 'none';
+                    cancelarBtn.classList.remove('ativo');
+                }
+            }
+
+        } catch (error) {
+            mostrarProcedimentoTodosStatus(mtx, 'Erro de conexão com o servidor', 'error');
+            console.error('Erro ao iniciar procedimento:', error);
+
+            // Resetar botões
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'inline-block';
+                cancelarBtn.style.display = 'none';
+                cancelarBtn.classList.remove('ativo');
+            }
+        }
+    }
+
+    // Função para cancelar procedimento de todos os canais
+    async function cancelarProcedimentoTodosCanais(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoTodosBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoTodosBtn${mtx}`);
+        const statusDiv = document.getElementById(`procedimentoTodosStatus${mtx}`);
+
+        mostrarProcedimentoTodosStatus(mtx, 'Cancelando procedimento...', 'loading');
+
+        try {
+            const response = await fetch(`/cancelar-procedimento`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarProcedimentoTodosStatus(mtx, 'Procedimento cancelado com sucesso!', 'success');
+
+                // Resetar botões
+                if (iniciarBtn && cancelarBtn) {
+                    iniciarBtn.style.display = 'inline-block';
+                    cancelarBtn.style.display = 'none';
+                    cancelarBtn.classList.remove('ativo');
+                }
+
+                // Esconde status após 3 segundos
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 3000);
+
+            } else {
+                mostrarProcedimentoTodosStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarProcedimentoTodosStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao cancelar procedimento:', error);
+        }
+    }
+
+    // Função para mostrar status do procedimento
+    function mostrarProcedimentoStatus(mtx, mensagem, tipo) {
+        const statusElement = document.getElementById(`procedimentoStatus${mtx}`);
+
+        if (!statusElement) {
+            console.error(`Elemento procedimentoStatus${mtx} não encontrado`);
+            return;
+        }
+
+        statusElement.innerHTML = mensagem;
+        statusElement.className = `loop-status`;
+
+        if (tipo === 'success') {
+            statusElement.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusElement.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusElement.classList.add('status-loading');
+        }
+
+        statusElement.style.display = 'block';
+
+        // Se for erro, adicionar botão de tentar novamente
+        if (tipo === 'error') {
+            const tentarNovamenteBtn = document.createElement('button');
+            tentarNovamenteBtn.textContent = 'Tentar novamente';
+            tentarNovamenteBtn.className = 'tentar-novamente-btn';
+            tentarNovamenteBtn.onclick = () => iniciarProcedimentoCanal(mtx);
+            statusElement.appendChild(document.createElement('br'));
+            statusElement.appendChild(tentarNovamenteBtn);
+        }
+
+        // Esconde após 10 segundos (se não for erro)
+        if (tipo !== 'error') {
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 10000);
+        }
+    }
+
+    // Função para mostrar status do procedimento todos os canais
+    function mostrarProcedimentoTodosStatus(mtx, mensagem, tipo) {
+        const statusElement = document.getElementById(`procedimentoTodosStatus${mtx}`);
+
+        if (!statusElement) {
+            console.error(`Elemento procedimentoTodosStatus${mtx} não encontrado`);
+            return;
+        }
+
+        statusElement.innerHTML = mensagem;
+        statusElement.className = `loop-status`;
+
+        if (tipo === 'success') {
+            statusElement.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusElement.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusElement.classList.add('status-loading');
+        }
+
+        statusElement.style.display = 'block';
+
+        // Se for erro, adicionar botão de tentar novamente
+        if (tipo === 'error') {
+            const tentarNovamenteBtn = document.createElement('button');
+            tentarNovamenteBtn.textContent = 'Tentar novamente';
+            tentarNovamenteBtn.className = 'tentar-novamente-btn';
+            tentarNovamenteBtn.onclick = () => iniciarProcedimentoTodosCanais(mtx);
+            statusElement.appendChild(document.createElement('br'));
+            statusElement.appendChild(tentarNovamenteBtn);
+        }
+
+        // Esconde após 12 segundos (se não for erro)
+        if (tipo !== 'error') {
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 12000);
+        }
+    }
+
     // ============ FUNÇÕES PARA LIGAR/DESLIGAR MTX ============
 
-// Mostrar status
-function mostrarMtxStatus(mtx, mensagem, tipo) {
-    const statusDiv = document.getElementById(`mtxStatus${mtx}`);
-    if (!statusDiv) return;
+    // Mostrar status
+    function mostrarMtxStatus(mtx, mensagem, tipo) {
+        const statusDiv = document.getElementById(`mtxStatus${mtx}`);
+        if (!statusDiv) return;
 
-    statusDiv.textContent = mensagem;
-    statusDiv.className = 'loop-status';
+        statusDiv.textContent = mensagem;
+        statusDiv.className = 'loop-status';
 
-    if (tipo === 'success') {
-        statusDiv.classList.add('status-success');
-    } else if (tipo === 'error') {
-        statusDiv.classList.add('status-error');
-    } else if (tipo === 'loading') {
-        statusDiv.classList.add('status-loading');
-    }
-
-    statusDiv.style.display = 'block';
-
-    // Esconde após 3 segundos
-    setTimeout(() => {
-        statusDiv.style.display = 'none';
-    }, 3000);
-}
-
-// Função para ligar MTX
-async function ligarMTX(mtx) {
-    const ligarBtn = document.getElementById(`ligarBtn${mtx}`);
-    const desligarBtn = document.getElementById(`desligarBtn${mtx}`);
-
-    mostrarMtxStatus(mtx, 'Ligando MTX...', 'loading');
-
-    try {
-        // Determina qual endpoint chamar baseado no MTX
-        let endpoint = '';
-        switch(mtx) {
-            case '1':
-                endpoint = `/ligarMtx1`;
-                break;
-            case '2':
-                endpoint = `/ligarMtx2`;
-                break;
-            case '3':
-                endpoint = `/ligarMtx3`;
-                break;
-            case '4':
-                endpoint = `/ligarMtx4`;
-                break;
-            default:
-                throw new Error('MTX inválido');
+        if (tipo === 'success') {
+            statusDiv.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusDiv.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusDiv.classList.add('status-loading');
         }
 
-        // ADICIONE ESTA LINHA (está faltando no seu código):
-        const response = await fetch(endpoint, {
+        statusDiv.style.display = 'block';
+
+        // Esconde após 3 segundos
+        setTimeout(() => {
+            statusDiv.style.display = 'none';
+        }, 3000);
+    }
+
+    // Função para ligar MTX
+    async function ligarMTX(mtx) {
+        const ligarBtn = document.getElementById(`ligarBtn${mtx}`);
+        const desligarBtn = document.getElementById(`desligarBtn${mtx}`);
+
+        mostrarMtxStatus(mtx, 'Ligando MTX...', 'loading');
+
+        try {
+            // Determina qual endpoint chamar baseado no MTX
+            let endpoint = '';
+            switch(mtx) {
+                case '1':
+                    endpoint = `/ligarMtx1`;
+                    break;
+                case '2':
+                    endpoint = `/ligarMtx2`;
+                    break;
+                case '3':
+                    endpoint = `/ligarMtx3`;
+                    break;
+                case '4':
+                    endpoint = `/ligarMtx4`;
+                    break;
+                default:
+                    throw new Error('MTX inválido');
+            }
+
+            const response = await fetch(endpoint, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                if (ligarBtn && desligarBtn) {
+                    ligarBtn.style.display = 'none';
+                    desligarBtn.style.display = 'inline-block';
+                    desligarBtn.classList.add('ativo');
+                }
+
+                mostrarMtxStatus(mtx, 'MTX ligado!', 'success');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao ligar MTX:', error);
+        }
+    }
+
+    // Função para desligar MTX
+    async function desligarMTX(mtx) {
+        const ligarBtn = document.getElementById(`ligarBtn${mtx}`);
+        const desligarBtn = document.getElementById(`desligarBtn${mtx}`);
+
+        mostrarMtxStatus(mtx, 'Desligando MTX...', 'loading');
+
+        try {
+            // Determina qual endpoint chamar baseado no MTX
+            let endpoint = '';
+            switch(mtx) {
+                case '1':
+                    endpoint = `/desligarMtx1`;
+                    break;
+                case '2':
+                    endpoint = `/desligarMtx2`;
+                    break;
+                case '3':
+                    endpoint = `/desligarMtx3`;
+                    break;
+                case '4':
+                    endpoint = `/desligarMtx4`;
+                    break;
+                default:
+                    throw new Error('MTX inválido');
+            }
+
+            const response = await fetch(endpoint, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                if (ligarBtn && desligarBtn) {
+                    ligarBtn.style.display = 'inline-block';
+                    desligarBtn.style.display = 'none';
+                    desligarBtn.classList.remove('ativo');
+                }
+
+                mostrarMtxStatus(mtx, 'MTX desligado!', 'success');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao desligar MTX:', error);
+        }
+    }
+
+    // ============ FUNÇÕES PARA CALIBRAÇÃO CANAL ESPECIFICO ============
+
+    // Função para iniciar calibração
+    async function iniciarcalibracao(mtx) {
+        const comecarBtn = document.getElementById(`comecarcalibracaoBtn${mtx}`);
+        const pararBtn = document.getElementById(`pararcalibracaoBtn${mtx}`);
+
+        // Obter o canal atual do botão
+        const canalBtn = document.getElementById(`canalBtn${mtx}`);
+        const canal = canalBtn.textContent.split(': ')[1]; // Ex: "Canal: 14" -> "14"
+
+        mostrarMtxStatus(mtx, `Iniciando calibração para canal ${canal}...`, 'loading');
+
+        try {
+
+            // Para um canal especifico
+            const response = await fetch(`/executar-calibracao-para-canal?canal=${canal}`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                if (comecarBtn && pararBtn) {
+                    comecarBtn.style.display = 'none';
+                    pararBtn.style.display = 'inline-block';
+                    pararBtn.classList.add('ativo');
+                }
+
+                mostrarMtxStatus(mtx, 'Calibração iniciada!', 'success');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao iniciar calibração:', error);
+        }
+    }
+
+    // Função para finalizar calibração
+    async function finalizarcalibracao(mtx) {
+        const comecarBtn = document.getElementById(`comecarcalibracaoBtn${mtx}`);
+        const pararBtn = document.getElementById(`pararcalibracaoBtn${mtx}`);
+
+        mostrarMtxStatus(mtx, 'Finalizando calibração...', 'loading');
+
+        try {
+            const response = await fetch('/cancelar-rotina-completa', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                if (comecarBtn && pararBtn) {
+                    comecarBtn.style.display = 'inline-block';
+                    pararBtn.style.display = 'none';
+                    pararBtn.classList.remove('ativo');
+                }
+
+                mostrarMtxStatus(mtx, 'Calibração finalizada!', 'success');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao finalizar calibração:', error);
+        }
+    }
+
+        // ============ FUNÇÕES PARA CALIBRAÇÃO TODOS CANAIS ============
+
+    // Função para iniciar calibração geral
+    async function iniciarcalibracaogeral(mtx) {
+        const comecarBtn = document.getElementById(`comecarcalibracaogeralBtn${mtx}`);
+        const pararBtn = document.getElementById(`pararcalibracaogeralBtn${mtx}`);
+
+        /* Obter o canal atual do botão
+        const canalBtn = document.getElementById(`canalBtn${mtx}`);
+        const canal = canalBtn.textContent.split(': ')[1]; // Ex: "Canal: 14" -> "14"
+
+        mostrarMtxStatus(mtx, `Iniciando calibração para canal ${canal}...`, 'loading');
+        */
+
+        try {
+
+            // Para rotina completa
+            const response = await fetch(`/executar-rotina-completa`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                if (comecarBtn && pararBtn) {
+                    comecarBtn.style.display = 'none';
+                    pararBtn.style.display = 'inline-block';
+                    pararBtn.classList.add('ativo');
+                }
+
+                mostrarMtxStatus(mtx, 'Calibração iniciada!', 'success');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao iniciar calibração:', error);
+        }
+    }
+
+    // Função para finalizar calibração
+    async function finalizarcalibracaogeral(mtx) {
+        const comecarBtn = document.getElementById(`comecarcalibracaogeralBtn${mtx}`);
+        const pararBtn = document.getElementById(`pararcalibracaogeralBtn${mtx}`);
+
+        mostrarMtxStatus(mtx, 'Finalizando calibração...', 'loading');
+
+        try {
+            const response = await fetch('/cancelar-rotina-completa', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                if (comecarBtn && pararBtn) {
+                    comecarBtn.style.display = 'inline-block';
+                    pararBtn.style.display = 'none';
+                    pararBtn.classList.remove('ativo');
+                }
+
+                mostrarMtxStatus(mtx, 'Calibração finalizada!', 'success');
+
+                setTimeout(() => {
+                    carregarDados();
+                }, 2000);
+
+            } else {
+                mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao finalizar calibração:', error);
+        }
+    }
+
+    // ============ FUNÇÕES PARA LINEARIZAÇÃO ============
+
+// Função para iniciar linearização
+async function iniciarlinearizacao(mtx) {
+    const comecarBtn = document.getElementById(`comecarlinearizacaoBtn${mtx}`);
+    const pararBtn = document.getElementById(`pararlinearizacaoBtn${mtx}`);
+
+    // Obter o canal atual do botão
+    const canalBtn = document.getElementById(`canalBtn${mtx}`);
+    const canal = canalBtn.textContent.split(': ')[1]; // Ex: "Canal: 14" -> "14"
+
+    mostrarMtxStatus(mtx, `Iniciando linearização para canal ${canal}...`, 'loading');
+
+    try {
+        // Corrigido o endpoint - note o nome correto
+        const response = await fetch(`/executar-linearizacao-para-canal?canal=${canal}`, {
             method: 'POST'
         });
 
         const resultado = await response.json();
 
         if (response.ok && resultado.status === 'sucesso') {
-            if (ligarBtn && desligarBtn) {
-                ligarBtn.style.display = 'none';
-                desligarBtn.style.display = 'inline-block';
-                desligarBtn.classList.add('ativo');
+            if (comecarBtn && pararBtn) {
+                comecarBtn.style.display = 'none';
+                pararBtn.style.display = 'inline-block';
+                pararBtn.classList.add('ativo');
             }
 
-            mostrarMtxStatus(mtx, 'MTX ligado!', 'success');
+            // Mostrar resultados detalhados
+            const detalhes = resultado.detalhes || {};
+            const mensagemDetalhada =
+                `Linearização concluída!<br>` +
+                `Potência inicial: ${detalhes.potencia_inicial || 'N/A'}W<br>` +
+                `Potência final: ${detalhes.potencia_final || 'N/A'}W<br>` +
+                `Temperatura final: ${detalhes.temperatura_final || 'N/A'}°C<br>` +
+                `Status: ${resultado.mensagem}`;
+
+            // Use a função mostrarMtxStatus correta (a que você já tem)
+            mostrarMtxStatusLinearizacao(mtx, mensagemDetalhada, 'success');
 
             setTimeout(() => {
                 carregarDados();
-            }, 2000);
+            }, 3000);
 
         } else {
-            mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            mostrarMtxStatusLinearizacao(mtx, `Erro: ${resultado.mensagem}`, 'error');
         }
 
     } catch (error) {
-        mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
-        console.error('Erro ao ligar MTX:', error);
+        mostrarMtxStatusLinearizacao(mtx, 'Erro de conexão com o servidor', 'error');
+        console.error('Erro ao iniciar linearização:', error);
     }
 }
 
-// Função para desligar MTX - CORRIGIDA
-async function desligarMTX(mtx) {
-    const ligarBtn = document.getElementById(`ligarBtn${mtx}`);
-    const desligarBtn = document.getElementById(`desligarBtn${mtx}`);
+// Função para finalizar linearização
+async function finalizarlinearizacao(mtx) {
+    const comecarBtn = document.getElementById(`comecarlinearizacaoBtn${mtx}`);
+    const pararBtn = document.getElementById(`pararlinearizacaoBtn${mtx}`);
 
-    mostrarMtxStatus(mtx, 'Desligando MTX...', 'loading');
+    mostrarMtxStatusLinearizacao(mtx, 'Solicitando cancelamento...', 'loading');
 
     try {
-        // Determina qual endpoint chamar baseado no MTX
-        let endpoint = '';
-        switch(mtx) {
-            case '1':
-                endpoint = `/desligarMtx1`;
-                break;
-            case '2':
-                endpoint = `/desligarMtx2`;
-                break;
-            case '3':
-                endpoint = `/desligarMtx3`;
-                break;
-            case '4':
-                endpoint = `/desligarMtx4`;
-                break;
-            default:
-                throw new Error('MTX inválido');
-        }
-
-        // ADICIONE ESTA LINHA (está faltando no seu código):
-        const response = await fetch(endpoint, {
+        const response = await fetch('/cancelar-linearizacao', {
             method: 'POST'
         });
 
         const resultado = await response.json();
 
-        if (response.ok && resultado.status === 'sucesso') {
-            if (ligarBtn && desligarBtn) {
-                ligarBtn.style.display = 'inline-block';
-                desligarBtn.style.display = 'none';
-                desligarBtn.classList.remove('ativo');
+            if (response.ok && resultado.status === 'sucesso') {
+                if (comecarBtn && pararBtn) {
+                    comecarBtn.style.display = 'inline-block';
+                    pararBtn.style.display = 'none';
+                    pararBtn.classList.remove('ativo');
+                }
+
+                mostrarMtxStatusLinearizacao(mtx, 'Linearização cancelada!', 'success');
+
+                setTimeout(() => {
+                     carregarDados();
+                }, 2000);
+
+            } else {
+               mostrarMtxStatusLinearizacao(mtx, `Erro: ${resultado.mensagem}`, 'error');
             }
 
-            mostrarMtxStatus(mtx, 'MTX desligado!', 'success');
+        } catch (error) {
+            mostrarMtxStatusLinearizacao(mtx, 'Erro de conexão', 'error');
+            console.error('Erro ao finalizar linearização:', error);
+        }
+    }
 
-            setTimeout(() => {
-                carregarDados();
-            }, 2000);
+    // Função auxiliar para mostrar status de linearização (separada da função existente)
+    function mostrarMtxStatusLinearizacao(mtx, mensagem, tipo) {
+        const statusElement = document.getElementById(`loopLinearizacao${mtx}`);
 
-        } else {
-            mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+        if (!statusElement) {
+            console.error(`Elemento loopLinearizacao${mtx} não encontrado`);
+           return;
         }
 
-    } catch (error) {
-        mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
-        console.error('Erro ao desligar MTX:', error);
+        statusElement.innerHTML = mensagem;
+        statusElement.className = `loop-status`;
+
+        if (tipo === 'success') {
+            statusElement.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusElement.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusElement.classList.add('status-loading');
+        }
+
+        statusElement.style.display = 'block';
+
+        // Se for erro, adicionar botão de tentar novamente
+        if (tipo === 'error') {
+            const tentarNovamenteBtn = document.createElement('button');
+            tentarNovamenteBtn.textContent = 'Tentar novamente';
+            tentarNovamenteBtn.className = 'tentar-novamente-btn';
+            tentarNovamenteBtn.onclick = () => iniciarlinearizacao(mtx);
+            statusElement.appendChild(document.createElement('br'));
+            statusElement.appendChild(tentarNovamenteBtn);
+        }
+
+        // Esconde após 10 segundos (se não for erro)
+        if (tipo !== 'error') {
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 10000);
+        }
     }
-}
+
 
     // ============ FUNÇÕES PARA DROPDOWNS ============
     function toggleDropdown(tipo) {
@@ -1262,8 +2173,8 @@ async function desligarMTX(mtx) {
             const ciclo = status.ciclo_atual || 1;
             const potencia = status.potencia_atual || 'N/A';
             const dac = status.valor_atual || 'N/A';
-            //const posicao = status.posicao_ciclo || '1/5';
-            //const tempoRestante = status.tempo_restante_minutos || status.proxima_troca_em || 'Calculando...';
+            const posicao = status.posicao_ciclo || '1/5';
+            const tempoRestante = status.tempo_restante_minutos || status.proxima_troca_em || 'Calculando...';
 
             statusDiv.innerHTML = `
                 <strong>LOOP ATIVO - MTX${mtx}</strong><br>
@@ -1346,6 +2257,7 @@ async function desligarMTX(mtx) {
         }
     }
 
+    // Função para iniciar loop de potência
     // Função para iniciar loop de potência
     async function iniciarLoopPotencia(mtx) {
         // Desativa botão de iniciar e ativa botão de parar
@@ -1603,23 +2515,24 @@ async function desligarMTX(mtx) {
     }
 
     // ============ INICIALIZAÇÃO ============
-window.onload = function() {
-    // Seleciona a opção padrão (30s)
-    const opcoes = document.querySelectorAll('.dropdown-item');
-    opcoes.forEach(opcao => {
-        if (opcao.textContent === '30s') {
-            opcao.classList.add('selected');
-        }
-    });
+    window.onload = function() {
+        // Seleciona a opção padrão (30s)
+        const opcoes = document.querySelectorAll('.dropdown-item');
+        opcoes.forEach(opcao => {
+            if (opcao.textContent === '30s') {
+                opcao.classList.add('selected');
+            }
+        });
 
-    carregarDados();
-    reiniciarTimerAtualizacao();
+        carregarDados();
+        reiniciarTimerAtualizacao();
 
-    // Verifica se há loops ativos ao carregar a página
-    setTimeout(() => {
-        verificarLoopsAtivos();
-    }, 2000);
-};
+        // Verifica se há loops ativos ao carregar a página
+        setTimeout(() => {
+            verificarLoopsAtivos();
+        }, 2000);
+    };
+
 </script>
 </body>
 </html>
