@@ -1,0 +1,1 @@
+2025-12-02T15:34:42.286438700 | Canal: 34 | Antes: Modulator2.Config.UpConverter.ChannelNumber = 34 | Depois: Modulator2.Config.UpConverter.ChannelNumber = 34

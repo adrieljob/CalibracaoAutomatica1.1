@@ -279,3 +279,28 @@
 2025-12-11T12:00:48.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
 2025-12-11T12:00:48.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
 2025-12-11T12:00:48.769-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-11T17:52:48.604-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias1", parameters={}
+2025-12-11T17:52:48.644-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX1#getStatusLoopPotencias1()
+2025-12-11T17:52:48.682-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-11T17:52:48.690-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
+2025-12-11T17:52:48.719-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-11T17:52:48.737-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias2", parameters={}
+2025-12-11T17:52:48.738-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX2#getStatusLoopPotencias2()
+2025-12-11T17:52:48.741-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-11T17:52:48.741-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
+2025-12-11T17:52:48.742-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-11T17:52:48.748-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias3", parameters={}
+2025-12-11T17:52:48.749-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX3#getStatusLoopPotencias3()
+2025-12-11T17:52:48.750-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-11T17:52:48.751-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
+2025-12-11T17:52:48.752-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-11T17:52:48.760-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias4", parameters={}
+2025-12-11T17:52:48.762-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX4#getStatusLoopPotencias4()
+2025-12-11T17:52:48.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-11T17:52:48.770-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
+2025-12-11T17:52:48.772-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-11T17:53:16.483-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-12-11T17:53:16.485-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
+2025-12-11T17:53:16.525-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
+2025-12-11T17:53:16.525-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
+2025-12-11T17:53:16.530-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK

@@ -1,0 +1,32 @@
+CICLO 1 | POSIÇÃO 1 | 2025-12-02T17:50:29.361882600
+  DAC: 300 | Potência: 1W
+  Status: erro
+  Antes: null
+  Depois: null
+  Mensagem: OutputPower não encontrado
+--------------------------------------------------
+
+CICLO 1 | POSIÇÃO 1 | 2025-12-02T17:54:19.666715600
+  DAC: 300 | Potência: 1W
+  Status: sucesso
+  Antes: PowerAmplifier1.Status.ForwardPower = 19952
+  Depois: PowerAmplifier1.Status.ForwardPower = 16595
+  Mensagem: null
+--------------------------------------------------
+
+CICLO 1 | POSIÇÃO 2 | 2025-12-02T17:59:58.048790400
+  DAC: 340 | Potência: 2.5W
+  Status: sucesso
+  Antes: PowerAmplifier1.Status.ForwardPower = 1000
+  Depois: PowerAmplifier1.Status.ForwardPower = 1288
+  Mensagem: null
+--------------------------------------------------
+
+CICLO 1 | POSIÇÃO 3 | 2025-12-02T18:05:37.874723100
+  DAC: 370 | Potência: 5W
+  Status: sucesso
+  Antes: PowerAmplifier1.Status.ForwardPower = 2511
+  Depois: PowerAmplifier1.Status.ForwardPower = 2884
+  Mensagem: null
+--------------------------------------------------
+

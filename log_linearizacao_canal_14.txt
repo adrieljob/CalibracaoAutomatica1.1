@@ -1,0 +1,32 @@
+============================================================
+CANAL SOLICITADO: 14 | Data: 2025-12-10T11:22:48.123267900
+------------------------------------------------------------
+Canal antes: 14
+Canal depois: 14
+Potência inicial: 486W
+Potência final: 0W
+Última potência processada: 483W
+Temperatura inicial: 42°C
+Temperatura final: 36°C
+Status: INTERROMPIDO
+------------------------------------------------------------
+HISTÓRICO DE TEMPERATURAS:
+  Potência 483W: 39°C → 36°C
+============================================================
+
+============================================================
+CANAL SOLICITADO: 14 | Data: 2025-12-10T11:36:14.496651500
+------------------------------------------------------------
+Canal antes: 14
+Canal depois: 14
+Potência inicial: 0W
+Potência final: 483W
+Última potência processada: 483W
+Temperatura inicial: 25°C
+Temperatura final: 29°C
+Status: INTERROMPIDO
+------------------------------------------------------------
+HISTÓRICO DE TEMPERATURAS:
+  Potência 483W: 25°C → 27°C
+============================================================
+

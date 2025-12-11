@@ -1,0 +1,14 @@
+2025-12-02T10:49:19.649244500 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier4.Status.ForwardPower = 0 | Depois: PowerAmplifier4.Status.ForwardPower = 67608
+2025-12-02T10:52:02.187789 | DAC: 340 | Esperado: 2.5W | Antes: PowerAmplifier4.Status.ForwardPower = 1000 | Depois: PowerAmplifier4.Status.ForwardPower = 2511
+2025-12-02T15:35:27.844389300 | DAC: 370 | Esperado: 5W | Antes: PowerAmplifier4.Status.ForwardPower = 2511 | Depois: PowerAmplifier4.Status.ForwardPower = 2511
+2025-12-02T15:40:56.270681700 | DAC: 430 | Esperado: 10W | Antes: PowerAmplifier4.Status.ForwardPower = 5011 | Depois: PowerAmplifier4.Status.ForwardPower = 8128
+2025-12-03T16:14:18.184897900 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier4.Status.ForwardPower = 0 | Depois: PowerAmplifier4.Status.ForwardPower = 1258
+2025-12-03T16:16:02.216674200 | DAC: 340 | Esperado: 2.5W | Antes: PowerAmplifier4.Status.ForwardPower = 1000 | Depois: PowerAmplifier4.Status.ForwardPower = 1000
+2025-12-03T16:17:52.214812300 | DAC: 370 | Esperado: 5W | Antes: PowerAmplifier4.Status.ForwardPower = 2511 | Depois: PowerAmplifier4.Status.ForwardPower = 3801
+2025-12-03T16:19:34.569922300 | DAC: 430 | Esperado: 20W | Antes: PowerAmplifier4.Status.ForwardPower = 5011 | Depois: PowerAmplifier4.Status.ForwardPower = 5011
+2025-12-03T16:21:22.691354100 | DAC: 486 | Esperado: 67.3W | Antes: PowerAmplifier4.Status.ForwardPower = 19952 | Depois: PowerAmplifier4.Status.ForwardPower = 32359
+2025-12-03T16:23:15.457205 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier4.Status.ForwardPower = 72443 | Depois: PowerAmplifier4.Status.ForwardPower = 72443
+2025-12-03T16:25:00.791317100 | DAC: 340 | Esperado: 2.5W | Antes: PowerAmplifier4.Status.ForwardPower = 1000 | Depois: PowerAmplifier4.Status.ForwardPower = 1000
+2025-12-03T16:26:40.796299400 | DAC: 370 | Esperado: 5W | Antes: PowerAmplifier4.Status.ForwardPower = 2511 | Depois: PowerAmplifier4.Status.ForwardPower = 2511
+2025-12-03T16:28:19.752899600 | DAC: 430 | Esperado: 20W | Antes: PowerAmplifier4.Status.ForwardPower = 5011 | Depois: PowerAmplifier4.Status.ForwardPower = 5011
+2025-12-03T16:30:02.226547500 | DAC: 486 | Esperado: 67.3W | Antes: PowerAmplifier4.Status.ForwardPower = 19952 | Depois: PowerAmplifier4.Status.ForwardPower = 19952

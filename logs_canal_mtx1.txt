@@ -1,0 +1,12 @@
+2025-12-02T15:22:24.289897500 | Canal: 14 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 34 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 14
+2025-12-02T15:34:41.075684300 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 14 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-05T11:15:55.858880300 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 34 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T15:11:16.695263900 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 14 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T16:40:53.057635700 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 14 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T16:40:57.619545200 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 34 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T16:41:18.372392700 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 34 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T17:02:16.861340600 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 14 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T17:02:17.812581400 | Canal: 34 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 14 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 34
+2025-12-08T17:30:57.825116500 | Canal: 51 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 34 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 51
+2025-12-08T17:31:10.756308 | Canal: 51 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 51 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 51
+2025-12-08T17:55:27.654032500 | Canal: 14 | Antes: Modulator1.Config.UpConverter.ChannelNumber = 51 | Depois: Modulator1.Config.UpConverter.ChannelNumber = 14
