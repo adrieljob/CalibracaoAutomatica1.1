@@ -1,306 +1,110 @@
-2025-12-11T08:29:24.369-03:00  INFO 16092 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 16092 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
-2025-12-11T08:29:24.379-03:00 DEBUG 16092 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-12-11T08:29:24.380-03:00  INFO 16092 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
-2025-12-11T08:29:25.866-03:00  INFO 16092 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
-2025-12-11T08:29:25.876-03:00  INFO 16092 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-11T08:29:25.877-03:00  INFO 16092 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-12-11T08:29:25.949-03:00  INFO 16092 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-11T08:29:25.949-03:00  INFO 16092 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1477 ms
-2025-12-11T08:29:26.219-03:00  INFO 16092 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2025-12-11T08:29:26.357-03:00 DEBUG 16092 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 60 mappings in 'requestMappingHandlerMapping'
-2025-12-11T08:29:26.459-03:00 DEBUG 16092 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-12-11T08:29:26.509-03:00 DEBUG 16092 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-12-11T08:29:26.601-03:00 DEBUG 16092 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-12-11T08:29:26.791-03:00  INFO 16092 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
-2025-12-11T08:29:26.800-03:00  INFO 16092 --- [main] org.example.App                          : Started App in 3.147 seconds (process running for 3.869)
-2025-12-11T08:29:27.360-03:00  INFO 16092 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
-2025-12-11T08:29:27.374-03:00  INFO 16092 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
-2025-12-11T08:29:29.035-03:00  WARN 16092 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
-2025-12-11T08:29:29.036-03:00  WARN 16092 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-2025-12-11T08:29:31.388-03:00  INFO 16092 --- [http-nio-8087-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-11T08:29:31.388-03:00  INFO 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-11T08:29:31.389-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-12-11T08:29:31.389-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-12-11T08:29:31.389-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-12-11T08:29:31.390-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3b5c665c
-2025-12-11T08:29:31.391-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@7a0e7ecd
-2025-12-11T08:29:31.391-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-12-11T08:29:31.392-03:00  INFO 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2025-12-11T08:29:31.405-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/index.html", parameters={}
-2025-12-11T08:29:31.419-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-11T08:29:31.430-03:00 DEBUG 16092 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
-2025-12-11T08:29:31.463-03:00 DEBUG 16092 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:29:31.466-03:00 DEBUG 16092 --- [http-nio-8087-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:29:31.514-03:00 DEBUG 16092 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:29:31.515-03:00 DEBUG 16092 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:29:31.522-03:00 DEBUG 16092 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:29:31.562-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/favicon.ico", parameters={}
-2025-12-11T08:29:31.563-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
-2025-12-11T08:29:31.565-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
-2025-12-11T08:29:31.570-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource favicon.ico.]
-2025-12-11T08:29:31.570-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
-2025-12-11T08:29:31.577-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
-2025-12-11T08:29:31.580-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
-2025-12-11T08:29:31.605-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json;q=0.8', given [image/avif, image/webp, image/apng, image/svg+xml, image/*, */*;q=0.8] and supported [application/json, application/*+json]
-2025-12-11T08:29:31.609-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Thu Dec 11 08:29:31 GMT-03:00 2025, status=404, error=Not Found, path=/favicon.ico}]
-2025-12-11T08:29:31.666-03:00 DEBUG 16092 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
-2025-12-11T08:29:33.758-03:00 DEBUG 16092 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias1", parameters={}
-2025-12-11T08:29:33.759-03:00 DEBUG 16092 --- [http-nio-8087-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX1#getStatusLoopPotencias1()
-2025-12-11T08:29:33.761-03:00 DEBUG 16092 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T08:29:33.762-03:00 DEBUG 16092 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T08:29:33.763-03:00 DEBUG 16092 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:29:33.770-03:00 DEBUG 16092 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias2", parameters={}
-2025-12-11T08:29:33.770-03:00 DEBUG 16092 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX2#getStatusLoopPotencias2()
-2025-12-11T08:29:33.771-03:00 DEBUG 16092 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T08:29:33.771-03:00 DEBUG 16092 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T08:29:33.772-03:00 DEBUG 16092 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:29:33.776-03:00 DEBUG 16092 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias3", parameters={}
-2025-12-11T08:29:33.776-03:00 DEBUG 16092 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX3#getStatusLoopPotencias3()
-2025-12-11T08:29:33.777-03:00 DEBUG 16092 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T08:29:33.777-03:00 DEBUG 16092 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T08:29:33.778-03:00 DEBUG 16092 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:29:33.782-03:00 DEBUG 16092 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias4", parameters={}
-2025-12-11T08:29:33.783-03:00 DEBUG 16092 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX4#getStatusLoopPotencias4()
-2025-12-11T08:29:33.784-03:00 DEBUG 16092 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T08:29:33.784-03:00 DEBUG 16092 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T08:29:33.785-03:00 DEBUG 16092 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:29:43.498-03:00 DEBUG 16092 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:29:43.499-03:00 DEBUG 16092 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:29:43.501-03:00 DEBUG 16092 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:29:43.501-03:00 DEBUG 16092 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:29:43.503-03:00 DEBUG 16092 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:29:50.186-03:00  INFO 6264 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 6264 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
-2025-12-11T08:29:50.189-03:00 DEBUG 6264 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
-2025-12-11T08:29:50.190-03:00  INFO 6264 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
-2025-12-11T08:29:51.717-03:00  INFO 6264 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
-2025-12-11T08:29:51.727-03:00  INFO 6264 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2025-12-11T08:29:51.727-03:00  INFO 6264 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
-2025-12-11T08:29:51.801-03:00  INFO 6264 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2025-12-11T08:29:51.801-03:00  INFO 6264 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1523 ms
-2025-12-11T08:29:52.072-03:00  INFO 6264 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
-2025-12-11T08:29:52.193-03:00 DEBUG 6264 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 60 mappings in 'requestMappingHandlerMapping'
-2025-12-11T08:29:52.240-03:00 DEBUG 6264 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-12-11T08:29:52.286-03:00 DEBUG 6264 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-12-11T08:29:52.355-03:00 DEBUG 6264 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-12-11T08:29:52.405-03:00  INFO 6264 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
-2025-12-11T08:29:52.445-03:00  INFO 6264 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
-2025-12-11T08:29:52.578-03:00  INFO 6264 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
-2025-12-11T08:29:52.593-03:00  INFO 6264 --- [main] org.example.App                          : Started App in 3.053 seconds (process running for 3.562)
-2025-12-11T08:29:53.779-03:00  WARN 6264 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
-2025-12-11T08:29:53.780-03:00  WARN 6264 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-2025-12-11T08:30:01.882-03:00  INFO 6264 --- [http-nio-8087-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-12-11T08:30:01.882-03:00  INFO 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2025-12-11T08:30:01.882-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2025-12-11T08:30:01.882-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2025-12-11T08:30:01.883-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2025-12-11T08:30:01.884-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@69d45cca
-2025-12-11T08:30:01.885-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@1effd53c
-2025-12-11T08:30:01.886-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-12-11T08:30:01.886-03:00  INFO 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
-2025-12-11T08:30:01.900-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:30:01.920-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:30:01.964-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:30:01.967-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:30:01.981-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:30:02.903-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : POST "/toggle-agendamento?ativo=false", parameters={masked}
-2025-12-11T08:30:02.904-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#toggleAgendamento(boolean)
-2025-12-11T08:30:02.927-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T08:30:02.928-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{ativo=false, mensagem=Agendamento desativado}]
-2025-12-11T08:30:02.942-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:30:26.318-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : POST "/executar-procedimento-canal?canal=14", parameters={masked}
-2025-12-11T08:30:26.319-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.ProcedimentoMtx1#executarProcedimentoCanal(String)
-2025-12-11T08:30:26.346-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : HTTP POST http://localhost:8087/executar-calibracao-para-canal?canal=14
-2025-12-11T08:30:26.358-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
-2025-12-11T08:30:26.362-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : POST "/executar-calibracao-para-canal?canal=14", parameters={masked}
-2025-12-11T08:30:26.362-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.AjustarOffSetMtx1#executarParaCanal(String)
-2025-12-11T08:30:26.380-03:00  INFO 6264 --- [http-nio-8087-exec-5] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
-2025-12-11T08:30:26.386-03:00  INFO 6264 --- [http-nio-8087-exec-5] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
-2025-12-11T08:30:27.195-03:00  WARN 6264 --- [http-nio-8087-exec-5] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
-2025-12-11T08:30:27.197-03:00  WARN 6264 --- [http-nio-8087-exec-5] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-2025-12-11T08:30:31.756-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:30:31.757-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:30:31.759-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:30:31.760-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:30:31.762-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:31:01.759-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:31:01.760-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:31:01.761-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:31:01.762-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:31:01.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:31:31.897-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:31:31.966-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:31:31.976-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:31:31.976-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:31:31.979-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:32:01.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:32:01.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:32:01.772-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:32:01.773-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:32:01.776-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:32:31.773-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:32:31.779-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:32:31.784-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:32:31.785-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:32:31.787-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:38:38.141-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T08:38:38.167-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T08:38:38.179-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T08:38:38.181-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T08:38:38.207-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:38:46.904-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
-2025-12-11T08:38:46.910-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{canal_depois=14, offset_final=-6, offset_inicial=0, mensagem=Canal 14 processado com sucesso, canal (truncated)...]
-2025-12-11T08:38:46.969-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T08:38:46.986-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : Response 200 OK
-2025-12-11T08:38:47.010-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : Reading to [java.util.Map<?, ?>]
-2025-12-11T08:39:17.194-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : HTTP POST http://localhost:8087/executar-linearizacao-para-canal?canal=14
-2025-12-11T08:39:17.196-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
-2025-12-11T08:39:17.199-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/executar-linearizacao-para-canal?canal=14", parameters={masked}
-2025-12-11T08:39:17.201-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.LinearizacaoMtx1#executarLinearizacaoParaCanal(String)
-2025-12-11T08:39:17.269-03:00  INFO 6264 --- [http-nio-8087-exec-10] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
-2025-12-11T08:39:17.282-03:00  INFO 6264 --- [http-nio-8087-exec-10] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
-2025-12-11T08:39:19.128-03:00  WARN 6264 --- [http-nio-8087-exec-10] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
-2025-12-11T08:39:19.128-03:00  WARN 6264 --- [http-nio-8087-exec-10] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-2025-12-11T10:03:03.252-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
-2025-12-11T10:03:03.270-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{hora_inicio=2025-12-11T10:03:02.640589300, mensagem=Linearização para canal 14 executada com sucess (truncated)...]
-2025-12-11T10:03:03.291-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : Response 200 OK
-2025-12-11T10:03:03.293-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T10:03:03.296-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.client.RestTemplate              : Reading to [java.util.Map<?, ?>]
-2025-12-11T10:03:03.337-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T10:03:03.339-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{linearizacao={hora_inicio=2025-12-11T10:03:02.640589300, mensagem=Linearização para canal 14 execut (truncated)...]
-2025-12-11T10:03:03.345-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T10:26:16.731-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : POST "/executar-procedimento-canal?canal=14", parameters={masked}
-2025-12-11T10:26:16.765-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.ProcedimentoMtx1#executarProcedimentoCanal(String)
-2025-12-11T10:26:16.816-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : HTTP POST http://localhost:8087/executar-calibracao-para-canal?canal=14
-2025-12-11T10:26:16.825-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
-2025-12-11T10:26:16.838-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : POST "/executar-calibracao-para-canal?canal=14", parameters={masked}
-2025-12-11T10:26:16.839-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.AjustarOffSetMtx1#executarParaCanal(String)
-2025-12-11T10:26:18.795-03:00  INFO 6264 --- [http-nio-8087-exec-7] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
-2025-12-11T10:26:18.810-03:00  INFO 6264 --- [http-nio-8087-exec-7] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
-2025-12-11T10:26:20.484-03:00  WARN 6264 --- [http-nio-8087-exec-7] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
-2025-12-11T10:26:20.485-03:00  WARN 6264 --- [http-nio-8087-exec-7] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-2025-12-11T10:34:47.863-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
-2025-12-11T10:34:47.886-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{canal_depois=14, offset_final=-6, offset_inicial=0, mensagem=Canal 14 processado com sucesso, canal (truncated)...]
-2025-12-11T10:34:47.904-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : Response 200 OK
-2025-12-11T10:34:47.905-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T10:34:47.907-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : Reading to [java.util.Map<?, ?>]
-2025-12-11T10:35:17.950-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : HTTP POST http://localhost:8087/executar-linearizacao-para-canal?canal=14
-2025-12-11T10:35:17.954-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
-2025-12-11T10:35:17.977-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : POST "/executar-linearizacao-para-canal?canal=14", parameters={masked}
-2025-12-11T10:35:17.987-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.LinearizacaoMtx1#executarLinearizacaoParaCanal(String)
-2025-12-11T10:35:18.075-03:00  INFO 6264 --- [http-nio-8087-exec-8] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
-2025-12-11T10:35:18.092-03:00  INFO 6264 --- [http-nio-8087-exec-8] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
-2025-12-11T10:35:19.579-03:00  WARN 6264 --- [http-nio-8087-exec-8] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
-2025-12-11T10:35:19.580-03:00  WARN 6264 --- [http-nio-8087-exec-8] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
-2025-12-11T11:55:18.923-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias1", parameters={}
-2025-12-11T11:55:18.998-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX1#getStatusLoopPotencias1()
-2025-12-11T11:55:19.183-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:19.186-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T11:55:19.232-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:19.242-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : POST "/configurar-intervalo?milissegundos=30000", parameters={masked}
-2025-12-11T11:55:19.244-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#configurarIntervalo(long)
-2025-12-11T11:55:19.246-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias2", parameters={}
-2025-12-11T11:55:19.247-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX2#getStatusLoopPotencias2()
-2025-12-11T11:55:19.253-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:19.255-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T11:55:19.257-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:19.276-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias3", parameters={}
-2025-12-11T11:55:19.279-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX3#getStatusLoopPotencias3()
-2025-12-11T11:55:19.292-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:19.293-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T11:55:19.302-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:19.318-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias4", parameters={}
-2025-12-11T11:55:19.319-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX4#getStatusLoopPotencias4()
-2025-12-11T11:55:19.325-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:19.325-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T11:55:19.326-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:19.572-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:19.573-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{legivel=30 segundos, intervalo=30000, mensagem=Intervalo configurado para 30000ms}]
-2025-12-11T11:55:19.595-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:34.378-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : POST "/configurar-intervalo?milissegundos=60000", parameters={masked}
-2025-12-11T11:55:34.380-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#configurarIntervalo(long)
-2025-12-11T11:55:34.386-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:34.387-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{legivel=1 minutos, intervalo=60000, mensagem=Intervalo configurado para 60000ms}]
-2025-12-11T11:55:34.388-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:38.160-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/configurar-intervalo?milissegundos=30000", parameters={masked}
-2025-12-11T11:55:38.161-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#configurarIntervalo(long)
-2025-12-11T11:55:38.163-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:55:38.165-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{legivel=30 segundos, intervalo=30000, mensagem=Intervalo configurado para 30000ms}]
-2025-12-11T11:55:38.165-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:55:46.750-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:55:46.751-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:55:46.772-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:55:46.773-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:55:46.777-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:56:16.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:56:16.764-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:56:16.772-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:56:16.777-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:56:16.781-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:56:46.768-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:56:46.770-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:56:46.776-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:56:46.776-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:56:46.779-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:57:16.758-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:57:16.760-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:57:16.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:57:16.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:57:16.765-03:00 DEBUG 6264 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:57:46.757-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:57:46.758-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:57:46.811-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:57:46.812-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:57:46.814-03:00 DEBUG 6264 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:58:16.755-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:58:16.758-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:58:16.761-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:58:16.761-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:58:16.762-03:00 DEBUG 6264 --- [http-nio-8087-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:58:46.770-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:58:46.772-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:58:46.776-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:58:46.776-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:58:46.780-03:00 DEBUG 6264 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:59:09.940-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
-2025-12-11T11:59:09.945-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{hora_inicio=2025-12-11T11:59:09.611545400, mensagem=Linearização para canal 14 executada com sucess (truncated)...]
-2025-12-11T11:59:09.950-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:59:09.954-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : Response 200 OK
-2025-12-11T11:59:09.960-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.client.RestTemplate              : Reading to [java.util.Map<?, ?>]
-2025-12-11T11:59:09.969-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T11:59:09.970-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{linearizacao={hora_inicio=2025-12-11T11:59:09.611545400, mensagem=Linearização para canal 14 execut (truncated)...]
-2025-12-11T11:59:09.972-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T11:59:47.755-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T11:59:47.757-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T11:59:47.760-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T11:59:47.761-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T11:59:47.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T12:00:48.763-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T12:00:48.764-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T12:00:48.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T12:00:48.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T12:00:48.769-03:00 DEBUG 6264 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T17:52:48.604-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias1", parameters={}
-2025-12-11T17:52:48.644-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX1#getStatusLoopPotencias1()
-2025-12-11T17:52:48.682-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T17:52:48.690-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T17:52:48.719-03:00 DEBUG 6264 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T17:52:48.737-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias2", parameters={}
-2025-12-11T17:52:48.738-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX2#getStatusLoopPotencias2()
-2025-12-11T17:52:48.741-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T17:52:48.741-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T17:52:48.742-03:00 DEBUG 6264 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T17:52:48.748-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias3", parameters={}
-2025-12-11T17:52:48.749-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX3#getStatusLoopPotencias3()
-2025-12-11T17:52:48.750-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T17:52:48.751-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T17:52:48.752-03:00 DEBUG 6264 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T17:52:48.760-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/status-loop-potencias4", parameters={}
-2025-12-11T17:52:48.762-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.MudarPotenciaMTX4#getStatusLoopPotencias4()
-2025-12-11T17:52:48.767-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-12-11T17:52:48.770-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{status_geral=parado, loop_ativo=false}]
-2025-12-11T17:52:48.772-03:00 DEBUG 6264 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2025-12-11T17:53:16.483-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
-2025-12-11T17:53:16.485-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
-2025-12-11T17:53:16.525-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
-2025-12-11T17:53:16.525-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjectsScaning3/dados.txt]]
-2025-12-11T17:53:16.530-03:00 DEBUG 6264 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-15T11:25:27.264-03:00  INFO 26204 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 26204 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-12-15T11:25:27.274-03:00 DEBUG 26204 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-12-15T11:25:27.275-03:00  INFO 26204 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-12-15T11:25:28.530-03:00  INFO 26204 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-12-15T11:25:28.538-03:00  INFO 26204 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-15T11:25:28.538-03:00  INFO 26204 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-12-15T11:25:28.601-03:00  INFO 26204 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-15T11:25:28.601-03:00  INFO 26204 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1244 ms
+2025-12-15T11:25:28.821-03:00  INFO 26204 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-12-15T11:25:28.942-03:00 DEBUG 26204 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 60 mappings in 'requestMappingHandlerMapping'
+2025-12-15T11:25:28.978-03:00 DEBUG 26204 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-12-15T11:25:29.075-03:00 DEBUG 26204 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-15T11:25:29.125-03:00 DEBUG 26204 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-15T11:25:29.343-03:00  INFO 26204 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-12-15T11:25:29.351-03:00  INFO 26204 --- [main] org.example.App                          : Started App in 2.614 seconds (process running for 3.408)
+2025-12-15T11:25:29.987-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T11:25:30.015-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T11:25:32.971-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-12-15T11:25:32.972-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T11:26:28.707-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T11:26:28.723-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T11:26:29.823-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-12-15T11:26:29.823-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T11:27:28.697-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T11:27:28.704-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T11:27:29.491-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-12-15T11:27:29.491-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T11:28:28.703-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T11:28:28.710-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T11:28:29.844-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-12-15T11:28:29.845-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T11:29:28.809-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T11:29:28.833-03:00  INFO 26204 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T11:29:32.664-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 142
+2025-12-15T11:29:32.665-03:00  WARN 26204 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 142.0.7444.176. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:40:07.713-03:00  INFO 23532 --- [main] org.example.App                          : Starting App using Java 24.0.2 with PID 23532 (C:\Users\antho\IdeaProjectsScaning3\target\classes started by antho in C:\Users\antho\IdeaProjectsScaning3)
+2025-12-15T14:40:07.716-03:00 DEBUG 23532 --- [main] org.example.App                          : Running with Spring Boot v3.2.0, Spring v6.1.1
+2025-12-15T14:40:07.718-03:00  INFO 23532 --- [main] org.example.App                          : No active profile set, falling back to 1 default profile: "default"
+2025-12-15T14:40:09.102-03:00  INFO 23532 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8087 (http)
+2025-12-15T14:40:09.112-03:00  INFO 23532 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-12-15T14:40:09.112-03:00  INFO 23532 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2025-12-15T14:40:09.180-03:00  INFO 23532 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-12-15T14:40:09.180-03:00  INFO 23532 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1362 ms
+2025-12-15T14:40:09.452-03:00  INFO 23532 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2025-12-15T14:40:09.567-03:00 DEBUG 23532 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 60 mappings in 'requestMappingHandlerMapping'
+2025-12-15T14:40:09.607-03:00 DEBUG 23532 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-12-15T14:40:09.644-03:00 DEBUG 23532 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-15T14:40:09.695-03:00 DEBUG 23532 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-15T14:40:09.887-03:00  INFO 23532 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8087 (http) with context path ''
+2025-12-15T14:40:09.893-03:00  INFO 23532 --- [main] org.example.App                          : Started App in 2.816 seconds (process running for 3.292)
+2025-12-15T14:40:10.295-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:40:10.313-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:40:15.504-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:40:15.505-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:41:09.355-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:41:09.376-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:41:10.432-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:41:10.433-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:42:09.354-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:42:09.372-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:42:10.326-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:42:10.326-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:43:09.356-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:43:09.371-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:43:10.243-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:43:10.244-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:44:09.318-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:44:09.327-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:44:10.170-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:44:10.171-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:45:09.324-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:45:09.332-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:45:10.091-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:45:10.091-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:46:09.326-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:46:09.335-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:46:10.107-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:46:10.107-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:47:09.335-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:47:09.343-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:47:10.132-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:47:10.132-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:48:09.326-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:48:09.337-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:48:10.192-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:48:10.192-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:49:09.329-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:49:09.338-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:49:10.217-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:49:10.217-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:50:09.326-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:50:09.333-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:50:10.748-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:50:10.748-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:51:09.317-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:51:09.321-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:51:10.591-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:51:10.591-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:52:09.315-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:52:09.336-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:52:10.160-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:52:10.161-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:53:09.311-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:53:09.319-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:53:10.025-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:53:10.025-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-15T14:54:09.323-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 142.0.7444.175 (resolved driver for Chrome 142)
+2025-12-15T14:54:09.329-03:00  INFO 23532 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\142.0.7444.175\chromedriver.exe
+2025-12-15T14:54:10.022-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-15T14:54:10.022-03:00  WARN 23532 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.41. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
