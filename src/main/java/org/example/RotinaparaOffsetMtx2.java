@@ -1,7 +1,10 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class RotinaparaOffset {
+public class RotinaparaOffsetMtx2 {
 
     @Value("${app.username}")
     private String username;
@@ -26,12 +29,12 @@ public class RotinaparaOffset {
     @Value("${app.password}")
     private String password;
 
-    @PostMapping("/mudar-canal-mtx1")
-    public ResponseEntity<Map<String, Object>> mudarCanalMTX1(@RequestParam String canal) {
+    @PostMapping("/mudar-canal-mtx2")
+    public ResponseEntity<Map<String, Object>> mudarCanalMTX2(@RequestParam String canal) {
         Map<String, Object> resposta = new HashMap<>();
 
         try {
-            System.out.println("=== Iniciando mudança de canal MTX1 ===");
+            System.out.println("=== Iniciando mudança de canal MTX2 ===");
             System.out.println("Canal solicitado: " + canal);
 
             // Validar canal
@@ -99,9 +102,9 @@ public class RotinaparaOffset {
             fazerLogin(driver, wait);
             System.out.println("Login realizado");
 
-            // 3. Acessar Modulator 1
-            acessarModulator1(driver, wait);
-            System.out.println("Modulator1 acessado");
+            // 3. Acessar Modulator 2
+            acessarModulator2(driver, wait);
+            System.out.println("Modulator2 acessado");
 
             // 4. Pegar canal atual (antes)
             String canalAntes = obterCanalAtual(driver, wait);
@@ -171,26 +174,26 @@ public class RotinaparaOffset {
     }
 
     // ACESSAR MODULADOR
-    private void acessarModulator1(WebDriver driver, WebDriverWait wait) throws Exception {
-        WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[@link='Modulator1___']/input")));
-        modulator1.click();
+    private void acessarModulator2(WebDriver driver, WebDriverWait wait) throws Exception {
+        WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[@link='Modulator2___']/input")));
+        modulator2.click();
         Thread.sleep(300);
     }
 
     // ACESSAR POWERAMP
-    private void acessarPowerAmp1(WebDriver driver, WebDriverWait wait) throws Exception {
-        WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[@link='PowerAmplifier1___']/input")));
-        modulator1.click();
+    private void acessarPowerAmp2(WebDriver driver, WebDriverWait wait) throws Exception {
+        WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[@link='PowerAmplifier2___']/input")));
+        modulator2.click();
         Thread.sleep(300);
     }
 
     // ACESSAR INTERNAL
-    private void acessarInternal1(WebDriver driver, WebDriverWait wait) throws Exception {
-        WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[@link='Internal1___']/input")));
-        modulator1.click();
+    private void acessarInternal2(WebDriver driver, WebDriverWait wait) throws Exception {
+        WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[@link='Internal2___']/input")));
+        modulator2.click();
         Thread.sleep(300);
     }
 
@@ -200,7 +203,7 @@ public class RotinaparaOffset {
         try {
             // Tentar diferentes formas de obter o canal
             WebElement canalElement = driver.findElement(
-                    By.id("Modulator1_Config_UpConverter_ChannelNumber"));
+                    By.id("Modulator2_Config_UpConverter_ChannelNumber"));
 
             String canal = canalElement.getText();
             if (canal == null || canal.trim().isEmpty()) {
@@ -218,7 +221,7 @@ public class RotinaparaOffset {
     private void clicarParaEditarCanal(WebDriver driver, WebDriverWait wait) throws Exception {
         // Tentar clicar no elemento do canal
         WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("Modulator1_Config_UpConverter_ChannelNumber")));
+                By.id("Modulator2_Config_UpConverter_ChannelNumber")));
 
         // Dar duplo clique para editar
         new org.openqa.selenium.interactions.Actions(driver)
@@ -275,7 +278,7 @@ public class RotinaparaOffset {
         try {
             // Tentar diferentes formas de obter o canal
             WebElement canalElement = driver.findElement(
-                    By.id("Internal1_power_offset"));
+                    By.id("Internal2_power_offset"));
 
             String canal = canalElement.getText();
             if (canal == null || canal.trim().isEmpty()) {
@@ -293,7 +296,7 @@ public class RotinaparaOffset {
     private void clicarParaEditarOffSet(WebDriver driver, WebDriverWait wait) throws Exception {
         // Tentar clicar no elemento do canal
         WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("Internal1_power_offset")));
+                By.id("Internal2_power_offset")));
 
         // Dar duplo clique para editar
         new org.openqa.selenium.interactions.Actions(driver)
@@ -350,7 +353,7 @@ public class RotinaparaOffset {
         try {
             // Tentar diferentes formas de obter o canal
             WebElement canalElement = driver.findElement(
-                    By.id("PowerAmplifier1_Config_OutputPower"));
+                    By.id("PowerAmplifier2_Config_OutputPower"));
 
             String canal = canalElement.getText();
             if (canal == null || canal.trim().isEmpty()) {
@@ -368,7 +371,7 @@ public class RotinaparaOffset {
     private void clicarParaEditarPotencia(WebDriver driver, WebDriverWait wait) throws Exception {
         // Tentar clicar no elemento do canal
         WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("PowerAmplifier1_Config_OutputPower")));
+                By.id("PowerAmplifier2_Config_OutputPower")));
 
         // Dar duplo clique para editar
         new org.openqa.selenium.interactions.Actions(driver)
@@ -425,7 +428,7 @@ public class RotinaparaOffset {
         try {
             // Tentar diferentes formas de obter o canal
             WebElement canalElement = driver.findElement(
-                    By.id("PowerAmplifier1_Config_RfMasterOn"));
+                    By.id("PowerAmplifier2_Config_RfMasterOn"));
 
             String canal = canalElement.getText();
             if (canal == null || canal.trim().isEmpty()) {
@@ -443,7 +446,7 @@ public class RotinaparaOffset {
     private void clicarParaEditarRfMaster(WebDriver driver, WebDriverWait wait) throws Exception {
         // Tentar clicar no elemento do canal
         WebElement canalElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.id("PowerAmplifier1_Config_RfMasterOn")));
+                By.id("PowerAmplifier2_Config_RfMasterOn")));
 
         // Dar duplo clique para editar
         new org.openqa.selenium.interactions.Actions(driver)
@@ -496,7 +499,7 @@ public class RotinaparaOffset {
 
 
     private void salvarLog(String canal, String antes, String depois) {
-        String filePath = System.getProperty("user.dir") + "/logs_canal_mtx1.txt";
+        String filePath = System.getProperty("user.dir") + "/logs_canal_mtx2.txt";
         try (java.io.FileWriter writer = new java.io.FileWriter(filePath, true)) {
             writer.write(LocalDateTime.now() +
                     " | Canal: " + canal +

@@ -451,6 +451,27 @@
             background: #f00;
             color: #000;
         }
+
+        const style = document.createElement('style');
+            style.textContent = `
+            .status-warning {
+                color: #ff9900;
+                border: 1px solid #ff9900;
+                background: #221a00;
+            }
+
+            .controle-geral-section {
+                border: 3px solid #ff9900;
+                padding: 20px;
+                margin: 20px 0;
+                border-radius: 10px;
+                background: #111;
+            }
+
+            .controle-geral-section h1 {
+                color: #ff9900;
+            }
+        ;
     </style>
 </head>
 <body>
@@ -476,6 +497,49 @@
 </div>
 
 <h1>Calibração Automática 1.3</h1>
+
+<!-- CONTROLES GERAIS -->
+<h1>Controle GERAL - TODOS MTXs</h1>
+
+<!-- Container para botões de status (Ligar/Desligar TODOS) -->
+<div class="status-container" style="margin: 20px 0;">
+    <button class="loop-btn" onclick="ligarTodosMTXs()" id="ligarTodosBtn">
+        LIGAR TODOS MTXs
+    </button>
+    <button class="loop-btn parar" onclick="desligarTodosMTXs()" id="desligarTodosBtn" style="display: none;">
+        DESLIGAR TODOS MTXs
+    </button>
+</div>
+
+<!-- Container para PROCEDIMENTO TODOS OS CANAIS EM TODOS MTXs -->
+<div class="procedimento-todos-container" style="margin: 20px 0;">
+    <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanaisTodosMTXs()" id="procedimentoTodosMTXsBtn">
+        ROTINA PRINCIPAL TODOS MTXs
+    </button>
+    <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosMTXs()" id="cancelarProcedimentoTodosMTXsBtn" style="display: none;">
+        CANCELAR TODOS
+    </button>
+</div>
+
+<!-- Container para OFFSET TODOS CANAIS EM TODOS MTXs -->
+<div class="potencia-geral-container" style="margin: 20px 0;">
+    <button class="loop-btn" onclick="iniciarOffsetTodosCanaisTodosMTXs()" id="comecarOffsetTodosMTXsBtn">
+        OFFSET TODOS MTXs
+    </button>
+    <button class="loop-btn parar" onclick="finalizarOffsetTodosMTXs()" id="pararOffsetTodosMTXsBtn" style="display: none;">
+        PARAR TODOS
+    </button>
+</div>
+
+<!-- Container para LINEARIZAÇÃO TODOS CANAIS EM TODOS MTXs -->
+<div class="linearizacao-container" style="margin: 20px 0;">
+    <button class="loop-btn" onclick="iniciarLinearizacaoTodosCanaisTodosMTXs()" id="comecarLinearizacaoTodosMTXsBtn">
+        LINEARIZAÇÃO TODOS MTXs
+    </button>
+    <button class="loop-btn parar" onclick="finalizarLinearizacaoTodosMTXs()" id="pararLinearizacaoTodosMTXsBtn" style="display: none;">
+        PARAR TODOS
+    </button>
+</div>
 
 <!-- MTX 1 -->
 <div class="casa-grande" id="mtx1">
@@ -510,16 +574,6 @@
     <div class="potencia-status" id="potenciaStatus1"></div>
     <div class="canal-status" id="canalStatus1"></div>
 
-    <!-- Container para botões de loop -->
-    <div class="loop-container">
-        <button class="loop-btn" onclick="iniciarLoopPotencia('1')" id="loopBtn1">
-            Iniciar Loop
-        </button>
-        <button class="loop-btn parar" onclick="pararLoopPotencia('1')" id="pararLoopBtn1" style="display: none;">
-            Parar Loop
-        </button>
-    </div>
-
     <!-- Container para botões de status (Ligar/Desligar) -->
     <div class="status-container">
         <button class="loop-btn" onclick="ligarMTX('1')" id="ligarBtn1">
@@ -530,40 +584,20 @@
         </button>
     </div>
 
-    <!-- Container para PROCEDIMENTO COMPLETO (canal específico) -->
-    <div class="procedimento-container">
-        <button class="procedimento-btn" onclick="iniciarProcedimentoCanal('1')" id="procedimentoCanalBtn1">
-            PROCEDIMENTO COMPLETO
-        </button>
-        <button class="procedimento-btn parar" onclick="cancelarProcedimentoCanal('1')" id="cancelarProcedimentoCanalBtn1" style="display: none;">
-            CANCELAR
-        </button>
-    </div>
-
     <!-- Container para PROCEDIMENTO TODOS OS CANAIS -->
     <div class="procedimento-todos-container">
         <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanais('1')" id="procedimentoTodosBtn1">
-            PROCEDIMENTO TODOS OS CANAIS
+            ROTINA PRINCIPAL TODOS CANAIS
         </button>
         <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosCanais('1')" id="cancelarProcedimentoTodosBtn1" style="display: none;">
             CANCELAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset específica para cada canal -->
-    <div class="potencia-container">
-        <button class="loop-btn" onclick="iniciarcalibracao('1')" id="comecarcalibracaoBtn1">
-            AJUSTE OFFSET
-        </button>
-        <button class="loop-btn parar" onclick="finalizarcalibracao('1')" id="pararcalibracaoBtn1" style="display: none;">
-            PARAR
-        </button>
-    </div>
-
     <!-- Container para botões de rotina offset para todos os canais -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarcalibracaogeral('1')" id="comecarcalibracaogeralBtn1">
-            AJUSTE OFFSET TODOS
+            OFFSET TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarcalibracaogeral('1')" id="pararcalibracaogeralBtn1" style="display: none;">
             PARAR
@@ -573,7 +607,7 @@
     <!-- Container para botões de rotina de linearização específica para cada canal -->
     <div class="linearizacao-container">
         <button class="loop-btn" onclick="iniciarlinearizacao('1')" id="comecarlinearizacaoBtn1">
-            LINEARIZAÇÃO
+            LINEARIZAÇÃO TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarlinearizacao('1')" id="pararlinearizacaoBtn1" style="display: none;">
             PARAR
@@ -662,7 +696,7 @@
 
         <!-- Dropdown de Canal -->
         <div class="dropdown-container">
-            <button class="dropdown-btn" onclick="toggleDropdown('Canal2')" id="canalBtn2">Canal: 14</button>
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal1')" id="canalBtn2">Canal: 14</button>
             <div class="dropdown-content" id="dropdownCanal2">
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item" onclick="setarCanalDropdown('2', '14', '14')">14</button>
@@ -675,16 +709,6 @@
     <div class="potencia-status" id="potenciaStatus2"></div>
     <div class="canal-status" id="canalStatus2"></div>
 
-    <!-- Container para botões de loop -->
-    <div class="loop-container">
-        <button class="loop-btn" onclick="iniciarLoopPotencia('2')" id="loopBtn2">
-            Iniciar Loop
-        </button>
-        <button class="loop-btn parar" onclick="pararLoopPotencia('2')" id="pararLoopBtn2" style="display: none;">
-            Parar Loop
-        </button>
-    </div>
-
     <!-- Container para botões de status (Ligar/Desligar) -->
     <div class="status-container">
         <button class="loop-btn" onclick="ligarMTX('2')" id="ligarBtn2">
@@ -695,30 +719,30 @@
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset 2 especifica para cada canal -->
-    <div class="potencia-container">
-        <button class="loop-btn" onclick="iniciarcalibracao('2')" id="comecarcalibracaoBtn2">
-            INICIAR
+    <!-- Container para PROCEDIMENTO TODOS OS CANAIS -->
+    <div class="procedimento-todos-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanais('2')" id="procedimentoTodosBtn2">
+            ROTINA PRINCIPAL TODOS CANAIS
         </button>
-        <button class="loop-btn parar" onclick="finalizarcalibracao('2')" id="pararcalibracaoBtn2" style="display: none;">
-            PARAR
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosCanais('2')" id="cancelarProcedimentoTodosBtn2" style="display: none;">
+            CANCELAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset 2 para todos os canais -->
+    <!-- Container para botões de rotina offset para todos os canais -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarcalibracaogeral('2')" id="comecarcalibracaogeralBtn2">
-            INICIAR
+            OFFSET TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarcalibracaogeral('2')" id="pararcalibracaogeralBtn2" style="display: none;">
             PARAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina de linearização 2 especifica para cada canal -->
+    <!-- Container para botões de rotina de linearização específica para cada canal -->
     <div class="linearizacao-container">
         <button class="loop-btn" onclick="iniciarlinearizacao('2')" id="comecarlinearizacaoBtn2">
-            INICIAR
+            LINEARIZAÇÃO TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarlinearizacao('2')" id="pararlinearizacaoBtn2" style="display: none;">
             PARAR
@@ -804,7 +828,7 @@
 
         <!-- Dropdown de Canal -->
         <div class="dropdown-container">
-            <button class="dropdown-btn" onclick="toggleDropdown('Canal3')" id="canalBtn3">Canal: 14</button>
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal1')" id="canalBtn3">Canal: 14</button>
             <div class="dropdown-content" id="dropdownCanal3">
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item" onclick="setarCanalDropdown('3', '14', '14')">14</button>
@@ -817,16 +841,6 @@
     <div class="potencia-status" id="potenciaStatus3"></div>
     <div class="canal-status" id="canalStatus3"></div>
 
-    <!-- Container para botões de loop -->
-    <div class="loop-container">
-        <button class="loop-btn" onclick="iniciarLoopPotencia('3')" id="loopBtn3">
-            Iniciar Loop
-        </button>
-        <button class="loop-btn parar" onclick="pararLoopPotencia('3')" id="pararLoopBtn3" style="display: none;">
-            Parar Loop
-        </button>
-    </div>
-
     <!-- Container para botões de status (Ligar/Desligar) -->
     <div class="status-container">
         <button class="loop-btn" onclick="ligarMTX('3')" id="ligarBtn3">
@@ -837,30 +851,30 @@
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset 3 especifica para cada canal -->
-    <div class="potencia-container">
-        <button class="loop-btn" onclick="iniciarcalibracao('3')" id="comecarcalibracaoBtn3">
-            INICIAR
+    <!-- Container para PROCEDIMENTO TODOS OS CANAIS -->
+    <div class="procedimento-todos-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanais('3')" id="procedimentoTodosBtn3">
+            ROTINA PRINCIPAL TODOS CANAIS
         </button>
-        <button class="loop-btn parar" onclick="finalizarcalibracao('3')" id="pararcalibracaoBtn3" style="display: none;">
-            PARAR
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosCanais('3')" id="cancelarProcedimentoTodosBtn3" style="display: none;">
+            CANCELAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset 3 para todos os canais -->
+    <!-- Container para botões de rotina offset para todos os canais -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarcalibracaogeral('3')" id="comecarcalibracaogeralBtn3">
-            INICIAR
+            OFFSET TODOS CANAIS
         </button>
-        <button class="loop-btn parar" onclick="finalizarlinearizacao('3')" id="pararlinearizacaoBtn3" style="display: none;">
+        <button class="loop-btn parar" onclick="finalizarcalibracaogeral('3')" id="pararcalibracaogeralBtn3" style="display: none;">
             PARAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina de linearização 3 especifica para cada canal -->
+    <!-- Container para botões de rotina de linearização específica para cada canal -->
     <div class="linearizacao-container">
         <button class="loop-btn" onclick="iniciarlinearizacao('3')" id="comecarlinearizacaoBtn3">
-            INICIAR
+            LINEARIZAÇÃO TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarlinearizacao('3')" id="pararlinearizacaoBtn3" style="display: none;">
             PARAR
@@ -946,7 +960,7 @@
 
         <!-- Dropdown de Canal -->
         <div class="dropdown-container">
-            <button class="dropdown-btn" onclick="toggleDropdown('Canal4')" id="canalBtn4">Canal: 14</button>
+            <button class="dropdown-btn" onclick="toggleDropdown('Canal1')" id="canalBtn4">Canal: 14</button>
             <div class="dropdown-content" id="dropdownCanal4">
                 <div class="dropdown-divider"></div>
                 <button class="dropdown-item" onclick="setarCanalDropdown('4', '14', '14')">14</button>
@@ -959,16 +973,6 @@
     <div class="potencia-status" id="potenciaStatus4"></div>
     <div class="canal-status" id="canalStatus4"></div>
 
-    <!-- Container para botões de loop -->
-    <div class="loop-container">
-        <button class="loop-btn" onclick="iniciarLoopPotencia('4')" id="loopBtn4">
-            Iniciar Loop
-        </button>
-        <button class="loop-btn parar" onclick="pararLoopPotencia('4')" id="pararLoopBtn4" style="display: none;">
-            Parar Loop
-        </button>
-    </div>
-
     <!-- Container para botões de status (Ligar/Desligar) -->
     <div class="status-container">
         <button class="loop-btn" onclick="ligarMTX('4')" id="ligarBtn4">
@@ -979,36 +983,35 @@
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset 4 especifica para cada canal -->
-    <div class="potencia-container">
-        <button class="loop-btn" onclick="iniciarcalibracao('4')" id="comecarcalibracaoBtn4">
-            INICIAR
+    <!-- Container para PROCEDIMENTO TODOS OS CANAIS -->
+    <div class="procedimento-todos-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanais('4')" id="procedimentoTodosBtn4">
+            ROTINA PRINCIPAL TODOS CANAIS
         </button>
-        <button class="loop-btn parar" onclick="finalizarcalibracao('4')" id="pararcalibracaoBtn4" style="display: none;">
-            PARAR
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosCanais('4')" id="cancelarProcedimentoTodosBtn4" style="display: none;">
+            CANCELAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina offset 4 para todos os canais -->
+    <!-- Container para botões de rotina offset para todos os canais -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarcalibracaogeral('4')" id="comecarcalibracaogeralBtn4">
-            INICIAR
+            OFFSET TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarcalibracaogeral('4')" id="pararcalibracaogeralBtn4" style="display: none;">
             PARAR
         </button>
     </div>
 
-    <!-- Container para botões de rotina de linearização 4 especifica para cada canal -->
+    <!-- Container para botões de rotina de linearização específica para cada canal -->
     <div class="linearizacao-container">
         <button class="loop-btn" onclick="iniciarlinearizacao('4')" id="comecarlinearizacaoBtn4">
-            INICIAR
+            LINEARIZAÇÃO TODOS CANAIS
         </button>
         <button class="loop-btn parar" onclick="finalizarlinearizacao('4')" id="pararlinearizacaoBtn4" style="display: none;">
             PARAR
         </button>
     </div>
-
 
     <!-- Status Messages -->
     <div class="loop-status" id="loopStatus4"></div>
@@ -1416,6 +1419,333 @@
             }, 12000);
         }
     }
+
+    // ============ FUNÇÕES PARA CONTROLE GERAL (TODOS MTXs) ============
+
+// Status geral
+let statusGeral = document.createElement('div');
+statusGeral.id = 'statusGeral';
+statusGeral.className = 'loop-status';
+statusGeral.style.margin = '20px auto';
+statusGeral.style.maxWidth = '90%';
+document.querySelector('h1').after(statusGeral);
+
+// Função para mostrar status geral
+function mostrarStatusGeral(mensagem, tipo) {
+    const statusElement = document.getElementById('statusGeral');
+
+    statusElement.innerHTML = mensagem;
+    statusElement.className = 'loop-status';
+
+    if (tipo === 'success') {
+        statusElement.classList.add('status-success');
+    } else if (tipo === 'error') {
+        statusElement.classList.add('status-error');
+    } else if (tipo === 'loading') {
+        statusElement.classList.add('status-loading');
+    } else if (tipo === 'warning') {
+        statusElement.classList.add('status-warning');
+    }
+
+    statusElement.style.display = 'block';
+
+    // Esconde após 10 segundos (se não for erro)
+    if (tipo !== 'error') {
+        setTimeout(() => {
+            statusElement.style.display = 'none';
+        }, 10000);
+    }
+}
+
+// 1. Função para LIGAR TODOS os MTXs
+async function ligarTodosMTXs() {
+    const ligarBtn = document.getElementById('ligarTodosBtn');
+    const desligarBtn = document.getElementById('desligarTodosBtn');
+
+    mostrarStatusGeral('Ligando TODOS os MTXs simultaneamente...', 'loading');
+
+    try {
+        // Desativa botões temporariamente
+        if (ligarBtn && desligarBtn) {
+            ligarBtn.style.display = 'none';
+            desligarBtn.style.display = 'inline-block';
+            desligarBtn.classList.add('ativo');
+            ligarBtn.disabled = true;
+        }
+
+        // Array de promises para executar em paralelo
+        const promises = [];
+        const mtxs = ['1', '2', '3', '4'];
+
+        for (const mtx of mtxs) {
+            promises.push(
+                fetch(`/ligarMtx${mtx}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(resultado => ({ mtx, resultado }))
+            );
+        }
+
+        // Executa todas as requisições em paralelo
+        const resultados = await Promise.allSettled(promises);
+
+        // Analisa os resultados
+        let sucessos = 0;
+        let erros = 0;
+        let detalhesErros = [];
+
+        resultados.forEach(result => {
+            if (result.status === 'fulfilled') {
+                const { mtx, resultado } = result.value;
+                if (resultado.status === 'sucesso') {
+                    sucessos++;
+
+                    // Atualiza botões individuais
+                    const ligarBtnIndividual = document.getElementById(`ligarBtn${mtx}`);
+                    const desligarBtnIndividual = document.getElementById(`desligarBtn${mtx}`);
+                    if (ligarBtnIndividual && desligarBtnIndividual) {
+                        ligarBtnIndividual.style.display = 'none';
+                        desligarBtnIndividual.style.display = 'inline-block';
+                        desligarBtnIndividual.classList.add('ativo');
+                    }
+                } else {
+                    erros++;
+                    detalhesErros.push(`MTX${mtx}: ${resultado.mensagem || 'Erro desconhecido'}`);
+                }
+            } else {
+                erros++;
+                detalhesErros.push(`MTX: ${result.reason}`);
+            }
+        });
+
+        if (erros === 0) {
+            mostrarStatusGeral(`<strong>TODOS MTXs LIGADOS COM SUCESSO!</strong><br>Todos os 4 MTXs foram ligados.`, 'success');
+        } else if (sucessos > 0) {
+            mostrarStatusGeral(
+                `<strong>LIGAÇÃO PARCIALMENTE CONCLUÍDA</strong><br>` +
+                `Sucesso: ${sucessos} MTX(s)<br>` +
+                `Falhas: ${erros} MTX(s)<br>` +
+                `Detalhes: ${detalhesErros.join(', ')}`,
+                'warning'
+            );
+        } else {
+            mostrarStatusGeral(
+                `<strong>FALHA AO LIGAR TODOS MTXs</strong><br>` +
+                `Erros: ${detalhesErros.join('<br>')}`,
+                'error'
+            );
+        }
+
+    } catch (error) {
+        mostrarStatusGeral('Erro de conexão ao tentar ligar todos MTXs', 'error');
+        console.error('Erro ao ligar todos MTXs:', error);
+    } finally {
+        // Atualiza dados após 3 segundos
+        setTimeout(() => {
+            carregarDados();
+        }, 3000);
+    }
+}
+
+// 2. Função para DESLIGAR TODOS os MTXs
+async function desligarTodosMTXs() {
+    const ligarBtn = document.getElementById('ligarTodosBtn');
+    const desligarBtn = document.getElementById('desligarTodosBtn');
+
+    mostrarStatusGeral('Desligando TODOS os MTXs simultaneamente...', 'loading');
+
+    try {
+        // Array de promises para executar em paralelo
+        const promises = [];
+        const mtxs = ['1', '2', '3', '4'];
+
+        for (const mtx of mtxs) {
+            promises.push(
+                fetch(`/desligarMtx${mtx}`, { method: 'POST' })
+                    .then(response => response.json())
+                    .then(resultado => ({ mtx, resultado }))
+            );
+        }
+
+        // Executa todas as requisições em paralelo
+        const resultados = await Promise.allSettled(promises);
+
+        // Analisa os resultados
+        let sucessos = 0;
+        let erros = 0;
+        let detalhesErros = [];
+
+        resultados.forEach(result => {
+            if (result.status === 'fulfilled') {
+                const { mtx, resultado } = result.value;
+                if (resultado.status === 'sucesso') {
+                    sucessos++;
+
+                    // Atualiza botões individuais
+                    const ligarBtnIndividual = document.getElementById(`ligarBtn${mtx}`);
+                    const desligarBtnIndividual = document.getElementById(`desligarBtn${mtx}`);
+                    if (ligarBtnIndividual && desligarBtnIndividual) {
+                        ligarBtnIndividual.style.display = 'inline-block';
+                        desligarBtnIndividual.style.display = 'none';
+                        desligarBtnIndividual.classList.remove('ativo');
+                    }
+                } else {
+                    erros++;
+                    detalhesErros.push(`MTX${mtx}: ${resultado.mensagem || 'Erro desconhecido'}`);
+                }
+            } else {
+                erros++;
+                detalhesErros.push(`MTX: ${result.reason}`);
+            }
+        });
+
+        if (erros === 0) {
+            mostrarStatusGeral(`<strong>TODOS MTXs DESLIGADOS COM SUCESSO!</strong><br>Todos os 4 MTXs foram desligados.`, 'success');
+
+            // Restaura botões gerais
+            if (ligarBtn && desligarBtn) {
+                ligarBtn.style.display = 'inline-block';
+                desligarBtn.style.display = 'none';
+                desligarBtn.classList.remove('ativo');
+                ligarBtn.disabled = false;
+            }
+        } else if (sucessos > 0) {
+            mostrarStatusGeral(
+                `<strong>DESLIGAMENTO PARCIALMENTE CONCLUÍDO</strong><br>` +
+                `Sucesso: ${sucessos} MTX(s)<br>` +
+                `Falhas: ${erros} MTX(s)<br>` +
+                `Detalhes: ${detalhesErros.join(', ')}`,
+                'warning'
+            );
+        } else {
+            mostrarStatusGeral(
+                `<strong>FALHA AO DESLIGAR TODOS MTXs</strong><br>` +
+                `Erros: ${detalhesErros.join('<br>')}`,
+                'error'
+            );
+        }
+
+    } catch (error) {
+        mostrarStatusGeral('Erro de conexão ao tentar desligar todos MTXs', 'error');
+        console.error('Erro ao desligar todos MTXs:', error);
+    } finally {
+        // Atualiza dados após 3 segundos
+        setTimeout(() => {
+            carregarDados();
+        }, 3000);
+    }
+}
+
+// 3. Função para PROCEDIMENTO COMPLETO em TODOS MTXs
+async function iniciarProcedimentoTodosCanaisTodosMTXs() {
+    const iniciarBtn = document.getElementById('procedimentoTodosMTXsBtn');
+    const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
+
+    // Mostra confirmação
+    if (!confirm('ATENÇÃO: Esta operação executará o procedimento completo em TODOS os 4 MTXs simultaneamente.\n\nEsta operação pode levar várias horas.\nDeseja continuar?')) {
+        return;
+    }
+
+    mostrarStatusGeral(
+        'Iniciando procedimento completo em TODOS os MTXs simultaneamente...<br>' +
+        '<strong>ATENÇÃO: Esta operação pode levar várias horas!</strong><br>' +
+        'Não feche esta página durante a execução.',
+        'loading'
+    );
+
+    try {
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'none';
+            cancelarBtn.style.display = 'inline-block';
+            cancelarBtn.classList.add('ativo');
+        }
+
+        // Chama endpoint geral (você precisará criar este endpoint no backend)
+        const response = await fetch('/executar-procedimento-todos-mtxs', {
+            method: 'POST'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok && resultado.status === 'sucesso') {
+            mostrarStatusGeral(
+                `<strong>PROCEDIMENTO INICIADO EM TODOS MTXs!</strong><br>` +
+                `Status: ${resultado.mensagem}<br>` +
+                `Hora início: ${resultado.hora_inicio || new Date().toLocaleString()}<br>` +
+                `Monitorando progresso...`,
+                'success'
+            );
+
+        } else {
+            mostrarStatusGeral(`Erro ao iniciar procedimento: ${resultado.mensagem}`, 'error');
+
+            // Restaura botões
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'inline-block';
+                cancelarBtn.style.display = 'none';
+                cancelarBtn.classList.remove('ativo');
+            }
+        }
+
+    } catch (error) {
+        mostrarStatusGeral('Erro de conexão com o servidor', 'error');
+        console.error('Erro ao iniciar procedimento geral:', error);
+
+        // Restaura botões
+        const iniciarBtn = document.getElementById('procedimentoTodosMTXsBtn');
+        const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'inline-block';
+            cancelarBtn.style.display = 'none';
+            cancelarBtn.classList.remove('ativo');
+        }
+    }
+}
+
+// 4. Função para cancelar procedimento geral
+async function cancelarProcedimentoTodosMTXs() {
+    mostrarStatusGeral('Cancelando procedimento em todos MTXs...', 'loading');
+
+    try {
+        const response = await fetch('/cancelar-procedimento-todos-mtxs', {
+            method: 'POST'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok && resultado.status === 'sucesso') {
+            mostrarStatusGeral('Procedimento cancelado em todos MTXs!', 'success');
+
+            // Restaura botões
+            const iniciarBtn = document.getElementById('procedimentoTodosMTXsBtn');
+            const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'inline-block';
+                cancelarBtn.style.display = 'none';
+                cancelarBtn.classList.remove('ativo');
+            }
+
+        } else {
+            mostrarStatusGeral(`Erro ao cancelar: ${resultado.mensagem}`, 'error');
+        }
+
+    } catch (error) {
+        mostrarStatusGeral('Erro de conexão ao cancelar', 'error');
+        console.error('Erro ao cancelar procedimento geral:', error);
+    }
+}
+
+// 5. Função para OFFSET em TODOS MTXs
+async function iniciarOffsetTodosCanaisTodosMTXs() {
+    mostrarStatusGeral(
+        'ATENÇÃO: Esta função executa OFFSET em TODOS os MTXs simultaneamente.<br>' +
+        'Para executar em cada MTX individualmente, use os botões específicos abaixo.',
+        'warning'
+    );
+
+    // Você pode implementar a lógica similar às outras funções gerais
+}
+
+document.head.appendChild(style);
 
     // ============ FUNÇÕES PARA LIGAR/DESLIGAR MTX ============
 
