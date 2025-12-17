@@ -23,6 +23,9 @@ import java.util.Map;
 @RestController
 public class RotinaparaOffsetMtx3 {
 
+    private static final String RESET = "\u001B[0m";
+    private static final String BLUE = "\u001B[34m";
+
     @Value("${app.username}")
     private String username;
 
@@ -34,8 +37,8 @@ public class RotinaparaOffsetMtx3 {
         Map<String, Object> resposta = new HashMap<>();
 
         try {
-            System.out.println("=== Iniciando mudança de canal MTX3 ===");
-            System.out.println("Canal solicitado: " + canal);
+            System.out.println(BLUE + "=== Iniciando mudança de canal MTX3 ===" + RESET);
+            System.out.println(BLUE + "Canal solicitado: " + canal + RESET);
 
             // Validar canal
             if (!canal.matches("\\d+")) {
@@ -96,39 +99,39 @@ public class RotinaparaOffsetMtx3 {
 
             // 1. Acessar a página
             driver.get("http://10.10.103.103/debug/");
-            System.out.println("Página acessada");
+            System.out.println(BLUE + "Página acessada" + RESET);
 
             // 2. Fazer login
             fazerLogin(driver, wait);
-            System.out.println("Login realizado");
+            System.out.println(BLUE + "Login realizado" + RESET);
 
             // 3. Acessar Modulator 3
             acessarModulator3(driver, wait);
-            System.out.println("Modulator3 acessado");
+            System.out.println(BLUE + "Modulator3 acessado" + RESET);
 
             // 4. Pegar canal atual (antes)
             String canalAntes = obterCanalAtual(driver, wait);
-            System.out.println("Canal atual: " + canalAntes);
+            System.out.println(BLUE + "Canal atual: " + canalAntes + RESET);
 
             // 5. Clicar para editar o canal
             clicarParaEditarCanal(driver, wait);
-            System.out.println("Campo de canal clicado");
+            System.out.println(BLUE + "Campo de canal clicado" + RESET);
 
             // 6. Aguardar e preencher o diálogo
             Thread.sleep(300);
             preencherNovoCanal(driver, wait, canal);
-            System.out.println("Novo canal preenchido: " + canal);
+            System.out.println(BLUE + "Novo canal preenchido: " + canal + RESET);
 
             // 7. Confirmar
             confirmarMudancaCanal(driver, wait);
-            System.out.println("Mudança confirmada");
+            System.out.println(BLUE + "Mudança confirmada" + RESET);
 
             // 8. Aguardar aplicação
             //Thread.sleep(2000);
 
             // 9. Verificar canal depois
             String canalDepois = obterCanalAtual(driver, wait);
-            System.out.println("Canal depois: " + canalDepois);
+            System.out.println(BLUE + "Canal depois: " + canalDepois + RESET);
 
             // 10. Salvar log
             salvarLog(canal, canalAntes, canalDepois);
@@ -146,7 +149,7 @@ public class RotinaparaOffsetMtx3 {
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(BLUE + "Driver finalizado" + RESET);
             }
         }
 
@@ -505,7 +508,7 @@ public class RotinaparaOffsetMtx3 {
                     " | Canal: " + canal +
                     " | Antes: " + antes +
                     " | Depois: " + depois + "\n");
-            System.out.println("Log salvo em: " + filePath);
+            System.out.println(BLUE + "Log salvo em: " + filePath + RESET);
         } catch (Exception e) {
             System.err.println("Erro ao salvar log: " + e.getMessage());
         }

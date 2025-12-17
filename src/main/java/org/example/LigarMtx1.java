@@ -16,6 +16,9 @@ import java.util.Map;
 @RestController
 public class LigarMtx1 {
 
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+
     // Adicione estas linhas para injetar usuário e senha
     @Value("${app.username:admin}")
     private String username;
@@ -67,7 +70,7 @@ public class LigarMtx1 {
 
     private Map<String, Object> configurarStatusMTX1(String valorStatus) {
         String urlBase = "http://10.10.103.103/debug/";
-        System.out.println("URL que será acessada: " + urlBase);
+        System.out.println(GREEN + "URL que será acessada: " + urlBase + RESET);
 
         WebDriverManager.chromedriver().setup();
 
@@ -88,7 +91,7 @@ public class LigarMtx1 {
 
         try {
             driver.get(urlBase);
-            System.out.println("Acessando: " + urlBase);
+            System.out.println(GREEN + "Acessando: " + urlBase + RESET);
 
             // Login
             WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='text']")));
@@ -101,7 +104,7 @@ public class LigarMtx1 {
 
             WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Sign In']")));
             botaoLogin.click();
-            System.out.println("Login realizado");
+            System.out.println(GREEN + "Login realizado" + RESET);
 
             // Aguardar carregamento
             //Thread.sleep(1000);
@@ -110,7 +113,7 @@ public class LigarMtx1 {
             WebElement powerAmp1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier1___']/input")));
             powerAmp1.click();
             Thread.sleep(300);
-            System.out.println("PowerAmplifier1 selecionado");
+            System.out.println(GREEN + "PowerAmplifier1 selecionado" + RESET);
 
             // Clica no RfMasterOn
             WebElement RfMasterOn = null;
@@ -118,19 +121,19 @@ public class LigarMtx1 {
                 // Tentativa 1: Pelo ID exato
                 RfMasterOn = wait.until(ExpectedConditions.elementToBeClickable(
                         By.id("PowerAmplifier1.Config.RfMasterOn")));
-                System.out.println("RfMasterOn encontrado pelo ID exato");
+                System.out.println(GREEN + "RfMasterOn encontrado pelo ID exato" + RESET);
             } catch (Exception e1) {
                 try {
                     // Tentativa 2: Pelo ID com underscore
                     RfMasterOn = wait.until(ExpectedConditions.elementToBeClickable(
                             By.id("PowerAmplifier1_Config_RfMasterOn")));
-                    System.out.println("RfMasterOn encontrado pelo ID com underscore");
+                    System.out.println(GREEN + "RfMasterOn encontrado pelo ID com underscore" + RESET);
                 } catch (Exception e2) {
                     try {
                         // Tentativa 3: Qualquer elemento com RfMasterOn
                         RfMasterOn = wait.until(ExpectedConditions.elementToBeClickable(
                                 By.xpath("//*[contains(@id, 'RfMasterOn') or contains(@name, 'RfMasterOn')]")));
-                        System.out.println("RfMasterOn encontrado por busca genérica");
+                        System.out.println(GREEN + "RfMasterOn encontrado por busca genérica" + RESET);
                     } catch (Exception e3) {
                         resultado.put("status", "erro");
                         resultado.put("mensagem", "RfMasterOn não encontrado");
@@ -141,7 +144,7 @@ public class LigarMtx1 {
 
             RfMasterOn.click();
             Thread.sleep(300);
-            System.out.println("RfMasterOn clicado - diálogo aberto");
+            System.out.println(GREEN + "RfMasterOn clicado - diálogo aberto" + RESET);
 
             // Encontrar campo para digitar
             WebElement campoNewValue = null;
@@ -150,12 +153,12 @@ public class LigarMtx1 {
             try {
                 campoNewValue = driver.switchTo().activeElement();
                 if (campoNewValue.getTagName().equals("input") || campoNewValue.getTagName().equals("textarea")) {
-                    System.out.println("Campo ativo encontrado");
+                    System.out.println(GREEN + "Campo ativo encontrado" + RESET);
                 } else {
                     campoNewValue = null;
                 }
             } catch (Exception e) {
-                System.out.println("Campo ativo não encontrado");
+                System.out.println(GREEN + "Campo ativo não encontrado" + RESET);
             }
 
             // Estratégia 2: Procurar qualquer input
@@ -165,12 +168,12 @@ public class LigarMtx1 {
                     for (WebElement input : todosInputs) {
                         if (input.isDisplayed() && input.isEnabled()) {
                             campoNewValue = input;
-                            System.out.println("Campo input encontrado");
+                            System.out.println(GREEN + "Campo input encontrado" + RESET);
                             break;
                         }
                     }
                 } catch (Exception e) {
-                    System.out.println("Nenhum input encontrado");
+                    System.out.println(GREEN + "Nenhum input encontrado" + RESET);
                 }
             }
 
@@ -181,7 +184,7 @@ public class LigarMtx1 {
                 campoNewValue.sendKeys(Keys.CONTROL + "a");
                 campoNewValue.sendKeys(Keys.DELETE);
                 campoNewValue.sendKeys(valorStatus);
-                System.out.println("Valor " + valorStatus + " digitado");
+                System.out.println(GREEN + "Valor " + valorStatus + " digitado" + RESET);
                 Thread.sleep(300);
 
                 // Confirmar
@@ -204,7 +207,7 @@ public class LigarMtx1 {
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(GREEN + "Driver finalizado" + RESET);
             }
         }
 

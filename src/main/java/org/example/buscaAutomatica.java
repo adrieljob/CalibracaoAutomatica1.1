@@ -138,6 +138,7 @@ public class buscaAutomatica {
         opcoes.put("30s", 30000L);
         opcoes.put("1min", 60000L);
         opcoes.put("2min", 120000L);
+        opcoes.put("3min", 180000L);
         opcoes.put("5min", 300000L);
         opcoes.put("10min", 600000L);
         opcoes.put("15min", 900000L);

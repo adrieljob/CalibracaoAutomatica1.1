@@ -22,6 +22,9 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/mtx1")
 public class CicloMtx1 { // Nome alterado para corresponder ao arquivo
 
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+
     // Mapa de valores pré-programados para potência
     private static final Map<String, String> VALORES_POTENCIA = new HashMap<>();
 
@@ -100,8 +103,8 @@ public class CicloMtx1 { // Nome alterado para corresponder ao arquivo
     // Método principal para configurar a potência do MTX1
     private Map<String, Object> configurarPotenciaMTX1(String valorPotencia) {
         String urlBase = "http://10.10.103.103/debug/";
-        System.out.println("Configurando potência do MTX1 para DAC: " + valorPotencia +
-                " (" + VALORES_POTENCIA.get(valorPotencia) + ")");
+        System.out.println(GREEN + "Configurando potência do MTX1 para DAC: " + valorPotencia +
+                " (" + VALORES_POTENCIA.get(valorPotencia) + ")" + RESET);
 
         WebDriverManager.chromedriver().setup();
 
@@ -127,7 +130,7 @@ public class CicloMtx1 { // Nome alterado para corresponder ao arquivo
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(GREEN + "Driver finalizado" + RESET);
             }
         }
     }
@@ -158,20 +161,20 @@ public class CicloMtx1 { // Nome alterado para corresponder ao arquivo
 
         executorService.submit(() -> {
             try {
-                System.out.println("=== INICIANDO LOOP CÍCLICO DE POTÊNCIAS MTX1 ===");
-                System.out.println("Data/Hora: " + LocalDateTime.now());
-                System.out.println("Ordem: " + ordemPotencia);
+                System.out.println(GREEN + "=== INICIANDO LOOP CÍCLICO DE POTÊNCIAS MTX1 ===" + RESET);
+                System.out.println(GREEN + "Data/Hora: " + LocalDateTime.now() + RESET);
+                System.out.println(GREEN + "Ordem: " + ordemPotencia + RESET);
 
                 int ciclo = 1;
 
                 while (!Thread.currentThread().isInterrupted()) {
-                    System.out.println("\n" + "=".repeat(60));
-                    System.out.println("CICLO " + ciclo);
-                    System.out.println("=".repeat(60));
+                    System.out.println(GREEN + "\n" + "=".repeat(60) + RESET);
+                    System.out.println(GREEN + "CICLO " + ciclo + RESET);
+                    System.out.println(GREEN + "=".repeat(60) + RESET);
 
                     for (int i = 0; i < ordemPotencia.size(); i++) {
                         if (Thread.currentThread().isInterrupted()) {
-                            System.out.println("Loop interrompido por cancelamento");
+                            System.out.println(GREEN + "Loop interrompido por cancelamento" + RESET);
                             return;
                         }
 
@@ -186,52 +189,52 @@ public class CicloMtx1 { // Nome alterado para corresponder ao arquivo
                         TESTE_STATUS.put("inicio_potencia", LocalDateTime.now());
                         TESTE_STATUS.put("proxima_troca", LocalDateTime.now().plusMinutes(5));
 
-                        System.out.println("\n" + "-".repeat(50));
-                        System.out.println("CICLO " + ciclo + " - POTÊNCIA " + posicao + "/" + ordemPotencia.size());
-                        System.out.println("Aplicando: " + potencia + " (DAC: " + valorDAC + ")");
+                        System.out.println(GREEN + "\n" + "-".repeat(50) + RESET);
+                        System.out.println(GREEN + "CICLO " + ciclo + " - POTÊNCIA " + posicao + "/" + ordemPotencia.size() + RESET);
+                        System.out.println(GREEN + "Aplicando: " + potencia + " (DAC: " + valorDAC + ")" + RESET);
 
                         try {
                             Map<String, Object> resultado = configurarPotenciaMTX1(valorDAC);
 
                             if ("sucesso".equals(resultado.get("status"))) {
-                                System.out.println(potencia + " aplicada com sucesso");
+                                System.out.println(GREEN + potencia + " aplicada com sucesso" + RESET);
                             } else {
-                                System.out.println("Falha ao aplicar " + potencia + ": " + resultado.get("mensagem"));
+                                System.out.println(GREEN + "Falha ao aplicar " + potencia + ": " + resultado.get("mensagem" + RESET));
                             }
                         } catch (Exception e) {
                             System.err.println("ERRO ao aplicar " + potencia + ": " + e.getMessage());
                         }
 
-                        System.out.println("\nAguardando 5 minutos...");
+                        System.out.println(GREEN + "\nAguardando 5 minutos..." + RESET);
 
                         for (int minuto = 1; minuto <= 5; minuto++) {
                             if (Thread.currentThread().isInterrupted()) {
-                                System.out.println("Aguardar interrompido no minuto " + minuto);
+                                System.out.println(GREEN + "Aguardar interrompido no minuto " + minuto + RESET);
                                 return;
                             }
 
                             TESTE_STATUS.put("tempo_restante_minutos", 5 - minuto);
                             TESTE_STATUS.put("minuto_atual", minuto + "/5");
 
-                            System.out.println("Minuto " + minuto + "/5 - Próxima troca em " + (5 - minuto) + " minutos");
+                            System.out.println(GREEN + "Minuto " + minuto + "/5 - Próxima troca em " + (5 - minuto) + " minutos" + RESET);
 
                             try {
                                 Thread.sleep(60000);
                             } catch (InterruptedException e) {
-                                System.out.println("Thread interrompida durante a espera");
+                                System.out.println(GREEN + "Thread interrompida durante a espera" + RESET);
                                 Thread.currentThread().interrupt();
                                 return;
                             }
                         }
 
-                        System.out.println("5 minutos concluídos! Próxima potência...");
+                        System.out.println(GREEN + "5 minutos concluídos! Próxima potência..." + RESET);
                     }
 
                     ciclo++;
                     TESTE_STATUS.put("ciclo_atual", ciclo);
 
-                    System.out.println("\nCICLO " + (ciclo-1) + " COMPLETO!");
-                    System.out.println("Iniciando próximo ciclo em 10 segundos...");
+                    System.out.println(GREEN + "\nCICLO " + (ciclo-1) + " COMPLETO!" + RESET);
+                    System.out.println(GREEN + "Iniciando próximo ciclo em 10 segundos..." + RESET);
                     Thread.sleep(10000);
                 }
 
@@ -245,7 +248,7 @@ public class CicloMtx1 { // Nome alterado para corresponder ao arquivo
                     executorService.shutdown();
                 }
 
-                System.out.println("LOOP CÍCLICO FINALIZADO");
+                System.out.println(GREEN + "LOOP CÍCLICO FINALIZADO" + RESET);
                 TESTE_STATUS.put("status_geral", "finalizado");
                 TESTE_STATUS.put("fim", LocalDateTime.now());
             }

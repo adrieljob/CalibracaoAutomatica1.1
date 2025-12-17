@@ -20,6 +20,9 @@ import java.util.Map;
 @RestController
 public class AjustarOffSetMtx1 {
 
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+
     @Value("${app.username:admin}")
     private String username;
 
@@ -27,15 +30,15 @@ public class AjustarOffSetMtx1 {
     private String password;
 
     // comunicação com o index.html
-    @PostMapping("/executar-rotina-completa")
+    @PostMapping("/executar-rotina-completa-mtx1")
     public ResponseEntity<Map<String, Object>> executarRotinaCompleta() {
         Map<String, Object> respostaGeral = new HashMap<>();
         Map<String, Object> resultados = new HashMap<>();
         WebDriver driver = null;
 
         try {
-            System.out.println("=== INICIANDO ROTINA COMPLETA ===");
-            System.out.println("Hora de início: " + LocalDateTime.now());
+            System.out.println(GREEN + "=== INICIANDO ROTINA COMPLETA ===" + RESET);
+            System.out.println(GREEN + "Hora de início: " + LocalDateTime.now() + RESET);
 
             // Configurar ChromeDriver UMA VEZ para toda a rotina
             WebDriverManager.chromedriver().setup();
@@ -54,9 +57,9 @@ public class AjustarOffSetMtx1 {
 
             // ETAPA 1: LOGIN (apenas uma vez)
             driver.get("http://10.10.103.103/debug/");
-            System.out.println("Página acessada");
+            System.out.println(GREEN + "Página acessada" + RESET);
             fazerLogin(driver, wait);
-            System.out.println("Login realizado");
+            System.out.println(GREEN + "Login realizado" + RESET);
 
             // Processar cada canal
             String[] canais = {"14", "34", "51"};
@@ -64,9 +67,9 @@ public class AjustarOffSetMtx1 {
             for (int i = 0; i < canais.length; i++) {
                 String canal = canais[i];
 
-                System.out.println("\n" + "=".repeat(50));
-                System.out.println("PROCESSANDO CANAL: " + canal);
-                System.out.println("=".repeat(50));
+                System.out.println(GREEN + "\n" + "=".repeat(50) + RESET);
+                System.out.println(GREEN + "PROCESSANDO CANAL: " + canal + RESET);
+                System.out.println(GREEN + "=".repeat(50) + RESET);
 
                 // Executar sequência completa para este canal
                 Map<String, Object> resultadoCanal = processarCanalCompleto(driver, wait, canal);
@@ -78,7 +81,7 @@ public class AjustarOffSetMtx1 {
 
                 // Aguardar entre canais (exceto após o último)
                 if (i < canais.length - 1) {
-                    System.out.println("\nAguardando 10 segundos antes do próximo canal...");
+                    System.out.println(GREEN + "\nAguardando 10 segundos antes do próximo canal..." + RESET);
                     Thread.sleep(10000);
                 }
             }
@@ -90,8 +93,8 @@ public class AjustarOffSetMtx1 {
             respostaGeral.put("hora_fim", LocalDateTime.now().toString()); // Convertendo para String
             respostaGeral.put("resultados", resultados);
 
-            System.out.println("\n=== ROTINA COMPLETA FINALIZADA ===");
-            System.out.println("Hora de fim: " + LocalDateTime.now());
+            System.out.println(GREEN + "\n=== ROTINA COMPLETA FINALIZADA ===" + RESET);
+            System.out.println(GREEN + "Hora de fim: " + LocalDateTime.now() + RESET);
 
             return ResponseEntity.ok(respostaGeral);
 
@@ -108,7 +111,7 @@ public class AjustarOffSetMtx1 {
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(GREEN + "Driver finalizado" + RESET);
             }
         }
     }
@@ -119,43 +122,43 @@ public class AjustarOffSetMtx1 {
 
         try {
             // ========== ETAPA 1: MUDAR CANAL ==========
-            System.out.println("\n[ETAPA 1] Mudando para canal: " + canal);
+            System.out.println(GREEN + "\n[ETAPA 1] Mudando para canal: " + canal + RESET);
             String canalAntes = mudarCanal(driver, wait, canal);
             Thread.sleep(2000); // Aguardar mudança de canal
 
             // ========== ETAPA 2: AJUSTAR OFFSET (parte inicial) ==========
-            System.out.println("\n[ETAPA 2] Configurando offset e potência");
+            System.out.println(GREEN + "\n[ETAPA 2] Configurando offset e potência" + RESET);
 
             // 2.1. Desligar o MTX1
-            System.out.println("  2.1. Desligando MTX1");
+            System.out.println(GREEN + "  2.1. Desligando MTX1" + RESET);
             desligarMTX1(driver, wait);
 
             // 2.2. Mudar offset para 0
-            System.out.println("  2.2. Configurando offset para 0");
+            System.out.println(GREEN + "  2.2. Configurando offset para 0" + RESET);
             configurarOffset(driver, wait, "0");
 
             // 2.3 Mudar Thershold para 500
-            System.out. println("  2.3. Configurando thersholda para 500");
+            System.out.println(GREEN + "  2.3. Configurando thershold para 500" + RESET);
             configurarThershold(driver, wait, "500");
 
             // 2.4. Mudar potência para 486
-            System.out.println("  2.4. Configurando potência para 486");
+            System.out.println(GREEN + "  2.4. Configurando potência para 486" + RESET);
             configurarPotencia(driver, wait, "486");
 
             // 2.5. Ligar o MTX1
-            System.out.println("  2.5. Ligando MTX1");
+            System.out.println(GREEN + "  2.5. Ligando MTX1" + RESET);
             ligarMTX1(driver, wait);
 
             // 2.6. Esperar 5 minutos
-            System.out.println("  2.6. Aguardando 1 minutos para estabilização...");
+            System.out.println(GREEN + "  2.6. Aguardando 1 minutos para estabilização..." + RESET);
             Thread.sleep(60000); // 5 minutos = 300000 ms
 
             // ========== ETAPA 3: VERIFICAR E AJUSTAR DINAMICAMENTE ==========
-            System.out.println("\n[ETAPA 3] Verificando e ajustando dinamicamente");
+            System.out.println(GREEN + "\n[ETAPA 3] Verificando e ajustando dinamicamente" + RESET);
 
             // 2.6. Checa o canal (apenas para confirmar)
             String canalAtual = verificarCanal(driver, wait);
-            System.out.println("  Canal atual: " + canalAtual);
+            System.out.println(GREEN + "  Canal atual: " + canalAtual + RESET);
 
             // Verificação FLEXÍVEL do canal
             if (!canalAtual.equals(canal) && !canalAtual.contains(canal)) {
@@ -171,7 +174,7 @@ public class AjustarOffSetMtx1 {
             }
 
             // ========== ETAPA 4: COLETAR RESULTADOS FINAIS ==========
-            System.out.println("\n[ETAPA 4] Coletando resultados finais");
+            System.out.println(GREEN + "\n[ETAPA 4] Coletando resultados finais" + RESET);
 
             String potenciaFinal = verificarPotencia(driver, wait);
             String correnteFinal = resultadoAjuste.get("corrente_final").toString();
@@ -259,17 +262,17 @@ public class AjustarOffSetMtx1 {
             case "14":
                 correnteMinima = 70;
                 correnteMaximaErro = 73;
-                System.out.println("  Parâmetros para canal 14: 70-73 A");
+                System.out.println(GREEN + "  Parâmetros para canal 14: 70-73 A" + RESET);
                 break;
             case "34":
                 correnteMinima = 65;
                 correnteMaximaErro = 68;
-                System.out.println("  Parâmetros para canal 34: 65-68 A");
+                System.out.println(GREEN + "  Parâmetros para canal 34: 65-68 A" + RESET);
                 break;
             case "51":
                 correnteMinima = 60;
                 correnteMaximaErro = 63;
-                System.out.println("  Parâmetros para canal 51: 60-63 A");
+                System.out.println(GREEN + "  Parâmetros para canal 51: 60-63 A" + RESET);
                 break;
             default:
                 throw new Exception("Canal não suportado: " + canal);
@@ -277,27 +280,27 @@ public class AjustarOffSetMtx1 {
 
         while (iteracoes < maxIteracoes) {
             iteracoes++;
-            System.out.println("\n  --- Loop " + iteracoes + " | Offset: " + offsetAtual + " ---");
+            System.out.println(GREEN + "\n  --- Loop " + iteracoes + " | Offset: " + offsetAtual + " ---" + RESET);
 
             // 2.6.1.1. Checa a corrente
             String correnteStr = verificarCorrente(driver, wait);
             double correnteDouble = Double.parseDouble(correnteStr);
             int corrente = (int) correnteDouble;
-            System.out.println("    Corrente atual: " + corrente + " A");
+            System.out.println(GREEN + "    Corrente atual: " + corrente + " A" + RESET);
 
             // 2.6.1.1.1. Se a corrente >= X (70, 65 ou 60 dependendo do canal)
             if (corrente >= correnteMinima) {
-                System.out.println("    Corrente atingiu o mínimo (" + correnteMinima + " A)");
+                System.out.println(GREEN + "    Corrente atingiu o mínimo (" + correnteMinima + " A)" + RESET);
 
                 // 2.6.1.1.1.1. Espera 10 seg
-                System.out.println("    Aguardando 20 10000 para verificação final...");
+                System.out.println(GREEN + "    Aguardando 20 10000 para verificação final..." + RESET);
                 Thread.sleep(10000);
 
                 // 2.6.1.1.1.2. Checa a corrente novamente
                 correnteStr = verificarCorrente(driver, wait);
                 correnteDouble = Double.parseDouble(correnteStr);
                 corrente = (int) correnteDouble;
-                System.out.println("    Corrente após 10s: " + corrente + " A");
+                System.out.println(GREEN + "    Corrente após 10s: " + corrente + " A" + RESET);
 
                 // 2.6.1.1.1.2.1. Se a corrente > Y (73, 68 ou 63) → ERRO
                 if (corrente > correnteMaximaErro) {
@@ -328,8 +331,8 @@ public class AjustarOffSetMtx1 {
                 }
 
                 // 2.6.1.1.1.2.2. Se corrente >= mínimo e <= máximo → SUCESSO
-                System.out.println("    SUCESSO: Corrente " + corrente + " A dentro dos limites (" +
-                        correnteMinima + "-" + correnteMaximaErro + " A)");
+                System.out.println(GREEN + "    SUCESSO: Corrente " + corrente + " A dentro dos limites (" +
+                        correnteMinima + "-" + correnteMaximaErro + " A)" + RESET);
                 resultado.put("status", "sucesso");
                 resultado.put("mensagem", "Corrente ajustada corretamente");
                 resultado.put("corrente_final", corrente);
@@ -339,11 +342,11 @@ public class AjustarOffSetMtx1 {
             }
 
             // 2.6.1.1.2. Se a corrente < X
-            System.out.println("    Corrente abaixo do mínimo (" + correnteMinima + " A)");
+            System.out.println(GREEN + "    Corrente abaixo do mínimo (" + correnteMinima + " A)" + RESET);
 
             // 2.6.1.1.2.1. Subtrai 1 do offset
             offsetAtual--;
-            System.out.println("    Reduzindo offset para: " + offsetAtual);
+            System.out.println(GREEN + "    Reduzindo offset para: " + offsetAtual + RESET);
 
             if (offsetAtual < -100) {
                 String erroMsg = "ERRO: Offset chegou a -100 e corrente ainda não atingiu " + correnteMinima + " A";
@@ -355,13 +358,13 @@ public class AjustarOffSetMtx1 {
             }
 
             // Aplicar novo offset (precisa desligar/ligar para aplicar)
-            System.out.println("    Aplicando novo offset " + offsetAtual + "...");
+            System.out.println(GREEN + "    Aplicando novo offset " + offsetAtual + "..." + RESET);
             //desligarMTX1(driver, wait);
             configurarOffset(driver, wait, String.valueOf(offsetAtual));
             //ligarMTX1(driver, wait);
 
             // 2.6.1.1.2.1. Espera 10 seg
-            System.out.println("    Aguardando 10 segundos para estabilização...");
+            System.out.println(GREEN + "    Aguardando 10 segundos para estabilização..." + RESET);
             Thread.sleep(10000);
 
             // O loop continua verificando a corrente novamente
@@ -395,17 +398,17 @@ public class AjustarOffSetMtx1 {
             case "14":
                 correnteMinima = 70;
                 correnteMaximaErro = 73;
-                System.out.println("  Parâmetros para canal 14: 70-73 A");
+                System.out.println(GREEN + "  Parâmetros para canal 14: 70-73 A" + RESET);
                 break;
             case "34":
                 correnteMinima = 65;
                 correnteMaximaErro = 68;
-                System.out.println("  Parâmetros para canal 34: 65-68 A");
+                System.out.println(GREEN + "  Parâmetros para canal 34: 65-68 A" + RESET);
                 break;
             case "51":
                 correnteMinima = 60;
                 correnteMaximaErro = 63;
-                System.out.println("  Parâmetros para canal 51: 60-63 A");
+                System.out.println(GREEN + "  Parâmetros para canal 51: 60-63 A" + RESET);
                 break;
             default:
                 throw new Exception("Canal não suportado: " + canal);
@@ -413,28 +416,28 @@ public class AjustarOffSetMtx1 {
 
         while (iteracoes < maxIteracoes) {
             iteracoes++;
-            System.out.println("\n  --- Loop " + iteracoes + " | Offset: " + offsetAtual + " | Ajustes: " + ajustesFeitos + "/" + maxAjustes + " ---");
+            System.out.println(GREEN + "\n  --- Loop " + iteracoes + " | Offset: " + offsetAtual + " | Ajustes: " + ajustesFeitos + "/" + maxAjustes + " ---" + RESET);
 
             // 2.6.1.1. Checa a corrente
             String correnteStr = verificarCorrente(driver, wait);
             double correnteDouble = Double.parseDouble(correnteStr);
             int corrente = (int) correnteDouble;
-            System.out.println("    Corrente atual: " + corrente + " A");
+            System.out.println(GREEN + "    Corrente atual: " + corrente + " A" + RESET);
 
             // VERIFICAÇÃO ADICIONAL: Se corrente = 0, checar potência também
             if (corrente == 0) {
-                System.out.println("    Corrente = 0 A. Verificando potência e corrente completa...");
+                System.out.println(GREEN + "    Corrente = 0 A. Verificando potência e corrente completa..." + RESET);
 
                 try {
                     // Chama a função que verifica potência E corrente
                     String resultadoCompleto = verificarPotenciaEcorrente(driver, wait);
-                    System.out.println("    Resultado da verificação completa: " + resultadoCompleto);
+                    System.out.println(GREEN + "    Resultado da verificação completa: " + resultadoCompleto + RESET);
 
-                // Continua com o fluxo normal
+                    // Continua com o fluxo normal
                 } catch (Exception e) {
                     // Verifica se é a exceção de equipamento desligado
                     if (e.getMessage() != null && e.getMessage().contains("EQUIPAMENTO DESLIGADO")) {
-                        System.out.println("    " + e.getMessage());
+                        System.out.println(GREEN + "    " + e.getMessage() + RESET);
                         resultado.put("status", "erro");
                         resultado.put("mensagem", e.getMessage());
                         resultado.put("iteracoes", iteracoes);
@@ -480,17 +483,17 @@ public class AjustarOffSetMtx1 {
             // Continua normalmente
             // 2.6.1.1.1. Se a corrente >= X (70, 65 ou 60 dependendo do canal)
             if (corrente >= correnteMinima) {
-                System.out.println("    Corrente atingiu o mínimo (" + correnteMinima + " A)");
+                System.out.println(GREEN + "    Corrente atingiu o mínimo (" + correnteMinima + " A)" + RESET);
 
                 // 2.6.1.1.1.1. Espera 10 seg
-                System.out.println("    Aguardando 10 segundos para verificação final...");
+                System.out.println(GREEN + "    Aguardando 10 segundos para verificação final..." + RESET);
                 Thread.sleep(10000);
 
                 // 2.6.1.1.1.2. Checa a corrente novamente
                 correnteStr = verificarCorrente(driver, wait);
                 correnteDouble = Double.parseDouble(correnteStr);
                 corrente = (int) correnteDouble;
-                System.out.println("    Corrente após 20s: " + corrente + " A");
+                System.out.println(GREEN + "    Corrente após 20s: " + corrente + " A" + RESET);
 
                 // 2.6.1.1.1.2.1. Se a corrente > Y (73, 68 ou 63) → AJUSTAR OFFSET (+5)
                 if (corrente > correnteMaximaErro) {
@@ -531,11 +534,11 @@ public class AjustarOffSetMtx1 {
                     ((List<String>) resultado.get("ajustes")).add(erroMsg + " Offset ajustado para: " + offsetAtual);
 
                     // Aplicar novo offset
-                    System.out.println("    Aplicando novo offset " + offsetAtual + "...");
+                    System.out.println(GREEN + "    Aplicando novo offset " + offsetAtual + "..." + RESET);
                     configurarOffset(driver, wait, String.valueOf(offsetAtual));
 
                     // Espera para estabilização
-                    System.out.println("    Aguardando 10 segundos para estabilização...");
+                    System.out.println(GREEN + "    Aguardando 10 segundos para estabilização..." + RESET);
                     Thread.sleep(10000);
 
                     // Volta para testar novamente com o novo offset
@@ -543,8 +546,8 @@ public class AjustarOffSetMtx1 {
                 }
 
                 // 2.6.1.1.1.2.2. Se corrente >= mínimo e <= máximo → SUCESSO
-                System.out.println("    SUCESSO: Corrente " + corrente + " A dentro dos limites (" +
-                        correnteMinima + "-" + correnteMaximaErro + " A)");
+                System.out.println(GREEN + "    SUCESSO: Corrente " + corrente + " A dentro dos limites (" +
+                        correnteMinima + "-" + correnteMaximaErro + " A)" + RESET);
                 resultado.put("status", "sucesso");
                 resultado.put("mensagem", "Corrente ajustada corretamente");
                 resultado.put("corrente_final", corrente);
@@ -555,11 +558,11 @@ public class AjustarOffSetMtx1 {
             }
 
             // 2.6.1.1.2. Se a corrente < X
-            System.out.println("    Corrente abaixo do mínimo (" + correnteMinima + " A)");
+            System.out.println(GREEN + "    Corrente abaixo do mínimo (" + correnteMinima + " A)" + RESET);
 
             // 2.6.1.1.2.1. Subtrai 1 do offset
             offsetAtual--;
-            System.out.println("    Reduzindo offset para: " + offsetAtual);
+            System.out.println(GREEN + "    Reduzindo offset para: " + offsetAtual + RESET);
 
             if (offsetAtual < -50) {
                 String erroMsg = "ERRO: Offset chegou a -50 e corrente ainda não atingiu " + correnteMinima + " A";
@@ -572,11 +575,11 @@ public class AjustarOffSetMtx1 {
             }
 
             // Aplicar novo offset
-            System.out.println("    Aplicando novo offset " + offsetAtual + "...");
+            System.out.println(GREEN + "    Aplicando novo offset " + offsetAtual + "..." + RESET);
             configurarOffset(driver, wait, String.valueOf(offsetAtual));
 
             // 2.6.1.1.2.1. Espera 20 seg
-            System.out.println("    Aguardando 10 segundos para estabilização...");
+            System.out.println(GREEN + "    Aguardando 10 segundos para estabilização..." + RESET);
             Thread.sleep(10000);
 
             // O loop continua verificando a corrente novamente
@@ -603,11 +606,11 @@ public class AjustarOffSetMtx1 {
 
             // Pegar canal atual (antes) - usando o método corrigido
             String canalAntes = verificarCanal(driver, wait);
-            System.out.println("  Canal atual: " + canalAntes);
+            System.out.println(GREEN + "  Canal atual: " + canalAntes + RESET);
 
             // Se já estiver no canal correto, retornar
             if (canalAntes.equals(canal)) {
-                System.out.println("  Já está no canal " + canal);
+                System.out.println(GREEN + "  Já está no canal " + canal + RESET);
                 return canalAntes;
             }
 
@@ -676,12 +679,12 @@ public class AjustarOffSetMtx1 {
 
             // Verificar canal depois
             String canalDepois = verificarCanal(driver, wait);
-            System.out.println("  Canal configurado: " + canalDepois);
+            System.out.println(GREEN + "  Canal configurado: " + canalDepois + RESET);
 
             // Verificar se realmente mudou
             int tentativas = 0;
             while (!canalDepois.equals(canal) && tentativas < 3) {
-                System.out.println("  Canal não mudou corretamente. Tentativa " + (tentativas + 1));
+                System.out.println(GREEN + "  Canal não mudou corretamente. Tentativa " + (tentativas + 1) + RESET);
                 Thread.sleep(1000);
                 canalDepois = verificarCanal(driver, wait);
                 tentativas++;
@@ -721,7 +724,7 @@ public class AjustarOffSetMtx1 {
             throw new Exception("Falha ao desligar RfMasterOn");
         }
 
-        System.out.println("  MTX1 desligado (RfMasterOn = 2)");
+        System.out.println(GREEN + "  MTX1 desligado (RfMasterOn = 2)" + RESET);
         Thread.sleep(300);
     }
 
@@ -747,7 +750,7 @@ public class AjustarOffSetMtx1 {
             throw new Exception("Falha ao ligar RfMasterOn");
         }
 
-        System.out.println("  MTX1 ligado (RfMasterOn = 1)");
+        System.out.println(GREEN + "  MTX1 ligado (RfMasterOn = 1)" + RESET);
         Thread.sleep(300);
     }
 
@@ -793,7 +796,7 @@ public class AjustarOffSetMtx1 {
             throw new Exception("Falha ao configurar thershold para " + valorThershold);
         }
 
-        System.out.println("  Thershold configurado: " + valorThershold);
+        System.out.println(GREEN + "  Thershold configurado: " + valorThershold + RESET);
         Thread.sleep(300);
     }
 
@@ -819,7 +822,7 @@ public class AjustarOffSetMtx1 {
             throw new Exception("Falha ao configurar offset para " + valorOffset);
         }
 
-        System.out.println("  Offset configurado: " + valorOffset);
+        System.out.println(GREEN + "  Offset configurado: " + valorOffset + RESET);
         Thread.sleep(300);
     }
 
@@ -845,7 +848,7 @@ public class AjustarOffSetMtx1 {
             throw new Exception("Falha ao configurar potência");
         }
 
-        System.out.println("  Potência configurada: " + potencia);
+        System.out.println(GREEN + "  Potência configurada: " + potencia + RESET);
         Thread.sleep(300);
     }
 
@@ -903,12 +906,12 @@ public class AjustarOffSetMtx1 {
 
         String textoCompleto = correnteElement.getText().trim();
 
-        System.out.println("    Texto completo da corrente: " + textoCompleto);
+        System.out.println(GREEN + "    Texto completo da corrente: " + textoCompleto + RESET);
 
         // Método robusto para extrair apenas os números
         double correnteValor = extrairValorNumerico(textoCompleto);
 
-        System.out.println("    Corrente extraída: " + correnteValor + " A");
+        System.out.println(GREEN + "    Corrente extraída: " + correnteValor + " A" + RESET);
 
         return String.valueOf(correnteValor);
     }
@@ -929,18 +932,18 @@ public class AjustarOffSetMtx1 {
 
             // Estratégia 1: Pegar o texto diretamente
             String canalTexto = canalElement.getText().trim();
-            System.out.println("    Texto do elemento canal: " + canalTexto);
+            System.out.println(GREEN + "    Texto do elemento canal: " + canalTexto + RESET);
 
             // Estratégia 2: Se não conseguir, pegar o value attribute
             if (canalTexto == null || canalTexto.isEmpty() || canalTexto.contains("Modulator1.Config.UpConverter.ChannelNumber")) {
                 canalTexto = canalElement.getAttribute("value");
-                System.out.println("    Value attribute do canal: " + canalTexto);
+                System.out.println(GREEN + "    Value attribute do canal: " + canalTexto + RESET);
             }
 
             // Estratégia 3: Se ainda não, tentar innerText
             if (canalTexto == null || canalTexto.isEmpty()) {
                 canalTexto = canalElement.getAttribute("innerText");
-                System.out.println("    InnerText do canal: " + canalTexto);
+                System.out.println(GREEN + "    InnerText do canal: " + canalTexto + RESET);
             }
 
             // Extrair números do texto (pode vir como "Modulator1.Config.UpConverter.ChannelNumber = 14")
@@ -957,12 +960,12 @@ public class AjustarOffSetMtx1 {
                 String numeros = canalTexto.replaceAll("[^0-9]", "").trim();
 
                 if (!numeros.isEmpty()) {
-                    System.out.println("    Canal extraído: " + numeros);
+                    System.out.println(GREEN + "    Canal extraído: " + numeros + RESET);
                     return numeros;
                 }
             }
 
-            System.out.println("    Não conseguiu extrair canal, retornando N/A");
+            System.out.println(GREEN + "    Não conseguiu extrair canal, retornando N/A" + RESET);
             return "N/A";
 
         } catch (Exception e) {
@@ -985,7 +988,7 @@ public class AjustarOffSetMtx1 {
         String textoPotencia = potenciaElement.getText().trim();
         double potenciaValor = extrairValorNumerico(textoPotencia);
 
-        System.out.println("    Potência extraída: " + potenciaValor + " W");
+        System.out.println(GREEN + "    Potência extraída: " + potenciaValor + " W" + RESET);
 
         // Navegar para Modulator1 e verificar corrente
         WebElement modulator1 = wait.until(ExpectedConditions.elementToBeClickable(
@@ -997,10 +1000,10 @@ public class AjustarOffSetMtx1 {
                 By.id("Modulator1_mtrMainCurr")));
 
         String textoCorrente = correnteElement.getText().trim();
-        System.out.println("    Texto completo da corrente: " + textoCorrente);
+        System.out.println(GREEN + "    Texto completo da corrente: " + textoCorrente + RESET);
 
         double correnteValor = extrairValorNumerico(textoCorrente);
-        System.out.println("    Corrente extraída: " + correnteValor + " A");
+        System.out.println(GREEN + "    Corrente extraída: " + correnteValor + " A" + RESET);
 
         // Verificar se equipamento desligou
         if (correnteValor == 0 && potenciaValor == 0) {
@@ -1010,7 +1013,7 @@ public class AjustarOffSetMtx1 {
 
         // Se apenas a corrente for 0, retorna a potência
         if (correnteValor == 0) {
-            System.out.println("    Corrente zero, retornando valor da potência");
+            System.out.println(GREEN + "    Corrente zero, retornando valor da potência" + RESET);
             return "Potência: " + potenciaValor + " W";
         }
 
@@ -1032,7 +1035,7 @@ public class AjustarOffSetMtx1 {
         String textoOffset = offsetElement.getText().trim();
         double offsetValor = extrairValorNumerico(textoOffset);
 
-        System.out.println("    Offset extraído: " + offsetValor);
+        System.out.println(GREEN + "    Offset extraído: " + offsetValor + RESET);
 
         // Navegar para Modulator1 e verificar offset
         // mudar para internal 1 e configurar para o offset
@@ -1045,10 +1048,10 @@ public class AjustarOffSetMtx1 {
                 By.id("Modulator1_mtrMainCurr")));
 
         String textoCorrente = correnteElement.getText().trim();
-        System.out.println("    Texto completo da corrente: " + textoCorrente);
+        System.out.println(GREEN + "    Texto completo da corrente: " + textoCorrente + RESET);
 
         double correnteValor = extrairValorNumerico(textoCorrente);
-        System.out.println("    Corrente extraída: " + correnteValor + " A");
+        System.out.println(GREEN + "    Corrente extraída: " + correnteValor + " A" + RESET);
 
         // Verificar se equipamento desligou
         if (correnteValor == 0 && offsetValor == 0) {
@@ -1058,7 +1061,7 @@ public class AjustarOffSetMtx1 {
 
         // Se apenas a corrente for 0, retorna a potência
         if (correnteValor == 0) {
-            System.out.println("    Corrente zero, retornando valor do Offset");
+            System.out.println(GREEN + "    Corrente zero, retornando valor do Offset" + RESET);
             return "Offset: " + offsetValor;
         }
 
@@ -1091,7 +1094,7 @@ public class AjustarOffSetMtx1 {
                     " | Offset: " + offset +
                     " | Iterações: " + resultadoAjuste.get("iteracoes") +
                     " | Status: " + resultadoAjuste.get("status") + "\n");
-            System.out.println("  Log salvo em: " + filePath);
+            System.out.println(GREEN + "  Log salvo em: " + filePath + RESET);
         } catch (Exception e) {
             System.err.println("Erro ao salvar log: " + e.getMessage());
         }
@@ -1100,22 +1103,22 @@ public class AjustarOffSetMtx1 {
     // debugar cada canal em especifico
     private void debugElemento(WebElement elemento, String nome) {
         try {
-            System.out.println("\n=== DEBUG " + nome + " ===");
-            System.out.println("Tag: " + elemento.getTagName());
-            System.out.println("Text: " + elemento.getText());
-            System.out.println("Value attr: " + elemento.getAttribute("value"));
-            System.out.println("InnerText: " + elemento.getAttribute("innerText"));
-            System.out.println("OuterHTML: " + elemento.getAttribute("outerHTML"));
-            System.out.println("Displayed: " + elemento.isDisplayed());
-            System.out.println("Enabled: " + elemento.isEnabled());
-            System.out.println("==================\n");
+            System.out.println(GREEN + "\n=== DEBUG " + nome + " ===" + RESET);
+            System.out.println(GREEN + "Tag: " + elemento.getTagName() + RESET);
+            System.out.println(GREEN + "Text: " + elemento.getText() + RESET);
+            System.out.println(GREEN + "Value attr: " + elemento.getAttribute("value") + RESET);
+            System.out.println(GREEN + "InnerText: " + elemento.getAttribute("innerText") + RESET);
+            System.out.println(GREEN + "OuterHTML: " + elemento.getAttribute("outerHTML") + RESET);
+            System.out.println(GREEN + "Displayed: " + elemento.isDisplayed() + RESET);
+            System.out.println(GREEN + "Enabled: " + elemento.isEnabled() + RESET);
+            System.out.println(GREEN + "==================\n" + RESET);
         } catch (Exception e) {
             System.err.println("Erro no debug: " + e.getMessage());
         }
     }
 
-    @PostMapping("/executar-calibracao-para-canal")
-    public ResponseEntity<Map<String, Object>> executarParaCanal(@RequestParam String canal) {
+    @PostMapping("/executar-offset-canal-mtx1")
+    public ResponseEntity<Map<String, Object>> executaroffsetcanalmtx1(@RequestParam String canal) {
         Map<String, Object> resposta = new HashMap<>();
         WebDriver driver = null;
 
@@ -1158,4 +1161,18 @@ public class AjustarOffSetMtx1 {
             }
         }
     }
+
+    @PostMapping("/cancelar-offset-mtx1")
+    public ResponseEntity<Map<String, Object>> cancelarOffsetMtx1() {
+        Map<String, Object> resposta = new HashMap<>();
+
+        System.out.println(GREEN + "Solicitação de cancelamento de offset recebida" + RESET);
+
+        resposta.put("status", "sucesso");
+        resposta.put("mensagem", "Solicitação de cancelamento recebida");
+        resposta.put("hora_cancelamento", LocalDateTime.now().toString());
+
+        return ResponseEntity.ok(resposta);
+    }
+
 }

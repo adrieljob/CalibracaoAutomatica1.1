@@ -22,20 +22,23 @@ import java.util.Map;
 @RestController
 public class LinearizacaoMtx4 {
 
+    private static final String RESET = "\u001B[0m";
+    private static final String MAGENTA = "\u001B[35m";
+
     @Value("${app.username:admin}")
     private String username;
 
     @Value("${app.password:admin}")
     private String password;
 
-    @PostMapping("/executar-rotina-linearizacao")
-    public ResponseEntity<Map<String, Object>> executarRotinaLinearizacao() {
+    @PostMapping("/executar-rotina-linearizacao-mtx4")
+    public ResponseEntity<Map<String, Object>> executarRotinaLinearizacaomtx4() {
         Map<String, Object> respostaGeral = new HashMap<>();
         WebDriver driver = null;
 
         try {
-            System.out.println("=== INICIANDO ROTINA DE LINEARIZAÇÃO ===");
-            System.out.println("Hora de início: " + LocalDateTime.now());
+            System.out.println(MAGENTA + "=== INICIANDO ROTINA DE LINEARIZAÇÃO ===" + RESET);
+            System.out.println(MAGENTA + "Hora de início: " + LocalDateTime.now() + RESET);
 
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
@@ -51,9 +54,9 @@ public class LinearizacaoMtx4 {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
             driver.get("http://10.10.103.103/debug/");
-            System.out.println("Página acessada");
+            System.out.println(MAGENTA + "Página acessada" + RESET);
             fazerLogin(driver, wait);
-            System.out.println("Login realizado");
+            System.out.println(MAGENTA + "Login realizado" + RESET);
 
             // Processo completo para MTX4
             Map<String, Object> resultado = processoCompleto(driver, wait);
@@ -65,8 +68,8 @@ public class LinearizacaoMtx4 {
             respostaGeral.put("hora_fim", LocalDateTime.now().toString());
             respostaGeral.put("resultados", resultado);
 
-            System.out.println("\n=== ROTINA DE LINEARIZAÇÃO FINALIZADA ===");
-            System.out.println("Hora de fim: " + LocalDateTime.now());
+            System.out.println(MAGENTA + "\n=== ROTINA DE LINEARIZAÇÃO FINALIZADA ===" + RESET);
+            System.out.println(MAGENTA + "Hora de fim: " + LocalDateTime.now() + RESET);
 
             return ResponseEntity.ok(respostaGeral);
 
@@ -82,7 +85,7 @@ public class LinearizacaoMtx4 {
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(MAGENTA + "Driver finalizado" + RESET);
             }
         }
     }
@@ -93,14 +96,14 @@ public class LinearizacaoMtx4 {
 
         try {
             // ========== ETAPA 0: INFORMAÇÕES INICIAIS ==========
-            System.out.println("\n[ETAPA 0] Coletando informações iniciais");
+            System.out.println(MAGENTA + "\n[ETAPA 0] Coletando informações iniciais" + RESET);
             String potenciaInicial = verificarPotencia(driver, wait);
             String temperaturaInicial = verificarTemperatura(driver, wait);
-            System.out.println("  Potência inicial: " + potenciaInicial + "W");
-            System.out.println("  Temperatura inicial: " + temperaturaInicial + "°C");
+            System.out.println(MAGENTA + "  Potência inicial: " + potenciaInicial + "W" + RESET);
+            System.out.println(MAGENTA + "  Temperatura inicial: " + temperaturaInicial + "°C" + RESET);
 
             // ========== ETAPA 1: DESLIGAR MTX4 PARA COMEÇAR ==========
-            System.out.println("\n[ETAPA 1] Desligando MTX4 para iniciar sequência");
+            System.out.println(MAGENTA + "\n[ETAPA 1] Desligando MTX4 para iniciar sequência" + RESET);
             desligarMTX4(driver, wait);
 
             // ========== ETAPA 2: LOOP DE POTÊNCIAS ==========
@@ -115,15 +118,15 @@ public class LinearizacaoMtx4 {
                 int potenciaAtual = potencias[i];
                 ultimaPotenciaProcessada = potenciaAtual;
 
-                System.out.println("\n[ETAPA 2] Processando potência: " + potenciaAtual + "W");
-                System.out.println("  Progresso: " + (i + 1) + "/" + potencias.length);
+                System.out.println(MAGENTA + "\n[ETAPA 2] Processando potência: " + potenciaAtual + "W" + RESET);
+                System.out.println(MAGENTA + "  Progresso: " + (i + 1) + "/" + potencias.length + RESET);
 
                 // 2.1. Configurar nova potência
-                System.out.println("  2.1. Configurando potência para " + potenciaAtual + "W");
+                System.out.println(MAGENTA + "  2.1. Configurando potência para " + potenciaAtual + "W" + RESET);
                 configurarPotencia(driver, wait, String.valueOf(potenciaAtual));
 
                 // 2.2. Ligar o MTX4
-                System.out.println("  2.2. Ligando MTX4");
+                System.out.println(MAGENTA + "  2.2. Ligando MTX4" + RESET);
                 ligarMTX4(driver, wait);
 
                 // 2.3. AGUARDAR ESTABILIZAÇÃO DA TEMPERATURA
@@ -132,21 +135,21 @@ public class LinearizacaoMtx4 {
                 String temperaturaAtual = "";
 
                 for (int tentativa = 1; tentativa <= tentativasEstabilizacao; tentativa++) {
-                    System.out.println("\n  Tentativa " + tentativa + "/" + tentativasEstabilizacao + " de estabilização");
+                    System.out.println(MAGENTA + "\n  Tentativa " + tentativa + "/" + tentativasEstabilizacao + " de estabilização" + RESET);
 
                     // Primeira medição
-                    System.out.println("    Primeira medição de temperatura...");
+                    System.out.println(MAGENTA + "    Primeira medição de temperatura..." + RESET);
                     temperaturaAnterior = verificarTemperatura(driver, wait);
-                    System.out.println("    Temperatura inicial: " + temperaturaAnterior + "°C");
+                    System.out.println(MAGENTA + "    Temperatura inicial: " + temperaturaAnterior + "°C" + RESET);
 
                     // Aguardar
-                    System.out.println("    Aguardando " + (tempoEspera/1000) + " segundos...");
+                    System.out.println(MAGENTA + "    Aguardando " + (tempoEspera/1000) + " segundos..." + RESET);
                     Thread.sleep(tempoEspera);
 
                     // Segunda medição
-                    System.out.println("    Segunda medição de temperatura...");
+                    System.out.println(MAGENTA + "    Segunda medição de temperatura..." + RESET);
                     temperaturaAtual = verificarTemperatura(driver, wait);
-                    System.out.println("    Temperatura final: " + temperaturaAtual + "°C");
+                    System.out.println(MAGENTA + "    Temperatura final: " + temperaturaAtual + "°C" + RESET);
 
                     try {
                         // Converter para números APÓS ter os valores
@@ -159,51 +162,53 @@ public class LinearizacaoMtx4 {
                         // Verificar estabilização
                         if (temperaturaAnterior.equals(temperaturaAtual) || diferenca <= margemTolerancia) {
                             temperaturaEstabilizada = true;
-                            System.out.println("    Temperatura estabilizada em " + temperaturaAtual + "°C\n");
+                            System.out.println(MAGENTA + "    Temperatura estabilizada em " + temperaturaAtual + "°C\n" + RESET);
                             if (diferenca > 0) {
-                                System.out.println("    Diferença: " + diferenca + "°C (≤ " + margemTolerancia + "°C)\n");
+                                System.out.println(MAGENTA + "    Diferença: " + diferenca + "°C (≤ " + margemTolerancia + "°C)\n" + RESET);
                             }
                             break;
                         } else {
-                            System.out.println("    Temperatura não estabilizada: " +
-                                    temperaturaAnterior + "°C → " + temperaturaAtual + "°C");
-                            System.out.println("    Diferença: " + diferenca + "°C (> " + margemTolerancia + "°C)");
+                            System.out.println(MAGENTA + "    Temperatura não estabilizada: " +
+                                    temperaturaAnterior + "°C → " + temperaturaAtual + "°C" + RESET);
+                            System.out.println(MAGENTA + "    Diferença: " + diferenca + "°C (> " + margemTolerancia + "°C)" + RESET);
                         }
                     } catch (NumberFormatException e) {
                         // Se não conseguir converter, usar comparação de strings
                         System.err.println("    Erro ao converter temperatura para número: " + e.getMessage());
                         if (temperaturaAnterior.equals(temperaturaAtual)) {
                             temperaturaEstabilizada = true;
-                            System.out.println("    Temperatura estabilizada em " + temperaturaAtual + "°C");
+                            System.out.println(MAGENTA + "    Temperatura estabilizada em " + temperaturaAtual + "°C" + RESET);
                             break;
                         } else {
-                            System.out.println("    Temperatura não estabilizada: " +
-                                    temperaturaAnterior + "°C ≠ " + temperaturaAtual + "°C");
+                            System.out.println(MAGENTA + "    Temperatura não estabilizada: " +
+                                    temperaturaAnterior + "°C ≠ " + temperaturaAtual + "°C" + RESET);
                         }
                     }
 
-                    // Se não for a última tentativa, aguardar mais
+                    /* Se não for a última tentativa, aguardar mais
                     if (tentativa < tentativasEstabilizacao && !temperaturaEstabilizada) {
-                        System.out.println("    Aguardando mais " + (tempoEspera/1000) + " segundos...");
+                        System.out.println(MAGENTA + "    Aguardando mais " + (tempoEspera/1000) + " segundos..." + RESET);
                         Thread.sleep(tempoEspera);
                     }
+
+                     */
                 }
 
                 // 2.4. VERIFICAR SE TEMPERATURA ESTABILIZOU
                 if (temperaturaEstabilizada) {
-                    System.out.println("  Potência " + potenciaAtual + "W processada com sucesso");
+                    System.out.println(MAGENTA + "  Potência " + potenciaAtual + "W processada com sucesso" + RESET);
 
                     // Se não for a última potência, desligar para próxima
                     if (i < potencias.length - 1) {
-                        System.out.println("  2.5. Desligando MTX4 para próxima potência");
-                        desligarMTX4(driver, wait);
+                        //System.out.println(MAGENTA + "  2.5. Desligando MTX4 para próxima potência" + RESET);
+                        //desligarMTX4(driver, wait);
                         Thread.sleep(3000); // Aguardar 3 segundos entre potências
                     } else {
-                        System.out.println("  Última potência concluída com sucesso!");
+                        System.out.println(MAGENTA + "  Última potência concluída com sucesso!" + RESET);
                     }
                 } else {
-                    System.out.println("  Temperatura não estabilizou após " + tentativasEstabilizacao + " tentativas");
-                    System.out.println("  Interrompendo sequência na potência " + potenciaAtual + "W");
+                    System.out.println(MAGENTA + "  Temperatura não estabilizou após " + tentativasEstabilizacao + " tentativas" + RESET);
+                    System.out.println(MAGENTA + "  Interrompendo sequência na potência " + potenciaAtual + "W" + RESET);
                     todasPotenciasConcluidas = false;
 
                     // Desligar MTX4 antes de sair
@@ -213,13 +218,13 @@ public class LinearizacaoMtx4 {
             }
 
             // ========== ETAPA 3: RESULTADOS FINAIS ==========
-            System.out.println("\n[ETAPA 3] Coletando resultados finais");
+            System.out.println(MAGENTA + "\n[ETAPA 3] Coletando resultados finais" + RESET);
 
             String potenciaFinal = verificarPotencia(driver, wait);
             String temperaturaFinal = verificarTemperatura(driver, wait);
 
             // ========== ETAPA 4: SALVAR LOG ==========
-            System.out.println("\n[ETAPA 4] Salvando log");
+            System.out.println(MAGENTA + "\n[ETAPA 4] Salvando log" + RESET);
             salvarLogLinearizacao(potenciaInicial, potenciaFinal, temperaturaInicial,
                     temperaturaFinal, ultimaPotenciaProcessada, todasPotenciasConcluidas);
 
@@ -291,7 +296,7 @@ public class LinearizacaoMtx4 {
                     " | T_Final: " + tempFinal + "°C" +
                     " | Ultima_Potencia: " + ultimaPotencia + "W" +
                     " | Status: " + (concluido ? "COMPLETO" : "INTERROMPIDO") + "\n");
-            System.out.println("  Log salvo em: " + filePath);
+            System.out.println(MAGENTA + "  Log salvo em: " + filePath + RESET);
         } catch (Exception e) {
             System.err.println("Erro ao salvar log: " + e.getMessage());
         }
@@ -317,7 +322,7 @@ public class LinearizacaoMtx4 {
             throw new Exception("Falha ao desligar RfMasterOn");
         }
 
-        System.out.println("  MTX4 desligado (RfMasterOn = 2)");
+        System.out.println(MAGENTA + "  MTX4 desligado (RfMasterOn = 2)" + RESET);
         Thread.sleep(300);
     }
 
@@ -341,7 +346,7 @@ public class LinearizacaoMtx4 {
             throw new Exception("Falha ao ligar RfMasterOn");
         }
 
-        System.out.println("  MTX4 ligado (RfMasterOn = 1)");
+        System.out.println(MAGENTA + "  MTX4 ligado (RfMasterOn = 1)" + RESET);
         Thread.sleep(300);
     }
 
@@ -386,7 +391,7 @@ public class LinearizacaoMtx4 {
             throw new Exception("Falha ao configurar potência");
         }
 
-        System.out.println("  Potência configurada: " + potencia + "W");
+        System.out.println(MAGENTA + "  Potência configurada: " + potencia + "W" + RESET);
         Thread.sleep(300);
     }
 
@@ -473,31 +478,31 @@ public class LinearizacaoMtx4 {
 
         try {
             // ========== ETAPA 0: MUDAR PARA O CANAL ==========
-            System.out.println("\n[ETAPA 0] Mudando para canal: " + canal);
+            System.out.println(MAGENTA + "\n[ETAPA 0] Mudando para canal: " + canal + RESET);
 
             // Primeiro verifica o canal atual
             String canalAtual = verificarCanal(driver, wait);
-            System.out.println("  Canal atual: " + canalAtual);
+            System.out.println(MAGENTA + "  Canal atual: " + canalAtual + RESET);
 
             // Se não for o canal desejado, muda
             if (!canalAtual.equals(canal) && !canalAtual.contains(canal)) {
-                System.out.println("  Mudando para canal " + canal + "...");
+                System.out.println(MAGENTA + "  Mudando para canal " + canal + "..." + RESET);
                 // Chama a função para mudar canal (você precisa implementar ou usar a existente)
                 mudarCanal(driver, wait, canal);
                 Thread.sleep(2000);
                 canalAtual = verificarCanal(driver, wait);
-                System.out.println("  Novo canal: " + canalAtual);
+                System.out.println(MAGENTA + "  Novo canal: " + canalAtual + RESET);
             }
 
             // ========== ETAPA 1: INFORMAÇÕES INICIAIS ==========
-            System.out.println("\n[ETAPA 1] Coletando informações iniciais");
+            System.out.println(MAGENTA + "\n[ETAPA 1] Coletando informações iniciais" + RESET);
             String potenciaInicial = verificarPotencia(driver, wait);
             String temperaturaInicial = verificarTemperatura(driver, wait);
-            System.out.println("  Potência inicial: " + potenciaInicial + "W");
-            System.out.println("  Temperatura inicial: " + temperaturaInicial + "°C");
+            System.out.println(MAGENTA + "  Potência inicial: " + potenciaInicial + "W" + RESET);
+            System.out.println(MAGENTA + "  Temperatura inicial: " + temperaturaInicial + "°C" + RESET);
 
             // ========== ETAPA 2: DESLIGAR MTX4 PARA COMEÇAR ==========
-            System.out.println("\n[ETAPA 2] Desligando MTX4 para iniciar sequência");
+            System.out.println(MAGENTA + "\n[ETAPA 2] Desligando MTX4 para iniciar sequência" + RESET);
             desligarMTX4(driver, wait);
 
             // ========== ETAPA 3: LOOP DE POTÊNCIAS ==========
@@ -510,31 +515,31 @@ public class LinearizacaoMtx4 {
                 int potenciaAtual = potencias[i];
                 ultimaPotenciaProcessada = potenciaAtual;
 
-                System.out.println("\n[ETAPA 3] Processando potência: " + potenciaAtual + "W");
-                System.out.println("  Progresso: " + (i + 1) + "/" + potencias.length);
-                System.out.println("  Canal: " + canalAtual);
+                System.out.println(MAGENTA + "\n[ETAPA 3] Processando potência: " + potenciaAtual + "W" + RESET);
+                System.out.println(MAGENTA + "  Progresso: " + (i + 1) + "/" + potencias.length + RESET);
+                System.out.println(MAGENTA + "  Canal: " + canalAtual + RESET);
 
                 // 3.1. Configurar nova potência
-                System.out.println("  3.1. Configurando potência para " + potenciaAtual + "W");
+                System.out.println(MAGENTA + "  3.1. Configurando potência para " + potenciaAtual + "W" + RESET);
                 configurarPotencia(driver, wait, String.valueOf(potenciaAtual));
 
                 // 3.2. Ligar o MTX4
-                System.out.println("  3.2. Ligando MTX4");
+                System.out.println(MAGENTA + "  3.2. Ligando MTX4" + RESET);
                 ligarMTX4(driver, wait);
 
                 // 3.3. Primeira medição de temperatura
-                System.out.println("  3.3. Primeira medição de temperatura...");
+                System.out.println(MAGENTA + "  3.3. Primeira medição de temperatura..." + RESET);
                 String temperaturaAntes = verificarTemperatura(driver, wait);
-                System.out.println("    Temperatura inicial: " + temperaturaAntes + "°C");
+                System.out.println(MAGENTA + "    Temperatura inicial: " + temperaturaAntes + "°C" + RESET);
 
                 // 3.4. Aguardar 1 minuto
-                System.out.println("  3.4. Aguardando 1 minuto para estabilização...");
+                System.out.println(MAGENTA + "  3.4. Aguardando 1 minuto para estabilização..." + RESET);
                 Thread.sleep(60000);
 
                 // 3.5. Segunda medição de temperatura
-                System.out.println("  3.5. Segunda medição de temperatura...");
+                System.out.println(MAGENTA + "  3.5. Segunda medição de temperatura..." + RESET);
                 String temperaturaDepois = verificarTemperatura(driver, wait);
-                System.out.println("    Temperatura final: " + temperaturaDepois + "°C");
+                System.out.println(MAGENTA + "    Temperatura final: " + temperaturaDepois + "°C" + RESET);
 
                 // Registrar no histórico
                 historicoTemperaturas.add("Potência " + potenciaAtual + "W: " +
@@ -542,19 +547,19 @@ public class LinearizacaoMtx4 {
 
                 // 3.6. Verificar se temperaturas são iguais
                 if (temperaturaAntes.equals(temperaturaDepois)) {
-                    System.out.println("  Temperatura estabilizada em " + temperaturaAntes + "°C");
+                    System.out.println(MAGENTA + "  Temperatura estabilizada em " + temperaturaAntes + "°C" + RESET);
 
                     // Se não for a última potência, desligar para próxima
                     if (i < potencias.length - 1) {
-                        System.out.println("  3.6. Desligando MTX4 para próxima potência");
+                        System.out.println(MAGENTA + "  3.6. Desligando MTX4 para próxima potência" + RESET);
                         desligarMTX4(driver, wait);
                     } else {
-                        System.out.println("  Última potência concluída com sucesso!");
+                        System.out.println(MAGENTA + "  Última potência concluída com sucesso!" + RESET);
                     }
                 } else {
-                    System.out.println("  Temperatura não estabilizada: " +
-                            temperaturaAntes + "°C ≠ " + temperaturaDepois + "°C");
-                    System.out.println("  Interrompendo sequência na potência " + potenciaAtual + "W");
+                    System.out.println(MAGENTA + "  Temperatura não estabilizada: " +
+                            temperaturaAntes + "°C ≠ " + temperaturaDepois + "°C" + RESET);
+                    System.out.println(MAGENTA + "  Interrompendo sequência na potência " + potenciaAtual + "W" + RESET);
                     todasPotenciasConcluidas = false;
 
                     // Desligar MTX4 antes de sair
@@ -564,14 +569,14 @@ public class LinearizacaoMtx4 {
             }
 
             // ========== ETAPA 4: RESULTADOS FINAIS ==========
-            System.out.println("\n[ETAPA 4] Coletando resultados finais");
+            System.out.println(MAGENTA + "\n[ETAPA 4] Coletando resultados finais" + RESET);
 
             String potenciaFinal = verificarPotencia(driver, wait);
             String temperaturaFinal = verificarTemperatura(driver, wait);
             String canalFinal = verificarCanal(driver, wait);
 
             // ========== ETAPA 5: SALVAR LOG ==========
-            System.out.println("\n[ETAPA 5] Salvando log");
+            System.out.println(MAGENTA + "\n[ETAPA 5] Salvando log" + RESET);
             salvarLogLinearizacaoCanal(canal, canalAtual, canalFinal,
                     potenciaInicial, potenciaFinal,
                     temperaturaInicial, temperaturaFinal,
@@ -623,18 +628,18 @@ public class LinearizacaoMtx4 {
 
             // Estratégia 1: Pegar o texto diretamente
             String canalTexto = canalElement.getText().trim();
-            System.out.println("    Texto do elemento canal: " + canalTexto);
+            System.out.println(MAGENTA + "    Texto do elemento canal: " + canalTexto + RESET);
 
             // Estratégia 2: Se não conseguir, pegar o value attribute
             if (canalTexto == null || canalTexto.isEmpty() || canalTexto.contains("Modulator4.Config.UpConverter.ChannelNumber")) {
                 canalTexto = canalElement.getAttribute("value");
-                System.out.println("    Value attribute do canal: " + canalTexto);
+                System.out.println(MAGENTA + "    Value attribute do canal: " + canalTexto + RESET);
             }
 
             // Estratégia 3: Se ainda não, tentar innerText
             if (canalTexto == null || canalTexto.isEmpty()) {
                 canalTexto = canalElement.getAttribute("innerText");
-                System.out.println("    InnerText do canal: " + canalTexto);
+                System.out.println(MAGENTA + "    InnerText do canal: " + canalTexto + RESET);
             }
 
             // Extrair números do texto (pode vir como "Modulator4.Config.UpConverter.ChannelNumber = 14")
@@ -651,12 +656,12 @@ public class LinearizacaoMtx4 {
                 String numeros = canalTexto.replaceAll("[^0-9]", "").trim();
 
                 if (!numeros.isEmpty()) {
-                    System.out.println("    Canal extraído: " + numeros);
+                    System.out.println(MAGENTA + "    Canal extraído: " + numeros + RESET);
                     return numeros;
                 }
             }
 
-            System.out.println("    Não conseguiu extrair canal, retornando N/A");
+            System.out.println(MAGENTA + "    Não conseguiu extrair canal, retornando N/A" + RESET);
             return "N/A";
 
         } catch (Exception e) {
@@ -676,11 +681,11 @@ public class LinearizacaoMtx4 {
 
             // Pegar canal atual (antes) - usando o método corrigido
             String canalAntes = verificarCanal(driver, wait);
-            System.out.println("  Canal atual: " + canalAntes);
+            System.out.println(MAGENTA + "  Canal atual: " + canalAntes + RESET);
 
             // Se já estiver no canal correto, retornar
             if (canalAntes.equals(canal)) {
-                System.out.println("  Já está no canal " + canal);
+                System.out.println(MAGENTA + "  Já está no canal " + canal + RESET);
                 return canalAntes;
             }
 
@@ -749,12 +754,12 @@ public class LinearizacaoMtx4 {
 
             // Verificar canal depois
             String canalDepois = verificarCanal(driver, wait);
-            System.out.println("  Canal configurado: " + canalDepois);
+            System.out.println(MAGENTA + "  Canal configurado: " + canalDepois + RESET);
 
             // Verificar se realmente mudou
             int tentativas = 0;
             while (!canalDepois.equals(canal) && tentativas < 3) {
-                System.out.println("  Canal não mudou corretamente. Tentativa " + (tentativas + 1));
+                System.out.println(MAGENTA + "  Canal não mudou corretamente. Tentativa " + (tentativas + 1) + RESET);
                 Thread.sleep(1000);
                 canalDepois = verificarCanal(driver, wait);
                 tentativas++;
@@ -786,20 +791,20 @@ public class LinearizacaoMtx4 {
             writer.write("Temperatura final: " + tempFinal + "°C\n");
             writer.write("Status: " + (concluido ? "COMPLETO" : "INTERROMPIDO") + "\n");
             writer.write("HISTÓRICO DE TEMPERATURAS:\n");
-            System.out.println("  Log salvo em: " + filePath);
+            System.out.println(MAGENTA + "  Log salvo em: " + filePath + RESET);
         } catch (Exception e) {
             System.err.println("Erro ao salvar log: " + e.getMessage());
         }
     }
 
-    @PostMapping("/executar-linearizacao-para-canal")
-    public ResponseEntity<Map<String, Object>> executarLinearizacaoParaCanal(@RequestParam String canal) {
+    @PostMapping("/executar-linearizacao-canal-mtx4")
+    public ResponseEntity<Map<String, Object>> executarLinearizacaoCanal(@RequestParam String canal) {
         Map<String, Object> resposta = new HashMap<>();
         WebDriver driver = null;
 
         try {
-            System.out.println("=== INICIANDO LINEARIZAÇÃO PARA CANAL: " + canal + " ===");
-            System.out.println("Hora de início: " + LocalDateTime.now());
+            System.out.println(MAGENTA + "=== INICIANDO LINEARIZAÇÃO PARA CANAL: " + canal + " ===" + RESET);
+            System.out.println(MAGENTA + "Hora de início: " + LocalDateTime.now() + RESET);
 
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
@@ -815,9 +820,9 @@ public class LinearizacaoMtx4 {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
             driver.get("http://10.10.103.103/debug/");
-            System.out.println("Página acessada");
+            System.out.println(MAGENTA + "Página acessada" + RESET);
             fazerLogin(driver, wait);
-            System.out.println("Login realizado");
+            System.out.println(MAGENTA + "Login realizado" + RESET);
 
             // Processo de linearização para o canal específico
             //Map<String, Object> resultado = processoLinearizacaoParaCanal(driver, wait, canal);
@@ -831,8 +836,8 @@ public class LinearizacaoMtx4 {
             resposta.put("hora_fim", LocalDateTime.now().toString());
             resposta.put("detalhes", resultado);
 
-            System.out.println("\n=== LINEARIZAÇÃO CONCLUÍDA PARA CANAL: " + canal + " ===");
-            System.out.println("Hora de fim: " + LocalDateTime.now());
+            System.out.println(MAGENTA + "\n=== LINEARIZAÇÃO CONCLUÍDA PARA CANAL: " + canal + " ===" + RESET);
+            System.out.println(MAGENTA + "Hora de fim: " + LocalDateTime.now() + RESET);
 
             return ResponseEntity.ok(resposta);
 
@@ -848,16 +853,16 @@ public class LinearizacaoMtx4 {
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(MAGENTA + "Driver finalizado" + RESET);
             }
         }
     }
 
-    @PostMapping("/cancelar-linearizacao")
+    @PostMapping("/cancelar-linearizacao-mtx4")
     public ResponseEntity<Map<String, Object>> cancelarLinearizacao() {
         Map<String, Object> resposta = new HashMap<>();
 
-        System.out.println("Solicitação de cancelamento de linearização recebida");
+        System.out.println(MAGENTA + "Solicitação de cancelamento de linearização recebida" + RESET);
 
         resposta.put("status", "sucesso");
         resposta.put("mensagem", "Solicitação de cancelamento recebida");
@@ -865,4 +870,5 @@ public class LinearizacaoMtx4 {
 
         return ResponseEntity.ok(resposta);
     }
+
 }

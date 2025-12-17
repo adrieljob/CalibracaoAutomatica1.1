@@ -21,6 +21,9 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class MudarPotenciaMTX1 {
 
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+
     // Mapa de valores pré-programados para potência
     private static final Map<String, String> VALORES_POTENCIA = new HashMap<>();
 
@@ -84,8 +87,8 @@ public class MudarPotenciaMTX1 {
     // Método principal para configurar a potência do MTX1
     private Map<String, Object> configurarPotenciaMTX1(String valorPotencia) {
         String urlBase = "http://10.10.103.103/debug/";
-        System.out.println("Configurando potência do MTX1 para DAC: " + valorPotencia +
-                " (" + VALORES_POTENCIA.get(valorPotencia) + ")");
+        System.out.println(GREEN + "Configurando potência do MTX1 para DAC: " + valorPotencia +
+                " (" + VALORES_POTENCIA.get(valorPotencia) + ")" + RESET);
 
         WebDriverManager.chromedriver().setup();
 
@@ -105,7 +108,7 @@ public class MudarPotenciaMTX1 {
 
         try {
             driver.get(urlBase);
-            System.out.println("Acessando: " + urlBase);
+            System.out.println(GREEN + "Acessando: " + urlBase + RESET);
 
             // Login
             WebElement campoUsuario = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@type='text']")));
@@ -118,7 +121,7 @@ public class MudarPotenciaMTX1 {
 
             WebElement botaoLogin = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Sign In']")));
             botaoLogin.click();
-            System.out.println("Login realizado");
+            System.out.println(GREEN + "Login realizado" + RESET);
 
             // Aguardar carregamento
             //Thread.sleep(300);
@@ -127,15 +130,15 @@ public class MudarPotenciaMTX1 {
             WebElement powerAmp1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='PowerAmplifier1___']/input")));
             powerAmp1.click();
             Thread.sleep(300);
-            System.out.println("PowerAmplifier1 selecionado");
+            System.out.println(GREEN + "PowerAmplifier1 selecionado" + RESET);
 
             // Pega o valor da potencia ANTES da mudança
             WebElement getPotenciaAntes = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_ForwardPower")));
             String potenciaAntes = getPotenciaAntes.getText().trim();
-            System.out.println("Potência ANTES: " + potenciaAntes);
+            System.out.println(GREEN + "Potência ANTES: " + potenciaAntes + RESET);
 
             // *** ETAPA 1: Clica no OutputPower para abrir o diálogo ***
-            System.out.println("Clicando em OutputPower...");
+            System.out.println(GREEN + "Clicando em OutputPower..." + RESET);
 
             // Tentar diferentes formas de encontrar o OutputPower
             WebElement outputPower = null;
@@ -143,19 +146,19 @@ public class MudarPotenciaMTX1 {
                 // Tentativa 1: Pelo ID exato
                 outputPower = wait.until(ExpectedConditions.elementToBeClickable(
                         By.id("PowerAmplifier1.Config.OutputPower")));
-                System.out.println("OutputPower encontrado pelo ID exato");
+                System.out.println(GREEN + "OutputPower encontrado pelo ID exato" + RESET);
             } catch (Exception e1) {
                 try {
                     // Tentativa 1: Pelo ID com underscore
                     outputPower = wait.until(ExpectedConditions.elementToBeClickable(
                             By.id("PowerAmplifier1_Config_OutputPower")));
-                    System.out.println("OutputPower encontrado pelo ID com underscore");
+                    System.out.println(GREEN + "OutputPower encontrado pelo ID com underscore" + RESET);
                 } catch (Exception e2) {
                     try {
                         // Tentativa 3: Pelo texto
                         outputPower = wait.until(ExpectedConditions.elementToBeClickable(
                                 By.xpath("//*[contains(text(), 'OutputPower')]")));
-                        System.out.println("OutputPower encontrado pelo texto");
+                        System.out.println(GREEN + "OutputPower encontrado pelo texto" + RESET);
                     } catch (Exception e3) {
                         resultado.put("status", "erro");
                         resultado.put("mensagem", "OutputPower não encontrado");
@@ -166,10 +169,10 @@ public class MudarPotenciaMTX1 {
 
             outputPower.click();
             Thread.sleep(300);
-            System.out.println("OutputPower clicado - diálogo deve estar aberto");
+            System.out.println(GREEN + "OutputPower clicado - diálogo deve estar aberto" + RESET);
 
             // *** ETAPA 2: Encontrar e preencher o campo New Value ***
-            System.out.println("Procurando campo New Value...");
+            System.out.println(GREEN + "Procurando campo New Value..." + RESET);
 
             WebElement campoNewValue = null;
 
@@ -177,12 +180,12 @@ public class MudarPotenciaMTX1 {
             try {
                 campoNewValue = driver.switchTo().activeElement();
                 if (campoNewValue.getTagName().equals("input") || campoNewValue.getTagName().equals("textarea")) {
-                    System.out.println("Campo ativo encontrado: " + campoNewValue.getTagName());
+                    System.out.println(GREEN + "Campo ativo encontrado: " + campoNewValue.getTagName() + RESET);
                 } else {
                     campoNewValue = null;
                 }
             } catch (Exception e) {
-                System.out.println("Não encontrou campo ativo");
+                System.out.println(GREEN + "Não encontrou campo ativo" + RESET);
             }
 
             // Estratégia 2: Procurar por inputs visíveis no diálogo
@@ -195,9 +198,9 @@ public class MudarPotenciaMTX1 {
 
                     // Dentro do diálogo, procurar input
                     campoNewValue = dialogo.findElement(By.tagName("input"));
-                    System.out.println("Campo encontrado dentro do diálogo");
+                    System.out.println(GREEN + "Campo encontrado dentro do diálogo" + RESET);
                 } catch (Exception e) {
-                    System.out.println("Não encontrou diálogo específico");
+                    System.out.println(GREEN + "Não encontrou diálogo específico" + RESET);
                 }
             }
 
@@ -212,13 +215,13 @@ public class MudarPotenciaMTX1 {
                             String type = input.getAttribute("type");
                             if (type == null || type.equals("text") || type.equals("number")) {
                                 campoNewValue = input;
-                                System.out.println("Campo visível encontrado: input");
+                                System.out.println(GREEN + "Campo visível encontrado: input" + RESET);
                                 break;
                             }
                         }
                     }
                 } catch (Exception e) {
-                    System.out.println("Não encontrou input visível");
+                    System.out.println(GREEN + "Não encontrou input visível" + RESET);
                 }
             }
 
@@ -227,18 +230,18 @@ public class MudarPotenciaMTX1 {
                 try {
                     campoNewValue = wait.until(ExpectedConditions.elementToBeClickable(
                             By.xpath("//label[@type='text']/input")));
-                    System.out.println("Campo encontrado pelo XPath original");
+                    System.out.println(GREEN + "Campo encontrado pelo XPath original" + RESET);
                 } catch (Exception e) {
                     // Tentar variações do XPath
                     try {
                         campoNewValue = wait.until(ExpectedConditions.elementToBeClickable(
                                 By.xpath("//label[contains(text(), 'New Value')]/input")));
-                        System.out.println("Campo encontrado pelo texto 'New Value'");
+                        System.out.println(GREEN + "Campo encontrado pelo texto 'New Value'" + RESET);
                     } catch (Exception e2) {
                         try {
                             campoNewValue = wait.until(ExpectedConditions.elementToBeClickable(
                                     By.xpath("//input[@placeholder='New Value' or contains(@placeholder, 'value')]")));
-                            System.out.println("Campo encontrado pelo placeholder");
+                            System.out.println(GREEN + "Campo encontrado pelo placeholder" + RESET);
                         } catch (Exception e3) {
                             resultado.put("status", "erro");
                             resultado.put("mensagem", "Campo New Value não encontrado");
@@ -250,7 +253,7 @@ public class MudarPotenciaMTX1 {
 
             // *** ETAPA 3: Digitar o valor da potência ***
             if (campoNewValue != null) {
-                System.out.println("Campo New Value encontrado. Digitando valor: " + valorPotencia);
+                System.out.println(GREEN + "Campo New Value encontrado. Digitando valor: " + valorPotencia + RESET);
 
                 // Clicar no campo para garantir foco
                 campoNewValue.click();
@@ -264,11 +267,11 @@ public class MudarPotenciaMTX1 {
 
                 // Digitar o novo valor
                 campoNewValue.sendKeys(valorPotencia);
-                System.out.println("Valor " + valorPotencia + " digitado no campo New Value");
+                System.out.println(GREEN + "Valor " + valorPotencia + " digitado no campo New Value" + RESET);
                 Thread.sleep(300);
 
                 // *** ETAPA 4: Confirmar a mudança ***
-                System.out.println("Confirmando a mudança...");
+                System.out.println(GREEN + "Confirmando a mudança..." + RESET);
 
                 // Método 1: Pressionar Enter
                 campoNewValue.sendKeys(Keys.ENTER);
@@ -283,11 +286,11 @@ public class MudarPotenciaMTX1 {
                                     "contains(text(), 'Confirm')]"));
                     if (botaoOk.isDisplayed() && botaoOk.isEnabled()) {
                         botaoOk.click();
-                        System.out.println("Botão OK/Apply clicado");
+                        System.out.println(GREEN + "Botão OK/Apply clicado" + RESET);
                         Thread.sleep(300);
                     }
                 } catch (Exception e) {
-                    System.out.println("Botão OK não encontrado, usando apenas Enter");
+                    System.out.println(GREEN + "Botão OK não encontrado, usando apenas Enter" + RESET);
                 }
 
                 // Método 3: Tentar clicar fora do campo para confirmar
@@ -306,7 +309,7 @@ public class MudarPotenciaMTX1 {
             }
 
             // Aguardar aplicação da mudança
-            System.out.println("Aguardando aplicação da mudança...");
+            System.out.println(GREEN + "Aguardando aplicação da mudança..." + RESET);
             Thread.sleep(300);
 
             // Recarregar a página para ver mudanças (opcional)
@@ -320,13 +323,13 @@ public class MudarPotenciaMTX1 {
                 powerAmp1.click();
                 Thread.sleep(300);
             } catch (Exception e) {
-                System.out.println("Não foi possível recarregar: " + e.getMessage());
+                System.out.println(GREEN + "Não foi possível recarregar: " + e.getMessage() + RESET);
             }
 
             // Pega o valor da potencia DEPOIS da mudança
             WebElement getPotenciaDepois = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("PowerAmplifier1_Status_ForwardPower")));
             String potenciaDepois = getPotenciaDepois.getText().trim();
-            System.out.println("Potência DEPOIS: " + potenciaDepois);
+            System.out.println(GREEN + "Potência DEPOIS: " + potenciaDepois + RESET);
 
             // Verificar também o valor configurado atual
             try {
@@ -335,9 +338,9 @@ public class MudarPotenciaMTX1 {
                 if (valorAtual == null || valorAtual.isEmpty()) {
                     valorAtual = campoConfigurado.getAttribute("value");
                 }
-                System.out.println("Valor configurado atual: " + valorAtual);
+                System.out.println(GREEN + "Valor configurado atual: " + valorAtual + RESET);
             } catch (Exception e) {
-                System.out.println("Não foi possível verificar valor configurado atual");
+                System.out.println(GREEN + "Não foi possível verificar valor configurado atual" + RESET);
             }
 
             // Registrar resultados
@@ -354,7 +357,7 @@ public class MudarPotenciaMTX1 {
                         " | Esperado: " + VALORES_POTENCIA.get(valorPotencia) +
                         " | Antes: " + potenciaAntes +
                         " | Depois: " + potenciaDepois + "\n");
-                System.out.println("Log salvo: " + filePath);
+                System.out.println(GREEN + "Log salvo: " + filePath + RESET);
             } catch (java.io.IOException e) {
                 System.err.println("Erro ao salvar log: " + e.getMessage());
             }
@@ -371,7 +374,7 @@ public class MudarPotenciaMTX1 {
         } finally {
             if (driver != null) {
                 driver.quit();
-                System.out.println("Driver finalizado");
+                System.out.println(GREEN + "Driver finalizado" + RESET);
             }
         }
 
@@ -409,25 +412,25 @@ public class MudarPotenciaMTX1 {
 
         executorService.submit(() -> {
             try {
-                System.out.println("=== INICIANDO LOOP CÍCLICO DE POTÊNCIAS MTX1 ===");
-                System.out.println("Data/Hora: " + LocalDateTime.now());
-                System.out.println("Modo: Loop cíclico de 5 minutos por potência");
-                System.out.println("Ordem: " + ordemPotencia);
-                System.out.println("Duração por potência: 5 minutos");
-                System.out.println("Ciclo completo: 25 minutos (5 potências x 5 minutos)");
+                System.out.println(GREEN + "=== INICIANDO LOOP CÍCLICO DE POTÊNCIAS MTX1 ===" + RESET);
+                System.out.println(GREEN + "Data/Hora: " + LocalDateTime.now() + RESET);
+                System.out.println(GREEN + "Modo: Loop cíclico de 5 minutos por potência" + RESET);
+                System.out.println(GREEN + "Ordem: " + ordemPotencia + RESET);
+                System.out.println(GREEN + "Duração por potência: 5 minutos" + RESET);
+                System.out.println(GREEN + "Ciclo completo: 25 minutos (5 potências x 5 minutos)" + RESET);
 
                 int ciclo = 1;
 
                 // Loop infinito (até ser cancelado)
                 while (!Thread.currentThread().isInterrupted()) {
-                    System.out.println("\n" + "=".repeat(60));
-                    System.out.println("CICLO " + ciclo);
-                    System.out.println("=".repeat(60));
+                    System.out.println(GREEN + "\n" + "=".repeat(60) + RESET);
+                    System.out.println(GREEN + "CICLO " + ciclo + RESET);
+                    System.out.println(GREEN + "=".repeat(60) + RESET);
 
                     for (int i = 0; i < ordemPotencia.size(); i++) {
                         // Verificar se foi solicitado cancelamento
                         if (Thread.currentThread().isInterrupted()) {
-                            System.out.println("Loop interrompido por cancelamento");
+                            System.out.println(GREEN + "Loop interrompido por cancelamento" + RESET);
                             return;
                         }
 
@@ -443,23 +446,23 @@ public class MudarPotenciaMTX1 {
                         TESTE_STATUS.put("inicio_potencia", LocalDateTime.now().toString()); // CORRIGIDO
                         TESTE_STATUS.put("proxima_troca", LocalDateTime.now().plusMinutes(5).toString()); // CORRIGIDO
 
-                        System.out.println("\n" + "-".repeat(50));
-                        System.out.println("CICLO " + ciclo + " - POTÊNCIA " + posicao + "/" + ordemPotencia.size());
-                        System.out.println("Aplicando: " + potencia + " (DAC: " + valorDAC + ")");
-                        System.out.println("Início: " + LocalDateTime.now());
-                        System.out.println("Próxima troca: " + LocalDateTime.now().plusMinutes(5));
-                        System.out.println("-".repeat(50));
+                        System.out.println(GREEN + "\n" + "-".repeat(50) + RESET);
+                        System.out.println(GREEN + "CICLO " + ciclo + " - POTÊNCIA " + posicao + "/" + ordemPotencia.size() + RESET);
+                        System.out.println(GREEN + "Aplicando: " + potencia + " (DAC: " + valorDAC + ")" + RESET);
+                        System.out.println(GREEN + "Início: " + LocalDateTime.now() + RESET);
+                        System.out.println(GREEN + "Próxima troca: " + LocalDateTime.now().plusMinutes(5) + RESET);
+                        System.out.println(GREEN + "-".repeat(50) + RESET);
 
                         // Aplicar a potência
                         try {
                             Map<String, Object> resultado = configurarPotenciaMTX1(valorDAC);
 
                             if ("sucesso".equals(resultado.get("status"))) {
-                                System.out.println(potencia + " aplicada com sucesso");
-                                System.out.println("Potência antes: " + resultado.get("potencia_antes"));
-                                System.out.println("Potência depois: " + resultado.get("potencia_depois"));
+                                System.out.println(GREEN + potencia + " aplicada com sucesso" + RESET);
+                                System.out.println(GREEN + "Potência antes: " + resultado.get("potencia_antes") + RESET);
+                                System.out.println(GREEN + "Potência depois: " + resultado.get("potencia_depois") + RESET);
                             } else {
-                                System.out.println("Falha ao aplicar " + potencia + ": " + resultado.get("mensagem"));
+                                System.out.println(GREEN + "Falha ao aplicar " + potencia + ": " + resultado.get("mensagem") + RESET);
                             }
 
 
@@ -469,38 +472,38 @@ public class MudarPotenciaMTX1 {
                         }
 
                         // Aguardar 5 minutos (300000 milissegundos)
-                        System.out.println("\nAguardando 1 minuto...");
+                        System.out.println(GREEN + "\nAguardando 1 minuto..." + RESET);
 
                         // Aguardar em blocos de 1 minuto para permitir cancelamento mais rápido
                         for (int minuto = 1; minuto <= 1; minuto++) {
                             if (Thread.currentThread().isInterrupted()) {
-                                System.out.println("Aguardar interrompido no minuto " + minuto);
+                                System.out.println(GREEN + "Aguardar interrompido no minuto " + minuto + RESET);
                                 return;
                             }
 
                             TESTE_STATUS.put("tempo_restante_minutos", 1 - minuto);
                             TESTE_STATUS.put("minuto_atual", minuto + "/5");
 
-                            System.out.println("Minuto " + minuto + "/5 - Próxima troca em " + (1 - minuto) + " minutos");
+                            System.out.println(GREEN + "Minuto " + minuto + "/5 - Próxima troca em " + (1 - minuto) + " minutos" + RESET);
 
                             try {
                                 Thread.sleep(60000); // 1 minuto
                             } catch (InterruptedException e) {
-                                System.out.println("Thread interrompida durante a espera");
+                                System.out.println(GREEN + "Thread interrompida durante a espera" + RESET);
                                 Thread.currentThread().interrupt();
                                 return;
                             }
                         }
 
-                        System.out.println("5 minutos concluídos! Próxima potência...");
+                        System.out.println(GREEN + "5 minutos concluídos! Próxima potência..." + RESET);
                     }
 
                     // Incrementar ciclo
                     ciclo++;
                     TESTE_STATUS.put("ciclo_atual", ciclo);
 
-                    System.out.println("\nCICLO " + (ciclo-1) + " COMPLETO!");
-                    System.out.println("Iniciando próximo ciclo em 10 segundos...");
+                    System.out.println(GREEN + "\nCICLO " + (ciclo-1) + " COMPLETO!" + RESET);
+                    System.out.println(GREEN + "Iniciando próximo ciclo em 10 segundos..." + RESET);
 
                     // Pequena pausa entre ciclos
                     Thread.sleep(10000);
@@ -518,7 +521,7 @@ public class MudarPotenciaMTX1 {
                     executorService.shutdown();
                 }
 
-                System.out.println("LOOP CÍCLICO FINALIZADO");
+                System.out.println(GREEN + "LOOP CÍCLICO FINALIZADO" + RESET);
                 TESTE_STATUS.put("status_geral", "finalizado");
                 TESTE_STATUS.put("fim", LocalDateTime.now().toString()); // CORRIGIDO
             }
