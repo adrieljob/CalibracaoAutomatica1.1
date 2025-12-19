@@ -29,8 +29,8 @@ public class RotinaparaOffsetMtx1 {
     @Value("${app.password}")
     private String password;
 
-    @PostMapping("/mudar-canal-mtx1")
-    public ResponseEntity<Map<String, Object>> mudarCanalMTX1(@RequestParam String canal) {
+    @PostMapping("/mudar-canal-offset-mtx1")
+    public ResponseEntity<Map<String, Object>> mudarCanalOffsetMTX1(@RequestParam String canal) {
         Map<String, Object> resposta = new HashMap<>();
 
         try {
@@ -86,10 +86,9 @@ public class RotinaparaOffsetMtx1 {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-gpu");
-            // options.addArguments("--headless"); // Descomente para modo headless
+            options.addArguments("--headless"); // Descomente para modo headless
             options.addArguments("--incognito");
             options.addArguments("--disable-cache");
-            options.addArguments("--window-size=1920,1080");
 
             driver = new ChromeDriver(options);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -496,7 +495,6 @@ public class RotinaparaOffsetMtx1 {
             // Ignorar se não encontrar botão OK
         }
     }
-
 
     private void salvarLog(String canal, String antes, String depois) {
         String filePath = System.getProperty("user.dir") + "/logs_canal_mtx1.txt";

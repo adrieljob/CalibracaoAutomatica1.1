@@ -79,8 +79,7 @@ public class LigarMtx1 {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-gpu");
-        // Descomente a linha abaixo para modo headless (sem abrir janela)
-        // options.addArguments("--headless");
+        options.addArguments("--headless");
         options.addArguments("--incognito");
         options.addArguments("--disable-cache");
 

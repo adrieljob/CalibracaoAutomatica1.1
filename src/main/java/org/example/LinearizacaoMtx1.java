@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,12 +19,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 public class LinearizacaoMtx1 {
 
     private static final String RESET = "\u001B[0m";
     private static final String GREEN = "\u001B[32m";
+    private static boolean linearizacaoAtivaMtx1 = false;
+    private static LocalDateTime horaInicioLinearizacaoMtx1 = null;
+    private static Map<String, Object> statusLinearizacaoMtx1 = new ConcurrentHashMap<>();
 
     @Value("${app.username:admin}")
     private String username;
@@ -46,9 +51,9 @@ public class LinearizacaoMtx1 {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-gpu");
+            options.addArguments("--headless"); // Descomente para modo headless
             options.addArguments("--incognito");
             options.addArguments("--disable-cache");
-            options.addArguments("--window-size=1920,1080");
 
             driver = new ChromeDriver(options);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -90,11 +95,51 @@ public class LinearizacaoMtx1 {
         }
     }
 
+    @GetMapping("/status-linearizacao-mtx1")
+    public ResponseEntity<Map<String, Object>> getStatusLinearizacaoMtx1() {
+        Map<String, Object> resposta = new HashMap<>();
+
+        resposta.put("ativo", linearizacaoAtivaMtx1);
+        resposta.put("hora_inicio", horaInicioLinearizacaoMtx1 != null ? horaInicioLinearizacaoMtx1.toString() : null);
+        resposta.put("detalhes", statusLinearizacaoMtx1);
+        resposta.put("ultima_atualizacao", LocalDateTime.now().toString());
+
+        // Verificar timeout (30 minutos para linearização)
+        if (linearizacaoAtivaMtx1 && horaInicioLinearizacaoMtx1 != null) {
+            Duration duracao = Duration.between(horaInicioLinearizacaoMtx1, LocalDateTime.now());
+            if (duracao.toMinutes() > 30) {
+                linearizacaoAtivaMtx1 = false;
+                resposta.put("ativo", false);
+                resposta.put("mensagem", "Processo expirado");
+            }
+        }
+
+        return ResponseEntity.ok(resposta);
+    }
+
     // função para linearização
     private Map<String, Object> processoCompleto(WebDriver driver, WebDriverWait wait) {
         Map<String, Object> resultado = new HashMap<>();
 
+        // MARCA COMO ATIVO
+        linearizacaoAtivaMtx1 = true;
+        horaInicioLinearizacaoMtx1 = LocalDateTime.now();
+        statusLinearizacaoMtx1.clear();
+        statusLinearizacaoMtx1.put("status", "executando");
+        statusLinearizacaoMtx1.put("inicio", horaInicioLinearizacaoMtx1.toString());
+        statusLinearizacaoMtx1.put("etapa", "iniciando");
+
         try {
+
+        try {
+            // ========== ETAPA 0.5: VERIFICAR CANAL ATUAL ==========
+            System.out.println(GREEN + "\n[ETAPA 0.5] Verificando canal atual" + RESET);
+            String canalAtual = verificarCanal(driver, wait);
+            System.out.println(GREEN + "  Canal atual: " + canalAtual + RESET);
+
+            // Guardar o canal atual para usar no cancelamento
+            resultado.put("canal_atual", canalAtual);
+
             // ========== ETAPA 0: INFORMAÇÕES INICIAIS ==========
             System.out.println(GREEN + "\n[ETAPA 0] Coletando informações iniciais" + RESET);
             String potenciaInicial = verificarPotencia(driver, wait);
@@ -107,6 +152,7 @@ public class LinearizacaoMtx1 {
             desligarMTX1(driver, wait);
 
             // ========== ETAPA 2: LOOP DE POTÊNCIAS ==========
+            //int[] potencias = {483, 430, 370, 340, 300}; // maior pro menor
             int[] potencias = {300, 340, 370, 430, 483}; // menor pro maior
             int ultimaPotenciaProcessada = 0;
             boolean todasPotenciasConcluidas = true;
@@ -245,8 +291,64 @@ public class LinearizacaoMtx1 {
             resultado.put("status", "erro");
             resultado.put("mensagem", "Erro no MTX1: " + e.getMessage());
         }
-
         return resultado;
+
+        } catch (Exception e) {
+            linearizacaoAtivaMtx1 = false;
+            statusLinearizacaoMtx1.put("status", "erro");
+            throw e;
+        } finally {
+            linearizacaoAtivaMtx1 = false;
+            statusLinearizacaoMtx1.put("status", "finalizado");
+            statusLinearizacaoMtx1.put("fim", LocalDateTime.now().toString());
+        }
+    }
+
+    // Método para chamar o cancelamento após processar um canal
+    private void chamarFuncaoCancelamento(String canal, Map<String, Object> resultadoCanal) {
+        try {
+            System.out.println(GREEN + "\n=== CHAMANDO CANCELAMENTO PARA CANAL " + canal + " ===" + RESET);
+
+            // Preparar dados do cancelamento
+            Map<String, Object> dadosCancelamento = new HashMap<>();
+            dadosCancelamento.put("canal", canal);
+            dadosCancelamento.put("hora_processamento", LocalDateTime.now().toString());
+            dadosCancelamento.put("corrente_final", resultadoCanal.get("corrente_final"));
+            dadosCancelamento.put("offset_final", resultadoCanal.get("offset_final"));
+            dadosCancelamento.put("potencia_final", resultadoCanal.get("potencia_final"));
+            dadosCancelamento.put("status_processamento", resultadoCanal.get("status"));
+
+            // Chamar o endpoint de cancelamento (simulação)
+            Map<String, Object> respostaCancelamento = new HashMap<>();
+            respostaCancelamento.put("status", "sucesso");
+            respostaCancelamento.put("mensagem", "Cancelamento chamado para canal " + canal);
+            respostaCancelamento.put("hora_cancelamento", LocalDateTime.now().toString());
+            respostaCancelamento.put("dados_canal", dadosCancelamento);
+
+            // Log do cancelamento
+            System.out.println(GREEN + "Cancelamento executado: " + respostaCancelamento + RESET);
+
+            // Salvar log específico do cancelamento
+            salvarLogCancelamento(canal, respostaCancelamento);
+
+        } catch (Exception e) {
+            System.err.println("Erro ao chamar cancelamento para canal " + canal + ": " + e.getMessage());
+        }
+    }
+
+    // Método para salvar log do cancelamento
+    private void salvarLogCancelamento(String canal, Map<String, Object> respostaCancelamento) {
+        String filePath = System.getProperty("user.dir") + "/logs_cancelamento.txt";
+        try (java.io.FileWriter writer = new java.io.FileWriter(filePath, true)) {
+            writer.write(LocalDateTime.now() +
+                    " | Canal: " + canal +
+                    " | Status: " + respostaCancelamento.get("status") +
+                    " | Hora: " + respostaCancelamento.get("hora_cancelamento") +
+                    " | Mensagem: " + respostaCancelamento.get("mensagem") + "\n");
+            System.out.println(GREEN + "  Log de cancelamento salvo em: " + filePath + RESET);
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar log de cancelamento: " + e.getMessage());
+        }
     }
 
     // verificar o valor da potencia
@@ -808,6 +910,7 @@ public class LinearizacaoMtx1 {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-gpu");
+            options.addArguments("--headless");
             options.addArguments("--incognito");
             options.addArguments("--disable-cache");
             options.addArguments("--window-size=1920,1080");

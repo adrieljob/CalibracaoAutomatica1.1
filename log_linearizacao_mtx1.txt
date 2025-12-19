@@ -6,3 +6,11 @@
 2025-12-16T17:43:04.467121400 | P_Inicial: 483W | P_Final: 483W | T_Inicial: 45°C | T_Final: 44°C | Ultima_Potencia: 483W | Status: COMPLETO
 2025-12-17T15:21:40.178653700 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 42°C | T_Final: 44°C | Ultima_Potencia: 483W | Status: COMPLETO
 2025-12-17T16:22:57.627376400 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 44°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-18T12:02:13.229255500 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 42°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-18T16:11:39.840390800 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 41°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-19T15:57:07.352871100 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 35°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-19T15:57:54.428050200 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 38°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-19T15:57:55.192929800 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 38°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-19T15:58:58.707942700 | P_Inicial: 300W | P_Final: 483W | T_Inicial: 31°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-19T16:57:28.096983900 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 29°C | T_Final: 42°C | Ultima_Potencia: 483W | Status: COMPLETO
+2025-12-19T16:59:36.695156600 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 36°C | T_Final: 43°C | Ultima_Potencia: 483W | Status: COMPLETO

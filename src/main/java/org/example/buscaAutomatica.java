@@ -34,6 +34,12 @@ import java.util.concurrent.ScheduledFuture;
 @RestController
 public class buscaAutomatica {
 
+    private static final String RESET = "\u001B[0m";
+    private static final String GREEN = "\u001B[32m";
+    private static final String YELLOW = "\u001B[33m";
+    private static final String BLUE = "\u001B[34m";
+    private static final String MAGENTA = "\u001B[35m";
+
     @Value("${app.username}")
     private String username;
 
@@ -231,7 +237,7 @@ public class buscaAutomatica {
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-extensions");
         options.addArguments("--disable-gpu");
-        // options.addArguments("--headless"); // Desativado para exibir o que está sendo feito
+        options.addArguments("--headless"); // Comentar se quiser ver oque esta sendo feito
         options.addArguments("--incognito");
         options.addArguments("--disable-cache");
 
@@ -331,21 +337,20 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String offSetMtx1 = getOffSetMtx1.getText().trim();
 
-
-            System.out.println("Dados extraídos:");
-            System.out.println("MTX1");
-            System.out.println("Numero do canal1: " + chanelNumber1);
-            System.out.println("Frequencia1: " + frequency1);
-            System.out.println("forwardDBM1: " + forwardDBM1);
-            System.out.println("Status ALC1: " + statusALC1);
-            System.out.println("Output DAC1: " + outputDAC1);
-            System.out.println("Desired DAC1: " + desiredDAC1);
-            System.out.println("Potencia Direta1: " + potencia1);
-            System.out.println("Potencia Refletida1: " + refletida1);
-            System.out.println("Temperatura1: " + temperatura1);
-            System.out.println("FAN1 MTX1: " + fan1MTX1);
-            System.out.println("FAN2 MTX1: " + fan2MTX1);
-            System.out.println("offSetMtx1: " + offSetMtx1);
+            System.out.println(GREEN + "Dados extraídos:" + RESET);
+            System.out.println(GREEN + "MTX1" + RESET);
+            System.out.println(GREEN + "Numero do canal1: " + chanelNumber1 + RESET);
+            System.out.println(GREEN + "Frequencia1: " + frequency1 + RESET);
+            System.out.println(GREEN + "forwardDBM1: " + forwardDBM1 + RESET);
+            System.out.println(GREEN + "Status ALC1: " + statusALC1 + RESET);
+            System.out.println(GREEN + "Output DAC1: " + outputDAC1 + RESET);
+            System.out.println(GREEN + "Desired DAC1: " + desiredDAC1 + RESET);
+            System.out.println(GREEN + "Potencia Direta1: " + potencia1 + RESET);
+            System.out.println(GREEN + "Potencia Refletida1: " + refletida1 + RESET);
+            System.out.println(GREEN + "Temperatura1: " + temperatura1 + RESET);
+            System.out.println(GREEN + "FAN1 MTX1: " + fan1MTX1 + RESET);
+            System.out.println(GREEN + "FAN2 MTX1: " + fan2MTX1 + RESET);
+            System.out.println(GREEN + "offSetMtx1: " + offSetMtx1 + RESET);
 
             // MTX2
             WebElement modulator2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator2___']/input")));
@@ -410,19 +415,19 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String offSetMtx2 = getOffSetMtx2.getText().trim();
 
-            System.out.println("MTX2");
-            System.out.println("Numero do canal2: " + chanelNumber2);
-            System.out.println("Frequencia2: " + frequency2);
-            System.out.println("forwardDBM2: " + forwardDBM2);
-            System.out.println("Status ALC2: " + statusALC2);
-            System.out.println("Output DAC2: " + outputDAC2);
-            System.out.println("Desired DAC2: " + desiredDAC2);
-            System.out.println("Potencia Direta2: " + potencia2);
-            System.out.println("Potencia Refletida2: " + refletida2);
-            System.out.println("Temperatura2: " + temperatura2);
-            System.out.println("FAN1 MTX2: " + fan1MTX2);
-            System.out.println("FAN2 MTX2: " + fan2MTX2);
-            System.out.println("offSetMtx2: " + offSetMtx2);
+            System.out.println(YELLOW + "MTX2" + RESET);
+            System.out.println(YELLOW + "Numero do canal2: " + chanelNumber2 + RESET);
+            System.out.println(YELLOW + "Frequencia2: " + frequency2 + RESET);
+            System.out.println(YELLOW + "forwardDBM2: " + forwardDBM2 + RESET);
+            System.out.println(YELLOW + "Status ALC2: " + statusALC2 + RESET);
+            System.out.println(YELLOW + "Output DAC2: " + outputDAC2 + RESET);
+            System.out.println(YELLOW + "Desired DAC2: " + desiredDAC2 + RESET);
+            System.out.println(YELLOW + "Potencia Direta2: " + potencia2 + RESET);
+            System.out.println(YELLOW + "Potencia Refletida2: " + refletida2 + RESET);
+            System.out.println(YELLOW + "Temperatura2: " + temperatura2 + RESET);
+            System.out.println(YELLOW + "FAN1 MTX2: " + fan1MTX2 + RESET);
+            System.out.println(YELLOW + "FAN2 MTX2: " + fan2MTX2 + RESET);
+            System.out.println(YELLOW + "offSetMtx2: " + offSetMtx2 + RESET);
 
             // MTX3
             WebElement modulator3 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator3___']/input")));
@@ -486,19 +491,19 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String offSetMtx3 = getOffSetMtx3.getText().trim();
 
-            System.out.println("MTX3");
-            System.out.println("Numero do canal3: " + chanelNumber3);
-            System.out.println("Frequencia3: " + frequency3);
-            System.out.println("forwardDBM3: " + forwardDBM3);
-            System.out.println("Status ALC3: " + statusALC3);
-            System.out.println("Output DAC3: " + outputDAC3);
-            System.out.println("Desired DAC3: " + desiredDAC3);
-            System.out.println("Potencia Direta3: " + potencia3);
-            System.out.println("Potencia Refletida3: " + refletida3);
-            System.out.println("Temperatura3: " + temperatura3);
-            System.out.println("FAN1 MTX3: " + fan1MTX3);
-            System.out.println("FAN2 MTX3: " + fan2MTX3);
-            System.out.println("offSetMtx3: " + offSetMtx3);
+            System.out.println(BLUE + "MTX3" + RESET);
+            System.out.println(BLUE + "Numero do canal3: " + chanelNumber3 + RESET);
+            System.out.println(BLUE + "Frequencia3: " + frequency3 + RESET);
+            System.out.println(BLUE + "forwardDBM3: " + forwardDBM3 + RESET);
+            System.out.println(BLUE + "Status ALC3: " + statusALC3 + RESET);
+            System.out.println(BLUE + "Output DAC3: " + outputDAC3 + RESET);
+            System.out.println(BLUE + "Desired DAC3: " + desiredDAC3 + RESET);
+            System.out.println(BLUE + "Potencia Direta3: " + potencia3 + RESET);
+            System.out.println(BLUE + "Potencia Refletida3: " + refletida3 + RESET);
+            System.out.println(BLUE + "Temperatura3: " + temperatura3 + RESET);
+            System.out.println(BLUE + "FAN1 MTX3: " + fan1MTX3 + RESET);
+            System.out.println(BLUE + "FAN2 MTX3: " + fan2MTX3 + RESET);
+            System.out.println(BLUE + "offSetMtx3: " + offSetMtx3 + RESET);
 
             // MTX4
             WebElement modulator4 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//label[@link='Modulator4___']/input")));
@@ -563,19 +568,19 @@ public class buscaAutomatica {
             Thread.sleep(300);
             String offSetMtx4 = getOffSetMtx4.getText().trim();
 
-            System.out.println("MTX4");
-            System.out.println("Numero do canal4: " + chanelNumber4);
-            System.out.println("Frequencia4: " + frequency4);
-            System.out.println("forwardDBM4: " + forwardDBM4);
-            System.out.println("Status ALC4: " + statusALC4);
-            System.out.println("Output DAC4: " + outputDAC4);
-            System.out.println("Desired DAC4: " + desiredDAC4);
-            System.out.println("Potencia Direta4: " + potencia4);
-            System.out.println("Potencia Refletida4: " + refletida4);
-            System.out.println("Temperatura4: " + temperatura4);
-            System.out.println("FAN1 MTX4: " + fan1MTX4);
-            System.out.println("FAN2 MTX4: " + fan2MTX4);
-            System.out.println("offSetMtx4: " + offSetMtx4);
+            System.out.println(MAGENTA + "MTX4" + RESET);
+            System.out.println(MAGENTA + "Numero do canal4: " + chanelNumber4 + RESET);
+            System.out.println(MAGENTA + "Frequencia4: " + frequency4 + RESET);
+            System.out.println(MAGENTA + "forwardDBM4: " + forwardDBM4 + RESET);
+            System.out.println(MAGENTA + "Status ALC4: " + statusALC4 + RESET);
+            System.out.println(MAGENTA + "Output DAC4: " + outputDAC4 + RESET);
+            System.out.println(MAGENTA + "Desired DAC4: " + desiredDAC4 + RESET);
+            System.out.println(MAGENTA + "Potencia Direta4: " + potencia4 + RESET);
+            System.out.println(MAGENTA + "Potencia Refletida4: " + refletida4 + RESET);
+            System.out.println(MAGENTA + "Temperatura4: " + temperatura4 + RESET);
+            System.out.println(MAGENTA + "FAN1 MTX4: " + fan1MTX4 + RESET);
+            System.out.println(MAGENTA + "FAN2 MTX4: " + fan2MTX4 + RESET);
+            System.out.println(MAGENTA + "offSetMtx4: " + offSetMtx4 + RESET);
 
             // Colocar os valores no resultado
             resultado.put("status", "Checagem executada com sucesso");

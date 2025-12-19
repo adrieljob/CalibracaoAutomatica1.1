@@ -32,8 +32,8 @@ public class RotinaparaOffsetMtx2 {
     @Value("${app.password}")
     private String password;
 
-    @PostMapping("/mudar-canal-mtx2")
-    public ResponseEntity<Map<String, Object>> mudarCanalMTX2(@RequestParam String canal) {
+    @PostMapping("/mudar-canal-offset-mtx2")
+    public ResponseEntity<Map<String, Object>> mudarCanalOffsetMTX2(@RequestParam String canal) {
         Map<String, Object> resposta = new HashMap<>();
 
         try {
@@ -89,10 +89,9 @@ public class RotinaparaOffsetMtx2 {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-gpu");
-            // options.addArguments("--headless"); // Descomente para modo headless
+            options.addArguments("--headless"); // Descomente para modo headless
             options.addArguments("--incognito");
             options.addArguments("--disable-cache");
-            options.addArguments("--window-size=1920,1080");
 
             driver = new ChromeDriver(options);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));

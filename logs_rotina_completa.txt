@@ -28,3 +28,20 @@
 2025-12-17T14:44:35.115009200 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -6 | Iterações: 7 | Status: sucesso
 2025-12-17T14:47:28.503377400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -10 | Iterações: 11 | Status: sucesso
 2025-12-17T15:49:00.635692300 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 8 | Status: sucesso
+2025-12-17T17:57:45.766905 | Canal: 14 | Antes: 34 | Depois: 14 | Potência: 72443.0 | Corrente: 72 | Offset: 0 | Iterações: 1 | Status: sucesso
+2025-12-17T18:07:57.951210 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -6 | Iterações: 7 | Status: sucesso
+2025-12-17T18:08:39.280983400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 8 | Status: sucesso
+2025-12-18T10:34:22.269665900 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -2 | Iterações: 3 | Status: sucesso
+2025-12-18T11:06:43.813235500 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 8 | Status: sucesso
+2025-12-18T11:28:12.873862300 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 69 | Offset: -6 | Iterações: 7 | Status: sucesso
+2025-12-18T15:13:58.574998400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Offset inicial: 0 | Iterações: 8 | Status: sucesso
+2025-12-18T15:34:44.781228400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 8 | Status: sucesso
+2025-12-18T17:41:07.927648100 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 8 | Status: sucesso
+2025-12-19T15:18:08.578808900 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 12 | Status: sucesso
+2025-12-19T15:29:26.888329900 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2025-12-19T15:29:26.932304300 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2025-12-19T15:29:29.289113 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2025-12-19T15:29:32.579290500 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2025-12-19T16:19:00.957974800 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 8 | Status: sucesso
+2025-12-19T16:28:04.950393800 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2025-12-19T16:28:09.544223300 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso

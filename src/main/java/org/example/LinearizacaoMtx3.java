@@ -46,6 +46,7 @@ public class LinearizacaoMtx3 {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-gpu");
+            options.addArguments("--headless");
             options.addArguments("--incognito");
             options.addArguments("--disable-cache");
             options.addArguments("--window-size=1920,1080");
@@ -95,6 +96,14 @@ public class LinearizacaoMtx3 {
         Map<String, Object> resultado = new HashMap<>();
 
         try {
+            // ========== ETAPA 0.5: VERIFICAR CANAL ATUAL ==========
+            System.out.println(BLUE + "\n[ETAPA 0.5] Verificando canal atual" + RESET);
+            String canalAtual = verificarCanal(driver, wait);
+            System.out.println(BLUE + "  Canal atual: " + canalAtual + RESET);
+
+            // Guardar o canal atual para usar no cancelamento
+            resultado.put("canal_atual", canalAtual);
+
             // ========== ETAPA 0: INFORMAÇÕES INICIAIS ==========
             System.out.println(BLUE + "\n[ETAPA 0] Coletando informações iniciais" + RESET);
             String potenciaInicial = verificarPotencia(driver, wait);
@@ -102,16 +111,17 @@ public class LinearizacaoMtx3 {
             System.out.println(BLUE + "  Potência inicial: " + potenciaInicial + "W" + RESET);
             System.out.println(BLUE + "  Temperatura inicial: " + temperaturaInicial + "°C" + RESET);
 
-            // ========== ETAPA 1: DESLIGAR MTX3 PARA COMEÇAR ==========
-            System.out.println(BLUE + "\n[ETAPA 1] Desligando MTX3 para iniciar sequência" + RESET);
+            // ========== ETAPA 1: DESLIGAR MTX1 PARA COMEÇAR ==========
+            System.out.println(BLUE + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
             desligarMTX3(driver, wait);
 
             // ========== ETAPA 2: LOOP DE POTÊNCIAS ==========
+            //int[] potencias = {483, 430, 370, 340, 300}; // maior pro menor
             int[] potencias = {300, 340, 370, 430, 483}; // menor pro maior
             int ultimaPotenciaProcessada = 0;
             boolean todasPotenciasConcluidas = true;
             int tentativasEstabilizacao = 10; // Número máximo de tentativas
-            int tempoEspera = 300000; // 300 segundos
+            int tempoEspera = 180000; // 180 segundos
             int margemTolerancia = 1; // ±1°C
 
             for (int i = 0; i < potencias.length; i++) {
@@ -125,8 +135,8 @@ public class LinearizacaoMtx3 {
                 System.out.println(BLUE + "  2.1. Configurando potência para " + potenciaAtual + "W" + RESET);
                 configurarPotencia(driver, wait, String.valueOf(potenciaAtual));
 
-                // 2.2. Ligar o MTX3
-                System.out.println(BLUE + "  2.2. Ligando MTX3" + RESET);
+                // 2.2. Ligar o MTX1
+                System.out.println(BLUE + "  2.2. Ligando MTX1" + RESET);
                 ligarMTX3(driver, wait);
 
                 // 2.3. AGUARDAR ESTABILIZAÇÃO DA TEMPERATURA
@@ -168,8 +178,7 @@ public class LinearizacaoMtx3 {
                             }
                             break;
                         } else {
-                            System.out.println(BLUE + "    Temperatura não estabilizada: " +
-                                    temperaturaAnterior + "°C → " + temperaturaAtual + "°C" + RESET);
+                            System.out.println(BLUE + "    Temperatura não estabilizada: " + temperaturaAnterior + "°C → " + temperaturaAtual + "°C" + RESET);
                             System.out.println(BLUE + "    Diferença: " + diferenca + "°C (> " + margemTolerancia + "°C)" + RESET);
                         }
                     } catch (NumberFormatException e) {
@@ -180,8 +189,7 @@ public class LinearizacaoMtx3 {
                             System.out.println(BLUE + "    Temperatura estabilizada em " + temperaturaAtual + "°C" + RESET);
                             break;
                         } else {
-                            System.out.println(BLUE + "    Temperatura não estabilizada: " +
-                                    temperaturaAnterior + "°C ≠ " + temperaturaAtual + "°C" + RESET);
+                            System.out.println(BLUE + "    Temperatura não estabilizada: " + temperaturaAnterior + "°C ≠ " + temperaturaAtual + "°C" + RESET);
                         }
                     }
 
@@ -198,10 +206,9 @@ public class LinearizacaoMtx3 {
                 if (temperaturaEstabilizada) {
                     System.out.println(BLUE + "  Potência " + potenciaAtual + "W processada com sucesso" + RESET);
 
-                    // Se não for a última potência, desligar para próxima
                     if (i < potencias.length - 1) {
-                        //System.out.println(BLUE + "  2.5. Desligando MTX3 para próxima potência" + RESET);
-                        //desligarMTX3(driver, wait);
+                        //System.out.println(BLUE + "  2.5. Desligando MTX1 para próxima potência" + RESET);
+                        //desligarMTX1(driver, wait);
                         Thread.sleep(3000); // Aguardar 3 segundos entre potências
                     } else {
                         System.out.println(BLUE + "  Última potência concluída com sucesso!" + RESET);
@@ -211,8 +218,8 @@ public class LinearizacaoMtx3 {
                     System.out.println(BLUE + "  Interrompendo sequência na potência " + potenciaAtual + "W" + RESET);
                     todasPotenciasConcluidas = false;
 
-                    // Desligar MTX3 antes de sair
-                    desligarMTX3(driver, wait);
+                    // Desligar MTX1 antes de sair
+                    //desligarMTX1(driver, wait);
                     break;
                 }
             }
@@ -241,15 +248,66 @@ public class LinearizacaoMtx3 {
             resultado.put("temperatura_final", temperaturaFinal);
             resultado.put("sequencia_potencias", "300 → 340 → 370 → 430 → 483");
 
+            // ========== ETAPA 5: CHAMAR CANCELAMENTO ==========
+            System.out.println(BLUE + "Chamando função de cancelamento" + RESET);
+            chamarFuncaoCancelamento(canalAtual, resultado);
+
         } catch (Exception e) {
-            System.err.println("Erro no processamento do MTX3: " + e.getMessage());
+            System.err.println("Erro no processamento do MTX1: " + e.getMessage());
             e.printStackTrace();
 
             resultado.put("status", "erro");
-            resultado.put("mensagem", "Erro no MTX3: " + e.getMessage());
+            resultado.put("mensagem", "Erro no MTX1: " + e.getMessage());
         }
 
         return resultado;
+    }
+
+    // Método para chamar o cancelamento após processar um canal
+    private void chamarFuncaoCancelamento(String canal, Map<String, Object> resultadoCanal) {
+        try {
+            System.out.println(BLUE + "\n=== CHAMANDO CANCELAMENTO PARA CANAL " + canal + " ===" + RESET);
+
+            // Preparar dados do cancelamento
+            Map<String, Object> dadosCancelamento = new HashMap<>();
+            dadosCancelamento.put("canal", canal);
+            dadosCancelamento.put("hora_processamento", LocalDateTime.now().toString());
+            dadosCancelamento.put("corrente_final", resultadoCanal.get("corrente_final"));
+            dadosCancelamento.put("offset_final", resultadoCanal.get("offset_final"));
+            dadosCancelamento.put("potencia_final", resultadoCanal.get("potencia_final"));
+            dadosCancelamento.put("status_processamento", resultadoCanal.get("status"));
+
+            // Chamar o endpoint de cancelamento (simulação)
+            Map<String, Object> respostaCancelamento = new HashMap<>();
+            respostaCancelamento.put("status", "sucesso");
+            respostaCancelamento.put("mensagem", "Cancelamento chamado para canal " + canal);
+            respostaCancelamento.put("hora_cancelamento", LocalDateTime.now().toString());
+            respostaCancelamento.put("dados_canal", dadosCancelamento);
+
+            // Log do cancelamento
+            System.out.println(BLUE + "Cancelamento executado: " + respostaCancelamento + RESET);
+
+            // Salvar log específico do cancelamento
+            salvarLogCancelamento(canal, respostaCancelamento);
+
+        } catch (Exception e) {
+            System.err.println("Erro ao chamar cancelamento para canal " + canal + ": " + e.getMessage());
+        }
+    }
+
+    // Método para salvar log do cancelamento
+    private void salvarLogCancelamento(String canal, Map<String, Object> respostaCancelamento) {
+        String filePath = System.getProperty("user.dir") + "/logs_cancelamento.txt";
+        try (java.io.FileWriter writer = new java.io.FileWriter(filePath, true)) {
+            writer.write(LocalDateTime.now() +
+                    " | Canal: " + canal +
+                    " | Status: " + respostaCancelamento.get("status") +
+                    " | Hora: " + respostaCancelamento.get("hora_cancelamento") +
+                    " | Mensagem: " + respostaCancelamento.get("mensagem") + "\n");
+            System.out.println(BLUE + "  Log de cancelamento salvo em: " + filePath + RESET);
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar log de cancelamento: " + e.getMessage());
+        }
     }
 
     // verificar o valor da potencia
@@ -812,9 +870,9 @@ public class LinearizacaoMtx3 {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-extensions");
             options.addArguments("--disable-gpu");
+            options.addArguments("--headless"); // Descomente para modo headless
             options.addArguments("--incognito");
             options.addArguments("--disable-cache");
-            options.addArguments("--window-size=1920,1080");
 
             driver = new ChromeDriver(options);
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
