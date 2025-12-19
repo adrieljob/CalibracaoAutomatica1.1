@@ -2759,3 +2759,53 @@ Session ID: 84f74b8687a71030da743911464a5e9c
 2025-12-19T17:57:41.750-03:00 DEBUG 26456 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
 2025-12-19T17:57:41.751-03:00 DEBUG 26456 --- [http-nio-8087-exec-6] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjects/CalibracaoAutomatica1.1/dados.txt]]
 2025-12-19T17:57:41.752-03:00 DEBUG 26456 --- [http-nio-8087-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-19T17:58:10.727-03:00  INFO 26456 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 143.0.7499.169 (resolved driver for Chrome 143)
+2025-12-19T17:58:10.734-03:00  INFO 26456 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\143.0.7499.169\chromedriver.exe
+2025-12-19T17:58:11.719-03:00  WARN 26456 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-19T17:58:11.719-03:00  WARN 26456 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.146. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-19T17:58:11.722-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-12-19T17:58:11.725-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
+2025-12-19T17:58:11.730-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
+2025-12-19T17:58:11.731-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjects/CalibracaoAutomatica1.1/dados.txt]]
+2025-12-19T17:58:11.733-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-19T17:58:41.819-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-12-19T17:58:41.828-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
+2025-12-19T17:58:41.859-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
+2025-12-19T17:58:41.860-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjects/CalibracaoAutomatica1.1/dados.txt]]
+2025-12-19T17:58:41.864-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-19T17:59:10.761-03:00  INFO 26456 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Using chromedriver 143.0.7499.169 (resolved driver for Chrome 143)
+2025-12-19T17:59:10.776-03:00  INFO 26456 --- [scheduled-task-1] i.g.bonigarcia.wdm.WebDriverManager      : Exporting webdriver.chrome.driver as C:\Users\antho\.cache\selenium\chromedriver\win64\143.0.7499.169\chromedriver.exe
+2025-12-19T17:59:11.749-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-12-19T17:59:11.758-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
+2025-12-19T17:59:11.768-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
+2025-12-19T17:59:11.769-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjects/CalibracaoAutomatica1.1/dados.txt]]
+2025-12-19T17:59:11.772-03:00 DEBUG 26456 --- [http-nio-8087-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-19T17:59:11.979-03:00  WARN 26456 --- [scheduled-task-1] o.o.selenium.devtools.CdpVersionFinder   : Unable to find CDP implementation matching 143
+2025-12-19T17:59:11.979-03:00  WARN 26456 --- [scheduled-task-1] o.o.selenium.chromium.ChromiumDriver     : Unable to find version of CDP to use for 143.0.7499.146. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.15.0` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+2025-12-19T17:59:41.739-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : GET "/dados.txt", parameters={}
+2025-12-19T17:59:41.741-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.example.buscaAutomatica#servirDadosTxt()
+2025-12-19T17:59:41.743-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Found 'Content-Type:text/plain;charset=UTF-8' in response
+2025-12-19T17:59:41.743-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [URL [file:///C:/Users/antho/IdeaProjects/CalibracaoAutomatica1.1/dados.txt]]
+2025-12-19T17:59:41.744-03:00 DEBUG 26456 --- [http-nio-8087-exec-10] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2025-12-19T17:59:46.181-03:00 DEBUG 26456 --- [http-nio-8087-exec-8] o.s.web.client.RestTemplate              : HTTP POST http://localhost:8087/executar-linearizacao-canal-mtx1?canal=14
+2025-12-19T17:59:46.181-03:00 DEBUG 26456 --- [http-nio-8087-exec-7] o.s.web.client.RestTemplate              : HTTP POST http://localhost:8087/executar-linearizacao-canal-mtx1?canal=14
+2025-12-19T17:59:46.188-03:00 DEBUG 26456 --- [http-nio-8087-exec-8] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-12-19T17:59:46.188-03:00 DEBUG 26456 --- [http-nio-8087-exec-7] o.s.web.client.RestTemplate              : Accept=[application/json, application/*+json]
+2025-12-19T17:59:47.381-03:00 DEBUG 26456 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-19T17:59:47.381-03:00 DEBUG 26456 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-19T17:59:47.382-03:00 DEBUG 26456 --- [http-nio-8087-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{mensagem=Erro no canal 14: sleep interrupted, status=erro}]
+2025-12-19T17:59:47.382-03:00 DEBUG 26456 --- [http-nio-8087-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{hora_inicio=2025-12-19T17:59:46.180724500, mensagem=Linearização para canal 14 executada com sucess (truncated)...]
+2025-12-19T17:59:47.394-03:00 DEBUG 26456 --- [http-nio-8087-exec-1] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.nio.channels.ClosedChannelException
+2025-12-19T17:59:47.394-03:00 DEBUG 26456 --- [http-nio-8087-exec-4] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.nio.channels.ClosedChannelException
+2025-12-19T17:59:47.563-03:00 DEBUG 26456 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
+2025-12-19T17:59:47.564-03:00 DEBUG 26456 --- [http-nio-8087-exec-5] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{mensagem=Erro no canal 14: Falha ao ligar RfMasterOn, status=erro}]
+2025-12-19T17:59:47.564-03:00 DEBUG 26456 --- [http-nio-8087-exec-5] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.nio.channels.ClosedChannelException
+2025-12-19T17:59:47.565-03:00 DEBUG 26456 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [application/json, application/*+json] and supported [application/json, application/*+json]
+2025-12-19T17:59:47.566-03:00 DEBUG 26456 --- [http-nio-8087-exec-9] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{mensagem=Erro no canal 14: sleep interrupted, status=erro}]
+2025-12-19T17:59:47.566-03:00 DEBUG 26456 --- [http-nio-8087-exec-9] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.nio.channels.ClosedChannelException
+2025-12-19T17:59:51.117-03:00 DEBUG 26456 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-19T17:59:51.117-03:00 DEBUG 26456 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-12-19T17:59:51.117-03:00 DEBUG 26456 --- [http-nio-8087-exec-7] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{linearizacao={mensagem=Falha ao chamar linearização: I/O error on POST request for "http://localhos (truncated)...]
+2025-12-19T17:59:51.117-03:00 DEBUG 26456 --- [http-nio-8087-exec-8] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{linearizacao={mensagem=Falha ao chamar linearização: I/O error on POST request for "http://localhos (truncated)...]
+2025-12-19T17:59:51.118-03:00 DEBUG 26456 --- [http-nio-8087-exec-7] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.nio.channels.ClosedChannelException
+2025-12-19T17:59:51.118-03:00 DEBUG 26456 --- [http-nio-8087-exec-8] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.apache.catalina.connector.ClientAbortException: java.nio.channels.ClosedChannelException
