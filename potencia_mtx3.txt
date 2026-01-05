@@ -12,3 +12,5 @@
 2025-12-03T16:26:36.837764900 | DAC: 370 | Esperado: 5W | Antes: PowerAmplifier3.Status.ForwardPower = 2511 | Depois: PowerAmplifier3.Status.ForwardPower = 2511
 2025-12-03T16:28:17.803622800 | DAC: 430 | Esperado: 20W | Antes: PowerAmplifier3.Status.ForwardPower = 5011 | Depois: PowerAmplifier3.Status.ForwardPower = 5011
 2025-12-03T16:30:02.321996 | DAC: 486 | Esperado: 67.3W | Antes: PowerAmplifier3.Status.ForwardPower = 19952 | Depois: PowerAmplifier3.Status.ForwardPower = 33884
+2026-01-05T10:33:14.286000500 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier3.Status.ForwardPower = 0 | Depois: PowerAmplifier3.Status.ForwardPower = 0
+2026-01-05T10:49:59.649505200 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier3.Status.ForwardPower = 0 | Depois: PowerAmplifier3.Status.ForwardPower = 0

@@ -110,10 +110,6 @@ public class LinearizacaoMtx2 {
             System.out.println(YELLOW + "  Potência inicial: " + potenciaInicial + "W" + RESET);
             System.out.println(YELLOW + "  Temperatura inicial: " + temperaturaInicial + "°C" + RESET);
 
-            // ========== ETAPA 1: DESLIGAR MTX1 PARA COMEÇAR ==========
-            System.out.println(YELLOW + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
-            desligarMTX2(driver, wait);
-
             // ========== ETAPA 2: LOOP DE POTÊNCIAS ==========
             //int[] potencias = {483, 430, 370, 340, 300}; // maior pro menor
             int[] potencias = {300, 340, 370, 430, 483}; // menor pro maior
@@ -127,7 +123,11 @@ public class LinearizacaoMtx2 {
                 int potenciaAtual = potencias[i];
                 ultimaPotenciaProcessada = potenciaAtual;
 
-                System.out.println(YELLOW + "\n[ETAPA 2] Processando potência: " + potenciaAtual + "W" + RESET);
+				System.out.println(YELLOW + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
+				desligarMTX2(driver, wait);
+
+
+				System.out.println(YELLOW + "\n[ETAPA 2] Processando potência: " + potenciaAtual + "W" + RESET);
                 System.out.println(YELLOW + "  Progresso: " + (i + 1) + "/" + potencias.length + RESET);
 
                 // 2.1. Configurar nova potência

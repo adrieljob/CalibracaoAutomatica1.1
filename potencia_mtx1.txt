@@ -133,3 +133,11 @@
 2025-12-05T12:02:53.192161100 | DAC: 430 | Esperado: 20W | Antes: PowerAmplifier1.Status.ForwardPower = 1 | Depois: PowerAmplifier1.Status.ForwardPower = 1
 2025-12-05T12:04:31.999633700 | DAC: 486 | Esperado: 67.3W | Antes: PowerAmplifier1.Status.ForwardPower = 1 | Depois: PowerAmplifier1.Status.ForwardPower = 1
 2025-12-05T12:06:21.573402200 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier1.Status.ForwardPower = 1 | Depois: PowerAmplifier1.Status.ForwardPower = 1
+2026-01-05T08:59:47.922352600 | DAC: 370 | Esperado: 5W | Antes: PowerAmplifier1.Status.ForwardPower = 72443 | Depois: PowerAmplifier1.Status.ForwardPower = 64565
+2026-01-05T09:21:02.096126900 | DAC: 340 | Esperado: 2.5W | Antes: PowerAmplifier1.Status.ForwardPower = 5011 | Depois: PowerAmplifier1.Status.ForwardPower = 3801
+2026-01-05T10:33:05.114425 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier1.Status.ForwardPower = 72443 | Depois: PowerAmplifier1.Status.ForwardPower = 69183
+2026-01-05T10:47:43.623123100 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier1.Status.ForwardPower = 1000 | Depois: PowerAmplifier1.Status.ForwardPower = 1318
+2026-01-05T10:47:43.775720300 | DAC: 340 | Esperado: 2.5W | Antes: PowerAmplifier1.Status.ForwardPower = 1000 | Depois: PowerAmplifier1.Status.ForwardPower = 1318
+2026-01-05T10:48:03.937500500 | DAC: 340 | Esperado: 2.5W | Antes: PowerAmplifier1.Status.ForwardPower = 954 | Depois: PowerAmplifier1.Status.ForwardPower = 2511
+2026-01-05T10:49:47.204113500 | DAC: 370 | Esperado: 5W | Antes: PowerAmplifier1.Status.ForwardPower = 2511 | Depois: PowerAmplifier1.Status.ForwardPower = 2511
+2026-01-05T10:50:07.962122700 | DAC: 300 | Esperado: 1W | Antes: PowerAmplifier1.Status.ForwardPower = 2511 | Depois: PowerAmplifier1.Status.ForwardPower = 1348

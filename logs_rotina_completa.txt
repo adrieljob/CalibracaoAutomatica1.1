@@ -45,3 +45,7 @@
 2025-12-19T16:19:00.957974800 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 8 | Status: sucesso
 2025-12-19T16:28:04.950393800 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
 2025-12-19T16:28:09.544223300 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2026-01-05T11:04:34.749415 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 7 | Status: sucesso
+2026-01-05T11:47:58.765160700 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -7 | Iterações: 1 | Status: sucesso
+2026-01-05T13:31:03.720528300 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 8 | Status: sucesso
+2026-01-05T14:04:43.906542400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 8 | Status: sucesso

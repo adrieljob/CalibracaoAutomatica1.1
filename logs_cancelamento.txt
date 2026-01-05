@@ -19,3 +19,12 @@
 2025-12-19T17:59:46.182726100 | Canal: 14 | Status: sucesso | Hora: 2025-12-19T17:59:46.180724500 | Mensagem: Cancelamento chamado para canal 14
 2025-12-19T17:59:46.182726100 | Canal: 14 | Status: sucesso | Hora: 2025-12-19T17:59:46.180724500 | Mensagem: Cancelamento chamado para canal 14
 2025-12-19T17:59:46.182726100 | Canal: 14 | Status: sucesso | Hora: 2025-12-19T17:59:46.181726400 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T11:05:07.843056800 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T11:05:07.840540600 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T11:41:32.744480200 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T11:41:32.743478900 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T11:48:32.081863600 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T11:48:32.079290 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T12:17:19.464204900 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T12:17:19.463109200 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T13:31:36.664373500 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T13:31:36.661432700 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T13:45:51.249083600 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T13:45:51.249083600 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T13:45:51.249083600 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T13:45:51.249083600 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T13:51:54.192152100 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T13:51:54.191102100 | Mensagem: Cancelamento chamado para canal 14
+2026-01-05T14:05:16.816347600 | Canal: 14 | Status: sucesso | Hora: 2026-01-05T14:05:16.815352 | Mensagem: Cancelamento chamado para canal 14

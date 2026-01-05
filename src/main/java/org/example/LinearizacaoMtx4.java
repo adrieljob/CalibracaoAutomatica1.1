@@ -110,10 +110,6 @@ public class LinearizacaoMtx4 {
             System.out.println(MAGENTA + "  Potência inicial: " + potenciaInicial + "W" + RESET);
             System.out.println(MAGENTA + "  Temperatura inicial: " + temperaturaInicial + "°C" + RESET);
 
-            // ========== ETAPA 1: DESLIGAR MTX1 PARA COMEÇAR ==========
-            System.out.println(MAGENTA + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
-            desligarMTX4(driver, wait);
-
             // ========== ETAPA 2: LOOP DE POTÊNCIAS ==========
             //int[] potencias = {483, 430, 370, 340, 300}; // maior pro menor
             int[] potencias = {300, 340, 370, 430, 483}; // menor pro maior
@@ -126,6 +122,9 @@ public class LinearizacaoMtx4 {
             for (int i = 0; i < potencias.length; i++) {
                 int potenciaAtual = potencias[i];
                 ultimaPotenciaProcessada = potenciaAtual;
+
+				System.out.println(MAGENTA + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
+				desligarMTX4(driver, wait);
 
                 System.out.println(MAGENTA + "\n[ETAPA 2] Processando potência: " + potenciaAtual + "W" + RESET);
                 System.out.println(MAGENTA + "  Progresso: " + (i + 1) + "/" + potencias.length + RESET);

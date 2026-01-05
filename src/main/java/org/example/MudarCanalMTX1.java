@@ -50,10 +50,10 @@ public class MudarCanalMTX1 {
     private String password;
 
     @PostMapping("/mudar-canal-mtx1")
-    public ResponseEntity<Map<String, Object>> mudarCanal1(@RequestParam String canal) {
+    public ResponseEntity<Map<String, Object>> mudarCanal1(@RequestParam String valorCanal) {
         Map<String, Object> resposta = new HashMap<>();
 
-        if (!VALORES_CANAL.containsKey(canal)) {
+        if (!VALORES_CANAL.containsKey(valorCanal)) {
             resposta.put("status", "erro");
             resposta.put("mensagem", "Valor não programado. Valores permitidos: " +
                     String.join(", ", VALORES_CANAL.keySet()));
@@ -62,7 +62,7 @@ public class MudarCanalMTX1 {
         }
 
         try {
-            Map<String, Object> resultado = configurarCanalMTX1(canal);
+            Map<String, Object> resultado = configurarCanalMTX1(valorCanal);
 
             // Se houve erro no processo interno
             if ("erro".equals(resultado.get("status"))) {
@@ -72,9 +72,9 @@ public class MudarCanalMTX1 {
             }
 
             resposta.put("status", "sucesso");
-            resposta.put("mensagem", "Canal do MTX1 configurado com sucesso");
-            resposta.put("valor_configurado", canal);
-            resposta.put("canal_esperado", VALORES_CANAL.get(canal));
+            resposta.put("mensagem", "Canal do MTX2 configurado com sucesso");
+            resposta.put("valor_configurado", valorCanal);
+            resposta.put("canal_esperado", VALORES_CANAL.get(valorCanal));
             resposta.put("canal_antes", resultado.get("canal_antes"));
             resposta.put("canal_depois", resultado.get("canal_depois"));
 
@@ -82,7 +82,7 @@ public class MudarCanalMTX1 {
         } catch (Exception e) {
             resposta.put("status", "erro");
             resposta.put("mensagem", "Erro ao configurar canal: " + e.getMessage());
-            resposta.put("valor_configurado", canal);
+            resposta.put("valor_configurado", valorCanal);
 
             return ResponseEntity.status(500).body(resposta);
         }
