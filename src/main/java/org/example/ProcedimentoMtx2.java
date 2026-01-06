@@ -2,282 +2,393 @@ package org.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 public class ProcedimentoMtx2 {
 
-    private static final String RESET = "\u001B[0m";
-    private static final String YELLOW = "\u001B[33m";
+	private static final String RESET = "\u001B[0m";
+	private static final String YELLOW = "\u001B[33m";
+	private static boolean procedimentoAtivoMtx2 = false;
+	private static LocalDateTime horaInicioProcedimentoMtx2 = null;
+	private static Map<String, Object> statusProcedimentoMtx2 = new ConcurrentHashMap<>();
 
-    @Autowired
-    private RestTemplate restTemplate;
+	@Autowired
+	private RestTemplate restTemplate;
 
-    // Endpoint para executar ajuste offset + linearização para todos os canais
-    @PostMapping("/executar-procedimento-completo-mtx2")
-    public ResponseEntity<Map<String, Object>> executarProcedimentoCompletomtx2() {
-        Map<String, Object> respostaGeral = new HashMap<>();
-        Map<String, Object> resultados = new HashMap<>();
+	@GetMapping("/status-procedimento-mtx2")
+	public ResponseEntity<Map<String, Object>> getStatusProcedimentoMtx2() {
+		Map<String, Object> resposta = new HashMap<>();
 
-        try {
-            System.out.println(YELLOW + "=== INICIANDO PROCEDIMENTO COMPLETO MTX2 ===" + RESET);
-            System.out.println(YELLOW + "Hora de início: " + LocalDateTime.now() + RESET);
+		resposta.put("ativo", procedimentoAtivoMtx2);
+		resposta.put("hora_inicio", horaInicioProcedimentoMtx2 != null ? horaInicioProcedimentoMtx2.toString() : null);
+		resposta.put("progresso", statusProcedimentoMtx2);
+		resposta.put("ultima_atualizacao", LocalDateTime.now().toString());
 
-            // Sequência de canais
-            String[] canais = {"14", "34", "51"};
+		// Verificar timeout (2 horas para procedimento completo)
+		if (procedimentoAtivoMtx2 && horaInicioProcedimentoMtx2 != null) {
+			Duration duracao = Duration.between(horaInicioProcedimentoMtx2, LocalDateTime.now());
+			if (duracao.toHours() > 2) {
+				procedimentoAtivoMtx2 = false;
+				resposta.put("ativo", false);
+				resposta.put("mensagem", "Processo expirado");
+			}
+		}
 
-            for (int i = 0; i < canais.length; i++) {
-                String canal = canais[i];
+		return ResponseEntity.ok(resposta);
+	}
 
-                System.out.println(YELLOW + "\n" + "=".repeat(60) + RESET);
-                System.out.println(YELLOW + "PROCESSANDO CANAL: " + canal + RESET);
-                System.out.println(YELLOW + "=".repeat(60) + RESET);
+	// Endpoint para executar ajuste offset + linearização para todos os canais
+	@PostMapping("/executar-procedimento-completo-mtx2")
+	public ResponseEntity<Map<String, Object>> executarProcedimentoCompletomtx2() {
+		Map<String, Object> respostaGeral = new HashMap<>();
+		Map<String, Object> resultados = new HashMap<>();
 
-                // ========== ETAPA 1: AJUSTE OFFSET ==========
-                System.out.println(YELLOW + "\n[ETAPA 1] EXECUTANDO AJUSTE OFFSET PARA CANAL " + canal + RESET);
+		try {
+			System.out.println(YELLOW + "=== INICIANDO PROCEDIMENTO COMPLETO MTX2 ===" + RESET);
+			System.out.println(YELLOW + "Hora de início: " + LocalDateTime.now() + RESET);
 
-                // Chama o endpoint de ajuste offset com o canal como parâmetro
-                Map<String, Object> resultadoAjuste = chamarAjusteOffset(canal);
-                resultados.put("canal_" + canal + "_ajuste_offset", resultadoAjuste);
+			// Sequência de canais
+			String[] canais = {"14", "34", "51"};
 
-                if (!"sucesso".equals(resultadoAjuste.get("status"))) {
-                    System.err.println("✗ Ajuste offset falhou para canal " + canal);
-                    resultados.put("canal_" + canal + "_status", "erro_ajuste_offset");
-                    // Decida se quer continuar com o próximo canal ou parar
-                    // throw new RuntimeException("Falha no ajuste offset canal " + canal);
-                } else {
-                    System.out.println(YELLOW + "✓ Ajuste offset concluído para canal " + canal + RESET);
-                }
+			for (int i = 0; i < canais.length; i++) {
+				String canal = canais[i];
 
-                // Aguarda entre ajuste offset e linearização
-                System.out.println(YELLOW + "\nAguardando 30 segundos antes da linearização..." + RESET);
-                try {
-                    Thread.sleep(30000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+				System.out.println(YELLOW + "\n" + "=".repeat(60) + RESET);
+				System.out.println(YELLOW + "PROCESSANDO CANAL: " + canal + RESET);
+				System.out.println(YELLOW + "=".repeat(60) + RESET);
 
-                // ========== ETAPA 2: LINEARIZAÇÃO ==========
-                System.out.println(YELLOW + "\n[ETAPA 2] EXECUTANDO LINEARIZAÇÃO PARA CANAL " + canal + RESET);
+				// ========== ETAPA 1: AJUSTE OFFSET ==========
+				System.out.println(YELLOW + "\n[ETAPA 1] EXECUTANDO AJUSTE OFFSET PARA CANAL " + canal + RESET);
 
-                // Chama o endpoint de linearização com o canal como parâmetro
-                Map<String, Object> resultadoLinearizacao = chamarLinearizacao(canal);
-                resultados.put("canal_" + canal + "_linearizacao", resultadoLinearizacao);
+				// Chama o endpoint de ajuste offset com o canal como parâmetro
+				Map<String, Object> resultadoAjuste = chamarAjusteOffset(canal);
+				resultados.put("canal_" + canal + "_ajuste_offset", resultadoAjuste);
 
-                String statusLinearizacao = (String) resultadoLinearizacao.get("status");
-                if (!"sucesso".equals(statusLinearizacao) && !"parcial".equals(statusLinearizacao)) {
-                    System.err.println("✗ Linearização falhou para canal " + canal);
-                    resultados.put("canal_" + canal + "_status", "erro_linearizacao");
-                } else {
-                    System.out.println(YELLOW + "✓ Linearização concluída para canal " + canal + RESET);
-                    resultados.put("canal_" + canal + "_status", "sucesso");
-                }
+				if (!"sucesso".equals(resultadoAjuste.get("status"))) {
+					System.err.println("✗ Ajuste offset falhou para canal " + canal);
+					resultados.put("canal_" + canal + "_status", "erro_ajuste_offset");
+					// Decida se quer continuar com o próximo canal ou parar
+					// throw new RuntimeException("Falha no ajuste offset canal " + canal);
+				} else {
+					System.out.println(YELLOW + "Ajuste offset concluído para canal " + canal + RESET);
+				}
 
-                // Aguarda entre canais (exceto o último)
-                if (i < canais.length - 1) {
-                    System.out.println(YELLOW + "\n" + "=".repeat(50) + RESET);
-                    System.out.println(YELLOW + "AGUARDANDO 2 MINUTOS ANTES DO PRÓXIMO CANAL..." + RESET);
-                    System.out.println(YELLOW + "=".repeat(50) + RESET);
-                    try {
-                        Thread.sleep(120000); // 2 minutos
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                    }
-                }
-            }
+				// Aguarda entre ajuste offset e linearização
+				System.out.println(YELLOW + "\nAguardando 30 segundos antes da linearização..." + RESET);
+				try {
+					Thread.sleep(30000);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
 
-            // Prepara resposta final
-            respostaGeral.put("status", "sucesso");
-            respostaGeral.put("mensagem", "Procedimento completo executado para todos os canais");
-            respostaGeral.put("hora_inicio", LocalDateTime.now().toString());
-            respostaGeral.put("hora_fim", LocalDateTime.now().toString());
-            respostaGeral.put("resultados", resultados);
-            respostaGeral.put("sequencia_canais", "14 → 34 → 51");
-            respostaGeral.put("etapas_por_canal", "Ajuste Offset → Linearização");
+				// ========== ETAPA 2: LINEARIZAÇÃO ==========
+				System.out.println(YELLOW + "\n[ETAPA 2] EXECUTANDO LINEARIZAÇÃO PARA CANAL " + canal + RESET);
 
-            System.out.println(YELLOW + "\n=== PROCEDIMENTO COMPLETO FINALIZADO ===" + RESET);
-            System.out.println(YELLOW + "Hora de fim: " + LocalDateTime.now() + RESET);
+				// Chama o endpoint de linearização com o canal como parâmetro
+				Map<String, Object> resultadoLinearizacao = chamarLinearizacao(canal);
+				resultados.put("canal_" + canal + "_linearizacao", resultadoLinearizacao);
 
-            return ResponseEntity.ok(respostaGeral);
+				String statusLinearizacao = (String) resultadoLinearizacao.get("status");
+				if (!"sucesso".equals(statusLinearizacao) && !"parcial".equals(statusLinearizacao)) {
+					System.err.println("✗ Linearização falhou para canal " + canal);
+					resultados.put("canal_" + canal + "_status", "erro_linearizacao");
+				} else {
+					System.out.println(YELLOW + "✓ Linearização concluída para canal " + canal + RESET);
+					resultados.put("canal_" + canal + "_status", "sucesso");
+				}
 
-        } catch (Exception e) {
-            respostaGeral.put("status", "erro");
-            respostaGeral.put("mensagem", "Erro no procedimento completo: " + e.getMessage());
-            respostaGeral.put("hora_inicio", LocalDateTime.now().toString());
-            respostaGeral.put("resultados", resultados);
+				// Aguarda entre linearização e checagem final
+				System.out.println(YELLOW + "\nAguardando 15 segundos antes da checagem final..." + RESET);
+				try {
+					Thread.sleep(15000);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
 
-            System.err.println("Erro no procedimento completo: " + e.getMessage());
-            e.printStackTrace();
+				// ========== ETAPA 3: CHECAGEM FINAL ==========
+				System.out.println(YELLOW + "\n[ETAPA 3] EXECUTANDO CHECAGEM FINAL PARA CANAL " + canal + RESET);
+				Map<String, Object> resultadoChecagem = chamarChecagem();
+				resultados.put("canal_" + canal + "_checagem_final", resultadoChecagem);
 
-            return ResponseEntity.status(500).body(respostaGeral);
-        }
-    }
+				// Verifica se a checagem foi bem-sucedida
+				String statusChecagem = (String) resultadoChecagem.get("status");
+				if ("sucesso".equals(statusChecagem)) {
+					System.out.println(YELLOW + "✓ Checagem final concluída para canal " + canal + RESET);
+					// Atualiza o status geral do canal
+					resultados.put("canal_" + canal + "_status", "sucesso_completo");
+				} else {
+					System.err.println("✗ Checagem final apresentou problemas para canal " + canal);
+					resultados.put("canal_" + canal + "_status", "aviso_checagem");
+				}
 
-    // Endpoint para executar apenas para um canal específico
-    @PostMapping("/executar-procedimento-canal-mtx2")
-    public ResponseEntity<Map<String, Object>> executarProcedimentoCanalmtx2(@RequestParam String canal) {
-        Map<String, Object> resposta = new HashMap<>();
+				// Aguarda entre canais (exceto o último)
+				if (i < canais.length - 1) {
+					System.out.println(YELLOW + "\n" + "=".repeat(50) + RESET);
+					System.out.println(YELLOW + "AGUARDANDO 30 SEGUNDOS ANTES DO PRÓXIMO CANAL..." + RESET);
+					System.out.println(YELLOW + "=".repeat(50) + RESET);
+					try {
+						Thread.sleep(30000); // 30 segundos
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			}
 
-        try {
-            System.out.println(YELLOW + "=== INICIANDO PROCEDIMENTO PARA CANAL: " + canal + " ===" + RESET);
-            System.out.println(YELLOW + "Hora de início: " + LocalDateTime.now() + RESET);
+			// Executa uma checagem final geral após todos os canais
+			System.out.println(YELLOW + "\n" + "=".repeat(60) + RESET);
+			System.out.println(YELLOW + "EXECUTANDO CHECAGEM FINAL GERAL APÓS TODOS OS CANAIS" + RESET);
+			System.out.println(YELLOW + "=".repeat(60) + RESET);
 
-            // ========== ETAPA 1: AJUSTE OFFSET ==========
-            System.out.println(YELLOW + "\n[ETAPA 1] EXECUTANDO AJUSTE OFFSET" + RESET);
-            Map<String, Object> resultadoAjuste = chamarAjusteOffset(canal);
+			Map<String, Object> checagemFinalGeral = chamarChecagem();
+			resultados.put("checagem_final_geral", checagemFinalGeral);
 
-            // Aguarda entre etapas
-            System.out.println(YELLOW + "\nAguardando 30 segundos antes da linearização..." + RESET);
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+			// Prepara resposta final
+			respostaGeral.put("status", "sucesso");
+			respostaGeral.put("mensagem", "Procedimento completo executado para todos os canais");
+			respostaGeral.put("hora_inicio", LocalDateTime.now().toString());
+			respostaGeral.put("hora_fim", LocalDateTime.now().toString());
+			respostaGeral.put("resultados", resultados);
+			respostaGeral.put("sequencia_canais", "14 → 34 → 51");
+			respostaGeral.put("etapas_por_canal", "Ajuste Offset → Linearização → Checagem Final");
 
-            // ========== ETAPA 2: LINEARIZAÇÃO ==========
-            System.out.println(YELLOW + "\n[ETAPA 2] EXECUTANDO LINEARIZAÇÃO" + RESET);
-            Map<String, Object> resultadoLinearizacao = chamarLinearizacao(canal);
+			System.out.println(YELLOW + "\n=== PROCEDIMENTO COMPLETO FINALIZADO ===" + RESET);
+			System.out.println(YELLOW + "Hora de fim: " + LocalDateTime.now() + RESET);
 
-            // Prepara resposta
-            resposta.put("status", "sucesso");
-            resposta.put("mensagem", "Procedimento executado para canal " + canal);
-            resposta.put("hora_inicio", LocalDateTime.now().toString());
-            resposta.put("hora_fim", LocalDateTime.now().toString());
-            resposta.put("canal", canal);
-            resposta.put("ajuste_offset", resultadoAjuste);
-            resposta.put("linearizacao", resultadoLinearizacao);
+			return ResponseEntity.ok(respostaGeral);
 
-            System.out.println(YELLOW + "\n=== PROCEDIMENTO FINALIZADO PARA CANAL: " + canal + " ===" + RESET);
-            System.out.println(YELLOW + "Hora de fim: " + LocalDateTime.now() + RESET);
+		} catch (Exception e) {
+			respostaGeral.put("status", "erro");
+			respostaGeral.put("mensagem", "Erro no procedimento completo: " + e.getMessage());
+			respostaGeral.put("hora_inicio", LocalDateTime.now().toString());
+			respostaGeral.put("resultados", resultados);
 
-            return ResponseEntity.ok(resposta);
+			System.err.println("Erro no procedimento completo: " + e.getMessage());
+			e.printStackTrace();
 
-        } catch (Exception e) {
-            resposta.put("status", "erro");
-            resposta.put("mensagem", "Erro no procedimento para canal " + canal + ": " + e.getMessage());
-            resposta.put("hora_inicio", LocalDateTime.now().toString());
-            resposta.put("canal", canal);
+			return ResponseEntity.status(500).body(respostaGeral);
+		}
+	}
 
-            System.err.println("Erro no procedimento para canal " + canal + ": " + e.getMessage());
-            e.printStackTrace();
+	// Endpoint para executar apenas para um canal específico
+	@PostMapping("/executar-procedimento-canal-mtx2")
+	public ResponseEntity<Map<String, Object>> executarProcedimentoCanalmtx2(@RequestParam String canal) {
+		Map<String, Object> resposta = new HashMap<>();
 
-            return ResponseEntity.status(500).body(resposta);
-        }
-    }
+		// MARCA COMO ATIVO
+		procedimentoAtivoMtx2 = true;
+		horaInicioProcedimentoMtx2 = LocalDateTime.now();
+		statusProcedimentoMtx2.clear();
+		statusProcedimentoMtx2.put("canal", canal);
+		statusProcedimentoMtx2.put("status", "executando");
+		statusProcedimentoMtx2.put("etapa", "ajuste_offset");
 
-    // Método para chamar o ajuste offset
-    private Map<String, Object> chamarAjusteOffset(String canal) {
-        try {
-            System.out.println(YELLOW + "  Chamando endpoint de ajuste offset para canal " + canal + RESET);
+		try {
+			System.out.println(YELLOW + "=== INICIANDO PROCEDIMENTO PARA CANAL: " + canal + " ===" + RESET);
+			System.out.println(YELLOW + "Hora de início: " + LocalDateTime.now() + RESET);
 
-            // URL do endpoint existente do AjustarOffSetMtx2
-            String url = "http://localhost:8087/executar-offset-canal-mtx2?canal=" + canal;
+			// ========== ETAPA 1: AJUSTE OFFSET ==========
+			System.out.println(YELLOW + "\n[ETAPA 1] EXECUTANDO AJUSTE OFFSET" + RESET);
+			Map<String, Object> resultadoAjuste = chamarAjusteOffset(canal);
 
-            // Faz a requisição POST
-            ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
+			// Aguarda entre etapas
+			System.out.println(YELLOW + "\nAguardando 30 segundos antes da linearização..." + RESET);
+			try {
+				Thread.sleep(30000);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
 
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                Map<String, Object> resultado = response.getBody();
-                System.out.println(YELLOW + "  Resposta do ajuste offset: " + resultado.get("status") + RESET);
-                return resultado;
-            } else {
-                throw new RuntimeException("Falha na comunicação com serviço de ajuste offset");
-            }
+			// ========== ETAPA 2: LINEARIZAÇÃO ==========
+			System.out.println(YELLOW + "\n[ETAPA 2] EXECUTANDO LINEARIZAÇÃO" + RESET);
+			Map<String, Object> resultadoLinearizacao = chamarLinearizacao(canal);
 
-        } catch (Exception e) {
-            System.err.println("  Erro ao chamar ajuste offset: " + e.getMessage());
-            Map<String, Object> erro = new HashMap<>();
-            erro.put("status", "erro");
-            erro.put("mensagem", "Falha ao chamar ajuste offset: " + e.getMessage());
-            erro.put("canal", canal);
-            return erro;
-        }
-    }
+			// Aguarda antes da checagem final
+			System.out.println(YELLOW + "\nAguardando 15 segundos antes da checagem final..." + RESET);
+			try {
+				Thread.sleep(15000);
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
 
-    // Método para chamar a linearização
-    private Map<String, Object> chamarLinearizacao(String canal) {
-        try {
-            System.out.println(YELLOW + "  Chamando endpoint de linearização para canal " + canal + RESET);
+			// ========== ETAPA 3: CHECAGEM FINAL ==========
+			System.out.println(YELLOW + "\n[ETAPA 3] EXECUTANDO CHECAGEM FINAL" + RESET);
+			Map<String, Object> resultadoChecagem = chamarChecagem();
 
-            // URL do endpoint existente do LinearizacaoMtx2
-            String url = "http://localhost:8087/executar-linearizacao-canal-mtx2?canal=" + canal;
+			// Prepara resposta ÚNICA com todas as etapas
+			resposta.put("status", "sucesso");
+			resposta.put("mensagem", "Procedimento executado para canal " + canal);
+			resposta.put("hora_inicio", horaInicioProcedimentoMtx2.toString());
+			resposta.put("hora_fim", LocalDateTime.now().toString());
+			resposta.put("canal", canal);
+			resposta.put("ajuste_offset", resultadoAjuste);
+			resposta.put("linearizacao", resultadoLinearizacao);
+			resposta.put("checagem_final", resultadoChecagem); // Note: sem espaço no nome
 
-            // Faz a requisição POST
-            ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
+			System.out.println(YELLOW + "\n=== PROCEDIMENTO FINALIZADO PARA CANAL: " + canal + " ===" + RESET);
+			System.out.println(YELLOW + "Hora de fim: " + LocalDateTime.now() + RESET);
 
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                Map<String, Object> resultado = response.getBody();
-                System.out.println(YELLOW + "  Resposta da linearização: " + resultado.get("status") + RESET);
-                return resultado;
-            } else {
-                throw new RuntimeException("Falha na comunicação com serviço de linearização");
-            }
+			return ResponseEntity.ok(resposta);
 
-        } catch (Exception e) {
-            System.err.println("  Erro ao chamar linearização: " + e.getMessage());
-            Map<String, Object> erro = new HashMap<>();
-            erro.put("status", "erro");
-            erro.put("mensagem", "Falha ao chamar linearização: " + e.getMessage());
-            erro.put("canal", canal);
-            return erro;
-        }
-    }
+		} catch (Exception e) {
+			resposta.put("status", "erro");
+			resposta.put("mensagem", "Erro no procedimento para canal " + canal + ": " + e.getMessage());
+			resposta.put("hora_inicio", horaInicioProcedimentoMtx2 != null ? horaInicioProcedimentoMtx2.toString() : LocalDateTime.now().toString());
+			resposta.put("canal", canal);
 
-    // Endpoint para cancelar procedimento em andamento
-    @PostMapping("/cancelar-procedimento-mtx2")
-    public ResponseEntity<Map<String, Object>> cancelarProcedimentomtx2() {
-        Map<String, Object> resposta = new HashMap<>();
+			System.err.println("Erro no procedimento para canal " + canal + ": " + e.getMessage());
+			e.printStackTrace();
 
-        try {
-            System.out.println(YELLOW + "Solicitação de cancelamento de procedimento recebida" + RESET);
+			return ResponseEntity.status(500).body(resposta);
+		} finally {
+			procedimentoAtivoMtx2 = false;
+			statusProcedimentoMtx2.put("status", "finalizado");
+		}
+	}
 
-            // Opcional: Chamar endpoints de cancelamento dos serviços
-            try {
-                restTemplate.postForEntity("http://localhost:8087/cancelar-linearizacao-mtx2", null, Map.class);
-            } catch (Exception e) {
-                System.err.println("Erro ao cancelar linearização: " + e.getMessage());
-            }
+	// Método para chamar o ajuste offset
+	private Map<String, Object> chamarAjusteOffset(String canal) {
+		try {
+			statusProcedimentoMtx2.put("etapa", "ajuste_offset");
+			statusProcedimentoMtx2.put("canal", canal);
+			try {
+				System.out.println(YELLOW + "  Chamando endpoint de ajuste offset para canal " + canal + RESET);
 
-            try {
-                restTemplate.postForEntity("http://localhost:8087/cancelar-offset-mtx2", null, Map.class);
-            } catch (Exception e) {
-                System.err.println("Erro ao cancelar linearização: " + e.getMessage());
-            }
+				// URL do endpoint existente do AjustarOffSetMtx2
+				String url = "http://localhost:8087/executar-offset-canal-mtx2?canal=" + canal;
+				// Faz a requisição POST
+				ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
 
-            resposta.put("status", "sucesso");
-            resposta.put("mensagem", "Solicitação de cancelamento recebida");
-            resposta.put("hora_cancelamento", LocalDateTime.now().toString());
+				Map<String, Object> resultado;
+				if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+					resultado = response.getBody();
+					System.out.println(YELLOW + "  Resposta do ajuste offset: " + resultado.get("status") + RESET);
+					return resultado;
+				} else {
+					throw new RuntimeException("Falha na comunicação com serviço de ajuste offset");
+				}
 
-            return ResponseEntity.ok(resposta);
+			} catch (Exception e) {
+				System.err.println("  Erro ao chamar ajuste offset: " + e.getMessage());
+				Map<String, Object> erro = new HashMap<>();
+				erro.put("status", "erro");
+				erro.put("mensagem", "Falha ao chamar ajuste offset: " + e.getMessage());
+				erro.put("canal", canal);
+				return erro;
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-        } catch (Exception e) {
-            resposta.put("status", "erro");
-            resposta.put("mensagem", "Erro ao processar cancelamento: " + e.getMessage());
-            return ResponseEntity.status(500).body(resposta);
-        }
-    }
+	// Método para chamar a linearização
+	private Map<String, Object> chamarLinearizacao(String canal) {
+		try {
+			statusProcedimentoMtx2.put("etapa", "linearizacao");
+			try {
+				System.out.println(YELLOW + "  Chamando endpoint de linearização para canal " + canal + RESET);
 
-    // Endpoint para verificar status dos serviços
-    @GetMapping("/status-procedimento-mtx2")
-    public ResponseEntity<Map<String, Object>> verificarStatusmtx2() {
-        Map<String, Object> resposta = new HashMap<>();
+				// URL do endpoint existente do LinearizacaoMtx2
+				String url = "http://localhost:8087/executar-linearizacao-canal-mtx2?canal=" + canal;
 
-        resposta.put("status", "disponivel");
-        resposta.put("servicos", new String[] {
-                "AjustarOffSetMtx2 - Disponível",
-                "LinearizacaoMtx2 - Disponível",
-                "ProcedimentoMtx2 - Disponível"
-        });
-        resposta.put("hora_verificacao", LocalDateTime.now().toString());
+				// Faz a requisição POST
+				ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
 
-        return ResponseEntity.ok(resposta);
-    }
+				Map<String, Object> resultado;
+				if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+					resultado = response.getBody();
+					System.out.println(YELLOW + "  Resposta da linearização: " + resultado.get("status") + RESET);
+					return resultado;
+				} else {
+					throw new RuntimeException("Falha na comunicação com serviço de linearização");
+				}
+
+			} catch (Exception e) {
+				System.err.println("  Erro ao chamar linearização: " + e.getMessage());
+				Map<String, Object> erro = new HashMap<>();
+				erro.put("status", "erro");
+				erro.put("mensagem", "Falha ao chamar linearização: " + e.getMessage());
+				erro.put("canal", canal);
+				return erro;
+			}
+		} finally {
+
+		}
+	}
+
+	// Método para fazer uma checagem depois das mudanças
+	private Map<String, Object> chamarChecagem() {
+		try {
+			statusProcedimentoMtx2.put("etapa", "checagem_final");
+
+			System.out.println(YELLOW + "  Chamando endpoint de checagem final" + RESET);
+
+			// CORREÇÃO: URL correta
+			String url = "http://localhost:8087/executar-manualmente";
+
+			// Faz a requisição POST
+			ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
+
+			Map<String, Object> resultado;
+			if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+				resultado = response.getBody();
+				System.out.println(YELLOW + "  Resposta da checagem final: " + resultado.get("status") + RESET);
+
+				// Adiciona timestamp à resposta
+				resultado.put("timestamp_checagem", LocalDateTime.now().toString());
+				return resultado;
+			} else {
+				throw new RuntimeException("Falha na comunicação com serviço de checagem final. Status: " + response.getStatusCode());
+			}
+
+		} catch (Exception e) {
+			System.err.println("  Erro ao chamar checagem final: " + e.getMessage());
+			Map<String, Object> erro = new HashMap<>();
+			erro.put("status", "erro");
+			erro.put("mensagem", "Falha ao chamar checagem final: " + e.getMessage());
+			erro.put("timestamp", LocalDateTime.now().toString());
+			return erro;
+		}
+	}
+
+	// Endpoint para cancelar procedimento em andamento
+	@PostMapping("/cancelar-procedimento-mtx2")
+	public ResponseEntity<Map<String, Object>> cancelarProcedimentomtx2() {
+		Map<String, Object> resposta = new HashMap<>();
+
+		try {
+			System.out.println(YELLOW + "Solicitação de cancelamento de procedimento recebida"+ RESET);
+
+			// Opcional: Chamar endpoints de cancelamento dos serviços
+			try {
+				restTemplate.postForEntity("http://localhost:8087/cancelar-linearizacao-mtx2", null, Map.class);
+			} catch (Exception e) {
+				System.err.println("Erro ao cancelar linearização: " + e.getMessage());
+			}
+
+			try {
+				restTemplate.postForEntity("http://localhost:8087/cancelar-offset-mtx2", null, Map.class);
+			} catch (Exception e) {
+				System.err.println("Erro ao cancelar linearização: " + e.getMessage());
+			}
+
+			resposta.put("status", "sucesso");
+			resposta.put("mensagem", "Solicitação de cancelamento recebida");
+			resposta.put("hora_cancelamento", LocalDateTime.now().toString());
+
+			return ResponseEntity.ok(resposta);
+
+		} catch (Exception e) {
+			resposta.put("status", "erro");
+			resposta.put("mensagem", "Erro ao processar cancelamento: " + e.getMessage());
+			return ResponseEntity.status(500).body(resposta);
+		}
+	}
 }

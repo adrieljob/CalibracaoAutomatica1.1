@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -195,11 +196,15 @@ public class AjustarOffSetMtx4 {
             resultado.put("iteracoes", resultadoAjuste.get("iteracoes"));
             resultado.put("offset_inicial", resultadoAjuste.get("offset_inicial"));
 
-            // ========== ETAPA 6: CHAMAR CANCELAMENTO ==========
-            System.out.println(MAGENTA + "\n[ETAPA 6] Desligando MTX4" + RESET);
-            desligarMTX4(driver, wait);
+			// ========== ETAPA 6: FAZER CHECAGEM FINAL DE VALORES ==========
+			System.out.println(MAGENTA + "\n[ETAPA 6] FAZENDO CHECAGEM FINAL" + RESET);
 
-            System.out.println(MAGENTA + "Chamando função de cancelamento" + RESET);
+			Map<String, Object> buscaResultado = chamarBuscaAutomatica();
+			resultado.put("busca_automatica", buscaResultado);
+
+			// ========== ETAPA 7: DESLIGAR MTX4 ==========
+			System.out.println(MAGENTA + "\n[ETAPA 7] Desligando MTX4" + RESET);
+			desligarMTX4(driver, wait);
             chamarFuncaoCancelamento(canal, resultado);
 
         } catch (Exception e) {
@@ -219,6 +224,27 @@ public class AjustarOffSetMtx4 {
 
         return resultado;
     }
+
+	// Método para chamar a checagem final
+	private Map chamarBuscaAutomatica() {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			String url = "http://localhost:8087/executar-manualmente";
+			ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
+
+			if (response.getStatusCode().is2xxSuccessful()) {
+				System.out.println(MAGENTA + "  Busca automática executada com sucesso" + RESET);
+				return response.getBody();
+			}
+		} catch (Exception e) {
+			System.err.println("  Erro na busca automática: " + e.getMessage());
+		}
+
+		Map<String, Object> erro = new HashMap<>();
+		erro.put("status", "aviso");
+		erro.put("mensagem", "Busca automática não executada");
+		return erro;
+	}
 
     // Método para chamar o cancelamento após processar um canal
     private void chamarFuncaoCancelamento(String canal, Map<String, Object> resultadoCanal) {

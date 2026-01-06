@@ -414,6 +414,16 @@
             width: 100%;
         }
 
+        /* Container para todos os canais */
+        .procedimento-completo-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+
         .procedimento-todos-btn {
             padding: 8px 16px;
             background: transparent;
@@ -611,9 +621,8 @@
         CANCELAR TROCA
     </button>
 </div>
-
- Container para PROCEDIMENTO TODOS OS CANAIS EM TODOS MTXs
-<div class="procedimento-todos-container" style="margin: 20px 0;">
+ CONTAINER PARA EXECUTAR A ROTINA COMPLETA COM OFFSET E LINEARIZAÇÃO EM TODOS CANAIS EM TODOS MTXs
+<div class="procedimento-completo-container" style="margin: 20px 0;">
     <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanaisTodosMTXs()" id="procedimentoTodosMTXsBtn">
         ROTINA PRINCIPAL TODOS MTXs
     </button>
@@ -622,7 +631,7 @@
     </button>
 </div>
 
- Container para OFFSET TODOS CANAIS EM TODOS MTXs
+ CONTAINER PARA EXECUTAR A ROTINA DE OFFSET EM TODOS CANAIS EM TODOS MTXs
 <div class="potencia-geral-container" style="margin: 20px 0;">
     <button class="loop-btn" onclick="iniciarOffsetTodosCanaisTodosMTXs()" id="comecarOffsetTodosMTXsBtn">
         OFFSET TODOS MTXs
@@ -632,7 +641,7 @@
     </button>
 </div>
 
- Container para LINEARIZAÇÃO TODOS CANAIS EM TODOS MTXs
+ CONTAINER PARA EXECUTAR A ROTINA DE LINEARIZAÇÃO EM TODOS CANAIS EM TODOS MTXs
 <div class="linearizacao-container" style="margin: 20px 0;">
     <button class="loop-btn" onclick="iniciarLinearizacaoTodosCanaisTodosMTXs()" id="comecarLinearizacaoTodosMTXsBtn">
         LINEARIZAÇÃO TODOS MTXs
@@ -705,6 +714,17 @@
         </button>
         <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoCanalAtual('1')"
                 id="cancelarProcedimentoCanalBtn1" style="display: none;">
+            CANCELAR
+        </button>
+    </div>
+
+    <!-- Container para PROCEDIMENTO COMPLETO -->
+    <div class="procedimento-todos-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoCompleto('1')" id="procedimentoCompletoBtn1">
+            ROTINA PRINCIPAL COMPLETA
+        </button>
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoCompleto('1')"
+                id="cancelarProcedimentoCompletoBtn1" style="display: none;">
             CANCELAR
         </button>
     </div>

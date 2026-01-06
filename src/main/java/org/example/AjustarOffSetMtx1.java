@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -185,11 +186,13 @@ public class AjustarOffSetMtx1 {
             String canalFinal = verificarCanal(driver, wait);
 
             // ========== ETAPA 5: SALVAR LOG ==========
-            salvarLogCanal(canal, canalAntes, canalFinal, potenciaFinal,
+			System.out.println(GREEN + "\n[ETAPA 5] SALVAR LOG" + RESET);
+
+			salvarLogCanal(canal, canalAntes, canalFinal, potenciaFinal,
                     correnteFinal, offsetFinal, resultadoAjuste);
 
             // ========== PREPARAR RESPOSTA ==========
-            resultado.put("status", "sucesso");
+			resultado.put("status", "sucesso");
             resultado.put("mensagem", "Canal " + canal + " processado com sucesso");
             resultado.put("canal_antes", canalAntes);
             resultado.put("canal_depois", canalFinal);
@@ -199,12 +202,15 @@ public class AjustarOffSetMtx1 {
             resultado.put("iteracoes", resultadoAjuste.get("iteracoes"));
             resultado.put("offset_inicial", resultadoAjuste.get("offset_inicial"));
 
-            // ========== ETAPA 6: CHAMAR CANCELAMENTO ==========
-            System.out.println(GREEN + "\n[ETAPA 6] Desligando MTX1" + RESET);
-            desligarMTX1(driver, wait);
+			// ========== ETAPA 6: FAZER CHECAGEM FINAL DE VALORES ==========
+			System.out.println(GREEN + "\n[ETAPA 6] FAZENDO CHECAGEM FINAL" + RESET);
 
-            System.out.println(GREEN + "Chamando função de cancelamento" + RESET);
-            chamarFuncaoCancelamento(canal, resultado);
+			Map<String, Object> buscaResultado = chamarBuscaAutomatica();
+			resultado.put("busca_automatica", buscaResultado);
+
+            // ========== ETAPA 7: DESLIGAR MTX1 ==========
+            System.out.println(GREEN + "\n[ETAPA 7] Desligando MTX1" + RESET);
+            desligarMTX1(driver, wait);
 
         } catch (Exception e) {
             System.err.println("Erro no processamento do canal " + canal + ": " + e.getMessage());
@@ -223,6 +229,27 @@ public class AjustarOffSetMtx1 {
 
         return resultado;
     }
+
+	// Método para chamar a checagem final
+	private Map chamarBuscaAutomatica() {
+		try {
+			RestTemplate restTemplate = new RestTemplate();
+			String url = "http://localhost:8087/executar-manualmente";
+			ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
+
+			if (response.getStatusCode().is2xxSuccessful()) {
+				System.out.println(GREEN + "  Busca automática executada com sucesso" + RESET);
+				return response.getBody();
+			}
+		} catch (Exception e) {
+			System.err.println("  Erro na busca automática: " + e.getMessage());
+		}
+
+		Map<String, Object> erro = new HashMap<>();
+		erro.put("status", "aviso");
+		erro.put("mensagem", "Busca automática não executada");
+		return erro;
+	}
 
     // Método para chamar o cancelamento após processar um canal
     private void chamarFuncaoCancelamento(String canal, Map<String, Object> resultadoCanal) {
@@ -414,15 +441,17 @@ public class AjustarOffSetMtx1 {
                         return resultado;
                     }
 
-                    if (offsetAtual + 5 > offsetMaximo) {
-                        String erroFinal = "ERRO: Offset máximo (" + offsetMaximo + ") atingido. Corrente ainda alta: " + corrente + " A";
-                        System.err.println("    " + erroFinal);
-                        resultado.put("status", "erro");
-                        resultado.put("mensagem", erroFinal);
-                        resultado.put("iteracoes", iteracoes);
-                        resultado.put("ajustes_feitos", ajustesFeitos);
-                        return resultado;
-                    }
+					// ele ta dando erro aqui
+					//if (offsetAtual + 5 > offsetMaximo) {
+					if (offsetAtual > offsetMaximo) {
+							String erroFinal = "ERRO: Offset máximo (" + offsetMaximo + ") atingido. Corrente ainda alta: " + corrente + " A";
+							System.err.println("    " + erroFinal);
+							resultado.put("status", "erro");
+							resultado.put("mensagem", erroFinal);
+							resultado.put("iteracoes", iteracoes);
+							resultado.put("ajustes_feitos", ajustesFeitos);
+							return resultado;
+					}
 
                     // Aumentar offset para reduzir corrente
                     String erroMsg = "Corrente " + corrente + " A > limite máximo " + correnteMaximaErro + " A. Ajustando offset...";
