@@ -58,3 +58,11 @@
 2026-01-06T14:49:14.922391 | Canal: 14 | Antes: 51 | Depois: 14 | Potência: 72443.0 | Corrente: 73 | Offset: -9 | Iterações: 1 | Status: sucesso
 2026-01-06T15:13:45.321286600 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -9 | Iterações: 1 | Status: sucesso
 2026-01-06T16:02:14.847765600 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 68 | Offset: -9 | Iterações: 1 | Status: sucesso
+2026-01-07T10:00:32.518263600 | Canal: 14 | Antes: 34 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -9 | Iterações: 1 | Status: sucesso
+2026-01-07T10:17:23.999478800 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 72 | Offset: -9 | Iterações: 1 | Status: sucesso
+2026-01-07T10:35:34.780735500 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 68 | Offset: -9 | Iterações: 1 | Status: sucesso
+2026-01-07T11:44:24.342227200 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -8 | Iterações: 9 | Status: sucesso
+2026-01-07T12:03:04.202730900 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 3 | Status: sucesso
+2026-01-07T12:17:09.961082100 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 67 | Offset: -7 | Iterações: 1 | Status: sucesso
+2026-01-07T12:47:00.173368400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -8 | Iterações: 3 | Status: sucesso
+2026-01-07T13:57:21.312245300 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 65 | Offset: -7 | Iterações: 6 | Status: sucesso

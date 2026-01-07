@@ -161,14 +161,14 @@ public class LinearizacaoMtx1 {
 					int potenciaAtual = potencias[i];
 					ultimaPotenciaProcessada = potenciaAtual;
 
-					System.out.println(GREEN + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
-					desligarMTX1(driver, wait);
+					//System.out.println(GREEN + "\n[ETAPA 1] Desligando MTX1 para iniciar sequência" + RESET);
+					//desligarMTX1(driver, wait);
 
-					System.out.println(GREEN + "\n[ETAPA 2] Processando potência: " + potenciaAtual + "W" + RESET);
+					System.out.println(GREEN + "\n[ETAPA 1] Processando potência: " + potenciaAtual + "W" + RESET);
 					System.out.println(GREEN + "  Progresso: " + (i + 1) + "/" + potencias.length + RESET);
 
 					// 2.1. Configurar nova potência
-					System.out.println(GREEN + "  2.1. Configurando potência para " + potenciaAtual + "W" + RESET);
+					System.out.println(GREEN + "  1.1. Configurando potência para " + potenciaAtual + "W" + RESET);
 					configurarPotencia(driver, wait, String.valueOf(potenciaAtual));
 
 					// 2.2. Ligar o MTX1

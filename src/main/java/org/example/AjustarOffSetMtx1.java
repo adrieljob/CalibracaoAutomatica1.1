@@ -156,9 +156,10 @@ public class AjustarOffSetMtx1 {
 
             // 2.5. Esperar 5 minutos
             System.out.println(GREEN + "  2.5. Aguardando 1 minutos para estabilização..." + RESET);
-            Thread.sleep(60000);
+            // valor original e c orreto mudra depois de fazer os testes Thread.sleep(60000);
+			Thread.sleep(3000);
 
-            // ========== ETAPA 3: VERIFICAR E AJUSTAR DINAMICAMENTE ==========
+			// ========== ETAPA 3: VERIFICAR E AJUSTAR DINAMICAMENTE ==========
             System.out.println(GREEN + "\n[ETAPA 3] Verificando e ajustando dinamicamente" + RESET);
 
             // 2.6. Checa o canal (apenas para confirmar)
@@ -443,7 +444,8 @@ public class AjustarOffSetMtx1 {
 
 					// ele ta dando erro aqui
 					//if (offsetAtual + 5 > offsetMaximo) {
-					if (offsetAtual > offsetMaximo) {
+					if (offsetMaximo > -25) {
+					//if (offsetAtual != offsetMaximo) {
 							String erroFinal = "ERRO: Offset máximo (" + offsetMaximo + ") atingido. Corrente ainda alta: " + corrente + " A";
 							System.err.println("    " + erroFinal);
 							resultado.put("status", "erro");

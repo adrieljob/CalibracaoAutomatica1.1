@@ -161,14 +161,14 @@ public class LinearizacaoMtx3 {
 					int potenciaAtual = potencias[i];
 					ultimaPotenciaProcessada = potenciaAtual;
 
-					System.out.println(BLUE + "\n[ETAPA 1] Desligando MTX3 para iniciar sequência" + RESET);
-					desligarMTX3(driver, wait);
+					//System.out.println(BLUE + "\n[ETAPA 1] Desligando MTX3 para iniciar sequência" + RESET);
+					//desligarMTX3(driver, wait);
 
-					System.out.println(BLUE + "\n[ETAPA 2] Processando potência: " + potenciaAtual + "W" + RESET);
+					System.out.println(BLUE + "\n[ETAPA 1] Processando potência: " + potenciaAtual + "W" + RESET);
 					System.out.println(BLUE + "  Progresso: " + (i + 1) + "/" + potencias.length + RESET);
 
 					// 2.1. Configurar nova potência
-					System.out.println(BLUE + "  2.1. Configurando potência para " + potenciaAtual + "W" + RESET);
+					System.out.println(BLUE + "  1.1. Configurando potência para " + potenciaAtual + "W" + RESET);
 					configurarPotencia(driver, wait, String.valueOf(potenciaAtual));
 
 					// 2.2. Ligar o MTX3
