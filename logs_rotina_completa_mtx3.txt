@@ -1,0 +1,7 @@
+2026-01-05T17:16:05.855247400 | MTX3 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -6 | Iterações: 7 | Status: sucesso
+2026-01-07T10:00:36.058314400 | MTX3 | Canal: 14 | Antes: 34 | Depois: 14 | Potência: 72443.0 | Corrente: 73 | Offset: -9 | Iterações: 1 | Status: sucesso
+2026-01-07T15:39:48.748333 | MTX3 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 65 | Offset: -6 | Iterações: 2 | Status: sucesso
+2026-01-08T15:40:11.270665200 | MTX3 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -10 | Iterações: 5 | Status: sucesso
+2026-01-08T16:49:59.365468200 | MTX3 | Canal: 14 | Antes: 34 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -10 | Iterações: 1 | Status: sucesso
+2026-01-08T16:58:21.433193600 | MTX3 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -10 | Iterações: 1 | Status: sucesso
+2026-01-08T17:15:29.797881800 | MTX3 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -9 | Iterações: 10 | Status: sucesso

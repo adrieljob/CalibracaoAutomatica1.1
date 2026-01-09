@@ -1,0 +1,2 @@
+2026-01-05T10:32:50.808685800 | Canal: 14 | Canal Esperado: 14 | Antes: 314 | Depois: 314
+2026-01-07T08:59:21.599212500 | Canal: 34 | Canal Esperado: 34 | Antes: 351 | Depois: 334

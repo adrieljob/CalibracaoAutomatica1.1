@@ -1,0 +1,5 @@
+2026-01-07T10:01:35.630357100 | MTX4 | Canal: 14 | Status: sucesso | Hora: 2026-01-07T10:01:35.629356300 | Mensagem: Cancelamento chamado para canal MTX4 14
+2026-01-07T11:32:52.344761500 | MTX4 | Canal: 14 | Status: sucesso | Hora: 2026-01-07T11:32:52.343761 | Mensagem: Cancelamento chamado para canal MTX4 14
+2026-01-07T14:46:19.394442300 | MTX4 | Canal: 14 | Status: sucesso | Hora: 2026-01-07T14:46:19.393491200 | Mensagem: Cancelamento chamado para canal MTX4 14
+2026-01-07T15:19:38.403409400 | MTX4 | Canal: 34 | Status: sucesso | Hora: 2026-01-07T15:19:38.386900700 | Mensagem: Cancelamento chamado para canal MTX4 34
+2026-01-08T11:23:22.595361800 | MTX4 | Canal: 14 | Status: sucesso | Hora: 2026-01-08T11:23:22.591539600 | Mensagem: Cancelamento chamado para canal MTX4 14

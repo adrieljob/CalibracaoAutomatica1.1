@@ -1,0 +1,2 @@
+2026-01-05T17:53:59.029121 | P_Inicial: -6W | P_Final: 483W | T_Inicial: 47°C | T_Final: 51°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-07T15:33:49.883258 | P_Inicial: 486W | P_Final: 300W | T_Inicial: 38°C | T_Final: 33°C | Ultima_Potencia: 483W | Status: COMPLETO

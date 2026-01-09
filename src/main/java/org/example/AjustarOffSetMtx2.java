@@ -350,18 +350,18 @@ public class AjustarOffSetMtx2 {
 		// Definir limites de corrente para cada canal do MTX2
 		switch (canal) {
 			case "14":
-				correnteMinima = 70;
-				correnteMaximaErro = 73;
+				correnteMinima = 69;
+				correnteMaximaErro = 71;
 				System.out.println(YELLOW + "  Parâmetros para canal 14 do MTX2: 70-73 A" + RESET);
 				break;
 			case "34":
-				correnteMinima = 65;
-				correnteMaximaErro = 68;
+				correnteMinima = 64;
+				correnteMaximaErro = 66;
 				System.out.println(YELLOW + "  Parâmetros para canal 34 do MTX2: 65-68 A" + RESET);
 				break;
 			case "51":
-				correnteMinima = 60;
-				correnteMaximaErro = 63;
+				correnteMinima = 59;
+				correnteMaximaErro = 61;
 				System.out.println(YELLOW + "  Parâmetros para canal 51 do MTX2: 60-63 A" + RESET);
 				break;
 			default:
