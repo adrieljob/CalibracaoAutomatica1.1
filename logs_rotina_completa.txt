@@ -66,3 +66,8 @@
 2026-01-07T12:17:09.961082100 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 67 | Offset: -7 | Iterações: 1 | Status: sucesso
 2026-01-07T12:47:00.173368400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -8 | Iterações: 3 | Status: sucesso
 2026-01-07T13:57:21.312245300 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 65 | Offset: -7 | Iterações: 6 | Status: sucesso
+2026-01-07T14:12:26.824361800 | Canal: 51 | Antes: 34 | Depois: 51 | Potência: 72443.0 | Corrente: 62 | Offset: -2 | Iterações: 2 | Status: sucesso
+2026-01-07T14:46:32.963897400 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 4 | Status: sucesso
+2026-01-07T15:31:29.309542 | Canal: 34 | Antes: 14 | Depois: 34 | Potência: 72443.0 | Corrente: 68 | Offset: -8 | Iterações: 1 | Status: sucesso
+2026-01-07T16:09:39.291477800 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 8 | Status: sucesso
+2026-01-07T16:28:14.916055 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -8 | Iterações: 2 | Status: sucesso

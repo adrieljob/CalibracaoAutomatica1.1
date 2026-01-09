@@ -27,3 +27,12 @@
 2026-01-07T12:12:48.912280900 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 39°C | T_Final: 37°C | Ultima_Potencia: 483W | Status: COMPLETO
 2026-01-07T12:26:53.731238800 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 36°C | T_Final: 37°C | Ultima_Potencia: 483W | Status: COMPLETO
 2026-01-07T14:07:10.982918200 | P_Inicial: -7W | P_Final: 483W | T_Inicial: 41°C | T_Final: 37°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-07T14:22:41.575965500 | P_Inicial: -2W | P_Final: 483W | T_Inicial: 37°C | T_Final: 36°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-07T15:27:07.617624800 | P_Inicial: -7W | P_Final: -8W | T_Inicial: 40°C | T_Final: 44°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-07T16:59:42.060616800 | P_Inicial: -8W | P_Final: 483W | T_Inicial: 36°C | T_Final: 45°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-07T18:02:45.894442400 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 42°C | T_Final: 44°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-08T09:21:18.597054200 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 39°C | T_Final: 39°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-08T09:34:53.363183 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 37°C | T_Final: 39°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-08T09:48:25.492846 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 36°C | T_Final: 39°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-08T11:03:04.044112300 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 29°C | T_Final: 36°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-08T11:16:30.467603200 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 34°C | T_Final: 36°C | Ultima_Potencia: 483W | Status: COMPLETO
