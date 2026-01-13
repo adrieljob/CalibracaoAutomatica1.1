@@ -1,2 +1,5 @@
 2026-01-05T10:32:58.569147700 | Canal: 14 | Canal Esperado: 14 | Antes: 414 | Depois: 414
 2026-01-07T08:59:23.189907800 | Canal: 34 | Canal Esperado: 34 | Antes: 414 | Depois: 434
+2026-01-12T17:21:40.944068600 | Entrada: 14 | Configurado: 14 | Esperado: 414 | Antes: 434 | Depois: 414 | Correto: SIM
+2026-01-12T17:25:09.007137 | Entrada: 34 | Configurado: 34 | Esperado: 434 | Antes: 414 | Depois: 434 | Correto: SIM
+2026-01-12T17:30:17.010418400 | Entrada: 51 | Configurado: 51 | Esperado: 451 | Antes: 434 | Depois: 451 | Correto: SIM

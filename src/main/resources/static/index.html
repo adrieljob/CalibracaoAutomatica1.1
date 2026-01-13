@@ -562,100 +562,6 @@
             50% { opacity: 0.7; }
             100% { opacity: 1; }
         }
-
-        /* Estilos para botões de cancelamento */
-        .emergencia-container {
-            margin: 15px 0;
-            padding: 15px;
-            background: #1a1a1a;
-            border-radius: 8px;
-            border: 3px solid #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-        }
-
-        .emergencia-container h3 {
-            color: #ff0000;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .emergencia-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn-cancelar-offset {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #ff3333, #cc0000);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-        }
-
-        .btn-cancelar-offset:hover {
-            background: linear-gradient(135deg, #ff6666, #ff0000);
-            transform: scale(1.05);
-        }
-
-        .btn-cancelar-linearizacao {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #ff6600, #cc5200);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-        }
-
-        .btn-cancelar-linearizacao:hover {
-            background: linear-gradient(135deg, #ff8844, #ff6600);
-            transform: scale(1.05);
-        }
-
-        .btn-cancelar-tudo {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #990000, #660000);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-        }
-
-        .btn-cancelar-tudo:hover {
-            background: linear-gradient(135deg, #cc0000, #990000);
-            transform: scale(1.05);
-        }
-
-        .status-cancelamento {
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            display: none;
-            font-size: 12px;
-            line-height: 1.4;
-        }
     </style>
 </head>
 <body>
@@ -684,30 +590,84 @@
 
 <h1>Calibração Automática 1.3</h1>
 
+<!--
+ CONTROLES GERAIS
+<h1>Controle GERAL - TODOS MTXs</h1>
+
+ Status Geral
+<div id="statusGeral" class="loop-status" style="margin: 20px auto; max-width: 90%; display: none;"></div>
+
+ Container para botões de status (Ligar/Desligar TODOS)
+<div class="status-container" style="margin: 20px 0;">
+    <button class="loop-btn" onclick="ligarTodosMTXs()" id="ligarTodosBtn">
+        LIGAR TODOS MTXs
+    </button>
+    <button class="loop-btn parar" onclick="desligarTodosMTXs()" id="desligarTodosBtn" style="display: none;">
+        DESLIGAR TODOS MTXs
+    </button>
+</div>
+
+ Container para TROCAR TODOS OS CANAIS PARA CANAL ESPECÍFICO
+<div class="procedimento-todos-container" style="margin: 20px 0;">
+    <button class="procedimento-todos-btn" onclick="trocarTodosCanaisParaCanalEspecifico('14')" id="trocarCanal14Btn">
+        TROCAR TODOS PARA CANAL 14
+    </button>
+    <button class="procedimento-todos-btn" onclick="trocarTodosCanaisParaCanalEspecifico('34')" id="trocarCanal34Btn">
+        TROCAR TODOS PARA CANAL 34
+    </button>
+    <button class="procedimento-todos-btn" onclick="trocarTodosCanaisParaCanalEspecifico('51')" id="trocarCanal51Btn">
+        TROCAR TODOS PARA CANAL 51
+    </button>
+    <button class="procedimento-todos-btn parar" onclick="cancelarTrocaTodosCanais()" id="cancelarTrocaTodosBtn" style="display: none;">
+        CANCELAR TROCA
+    </button>
+</div>
+ CONTAINER PARA EXECUTAR A ROTINA COMPLETA COM OFFSET E LINEARIZAÇÃO EM TODOS CANAIS EM TODOS MTXs
+<div class="procedimento-completo-container" style="margin: 20px 0;">
+    <button class="procedimento-todos-btn" onclick="iniciarProcedimentoTodosCanaisTodosMTXs()" id="procedimentoTodosMTXsBtn">
+        ROTINA PRINCIPAL TODOS MTXs
+    </button>
+    <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoTodosMTXs()" id="cancelarProcedimentoTodosMTXsBtn" style="display: none;">
+        CANCELAR TODOS
+    </button>
+</div>
+
+ CONTAINER PARA EXECUTAR A ROTINA DE OFFSET EM TODOS CANAIS EM TODOS MTXs
+<div class="potencia-geral-container" style="margin: 20px 0;">
+    <button class="loop-btn" onclick="iniciarOffsetTodosCanaisTodosMTXs()" id="comecarOffsetTodosMTXsBtn">
+        OFFSET TODOS MTXs
+    </button>
+    <button class="loop-btn parar" onclick="finalizarOffsetTodosMTXs()" id="pararOffsetTodosMTXsBtn" style="display: none;">
+        PARAR TODOS
+    </button>
+</div>
+
+ CONTAINER PARA EXECUTAR A ROTINA DE LINEARIZAÇÃO EM TODOS CANAIS EM TODOS MTXs
+<div class="linearizacao-container" style="margin: 20px 0;">
+    <button class="loop-btn" onclick="iniciarLinearizacaoTodosCanaisTodosMTXs()" id="comecarLinearizacaoTodosMTXsBtn">
+        LINEARIZAÇÃO TODOS MTXs
+    </button>
+    <button class="loop-btn parar" onclick="finalizarLinearizacaoTodosMTXs()" id="pararLinearizacaoTodosMTXsBtn" style="display: none;">
+        PARAR TODOS
+    </button>
+</div>
+
+<div class="offset-config-container" style="margin: 20px 0; padding: 15px; background: #1a1a1a; border-radius: 8px; border: 1px solid #ff9900;">
+    <h3 style="color: #ff9900; margin-bottom: 10px;">APLICAR OFFSET EM TODOS MTXs</h3>
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+        <span style="font-weight: bold; min-width: 120px; color: #fff;">Offset para todos:</span>
+        <button onclick="aplicarOffsetTodosMTXs()" style="padding: 8px 16px; background: #ff9900; color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+            APLICAR MESMO OFFSET EM TODOS
+        </button>
+    </div>
+    <p style="font-size: 12px; color: #aaa; margin: 5px 0 0 0;">
+        Aplica o mesmo valor de offset em todos os 4 MTXs simultaneamente.
+    </p>
+</div> -->
+
 <!-- MTX 1 -->
 <div class="casa-grande" id="mtx1">
     <h1>MTX1</h1>
-
-    <!-- BOTÕES DE CANCELAMENTO DE EMERGÊNCIA -->
-    <div class="emergencia-container">
-        <h3>🚨 CANCELAMENTO DE EMERGÊNCIA - MTX1</h3>
-
-        <div class="emergencia-buttons">
-            <button class="btn-cancelar-offset" onclick="cancelarOffsetMtx1()">
-                ⏹️ CANCELAR OFFSET
-            </button>
-
-            <button class="btn-cancelar-linearizacao" onclick="cancelarLinearizacaoMtx1()">
-                🛑 CANCELAR LINEARIZAÇÃO
-            </button>
-
-            <button class="btn-cancelar-tudo" onclick="cancelarTudoMtx1()">
-                🚨 CANCELAR TUDO
-            </button>
-        </div>
-
-        <div id="statusCancelamentoMTX1" class="status-cancelamento"></div>
-    </div>
 
     <div class="dropdowns-container">
         <!-- Dropdown de Potência -->
@@ -880,27 +840,6 @@
 <div class="casa-grande" id="mtx2">
     <h1>MTX2</h1>
 
-    <!-- BOTÕES DE CANCELAMENTO DE EMERGÊNCIA -->
-    <div class="emergencia-container">
-        <h3>🚨 CANCELAMENTO DE EMERGÊNCIA - MTX2</h3>
-
-        <div class="emergencia-buttons">
-            <button class="btn-cancelar-offset" onclick="cancelarOffsetMtx2()">
-                ⏹️ CANCELAR OFFSET
-            </button>
-
-            <button class="btn-cancelar-linearizacao" onclick="cancelarLinearizacaoMtx2()">
-                🛑 CANCELAR LINEARIZAÇÃO
-            </button>
-
-            <button class="btn-cancelar-tudo" onclick="cancelarTudoMtx2()">
-                🚨 CANCELAR TUDO
-            </button>
-        </div>
-
-        <div id="statusCancelamentoMTX2" class="status-cancelamento"></div>
-    </div>
-
     <div class="dropdowns-container">
         <!-- Dropdown de Potência -->
         <div class="dropdown-container">
@@ -1071,27 +1010,6 @@
 <div class="casa-grande" id="mtx3">
     <h1>MTX3</h1>
 
-    <!-- BOTÕES DE CANCELAMENTO DE EMERGÊNCIA -->
-    <div class="emergencia-container">
-        <h3>🚨 CANCELAMENTO DE EMERGÊNCIA - MTX3</h3>
-
-        <div class="emergencia-buttons">
-            <button class="btn-cancelar-offset" onclick="cancelarOffsetMtx3()">
-                ⏹️ CANCELAR OFFSET
-            </button>
-
-            <button class="btn-cancelar-linearizacao" onclick="cancelarLinearizacaoMtx3()">
-                🛑 CANCELAR LINEARIZAÇÃO
-            </button>
-
-            <button class="btn-cancelar-tudo" onclick="cancelarTudoMtx3()">
-                🚨 CANCELAR TUDO
-            </button>
-        </div>
-
-        <div id="statusCancelamentoMTX3" class="status-cancelamento"></div>
-    </div>
-
     <div class="dropdowns-container">
         <!-- Dropdown de Potência -->
         <div class="dropdown-container">
@@ -1261,27 +1179,6 @@
 <!-- MTX 4 -->
 <div class="casa-grande" id="mtx4">
     <h1>MTX4</h1>
-
-    <!-- BOTÕES DE CANCELAMENTO DE EMERGÊNCIA -->
-    <div class="emergencia-container">
-        <h3>🚨 CANCELAMENTO DE EMERGÊNCIA - MTX4</h3>
-
-        <div class="emergencia-buttons">
-            <button class="btn-cancelar-offset" onclick="cancelarOffsetMtx4()">
-                ⏹️ CANCELAR OFFSET
-            </button>
-
-            <button class="btn-cancelar-linearizacao" onclick="cancelarLinearizacaoMtx4()">
-                🛑 CANCELAR LINEARIZAÇÃO
-            </button>
-
-            <button class="btn-cancelar-tudo" onclick="cancelarTudoMtx4()">
-                🚨 CANCELAR TUDO
-            </button>
-        </div>
-
-        <div id="statusCancelamentoMTX4" class="status-cancelamento"></div>
-    </div>
 
     <div class="dropdowns-container">
         <!-- Dropdown de Potência -->
@@ -1504,611 +1401,6 @@
         '4': { ativo: false, tipo: null, intervalo: null }
     };
 
-    // ============ FUNÇÕES DE CANCELAMENTO ============
-
-    // Função auxiliar para mostrar status de cancelamento
-    function mostrarStatusCancelamento(mtx, mensagem, tipo) {
-        const statusElement = document.getElementById(`statusCancelamentoMTX${mtx}`);
-        if (!statusElement) return;
-
-        statusElement.innerHTML = mensagem;
-        statusElement.style.display = 'block';
-        statusElement.style.padding = '10px';
-        statusElement.style.borderRadius = '4px';
-        statusElement.style.marginTop = '10px';
-
-        if (tipo === 'success') {
-            statusElement.style.background = '#1a3c1a';
-            statusElement.style.color = '#4cff4c';
-            statusElement.style.border = '1px solid #4cff4c';
-        } else if (tipo === 'error') {
-            statusElement.style.background = '#3c1a1a';
-            statusElement.style.color = '#ff4c4c';
-            statusElement.style.border = '1px solid #ff4c4c';
-        } else if (tipo === 'warning') {
-            statusElement.style.background = '#3c3c1a';
-            statusElement.style.color = '#ffff4c';
-            statusElement.style.border = '1px solid #ffff4c';
-        }
-
-        // Esconde após 10 segundos
-        setTimeout(() => {
-            statusElement.style.display = 'none';
-        }, 10000);
-    }
-
-    // ============ MTX 1 ============
-
-    // Cancelar OFFSET para MTX1
-    async function cancelarOffsetMtx1() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de OFFSET do MTX1?\n\nEsta ação irá interromper imediatamente o ajuste de offset.')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('1', '🔄 Cancelando offset do MTX1...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-offset-mtx1', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('1',
-                    `✅ OFFSET CANCELADO COM SUCESSO!\n\n` +
-                    `Status: ${resultado.mensagem}\n` +
-                    `Hora: ${resultado.hora_cancelamento}\n` +
-                    `Thread interrompida: ${resultado.thread_interrompida ? 'SIM' : 'NÃO'}`,
-                    'success'
-                );
-
-                // Resetar botões de offset do MTX1
-                resetarBotoesOffset('1');
-
-            } else {
-                mostrarStatusCancelamento('1',
-                    `⚠️ ${resultado.mensagem}\n\n` +
-                    `Nenhum offset estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('1',
-                `❌ ERRO DE CONEXÃO!\n\n` +
-                `Não foi possível cancelar o offset:\n${error.message}`,
-                'error'
-            );
-            console.error('Erro ao cancelar offset MTX1:', error);
-        }
-    }
-
-    // Cancelar LINEARIZAÇÃO para MTX1
-    async function cancelarLinearizacaoMtx1() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de LINEARIZAÇÃO do MTX1?\n\nEsta ação irá interromper imediatamente a linearização em andamento.')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('1', '🔄 Cancelando linearização do MTX1...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-linearizacao-mtx1', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('1',
-                    `✅ LINEARIZAÇÃO CANCELADA COM SUCESSO!\n\n` +
-                    `Status: ${resultado.mensagem}\n` +
-                    `Hora: ${resultado.hora_cancelamento}\n` +
-                    `Thread interrompida: ${resultado.thread_interrompida ? 'SIM' : 'NÃO'}`,
-                    'success'
-                );
-
-                // Resetar botões de linearização do MTX1
-                resetarBotoesLinearizacao('1');
-
-            } else {
-                mostrarStatusCancelamento('1',
-                    `⚠️ ${resultado.mensagem}\n\n` +
-                    `Nenhuma linearização estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('1',
-                `❌ ERRO DE CONEXÃO!\n\n` +
-                `Não foi possível cancelar a linearização:\n${error.message}`,
-                'error'
-            );
-            console.error('Erro ao cancelar linearização MTX1:', error);
-        }
-    }
-
-    // Cancelar TUDO para MTX1
-    async function cancelarTudoMtx1() {
-        if (!confirm('🚨🚨🚨 EMERGÊNCIA! 🚨🚨🚨\n\nDeseja CANCELAR TODOS os processos do MTX1?\n\nEsta ação irá interromper:\n• Ajuste de OFFSET\n• Processo de LINEARIZAÇÃO\n• Qualquer outra rotina em execução\n\nATENÇÃO: Esta ação é IRREVERSÍVEL!')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('1', '🚨 CANCELANDO TODOS OS PROCESSOS DO MTX1...', 'error');
-
-        try {
-            // Tenta cancelar tudo
-            let resultados = [];
-            let cancelamentosEfetivos = 0;
-
-            // 1. Cancelar Offset
-            try {
-                const offsetResponse = await fetch('/cancelar-offset-mtx1', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const offsetResult = await offsetResponse.json();
-                resultados.push({tipo: 'OFFSET', resultado: offsetResult});
-                if (offsetResult.cancelamento_efetivo) cancelamentosEfetivos++;
-            } catch (e) {
-                resultados.push({tipo: 'OFFSET', erro: e.message});
-            }
-
-            // 2. Cancelar Linearização
-            try {
-                const linearizacaoResponse = await fetch('/cancelar-linearizacao-mtx1', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                const linearizacaoResult = await linearizacaoResponse.json();
-                resultados.push({tipo: 'LINEARIZAÇÃO', resultado: linearizacaoResult});
-                if (linearizacaoResult.cancelamento_efetivo) cancelamentosEfetivos++;
-            } catch (e) {
-                resultados.push({tipo: 'LINEARIZAÇÃO', erro: e.message});
-            }
-
-            // 3. Cancelar procedimento geral (se houver endpoint)
-            try {
-                const procedimentoResponse = await fetch('/cancelar-procedimento-mtx1', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                if (procedimentoResponse.ok) {
-                    const procedimentoResult = await procedimentoResponse.json();
-                    resultados.push({tipo: 'PROCEDIMENTO', resultado: procedimentoResult});
-                    if (procedimentoResult.cancelamento_efetivo) cancelamentosEfetivos++;
-                }
-            } catch (e) {
-                // Endpoint pode não existir, isso é normal
-            }
-
-            // Montar mensagem de resultado
-            let mensagem = '';
-            if (cancelamentosEfetivos > 0) {
-                mensagem += `✅ ${cancelamentosEfetivos} PROCESSO(S) CANCELADO(S)!\n\n`;
-            } else {
-                mensagem += `⚠️ NENHUM PROCESSO CANCELADO\n\n`;
-            }
-
-            mensagem += `RESULTADOS:\n`;
-            resultados.forEach(r => {
-                if (r.resultado) {
-                    mensagem += `• ${r.tipo}: ${r.resultado.mensagem}\n`;
-                } else {
-                    mensagem += `• ${r.tipo}: Erro - ${r.erro}\n`;
-                }
-            });
-
-            mostrarStatusCancelamento('1', mensagem,
-                cancelamentosEfetivos > 0 ? 'success' : 'warning');
-
-            // Resetar TODOS os botões do MTX1
-            resetarBotoesOffset('1');
-            resetarBotoesLinearizacao('1');
-            resetarBotoesProcedimento('1');
-            resetarBotoesProcedimentoCompleto('1');
-
-        } catch (error) {
-            mostrarStatusCancelamento('1',
-                `❌ ERRO CRÍTICO!\n\n` +
-                `Falha ao tentar cancelar tudo:\n${error.message}`,
-                'error'
-            );
-            console.error('Erro ao cancelar tudo MTX1:', error);
-        }
-    }
-
-    // ============ MTX 2 ============
-
-    // Cancelar OFFSET para MTX2
-    async function cancelarOffsetMtx2() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de OFFSET do MTX2?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('2', '🔄 Cancelando offset do MTX2...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-offset-mtx2', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('2',
-                    `✅ OFFSET CANCELADO COM SUCESSO!\n\nStatus: ${resultado.mensagem}`,
-                    'success'
-                );
-                resetarBotoesOffset('2');
-            } else {
-                mostrarStatusCancelamento('2',
-                    `⚠️ ${resultado.mensagem}\n\nNenhum offset estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('2',
-                `❌ ERRO DE CONEXÃO!\n\nNão foi possível cancelar o offset:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // Cancelar LINEARIZAÇÃO para MTX2
-    async function cancelarLinearizacaoMtx2() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de LINEARIZAÇÃO do MTX2?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('2', '🔄 Cancelando linearização do MTX2...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-linearizacao-mtx2', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('2',
-                    `✅ LINEARIZAÇÃO CANCELADA COM SUCESSO!\n\nStatus: ${resultado.mensagem}`,
-                    'success'
-                );
-                resetarBotoesLinearizacao('2');
-            } else {
-                mostrarStatusCancelamento('2',
-                    `⚠️ ${resultado.mensagem}\n\nNenhuma linearização estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('2',
-                `❌ ERRO DE CONEXÃO!\n\nNão foi possível cancelar a linearização:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // Cancelar TUDO para MTX2
-    async function cancelarTudoMtx2() {
-        if (!confirm('🚨 EMERGÊNCIA! \n\nDeseja CANCELAR TODOS os processos do MTX2?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('2', '🚨 CANCELANDO TODOS OS PROCESSOS DO MTX2...', 'error');
-
-        try {
-            const promises = [
-                fetch('/cancelar-offset-mtx2', { method: 'POST', headers: { 'Content-Type': 'application/json' } }),
-                fetch('/cancelar-linearizacao-mtx2', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
-            ];
-
-            const responses = await Promise.allSettled(promises);
-
-            let mensagem = 'RESULTADOS DO CANCELAMENTO:\n\n';
-            let sucessos = 0;
-
-            responses.forEach((response, index) => {
-                const tipo = index === 0 ? 'OFFSET' : 'LINEARIZAÇÃO';
-
-                if (response.status === 'fulfilled' && response.value.ok) {
-                    const resultado = response.value.json();
-                    mensagem += `• ${tipo}: ${resultado.mensagem}\n`;
-                    if (resultado.cancelamento_efetivo) sucessos++;
-                } else {
-                    mensagem += `• ${tipo}: Erro de conexão\n`;
-                }
-            });
-
-            if (sucessos > 0) {
-                mensagem = `✅ ${sucessos} PROCESSO(S) CANCELADO(S)!\n\n` + mensagem;
-                mostrarStatusCancelamento('2', mensagem, 'success');
-            } else {
-                mensagem = `⚠️ NENHUM PROCESSO CANCELADO\n\n` + mensagem;
-                mostrarStatusCancelamento('2', mensagem, 'warning');
-            }
-
-            // Resetar botões
-            resetarBotoesOffset('2');
-            resetarBotoesLinearizacao('2');
-            resetarBotoesProcedimento('2');
-
-        } catch (error) {
-            mostrarStatusCancelamento('2',
-                `❌ ERRO CRÍTICO!\n\nFalha ao tentar cancelar tudo:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // ============ MTX 3 ============
-
-    // Cancelar OFFSET para MTX3
-    async function cancelarOffsetMtx3() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de OFFSET do MTX3?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('3', '🔄 Cancelando offset do MTX3...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-offset-mtx3', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('3',
-                    `✅ OFFSET CANCELADO COM SUCESSO!\n\nStatus: ${resultado.mensagem}`,
-                    'success'
-                );
-                resetarBotoesOffset('3');
-            } else {
-                mostrarStatusCancelamento('3',
-                    `⚠️ ${resultado.mensagem}\n\nNenhum offset estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('3',
-                `❌ ERRO DE CONEXÃO!\n\nNão foi possível cancelar o offset:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // Cancelar LINEARIZAÇÃO para MTX3
-    async function cancelarLinearizacaoMtx3() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de LINEARIZAÇÃO do MTX3?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('3', '🔄 Cancelando linearização do MTX3...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-linearizacao-mtx3', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('3',
-                    `✅ LINEARIZAÇÃO CANCELADA COM SUCESSO!\n\nStatus: ${resultado.mensagem}`,
-                    'success'
-                );
-                resetarBotoesLinearizacao('3');
-            } else {
-                mostrarStatusCancelamento('3',
-                    `⚠️ ${resultado.mensagem}\n\nNenhuma linearização estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('3',
-                `❌ ERRO DE CONEXÃO!\n\nNão foi possível cancelar a linearização:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // Cancelar TUDO para MTX3
-    async function cancelarTudoMtx3() {
-        if (!confirm('🚨 EMERGÊNCIA! \n\nDeseja CANCELAR TODOS os processos do MTX3?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('3', '🚨 CANCELANDO TODOS OS PROCESSOS DO MTX3...', 'error');
-
-        try {
-            const promises = [
-                fetch('/cancelar-offset-mtx3', { method: 'POST', headers: { 'Content-Type': 'application/json' } }),
-                fetch('/cancelar-linearizacao-mtx3', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
-            ];
-
-            const responses = await Promise.allSettled(promises);
-
-            let mensagem = 'RESULTADOS DO CANCELAMENTO:\n\n';
-            let sucessos = 0;
-
-            responses.forEach((response, index) => {
-                const tipo = index === 0 ? 'OFFSET' : 'LINEARIZAÇÃO';
-
-                if (response.status === 'fulfilled' && response.value.ok) {
-                    const resultado = response.value.json();
-                    mensagem += `• ${tipo}: ${resultado.mensagem}\n`;
-                    if (resultado.cancelamento_efetivo) sucessos++;
-                } else {
-                    mensagem += `• ${tipo}: Erro de conexão\n`;
-                }
-            });
-
-            if (sucessos > 0) {
-                mensagem = `✅ ${sucessos} PROCESSO(S) CANCELADO(S)!\n\n` + mensagem;
-                mostrarStatusCancelamento('3', mensagem, 'success');
-            } else {
-                mensagem = `⚠️ NENHUM PROCESSO CANCELADO\n\n` + mensagem;
-                mostrarStatusCancelamento('3', mensagem, 'warning');
-            }
-
-            // Resetar botões
-            resetarBotoesOffset('3');
-            resetarBotoesLinearizacao('3');
-            resetarBotoesProcedimento('3');
-
-        } catch (error) {
-            mostrarStatusCancelamento('3',
-                `❌ ERRO CRÍTICO!\n\nFalha ao tentar cancelar tudo:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // ============ MTX 4 ============
-
-    // Cancelar OFFSET para MTX4
-    async function cancelarOffsetMtx4() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de OFFSET do MTX4?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('4', '🔄 Cancelando offset do MTX4...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-offset-mtx4', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('4',
-                    `✅ OFFSET CANCELADO COM SUCESSO!\n\nStatus: ${resultado.mensagem}`,
-                    'success'
-                );
-                resetarBotoesOffset('4');
-            } else {
-                mostrarStatusCancelamento('4',
-                    `⚠️ ${resultado.mensagem}\n\nNenhum offset estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('4',
-                `❌ ERRO DE CONEXÃO!\n\nNão foi possível cancelar o offset:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // Cancelar LINEARIZAÇÃO para MTX4
-    async function cancelarLinearizacaoMtx4() {
-        if (!confirm('⚠️ ATENÇÃO! \n\nDeseja CANCELAR o processo de LINEARIZAÇÃO do MTX4?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('4', '🔄 Cancelando linearização do MTX4...', 'warning');
-
-        try {
-            const response = await fetch('/cancelar-linearizacao-mtx4', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            });
-
-            const resultado = await response.json();
-
-            if (resultado.cancelamento_efetivo) {
-                mostrarStatusCancelamento('4',
-                    `✅ LINEARIZAÇÃO CANCELADA COM SUCESSO!\n\nStatus: ${resultado.mensagem}`,
-                    'success'
-                );
-                resetarBotoesLinearizacao('4');
-            } else {
-                mostrarStatusCancelamento('4',
-                    `⚠️ ${resultado.mensagem}\n\nNenhuma linearização estava em execução.`,
-                    'warning'
-                );
-            }
-
-        } catch (error) {
-            mostrarStatusCancelamento('4',
-                `❌ ERRO DE CONEXÃO!\n\nNão foi possível cancelar a linearização:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
-    // Cancelar TUDO para MTX4
-    async function cancelarTudoMtx4() {
-        if (!confirm('🚨 EMERGÊNCIA! \n\nDeseja CANCELAR TODOS os processos do MTX4?')) {
-            return;
-        }
-
-        mostrarStatusCancelamento('4', '🚨 CANCELANDO TODOS OS PROCESSOS DO MTX4...', 'error');
-
-        try {
-            const promises = [
-                fetch('/cancelar-offset-mtx4', { method: 'POST', headers: { 'Content-Type': 'application/json' } }),
-                fetch('/cancelar-linearizacao-mtx4', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
-            ];
-
-            const responses = await Promise.allSettled(promises);
-
-            let mensagem = 'RESULTADOS DO CANCELAMENTO:\n\n';
-            let sucessos = 0;
-
-            responses.forEach((response, index) => {
-                const tipo = index === 0 ? 'OFFSET' : 'LINEARIZAÇÃO';
-
-                if (response.status === 'fulfilled' && response.value.ok) {
-                    const resultado = response.value.json();
-                    mensagem += `• ${tipo}: ${resultado.mensagem}\n`;
-                    if (resultado.cancelamento_efetivo) sucessos++;
-                } else {
-                    mensagem += `• ${tipo}: Erro de conexão\n`;
-                }
-            });
-
-            if (sucessos > 0) {
-                mensagem = `✅ ${sucessos} PROCESSO(S) CANCELADO(S)!\n\n` + mensagem;
-                mostrarStatusCancelamento('4', mensagem, 'success');
-            } else {
-                mensagem = `⚠️ NENHUM PROCESSO CANCELADO\n\n` + mensagem;
-                mostrarStatusCancelamento('4', mensagem, 'warning');
-            }
-
-            // Resetar botões
-            resetarBotoesOffset('4');
-            resetarBotoesLinearizacao('4');
-            resetarBotoesProcedimento('4');
-
-        } catch (error) {
-            mostrarStatusCancelamento('4',
-                `❌ ERRO CRÍTICO!\n\nFalha ao tentar cancelar tudo:\n${error.message}`,
-                'error'
-            );
-        }
-    }
-
     // ============ FUNÇÕES AUXILIARES ============
 
     // Função para obter o canal atual do MTX
@@ -2143,51 +1435,524 @@
         return '300';
     }
 
-    // Função para resetar botões de offset
-    function resetarBotoesOffset(mtx) {
-        const iniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
-        const pararBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
+    // ============ FUNÇÕES PARA CONTROLE GERAL (TODOS MTXs) ============
 
-        if (iniciarBtn && pararBtn) {
-            iniciarBtn.style.display = 'inline-block';
-            pararBtn.style.display = 'none';
-            pararBtn.classList.remove('ativo');
+    // Função para mostrar status geral
+    function mostrarStatusGeral(mensagem, tipo) {
+        const statusElement = document.getElementById('statusGeral');
+
+        if (!statusElement) {
+            console.error('Elemento statusGeral não encontrado');
+            return;
+        }
+
+        statusElement.innerHTML = mensagem;
+        statusElement.className = 'loop-status';
+
+        if (tipo === 'success') {
+            statusElement.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusElement.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusElement.classList.add('status-loading');
+        } else if (tipo === 'warning') {
+            statusElement.classList.add('status-warning');
+        }
+
+        statusElement.style.display = 'block';
+
+        // Esconde após 10 segundos (se não for erro)
+        if (tipo !== 'error') {
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 10000);
         }
     }
 
-    // Função para resetar botões de linearização
-    function resetarBotoesLinearizacao(mtx) {
-        const iniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
-        const pararBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
+    // 1. Função para LIGAR TODOS os MTXs
+    async function ligarTodosMTXs() {
+        const ligarBtn = document.getElementById('ligarTodosBtn');
+        const desligarBtn = document.getElementById('desligarTodosBtn');
 
-        if (iniciarBtn && pararBtn) {
-            iniciarBtn.style.display = 'inline-block';
-            pararBtn.style.display = 'none';
-            pararBtn.classList.remove('ativo');
+        mostrarStatusGeral('Ligando TODOS os MTXs simultaneamente...', 'loading');
+
+        try {
+            // Desativa botões temporariamente
+            if (ligarBtn && desligarBtn) {
+                ligarBtn.style.display = 'none';
+                desligarBtn.style.display = 'inline-block';
+                desligarBtn.classList.add('ativo');
+                ligarBtn.disabled = true;
+            }
+
+            // Array de promises para executar em paralelo
+            const promises = [];
+            const mtxs = ['1', '2', '3', '4'];
+
+            for (const mtx of mtxs) {
+                promises.push(
+                    fetch(`/ligarMtx${mtx}`, { method: 'POST' })
+                        .then(response => response.json())
+                        .then(resultado => ({ mtx, resultado }))
+                );
+            }
+
+            // Executa todas as requisições em paralelo
+            const resultados = await Promise.allSettled(promises);
+
+            // Analisa os resultados
+            let sucessos = 0;
+            let erros = 0;
+            let detalhesErros = [];
+
+            resultados.forEach(result => {
+                if (result.status === 'fulfilled') {
+                    const { mtx, resultado } = result.value;
+                    if (resultado.status === 'sucesso') {
+                        sucessos++;
+
+                        // Atualiza botões individuais
+                        const ligarBtnIndividual = document.getElementById(`ligarBtn${mtx}`);
+                        const desligarBtnIndividual = document.getElementById(`desligarBtn${mtx}`);
+                        if (ligarBtnIndividual && desligarBtnIndividual) {
+                            ligarBtnIndividual.style.display = 'none';
+                            desligarBtnIndividual.style.display = 'inline-block';
+                            desligarBtnIndividual.classList.add('ativo');
+                        }
+                    } else {
+                        erros++;
+                        detalhesErros.push(`MTX${mtx}: ${resultado.mensagem || 'Erro desconhecido'}`);
+                    }
+                } else {
+                    erros++;
+                    detalhesErros.push(`MTX: ${result.reason}`);
+                }
+            });
+
+            if (erros === 0) {
+                mostrarStatusGeral(`<strong>TODOS MTXs LIGADOS COM SUCESSO!</strong><br>Todos os 4 MTXs foram ligados.`, 'success');
+            } else if (sucessos > 0) {
+                mostrarStatusGeral(
+                    `<strong>LIGAÇÃO PARCIALMENTE CONCLUÍDA</strong><br>` +
+                    `Sucesso: ${sucessos} MTX(s)<br>` +
+                    `Falhas: ${erros} MTX(s)<br>` +
+                    `Detalhes: ${detalhesErros.join(', ')}`,
+                    'warning'
+                );
+            } else {
+                mostrarStatusGeral(
+                    `<strong>FALHA AO LIGAR TODOS MTXs</strong><br>` +
+                    `Erros: ${detalhesErros.join('<br>')}`,
+                    'error'
+                );
+            }
+
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão ao tentar ligar todos MTXs', 'error');
+            console.error('Erro ao ligar todos MTXs:', error);
+        } finally {
+            // Atualiza dados após 3 segundos
+            setTimeout(() => {
+                carregarDados();
+            }, 3000);
         }
     }
 
-    // Função para resetar botões de procedimento
-    function resetarBotoesProcedimento(mtx) {
-        const iniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
-        const pararBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+    // 2. Função para DESLIGAR TODOS os MTXs
+    async function desligarTodosMTXs() {
+        const ligarBtn = document.getElementById('ligarTodosBtn');
+        const desligarBtn = document.getElementById('desligarTodosBtn');
 
-        if (iniciarBtn && pararBtn) {
-            iniciarBtn.style.display = 'inline-block';
-            pararBtn.style.display = 'none';
-            pararBtn.classList.remove('ativo');
+        mostrarStatusGeral('Desligando TODOS os MTXs simultaneamente...', 'loading');
+
+        try {
+            // Array de promises para executar em paralelo
+            const promises = [];
+            const mtxs = ['1', '2', '3', '4'];
+
+            for (const mtx of mtxs) {
+                promises.push(
+                    fetch(`/desligarMtx${mtx}`, { method: 'POST' })
+                        .then(response => response.json())
+                        .then(resultado => ({ mtx, resultado }))
+                );
+            }
+
+            // Executa todas as requisições em paralelo
+            const resultados = await Promise.allSettled(promises);
+
+            // Analisa os resultados
+            let sucessos = 0;
+            let erros = 0;
+            let detalhesErros = [];
+
+            resultados.forEach(result => {
+                if (result.status === 'fulfilled') {
+                    const { mtx, resultado } = result.value;
+                    if (resultado.status === 'sucesso') {
+                        sucessos++;
+
+                        // Atualiza botões individuais
+                        const ligarBtnIndividual = document.getElementById(`ligarBtn${mtx}`);
+                        const desligarBtnIndividual = document.getElementById(`desligarBtn${mtx}`);
+                        if (ligarBtnIndividual && desligarBtnIndividual) {
+                            ligarBtnIndividual.style.display = 'inline-block';
+                            desligarBtnIndividual.style.display = 'none';
+                            desligarBtnIndividual.classList.remove('ativo');
+                        }
+                    } else {
+                        erros++;
+                        detalhesErros.push(`MTX${mtx}: ${resultado.mensagem || 'Erro desconhecido'}`);
+                    }
+                } else {
+                    erros++;
+                    detalhesErros.push(`MTX: ${result.reason}`);
+                }
+            });
+
+            if (erros === 0) {
+                mostrarStatusGeral(`<strong>TODOS MTXs DESLIGADOS COM SUCESSO!</strong><br>Todos os 4 MTXs foram desligados.`, 'success');
+
+                // Restaura botões gerais
+                if (ligarBtn && desligarBtn) {
+                    ligarBtn.style.display = 'inline-block';
+                    desligarBtn.style.display = 'none';
+                    desligarBtn.classList.remove('ativo');
+                    ligarBtn.disabled = false;
+                }
+            } else if (sucessos > 0) {
+                mostrarStatusGeral(
+                    `<strong>DESLIGAMENTO PARCIALMENTE CONCLUÍDO</strong><br>` +
+                    `Sucesso: ${sucessos} MTX(s)<br>` +
+                    `Falhas: ${erros} MTX(s)<br>` +
+                    `Detalhes: ${detalhesErros.join(', ')}`,
+                    'warning'
+                );
+            } else {
+                mostrarStatusGeral(
+                    `<strong>FALHA AO DESLIGAR TODOS MTXs</strong><br>` +
+                    `Erros: ${detalhesErros.join('<br>')}`,
+                    'error'
+                );
+            }
+
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão ao tentar desligar todos MTXs', 'error');
+            console.error('Erro ao desligar todos MTXs:', error);
+        } finally {
+            // Atualiza dados após 3 segundos
+            setTimeout(() => {
+                carregarDados();
+            }, 3000);
         }
     }
 
-    // Função para resetar botões de procedimento completo
-    function resetarBotoesProcedimentoCompleto(mtx) {
-        const iniciarBtn = document.getElementById(`procedimentoCompletoBtn${mtx}`);
-        const pararBtn = document.getElementById(`cancelarProcedimentoCompletoBtn${mtx}`);
+    // 3. Função para TROCAR TODOS OS CANAIS PARA CANAL ESPECÍFICO
+    async function trocarTodosCanaisParaCanalEspecifico(canal) {
+        const botaoCancelar = document.getElementById('cancelarTrocaTodosBtn');
 
-        if (iniciarBtn && pararBtn) {
-            iniciarBtn.style.display = 'inline-block';
-            pararBtn.style.display = 'none';
-            pararBtn.classList.remove('ativo');
+        mostrarStatusGeral(`Trocando TODOS os MTXs para canal ${canal}...`, 'loading');
+
+        // Mostra botão de cancelar
+        if (botaoCancelar) {
+            botaoCancelar.style.display = 'inline-block';
+            botaoCancelar.classList.add('ativo');
+        }
+
+        try {
+            const mtxs = ['1', '2', '3', '4'];
+            let sucessos = 0;
+            let erros = 0;
+            let detalhesErros = [];
+
+            // Executa sequencialmente para evitar sobrecarga
+            for (const mtx of mtxs) {
+                try {
+                    const response = await fetch(`/mudar-canal-mtx${mtx}?canal=${canal}`, {
+                        method: 'POST'
+                    });
+
+                    const resultado = await response.json();
+
+                    if (response.ok && resultado.status === 'sucesso') {
+                        sucessos++;
+
+                        // Atualiza visualmente o botão do canal
+                        const canalBtn = document.getElementById(`canalBtn${mtx}`);
+                        if (canalBtn) {
+                            canalBtn.textContent = `Canal: ${canal}`;
+                        }
+
+                    } else {
+                        erros++;
+                        detalhesErros.push(`MTX${mtx}: ${resultado.mensagem || 'Erro desconhecido'}`);
+                    }
+
+                    // Pequena pausa entre requisições
+                    await new Promise(resolve => setTimeout(resolve, 500));
+
+                } catch (error) {
+                    erros++;
+                    detalhesErros.push(`MTX${mtx}: ${error.message}`);
+                    console.error(`Erro ao trocar canal MTX${mtx}:`, error);
+                }
+            }
+
+            // Mostra resultado final
+            if (erros === 0) {
+                mostrarStatusGeral(
+                    `<strong>TODOS MTXs CONFIGURADOS PARA CANAL ${canal}!</strong><br>` +
+                    `Todos os 4 MTXs foram alterados com sucesso.`,
+                    'success'
+                );
+            } else if (sucessos > 0) {
+                mostrarStatusGeral(
+                    `<strong>TROCA PARCIALMENTE CONCLUÍDA</strong><br>` +
+                    `Sucesso: ${sucessos} MTX(s)<br>` +
+                    `Falhas: ${erros} MTX(s)<br>` +
+                    `Detalhes: ${detalhesErros.join(', ')}`,
+                    'warning'
+                );
+            } else {
+                mostrarStatusGeral(
+                    `<strong>FALHA AO TROCAR CANAIS</strong><br>` +
+                    `Erros: ${detalhesErros.join('<br>')}`,
+                    'error'
+                );
+            }
+
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão ao trocar canais', 'error');
+            console.error('Erro geral ao trocar canais:', error);
+        } finally {
+            // Esconde botão de cancelar após 3 segundos
+            setTimeout(() => {
+                if (botaoCancelar) {
+                    botaoCancelar.style.display = 'none';
+                    botaoCancelar.classList.remove('ativo');
+                }
+            }, 3000);
+
+            // Atualiza dados após 3 segundos
+            setTimeout(() => {
+                carregarDados();
+            }, 3000);
+        }
+    }
+
+    // 4. Função para cancelar a troca de todos os canais
+    async function cancelarTrocaTodosCanais() {
+        mostrarStatusGeral('Cancelando troca de canais...', 'loading');
+
+        try {
+            mostrarStatusGeral('Troca de canais cancelada!', 'success');
+
+            // Esconde botão de cancelar
+            const botaoCancelar = document.getElementById('cancelarTrocaTodosBtn');
+            if (botaoCancelar) {
+                botaoCancelar.style.display = 'none';
+                botaoCancelar.classList.remove('ativo');
+            }
+
+        } catch (error) {
+            mostrarStatusGeral('Erro ao cancelar troca de canais', 'error');
+            console.error('Erro ao cancelar:', error);
+        }
+    }
+
+    // 5. Função para PROCEDIMENTO COMPLETO em TODOS MTXs
+    async function iniciarProcedimentoTodosCanaisTodosMTXs() {
+        const iniciarBtn = document.getElementById('procedimentoTodosMTXsBtn');
+        const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
+
+        // Mostra confirmação
+        //if (!confirm('ATENÇÃO: Esta operação executará o procedimento completo em TODOS os 4 MTXs simultaneamente.\n\nEsta operação pode levar várias horas.\nDeseja continuar?')) {
+        //    return;
+        //}
+
+        mostrarStatusGeral(
+            'Iniciando procedimento completo em TODOS os MTXs simultaneamente...<br>' +
+        //    '<strong>ATENÇÃO: Esta operação pode levar várias horas!</strong><br>' +
+            'Não feche esta página durante a execução.',
+            'loading'
+        );
+
+        try {
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'none';
+                cancelarBtn.style.display = 'inline-block';
+                cancelarBtn.classList.add('ativo');
+            }
+
+            // Chama endpoint geral
+            const response = await fetch('/executar-procedimento-todos-mtxs', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarStatusGeral(
+                    `<strong>PROCEDIMENTO INICIADO EM TODOS MTXs!</strong><br>` +
+                    `Status: ${resultado.mensagem}<br>` +
+                    `Hora início: ${resultado.hora_inicio || new Date().toLocaleString()}<br>` +
+                    `Monitorando progresso...`,
+                    'success'
+                );
+
+            } else {
+                mostrarStatusGeral(`Erro ao iniciar procedimento: ${resultado.mensagem}`, 'error');
+
+                // Restaura botões
+                if (iniciarBtn && cancelarBtn) {
+                    iniciarBtn.style.display = 'inline-block';
+                    cancelarBtn.style.display = 'none';
+                    cancelarBtn.classList.remove('ativo');
+                }
+            }
+
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão com o servidor', 'error');
+            console.error('Erro ao iniciar procedimento geral:', error);
+
+            // Restaura botões
+            const iniciarBtn = document.getElementById('procedimentoTodosMTXsBtn');
+            const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'inline-block';
+                cancelarBtn.style.display = 'none';
+                cancelarBtn.classList.remove('ativo');
+            }
+        }
+    }
+
+    // 6. Função para cancelar procedimento geral
+    async function cancelarProcedimentoTodosMTXs() {
+        mostrarStatusGeral('Cancelando procedimento em todos MTXs...', 'loading');
+
+        try {
+            const response = await fetch('/cancelar-procedimento-todos-mtxs', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarStatusGeral('Procedimento cancelado em todos MTXs!', 'success');
+
+                // Restaura botões
+                const iniciarBtn = document.getElementById('procedimentoTodosMTXsBtn');
+                const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
+                if (iniciarBtn && cancelarBtn) {
+                    iniciarBtn.style.display = 'inline-block';
+                    cancelarBtn.style.display = 'none';
+                    cancelarBtn.classList.remove('ativo');
+                }
+
+            } else {
+                mostrarStatusGeral(`Erro ao cancelar: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão ao cancelar', 'error');
+            console.error('Erro ao cancelar procedimento geral:', error);
+        }
+    }
+
+    // 7. Função para OFFSET em TODOS MTXs
+    async function iniciarOffsetTodosCanaisTodosMTXs() {
+        mostrarStatusGeral(
+        //    'ATENÇÃO: Esta função executa OFFSET em TODOS os MTXs simultaneamente.<br>' +
+            'Para executar em cada MTX individualmente, use os botões específicos abaixo.',
+            'warning'
+        );
+
+        // Implementação do offset para todos MTXs
+        try {
+            const response = await fetch('/executar-offset-todos-mtxs', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarStatusGeral('Offset iniciado em todos MTXs!', 'success');
+            } else {
+                mostrarStatusGeral(`Erro: ${resultado.mensagem}`, 'error');
+            }
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão', 'error');
+            console.error('Erro ao iniciar offset:', error);
+        }
+    }
+
+    // 8. Função para finalizar offset em TODOS MTXs
+    async function finalizarOffsetTodosMTXs() {
+        mostrarStatusGeral('Finalizando offset em todos MTXs...', 'loading');
+
+        try {
+            const response = await fetch('/cancelar-offset-todos-mtxs', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarStatusGeral('Offset finalizado em todos MTXs!', 'success');
+            } else {
+                mostrarStatusGeral(`Erro: ${resultado.mensagem}`, 'error');
+            }
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão', 'error');
+            console.error('Erro ao finalizar offset:', error);
+        }
+    }
+
+    // 9. Função para LINEARIZAÇÃO em TODOS MTXs
+    async function iniciarLinearizacaoTodosCanaisTodosMTXs() {
+        //if (!confirm('ATENÇÃO: Iniciar linearização em TODOS os MTXs simultaneamente?\n\nEsta operação pode levar várias horas.')) {
+        //    return;
+        //}
+
+        mostrarStatusGeral('Iniciando linearização em todos MTXs...', 'loading');
+
+        try {
+            const response = await fetch('/executar-linearizacao-todos-mtxs', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarStatusGeral('Linearização iniciada em todos MTXs!', 'success');
+            } else {
+                mostrarStatusGeral(`Erro: ${resultado.mensagem}`, 'error');
+            }
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão', 'error');
+            console.error('Erro ao iniciar linearização:', error);
+        }
+    }
+
+    // 10. Função para finalizar linearização em TODOS MTXs
+    async function finalizarLinearizacaoTodosMTXs() {
+        mostrarStatusGeral('Finalizando linearização em todos MTXs...', 'loading');
+
+        try {
+            const response = await fetch('/cancelar-linearizacao-todos-mtxs', {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarStatusGeral('Linearização finalizada em todos MTXs!', 'success');
+            } else {
+                mostrarStatusGeral(`Erro: ${resultado.mensagem}`, 'error');
+            }
+        } catch (error) {
+            mostrarStatusGeral('Erro de conexão', 'error');
+            console.error('Erro ao finalizar linearização:', error);
         }
     }
 
@@ -2333,6 +2098,10 @@
 
     // Função para iniciar procedimento completo (14 → 34 → 51)
     async function iniciarProcedimentoCompleto(mtx) {
+        //if (!confirm(`ATENÇÃO: Iniciar procedimento completo para MTX${mtx}?\n\nEsta rotina executará os 3 canais sequencialmente:\n• Canal 14\n• Canal 34\n• Canal 51\n\nDuração estimada: ~40 minutos.`)) {
+        //    return;
+        //}
+
         mostrarProcedimentoCompletoStatus(mtx, 'Iniciando rotina principal completa...', 'loading');
 
         try {
@@ -2419,7 +2188,7 @@
             resetarBotoesProcedimentoCompleto(mtx);
         }
     }
-
+    // mudar a cor aqui
     // Função para monitorar o progresso do procedimento completo
     async function iniciarMonitoramentoProcedimentoCompleto(mtx) {
         const statusElement = document.getElementById(`procedimentoTodosStatus${mtx}`);
@@ -2535,6 +2304,18 @@
         }
     }
 
+    // Função para resetar botões do procedimento completo
+    function resetarBotoesProcedimentoCompleto(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoCompletoBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoCompletoBtn${mtx}`);
+
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'inline-block';
+            cancelarBtn.style.display = 'none';
+            cancelarBtn.classList.remove('ativo');
+        }
+    }
+
     // ============ FUNÇÕES PARA PROCEDIMENTO PARA CANAL ATUAL ============
 
     // Função para iniciar procedimento para canal ATUAL
@@ -2607,6 +2388,17 @@
             mostrarProcedimentoStatus(mtx, 'Erro de conexão', 'error');
         } finally {
             resetarBotoesProcedimento(mtx);
+        }
+    }
+
+    function resetarBotoesProcedimento(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'inline-block';
+            cancelarBtn.style.display = 'none';
+            cancelarBtn.classList.remove('ativo');
         }
     }
 
@@ -2772,6 +2564,11 @@
             return;
         }
 
+        //if (!confirm(`ATENÇÃO: Você vai aplicar offset ${valorOffset} em TODOS os 4 MTXs simultaneamente.\n\nDeseja continuar?`)) {
+        //    mostrarStatusGeral("Operação cancelada", "warning");
+        //    return;
+        //}
+
         mostrarStatusGeral(`Aplicando offset ${valorOffset} em todos MTXs...`, 'loading');
 
         try {
@@ -2903,6 +2700,17 @@
         }
     }
 
+    function resetarBotoesOffset(mtx) {
+        const iniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
+        const pararBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
+
+        if (iniciarBtn && pararBtn) {
+            iniciarBtn.style.display = 'inline-block';
+            pararBtn.style.display = 'none';
+            pararBtn.classList.remove('ativo');
+        }
+    }
+
     // ============ FUNÇÕES PARA LINEARIZAÇÃO ============
 
     // Função para iniciar linearização para canal atual
@@ -2978,6 +2786,17 @@
         }
     }
 
+    function resetarBotoesLinearizacao(mtx) {
+        const iniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
+        const pararBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
+
+        if (iniciarBtn && pararBtn) {
+            iniciarBtn.style.display = 'inline-block';
+            pararBtn.style.display = 'none';
+            pararBtn.classList.remove('ativo');
+        }
+    }
+
     // Função auxiliar para mostrar status de linearização
     function mostrarMtxStatusLinearizacao(mtx, mensagem, tipo) {
         const statusElement = document.getElementById(`loopLinearizacao${mtx}`);
@@ -3048,6 +2867,156 @@
         } catch (error) {
             console.error(`Erro ao verificar status MTX${mtx}:`, error);
             return false;
+        }
+    }
+
+    // Inicia o monitoramento de uma rotina
+    function iniciarMonitoramento(mtx, tipoRotina) {
+        // Para qualquer monitoramento anterior
+        if (pollingStatus[mtx].ativo && pollingStatus[mtx].intervalo) {
+            clearInterval(pollingStatus[mtx].intervalo);
+        }
+
+        pollingStatus[mtx] = {
+            ativo: true,
+            tipo: tipoRotina,
+            intervalo: null
+        };
+
+        // Função de verificação periódica
+        const verificarEAtualizar = async () => {
+            const aindaAtivo = await verificarStatusRotina(mtx, tipoRotina);
+
+            if (!aindaAtivo) {
+                // Rotina terminou, resetar botões
+                resetarBotoesPorTipo(mtx, tipoRotina);
+                pararMonitoramento(mtx);
+            }
+        };
+
+        // Verifica a cada 5 segundos
+        pollingStatus[mtx].intervalo = setInterval(verificarEAtualizar, 5000);
+
+        // Primeira verificação após 2 segundos
+        setTimeout(verificarEAtualizar, 2000);
+    }
+
+    // Para o monitoramento
+    function pararMonitoramento(mtx) {
+        if (pollingStatus[mtx].intervalo) {
+            clearInterval(pollingStatus[mtx].intervalo);
+        }
+
+        pollingStatus[mtx] = {
+            ativo: false,
+            tipo: null,
+            intervalo: null
+        };
+    }
+
+    // Função para resetar botões baseado no tipo
+    function resetarBotoesPorTipo(mtx, tipo) {
+        switch(tipo) {
+            case 'procedimento':
+                resetarBotoesProcedimento(mtx);
+                break;
+            case 'offset':
+                resetarBotoesOffset(mtx);
+                break;
+            case 'linearizacao':
+                resetarBotoesLinearizacao(mtx);
+                break;
+        }
+    }
+
+    // ============ VERIFICAÇÃO INICIAL ============
+
+    // Verifica o status inicial de todas as rotinas
+    async function verificarStatusInicial() {
+        const mtxs = ['1', '2', '3', '4'];
+        const tipos = ['procedimento', 'offset', 'linearizacao'];
+
+        for (const mtx of mtxs) {
+            for (const tipo of tipos) {
+                try {
+                    const ativo = await verificarStatusRotina(mtx, tipo);
+                    if (ativo) {
+                        // Se estiver ativo, mostra botão de parar
+                        mostrarBotaoPararPorTipo(mtx, tipo);
+                        iniciarMonitoramento(mtx, tipo);
+                    } else {
+                        // Se não estiver ativo, mostra botão de iniciar
+                        mostrarBotaoIniciarPorTipo(mtx, tipo);
+                    }
+                } catch (error) {
+                    console.error(`Erro ao verificar ${tipo} MTX${mtx}:`, error);
+                }
+            }
+        }
+    }
+
+    // Função auxiliar para mostrar botão correto baseado no tipo
+    function mostrarBotaoIniciarPorTipo(mtx, tipo) {
+        switch(tipo) {
+            case 'procedimento':
+                const procedimentoIniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+                const procedimentoCancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+                if (procedimentoIniciarBtn && procedimentoCancelarBtn) {
+                    procedimentoIniciarBtn.style.display = 'inline-block';
+                    procedimentoCancelarBtn.style.display = 'none';
+                    procedimentoCancelarBtn.classList.remove('ativo');
+                }
+                break;
+            case 'offset':
+                const offsetIniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
+                const offsetCancelarBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
+                if (offsetIniciarBtn && offsetCancelarBtn) {
+                    offsetIniciarBtn.style.display = 'inline-block';
+                    offsetCancelarBtn.style.display = 'none';
+                    offsetCancelarBtn.classList.remove('ativo');
+                }
+                break;
+            case 'linearizacao':
+                const linearizacaoIniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
+                const linearizacaoCancelarBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
+                if (linearizacaoIniciarBtn && linearizacaoCancelarBtn) {
+                    linearizacaoIniciarBtn.style.display = 'inline-block';
+                    linearizacaoCancelarBtn.style.display = 'none';
+                    linearizacaoCancelarBtn.classList.remove('ativo');
+                }
+                break;
+        }
+    }
+
+    function mostrarBotaoPararPorTipo(mtx, tipo) {
+        switch(tipo) {
+            case 'procedimento':
+                const procedimentoIniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+                const procedimentoCancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+                if (procedimentoIniciarBtn && procedimentoCancelarBtn) {
+                    procedimentoIniciarBtn.style.display = 'none';
+                    procedimentoCancelarBtn.style.display = 'inline-block';
+                    procedimentoCancelarBtn.classList.add('ativo');
+                }
+                break;
+            case 'offset':
+                const offsetIniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
+                const offsetCancelarBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
+                if (offsetIniciarBtn && offsetCancelarBtn) {
+                    offsetIniciarBtn.style.display = 'none';
+                    offsetCancelarBtn.style.display = 'inline-block';
+                    offsetCancelarBtn.classList.add('ativo');
+                }
+                break;
+            case 'linearizacao':
+                const linearizacaoIniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
+                const linearizacaoCancelarBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
+                if (linearizacaoIniciarBtn && linearizacaoCancelarBtn) {
+                    linearizacaoIniciarBtn.style.display = 'none';
+                    linearizacaoCancelarBtn.style.display = 'inline-block';
+                    linearizacaoCancelarBtn.classList.add('ativo');
+                }
+                break;
         }
     }
 
@@ -3453,6 +3422,9 @@
                 opcao.classList.add('selected');
             }
         });
+
+        // Verifica status inicial das rotinas
+        verificarStatusInicial();
 
         carregarDados();
         reiniciarTimerAtualizacao();

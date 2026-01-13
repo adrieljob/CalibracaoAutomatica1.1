@@ -8,3 +8,8 @@
 2026-01-07T08:53:03.549548700 | Canal: 34 | Canal Esperado: 34 | Antes: 114 | Depois: 134
 2026-01-07T09:04:28.076926300 | Canal: 14 | Canal Esperado: 14 | Antes: 151 | Depois: 114
 2026-01-07T09:41:18.505192800 | Entrada: 34 | Configurado: 34 | Esperado: 134 | Antes: 114 | Depois: 134 | Correto: SIM
+2026-01-12T17:21:35.005866700 | Entrada: 14 | Configurado: 14 | Esperado: 114 | Antes: 134 | Depois: 114 | Correto: SIM
+2026-01-12T17:25:00.419221400 | Entrada: 34 | Configurado: 34 | Esperado: 134 | Antes: 114 | Depois: 134 | Correto: SIM
+2026-01-12T17:29:59.253404700 | Entrada: 51 | Configurado: 51 | Esperado: 151 | Antes: 134 | Depois: 151 | Correto: SIM
+2026-01-13T10:55:35.561401900 | Entrada: 34 | Configurado: 34 | Esperado: 134 | Antes: 114 | Depois: 134 | Correto: SIM
+2026-01-13T10:55:39.652775700 | Entrada: 14 | Configurado: 14 | Esperado: 114 | Antes: 10 | Depois: 114 | Correto: SIM
