@@ -21,9 +21,9 @@ import java.util.Map;
 @RestController
 public class AjustarOffSetMtx3 {
 
-    // Códigos de cores para console (magenta para MTX3)
+    // Códigos de cores para console (BLUE para MTX3)
     private static final String RESET = "\u001B[0m";
-    private static final String MAGENTA = "\u001B[35m";
+    private static final String BLUE = "\u001B[33m";
 
     // Credenciais de login (configuráveis via application.properties)
     @Value("${app.username:admin}")
@@ -40,8 +40,8 @@ public class AjustarOffSetMtx3 {
         WebDriver driver = null;
 
         try {
-            System.out.println(MAGENTA + "=== INICIANDO ROTINA COMPLETA MTX3 ===" + RESET);
-            System.out.println(MAGENTA + "Hora de início: " + LocalDateTime.now() + RESET);
+            System.out.println(BLUE + "=== INICIANDO ROTINA COMPLETA MTX3 ===" + RESET);
+            System.out.println(BLUE + "Hora de início: " + LocalDateTime.now() + RESET);
 
             // Configurar ChromeDriver UMA VEZ para toda a rotina
             WebDriverManager.chromedriver().setup();
@@ -59,9 +59,9 @@ public class AjustarOffSetMtx3 {
 
             // ETAPA 1: LOGIN (apenas uma vez)
             driver.get("http://10.10.103.103/debug/");
-            System.out.println(MAGENTA + "Página acessada" + RESET);
+            System.out.println(BLUE + "Página acessada" + RESET);
             fazerLogin(driver, wait);
-            System.out.println(MAGENTA + "Login realizado" + RESET);
+            System.out.println(BLUE + "Login realizado" + RESET);
 
             // Processar cada canal na sequência: 14, 34, 51
             String[] canais = {"14", "34", "51"};
@@ -69,9 +69,9 @@ public class AjustarOffSetMtx3 {
             for (int i = 0; i < canais.length; i++) {
                 String canal = canais[i];
 
-                System.out.println(MAGENTA + "\n" + "=".repeat(50) + RESET);
-                System.out.println(MAGENTA + "PROCESSANDO CANAL MTX3: " + canal + RESET);
-                System.out.println(MAGENTA + "=".repeat(50) + RESET);
+                System.out.println(BLUE + "\n" + "=".repeat(50) + RESET);
+                System.out.println(BLUE + "PROCESSANDO CANAL MTX3: " + canal + RESET);
+                System.out.println(BLUE + "=".repeat(50) + RESET);
 
                 // Executar sequência completa para este canal
                 Map<String, Object> resultadoCanal = processarCanalCompleto(driver, wait, canal);
@@ -84,7 +84,7 @@ public class AjustarOffSetMtx3 {
 
                 // Aguardar entre canais (exceto após o último)
                 if (i < canais.length - 1) {
-                    System.out.println(MAGENTA + "\nAguardando 10 segundos antes do próximo canal..." + RESET);
+                    System.out.println(BLUE + "\nAguardando 10 segundos antes do próximo canal..." + RESET);
                     Thread.sleep(10000);
                 }
             }
@@ -96,8 +96,8 @@ public class AjustarOffSetMtx3 {
             respostaGeral.put("hora_fim", LocalDateTime.now().toString());
             respostaGeral.put("resultados", resultados);
 
-            System.out.println(MAGENTA + "\n=== ROTINA COMPLETA MTX3 FINALIZADA ===" + RESET);
-            System.out.println(MAGENTA + "Hora de fim: " + LocalDateTime.now() + RESET);
+            System.out.println(BLUE + "\n=== ROTINA COMPLETA MTX3 FINALIZADA ===" + RESET);
+            System.out.println(BLUE + "Hora de fim: " + LocalDateTime.now() + RESET);
 
             return ResponseEntity.ok(respostaGeral);
 
@@ -116,7 +116,7 @@ public class AjustarOffSetMtx3 {
             // Garantir que o driver seja fechado mesmo em caso de erro
             if (driver != null) {
                 driver.quit();
-                System.out.println(MAGENTA + "Driver finalizado" + RESET);
+                System.out.println(BLUE + "Driver finalizado" + RESET);
             }
         }
     }
@@ -127,39 +127,39 @@ public class AjustarOffSetMtx3 {
 
         try {
             // ========== ETAPA 1: MUDAR CANAL ==========
-            System.out.println(MAGENTA + "\n[ETAPA 1] Mudando para canal MTX3: " + canal + RESET);
+            System.out.println(BLUE + "\n[ETAPA 1] Mudando para canal MTX3: " + canal + RESET);
             String canalAntes = mudarCanal(driver, wait, canal);
             Thread.sleep(2000);
 
             // ========== ETAPA 2: AJUSTAR OFFSET (parte inicial) ==========
-            System.out.println(MAGENTA + "\n[ETAPA 2] Configurando offset e potência do MTX3" + RESET);
+            System.out.println(BLUE + "\n[ETAPA 2] Configurando offset e potência do MTX3" + RESET);
 
             // 2.1. Desligar o MTX3
-            System.out.println(MAGENTA + "  2.1. Desligando MTX3" + RESET);
+            System.out.println(BLUE + "  2.1. Desligando MTX3" + RESET);
             desligarMTX3(driver, wait);
 
             // 2.2. Mudar Thershold para 500
-            System.out.println(MAGENTA + "  2.2. Configurando thershold para 500" + RESET);
+            System.out.println(BLUE + "  2.2. Configurando thershold para 500" + RESET);
             configurarThershold(driver, wait, "500");
 
             // 2.3. Mudar potência para 486
-            System.out.println(MAGENTA + "  2.3. Configurando potência para 486" + RESET);
+            System.out.println(BLUE + "  2.3. Configurando potência para 486" + RESET);
             configurarPotencia(driver, wait, "486");
 
             // 2.4. Ligar o MTX3
-            System.out.println(MAGENTA + "  2.4. Ligando MTX3" + RESET);
+            System.out.println(BLUE + "  2.4. Ligando MTX3" + RESET);
             ligarMTX3(driver, wait);
 
             // 2.5. Esperar 1 minuto
-            System.out.println(MAGENTA + "  2.5. Aguardando 1 minuto para estabilização..." + RESET);
+            System.out.println(BLUE + "  2.5. Aguardando 1 minuto para estabilização..." + RESET);
             Thread.sleep(60000);
 
             // ========== ETAPA 3: VERIFICAR E AJUSTAR DINAMICAMENTE ==========
-            System.out.println(MAGENTA + "\n[ETAPA 3] Verificando e ajustando dinamicamente o MTX3" + RESET);
+            System.out.println(BLUE + "\n[ETAPA 3] Verificando e ajustando dinamicamente o MTX3" + RESET);
 
             // Checa o canal (apenas para confirmar)
             String canalAtual = verificarCanal(driver, wait);
-            System.out.println(MAGENTA + "  Canal atual MTX3: " + canalAtual + RESET);
+            System.out.println(BLUE + "  Canal atual MTX3: " + canalAtual + RESET);
 
             // Verificação FLEXÍVEL do canal
             if (!canalAtual.equals(canal) && !canalAtual.contains(canal)) {
@@ -174,7 +174,7 @@ public class AjustarOffSetMtx3 {
             }
 
             // ========== ETAPA 4: COLETAR RESULTADOS FINAIS ==========
-            System.out.println(MAGENTA + "\n[ETAPA 4] Coletando resultados finais do MTX3" + RESET);
+            System.out.println(BLUE + "\n[ETAPA 4] Coletando resultados finais do MTX3" + RESET);
 
             String potenciaFinal = verificarPotencia(driver, wait);
             String correnteFinal = resultadoAjuste.get("corrente_final").toString();
@@ -197,13 +197,13 @@ public class AjustarOffSetMtx3 {
             resultado.put("offset_inicial", resultadoAjuste.get("offset_inicial"));
 
             // ========== ETAPA 6: FAZER CHECAGEM FINAL DE VALORES ==========
-            System.out.println(MAGENTA + "\n[ETAPA 6] FAZENDO CHECAGEM FINAL" + RESET);
+            System.out.println(BLUE + "\n[ETAPA 6] FAZENDO CHECAGEM FINAL" + RESET);
 
             Map<String, Object> buscaResultado = chamarBuscaAutomatica();
             resultado.put("busca_automatica", buscaResultado);
 
             // ========== ETAPA 7: DESLIGAR MTX3 ==========
-            System.out.println(MAGENTA + "\n[ETAPA 7] Desligando MTX3" + RESET);
+            System.out.println(BLUE + "\n[ETAPA 7] Desligando MTX3" + RESET);
             desligarMTX3(driver, wait);
             chamarFuncaoCancelamento(canal, resultado);
 
@@ -233,7 +233,7 @@ public class AjustarOffSetMtx3 {
             ResponseEntity<Map> response = restTemplate.postForEntity(url, null, Map.class);
 
             if (response.getStatusCode().is2xxSuccessful()) {
-                System.out.println(MAGENTA + "  Busca automática executada com sucesso" + RESET);
+                System.out.println(BLUE + "  Busca automática executada com sucesso" + RESET);
                 return response.getBody();
             }
         } catch (Exception e) {
@@ -249,7 +249,7 @@ public class AjustarOffSetMtx3 {
     // Método para chamar o cancelamento após processar um canal
     private void chamarFuncaoCancelamento(String canal, Map<String, Object> resultadoCanal) {
         try {
-            System.out.println(MAGENTA + "\n=== CHAMANDO CANCELAMENTO PARA CANAL MTX3 " + canal + " ===" + RESET);
+            System.out.println(BLUE + "\n=== CHAMANDO CANCELAMENTO PARA CANAL MTX3 " + canal + " ===" + RESET);
 
             // Preparar dados do cancelamento
             Map<String, Object> dadosCancelamento = new HashMap<>();
@@ -268,7 +268,7 @@ public class AjustarOffSetMtx3 {
             respostaCancelamento.put("dados_canal", dadosCancelamento);
 
             // Log do cancelamento
-            System.out.println(MAGENTA + "Cancelamento executado: " + respostaCancelamento + RESET);
+            System.out.println(BLUE + "Cancelamento executado: " + respostaCancelamento + RESET);
 
             // Salvar log específico do cancelamento
             salvarLogCancelamento(canal, respostaCancelamento);
@@ -287,7 +287,7 @@ public class AjustarOffSetMtx3 {
                     " | Status: " + respostaCancelamento.get("status") +
                     " | Hora: " + respostaCancelamento.get("hora_cancelamento") +
                     " | Mensagem: " + respostaCancelamento.get("mensagem") + "\n");
-            System.out.println(MAGENTA + "  Log de cancelamento MTX3 salvo em: " + filePath + RESET);
+            System.out.println(BLUE + "  Log de cancelamento MTX3 salvo em: " + filePath + RESET);
         } catch (Exception e) {
             System.err.println("Erro ao salvar log de cancelamento MTX3: " + e.getMessage());
         }
@@ -336,7 +336,7 @@ public class AjustarOffSetMtx3 {
 
         // LER OFFSET ATUAL DO EQUIPAMENTO MTX3
         int offsetAtual = lerOffsetAtual(driver, wait);
-        System.out.println(MAGENTA + "  Offset inicial lido do equipamento MTX3: " + offsetAtual + RESET);
+        System.out.println(BLUE + "  Offset inicial lido do equipamento MTX3: " + offsetAtual + RESET);
         resultado.put("offset_inicial", offsetAtual);
 
         int iteracoes = 0;
@@ -352,17 +352,17 @@ public class AjustarOffSetMtx3 {
             case "14":
                 correnteMinima = 69;
                 correnteMaximaErro = 71;
-                System.out.println(MAGENTA + "  Parâmetros para canal 14 do MTX3: 70-73 A" + RESET);
+                System.out.println(BLUE + "  Parâmetros para canal 14 do MTX3: 70-73 A" + RESET);
                 break;
             case "34":
                 correnteMinima = 64;
                 correnteMaximaErro = 66;
-                System.out.println(MAGENTA + "  Parâmetros para canal 34 do MTX3: 65-68 A" + RESET);
+                System.out.println(BLUE + "  Parâmetros para canal 34 do MTX3: 65-68 A" + RESET);
                 break;
             case "51":
                 correnteMinima = 59;
                 correnteMaximaErro = 61;
-                System.out.println(MAGENTA + "  Parâmetros para canal 51 do MTX3: 60-63 A" + RESET);
+                System.out.println(BLUE + "  Parâmetros para canal 51 do MTX3: 60-63 A" + RESET);
                 break;
             default:
                 throw new Exception("Canal não suportado no MTX3: " + canal);
@@ -371,23 +371,23 @@ public class AjustarOffSetMtx3 {
         // Loop principal de ajuste
         while (iteracoes < maxIteracoes) {
             iteracoes++;
-            System.out.println(MAGENTA + "\n  --- Loop " + iteracoes + " | Offset: " + offsetAtual + " | Ajustes: " + ajustesFeitos + "/" + maxAjustes + " ---" + RESET);
+            System.out.println(BLUE + "\n  --- Loop " + iteracoes + " | Offset: " + offsetAtual + " | Ajustes: " + ajustesFeitos + "/" + maxAjustes + " ---" + RESET);
 
             String correnteStr = verificarCorrente(driver, wait);
             double correnteDouble = Double.parseDouble(correnteStr);
             int corrente = (int) correnteDouble;
-            System.out.println(MAGENTA + "    Corrente atual MTX3: " + corrente + " A" + RESET);
+            System.out.println(BLUE + "    Corrente atual MTX3: " + corrente + " A" + RESET);
 
             // Verificação especial se corrente for zero
             if (corrente == 0) {
-                System.out.println(MAGENTA + "    Corrente = 0 A. Verificando potência e corrente completa do MTX3..." + RESET);
+                System.out.println(BLUE + "    Corrente = 0 A. Verificando potência e corrente completa do MTX3..." + RESET);
 
                 try {
                     String resultadoCompleto = verificarPotenciaEcorrente(driver, wait);
-                    System.out.println(MAGENTA + "    Resultado da verificação completa: " + resultadoCompleto + RESET);
+                    System.out.println(BLUE + "    Resultado da verificação completa: " + resultadoCompleto + RESET);
                 } catch (Exception e) {
                     if (e.getMessage() != null && e.getMessage().contains("EQUIPAMENTO DESLIGADO")) {
-                        System.out.println(MAGENTA + "    " + e.getMessage() + RESET);
+                        System.out.println(BLUE + "    " + e.getMessage() + RESET);
                         resultado.put("status", "erro");
                         resultado.put("mensagem", e.getMessage());
                         resultado.put("iteracoes", iteracoes);
@@ -402,16 +402,16 @@ public class AjustarOffSetMtx3 {
 
             // Se corrente atingiu o mínimo desejado
             if (corrente >= correnteMinima) {
-                System.out.println(MAGENTA + "    Corrente atingiu o mínimo (" + correnteMinima + " A)" + RESET);
+                System.out.println(BLUE + "    Corrente atingiu o mínimo (" + correnteMinima + " A)" + RESET);
 
-                System.out.println(MAGENTA + "    Aguardando 10 segundos para verificação final..." + RESET);
+                System.out.println(BLUE + "    Aguardando 10 segundos para verificação final..." + RESET);
                 Thread.sleep(10000);
 
                 // Verificar novamente após espera
                 correnteStr = verificarCorrente(driver, wait);
                 correnteDouble = Double.parseDouble(correnteStr);
                 corrente = (int) correnteDouble;
-                System.out.println(MAGENTA + "    Corrente após 10s: " + corrente + " A" + RESET);
+                System.out.println(BLUE + "    Corrente após 10s: " + corrente + " A" + RESET);
 
                 // Se corrente ultrapassou o máximo permitido
                 if (corrente > correnteMaximaErro) {
@@ -450,17 +450,17 @@ public class AjustarOffSetMtx3 {
                     }
                     ((List<String>) resultado.get("ajustes")).add(erroMsg + " Offset ajustado para: " + offsetAtual);
 
-                    System.out.println(MAGENTA + "    Aplicando novo offset " + offsetAtual + " no MTX3..." + RESET);
+                    System.out.println(BLUE + "    Aplicando novo offset " + offsetAtual + " no MTX3..." + RESET);
                     configurarOffset(driver, wait, String.valueOf(offsetAtual));
 
-                    System.out.println(MAGENTA + "    Aguardando 10 segundos para estabilização..." + RESET);
+                    System.out.println(BLUE + "    Aguardando 10 segundos para estabilização..." + RESET);
                     Thread.sleep(10000);
 
                     continue;
                 }
 
                 // Sucesso: corrente dentro dos limites
-                System.out.println(MAGENTA + "    SUCESSO MTX3: Corrente " + corrente + " A dentro dos limites (" +
+                System.out.println(BLUE + "    SUCESSO MTX3: Corrente " + corrente + " A dentro dos limites (" +
                         correnteMinima + "-" + correnteMaximaErro + " A)" + RESET);
                 resultado.put("status", "sucesso");
                 resultado.put("mensagem", "Corrente MTX3 ajustada corretamente");
@@ -472,10 +472,10 @@ public class AjustarOffSetMtx3 {
             }
 
             // Corrente abaixo do mínimo: diminuir offset
-            System.out.println(MAGENTA + "    Corrente abaixo do mínimo (" + correnteMinima + " A)" + RESET);
+            System.out.println(BLUE + "    Corrente abaixo do mínimo (" + correnteMinima + " A)" + RESET);
 
             offsetAtual--;
-            System.out.println(MAGENTA + "    Reduzindo offset MTX3 para: " + offsetAtual + RESET);
+            System.out.println(BLUE + "    Reduzindo offset MTX3 para: " + offsetAtual + RESET);
 
             // Verificar limite mínimo de offset
             if (offsetAtual < -50) {
@@ -488,10 +488,10 @@ public class AjustarOffSetMtx3 {
                 return resultado;
             }
 
-            System.out.println(MAGENTA + "    Aplicando novo offset " + offsetAtual + " no MTX3..." + RESET);
+            System.out.println(BLUE + "    Aplicando novo offset " + offsetAtual + " no MTX3..." + RESET);
             configurarOffset(driver, wait, String.valueOf(offsetAtual));
 
-            System.out.println(MAGENTA + "    Aguardando 10 segundos para estabilização..." + RESET);
+            System.out.println(BLUE + "    Aguardando 10 segundos para estabilização..." + RESET);
             Thread.sleep(10000);
         }
 
@@ -508,7 +508,7 @@ public class AjustarOffSetMtx3 {
     // Lê o offset atual do equipamento (MTX3)
     private int lerOffsetAtual(WebDriver driver, WebDriverWait wait) throws Exception {
         try {
-            System.out.println(MAGENTA + "  Lendo offset atual do equipamento MTX3..." + RESET);
+            System.out.println(BLUE + "  Lendo offset atual do equipamento MTX3..." + RESET);
 
             WebElement internal3 = wait.until(ExpectedConditions.elementToBeClickable(
                     By.xpath("//label[@link='Internal3___']/input")));
@@ -525,10 +525,10 @@ public class AjustarOffSetMtx3 {
             }
 
             String textoOffset = offsetElement.getText().trim();
-            System.out.println(MAGENTA + "    Texto do offset atual MTX3: " + textoOffset + RESET);
+            System.out.println(BLUE + "    Texto do offset atual MTX3: " + textoOffset + RESET);
 
             double offsetValor = extrairValorNumerico(textoOffset);
-            System.out.println(MAGENTA + "    Offset atual MTX3 extraído: " + (int)offsetValor + RESET);
+            System.out.println(BLUE + "    Offset atual MTX3 extraído: " + (int)offsetValor + RESET);
 
             return (int) offsetValor;
 
@@ -549,11 +549,11 @@ public class AjustarOffSetMtx3 {
 
             // Verificar canal atual
             String canalAntes = verificarCanal(driver, wait);
-            System.out.println(MAGENTA + "  Canal atual MTX3: " + canalAntes + RESET);
+            System.out.println(BLUE + "  Canal atual MTX3: " + canalAntes + RESET);
 
             // Se já estiver no canal correto, retornar
             if (canalAntes.equals(canal)) {
-                System.out.println(MAGENTA + "  MTX3 já está no canal " + canal + RESET);
+                System.out.println(BLUE + "  MTX3 já está no canal " + canal + RESET);
                 return canalAntes;
             }
 
@@ -620,11 +620,11 @@ public class AjustarOffSetMtx3 {
 
             // Verificar se o canal foi alterado
             String canalDepois = verificarCanal(driver, wait);
-            System.out.println(MAGENTA + "  Canal MTX3 configurado: " + canalDepois + RESET);
+            System.out.println(BLUE + "  Canal MTX3 configurado: " + canalDepois + RESET);
 
             int tentativas = 0;
             while (!canalDepois.equals(canal) && tentativas < 3) {
-                System.out.println(MAGENTA + "  Canal MTX3 não mudou corretamente. Tentativa " + (tentativas + 1) + RESET);
+                System.out.println(BLUE + "  Canal MTX3 não mudou corretamente. Tentativa " + (tentativas + 1) + RESET);
                 Thread.sleep(1000);
                 canalDepois = verificarCanal(driver, wait);
                 tentativas++;
@@ -665,7 +665,7 @@ public class AjustarOffSetMtx3 {
             throw new Exception("Falha ao desligar RfMasterOn do MTX3");
         }
 
-        System.out.println(MAGENTA + "  MTX3 desligado (RfMasterOn = 2)" + RESET);
+        System.out.println(BLUE + "  MTX3 desligado (RfMasterOn = 2)" + RESET);
         Thread.sleep(300);
     }
 
@@ -692,7 +692,7 @@ public class AjustarOffSetMtx3 {
             throw new Exception("Falha ao ligar RfMasterOn do MTX3");
         }
 
-        System.out.println(MAGENTA + "  MTX3 ligado (RfMasterOn = 1)" + RESET);
+        System.out.println(BLUE + "  MTX3 ligado (RfMasterOn = 1)" + RESET);
         Thread.sleep(300);
     }
 
@@ -738,7 +738,7 @@ public class AjustarOffSetMtx3 {
             throw new Exception("Falha ao configurar thershold do MTX3 para " + valorThershold);
         }
 
-        System.out.println(MAGENTA + "  Thershold MTX3 configurado: " + valorThershold + RESET);
+        System.out.println(BLUE + "  Thershold MTX3 configurado: " + valorThershold + RESET);
         Thread.sleep(300);
     }
 
@@ -764,7 +764,7 @@ public class AjustarOffSetMtx3 {
             throw new Exception("Falha ao configurar offset do MTX3 para " + valorOffset);
         }
 
-        System.out.println(MAGENTA + "  Offset MTX3 configurado: " + valorOffset + RESET);
+        System.out.println(BLUE + "  Offset MTX3 configurado: " + valorOffset + RESET);
         Thread.sleep(300);
     }
 
@@ -790,7 +790,7 @@ public class AjustarOffSetMtx3 {
             throw new Exception("Falha ao configurar potência do MTX3");
         }
 
-        System.out.println(MAGENTA + "  Potência MTX3 configurada: " + potencia + RESET);
+        System.out.println(BLUE + "  Potência MTX3 configurada: " + potencia + RESET);
         Thread.sleep(300);
     }
 
@@ -884,11 +884,11 @@ public class AjustarOffSetMtx3 {
 
         String textoCompleto = correnteElement.getText().trim();
 
-        System.out.println(MAGENTA + "    Texto completo da corrente MTX3: " + textoCompleto + RESET);
+        System.out.println(BLUE + "    Texto completo da corrente MTX3: " + textoCompleto + RESET);
 
         double correnteValor = extrairValorNumerico(textoCompleto);
 
-        System.out.println(MAGENTA + "    Corrente MTX3 extraída: " + correnteValor + " A" + RESET);
+        System.out.println(BLUE + "    Corrente MTX3 extraída: " + correnteValor + " A" + RESET);
 
         return String.valueOf(correnteValor);
     }
@@ -909,16 +909,16 @@ public class AjustarOffSetMtx3 {
 
             // Tentar diferentes estratégias para obter o valor
             String canalTexto = canalElement.getText().trim();
-            System.out.println(MAGENTA + "    Texto do elemento canal MTX3: " + canalTexto + RESET);
+            System.out.println(BLUE + "    Texto do elemento canal MTX3: " + canalTexto + RESET);
 
             if (canalTexto == null || canalTexto.isEmpty() || canalTexto.contains("Modulator3.Config.UpConverter.ChannelNumber")) {
                 canalTexto = canalElement.getAttribute("value");
-                System.out.println(MAGENTA + "    Value attribute do canal MTX3: " + canalTexto + RESET);
+                System.out.println(BLUE + "    Value attribute do canal MTX3: " + canalTexto + RESET);
             }
 
             if (canalTexto == null || canalTexto.isEmpty()) {
                 canalTexto = canalElement.getAttribute("innerText");
-                System.out.println(MAGENTA + "    InnerText do canal MTX3: " + canalTexto + RESET);
+                System.out.println(BLUE + "    InnerText do canal MTX3: " + canalTexto + RESET);
             }
 
             if (canalTexto != null && !canalTexto.isEmpty()) {
@@ -934,12 +934,12 @@ public class AjustarOffSetMtx3 {
                 String numeros = canalTexto.replaceAll("[^0-9]", "").trim();
 
                 if (!numeros.isEmpty()) {
-                    System.out.println(MAGENTA + "    Canal MTX3 extraído: " + numeros + RESET);
+                    System.out.println(BLUE + "    Canal MTX3 extraído: " + numeros + RESET);
                     return numeros;
                 }
             }
 
-            System.out.println(MAGENTA + "    Não conseguiu extrair canal MTX3, retornando N/A" + RESET);
+            System.out.println(BLUE + "    Não conseguiu extrair canal MTX3, retornando N/A" + RESET);
             return "N/A";
 
         } catch (Exception e) {
@@ -962,7 +962,7 @@ public class AjustarOffSetMtx3 {
         String textoPotencia = potenciaElement.getText().trim();
         double potenciaValor = extrairValorNumerico(textoPotencia);
 
-        System.out.println(MAGENTA + "    Potência MTX3 extraída: " + potenciaValor + " W" + RESET);
+        System.out.println(BLUE + "    Potência MTX3 extraída: " + potenciaValor + " W" + RESET);
 
         // Verificar corrente
         WebElement modulator3 = wait.until(ExpectedConditions.elementToBeClickable(
@@ -974,10 +974,10 @@ public class AjustarOffSetMtx3 {
                 By.id("Modulator3_mtrMainCurr")));
 
         String textoCorrente = correnteElement.getText().trim();
-        System.out.println(MAGENTA + "    Texto completo da corrente MTX3: " + textoCorrente + RESET);
+        System.out.println(BLUE + "    Texto completo da corrente MTX3: " + textoCorrente + RESET);
 
         double correnteValor = extrairValorNumerico(textoCorrente);
-        System.out.println(MAGENTA + "    Corrente MTX3 extraída: " + correnteValor + " A" + RESET);
+        System.out.println(BLUE + "    Corrente MTX3 extraída: " + correnteValor + " A" + RESET);
 
         // Detectar equipamento desligado
         if (correnteValor == 0 && potenciaValor == 0) {
@@ -986,7 +986,7 @@ public class AjustarOffSetMtx3 {
         }
 
         if (correnteValor == 0) {
-            System.out.println(MAGENTA + "    Corrente MTX3 zero, retornando valor da potência" + RESET);
+            System.out.println(BLUE + "    Corrente MTX3 zero, retornando valor da potência" + RESET);
             return "Potência MTX3: " + potenciaValor + " W";
         }
 
@@ -1018,7 +1018,7 @@ public class AjustarOffSetMtx3 {
                     " | Offset: " + offset +
                     " | Iterações: " + resultadoAjuste.get("iteracoes") +
                     " | Status: " + resultadoAjuste.get("status") + "\n");
-            System.out.println(MAGENTA + "  Log MTX3 salvo em: " + filePath + RESET);
+            System.out.println(BLUE + "  Log MTX3 salvo em: " + filePath + RESET);
         } catch (Exception e) {
             System.err.println("Erro ao salvar log MTX3: " + e.getMessage());
         }
@@ -1027,15 +1027,15 @@ public class AjustarOffSetMtx3 {
     // debugar cada canal em especifico
     private void debugElemento(WebElement elemento, String nome) {
         try {
-            System.out.println(MAGENTA + "\n=== DEBUG MTX3 " + nome + " ===" + RESET);
-            System.out.println(MAGENTA + "Tag: " + elemento.getTagName() + RESET);
-            System.out.println(MAGENTA + "Text: " + elemento.getText() + RESET);
-            System.out.println(MAGENTA + "Value attr: " + elemento.getAttribute("value") + RESET);
-            System.out.println(MAGENTA + "InnerText: " + elemento.getAttribute("innerText") + RESET);
-            System.out.println(MAGENTA + "OuterHTML: " + elemento.getAttribute("outerHTML") + RESET);
-            System.out.println(MAGENTA + "Displayed: " + elemento.isDisplayed() + RESET);
-            System.out.println(MAGENTA + "Enabled: " + elemento.isEnabled() + RESET);
-            System.out.println(MAGENTA + "==================\n" + RESET);
+            System.out.println(BLUE + "\n=== DEBUG MTX3 " + nome + " ===" + RESET);
+            System.out.println(BLUE + "Tag: " + elemento.getTagName() + RESET);
+            System.out.println(BLUE + "Text: " + elemento.getText() + RESET);
+            System.out.println(BLUE + "Value attr: " + elemento.getAttribute("value") + RESET);
+            System.out.println(BLUE + "InnerText: " + elemento.getAttribute("innerText") + RESET);
+            System.out.println(BLUE + "OuterHTML: " + elemento.getAttribute("outerHTML") + RESET);
+            System.out.println(BLUE + "Displayed: " + elemento.isDisplayed() + RESET);
+            System.out.println(BLUE + "Enabled: " + elemento.isEnabled() + RESET);
+            System.out.println(BLUE + "==================\n" + RESET);
         } catch (Exception e) {
             System.err.println("Erro no debug MTX3: " + e.getMessage());
         }
@@ -1047,8 +1047,8 @@ public class AjustarOffSetMtx3 {
         Map<String, Object> resposta = new HashMap<>();
         WebDriver driver = null;
 
-        System.out.println(MAGENTA + "=== CONFIGURANDO OFFSET PARA MTX3 ===" + RESET);
-        System.out.println(MAGENTA + "Valor solicitado: " + offset + RESET);
+        System.out.println(BLUE + "=== CONFIGURANDO OFFSET PARA MTX3 ===" + RESET);
+        System.out.println(BLUE + "Valor solicitado: " + offset + RESET);
 
         try {
             // Validar offset
@@ -1081,7 +1081,7 @@ public class AjustarOffSetMtx3 {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
             // Login
-            System.out.println(MAGENTA + "Acessando página de debug..." + RESET);
+            System.out.println(BLUE + "Acessando página de debug..." + RESET);
             driver.get("http://10.10.103.103/debug/");
 
             WebElement usernameField = wait.until(ExpectedConditions.elementToBeClickable(
@@ -1099,17 +1099,17 @@ public class AjustarOffSetMtx3 {
             WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(
                     By.xpath("//button[text()='Sign In']")));
             loginButton.click();
-            System.out.println(MAGENTA + "Login realizado" + RESET);
+            System.out.println(BLUE + "Login realizado" + RESET);
             Thread.sleep(1500);
 
             // Navegar para offset
-            System.out.println(MAGENTA + "Navegando para Internal3..." + RESET);
+            System.out.println(BLUE + "Navegando para Internal3..." + RESET);
             WebElement internal3 = wait.until(ExpectedConditions.elementToBeClickable(
                     By.xpath("//label[@link='Internal3___']/input")));
             internal3.click();
             Thread.sleep(500);
 
-            System.out.println(MAGENTA + "Procurando campo de offset..." + RESET);
+            System.out.println(BLUE + "Procurando campo de offset..." + RESET);
 
             WebElement offsetElement = null;
             String[] offsetSelectors = {
@@ -1126,7 +1126,7 @@ public class AjustarOffSetMtx3 {
                 try {
                     offsetElement = driver.findElement(By.xpath(selector));
                     if (offsetElement != null && offsetElement.isDisplayed()) {
-                        System.out.println(MAGENTA + "Offset encontrado com selector: " + selector + RESET);
+                        System.out.println(BLUE + "Offset encontrado com selector: " + selector + RESET);
                         break;
                     }
                 } catch (Exception e) {
@@ -1142,12 +1142,12 @@ public class AjustarOffSetMtx3 {
                 }
             }
 
-            System.out.println(MAGENTA + "Elemento encontrado - Tag: " + offsetElement.getTagName() + RESET);
-            System.out.println(MAGENTA + "ID: " + offsetElement.getAttribute("id") + RESET);
-            System.out.println(MAGENTA + "Nome: " + offsetElement.getAttribute("name") + RESET);
-            System.out.println(MAGENTA + "Texto: " + offsetElement.getText() + RESET);
+            System.out.println(BLUE + "Elemento encontrado - Tag: " + offsetElement.getTagName() + RESET);
+            System.out.println(BLUE + "ID: " + offsetElement.getAttribute("id") + RESET);
+            System.out.println(BLUE + "Nome: " + offsetElement.getAttribute("name") + RESET);
+            System.out.println(BLUE + "Texto: " + offsetElement.getText() + RESET);
 
-            System.out.println(MAGENTA + "Configurando offset para " + offset + "..." + RESET);
+            System.out.println(BLUE + "Configurando offset para " + offset + "..." + RESET);
 
             boolean sucesso = false;
 
@@ -1162,7 +1162,7 @@ public class AjustarOffSetMtx3 {
                 if (activeElement.getTagName().equalsIgnoreCase("input") ||
                         activeElement.getTagName().equalsIgnoreCase("textarea")) {
 
-                    System.out.println(MAGENTA + "Campo ativo encontrado para edição" + RESET);
+                    System.out.println(BLUE + "Campo ativo encontrado para edição" + RESET);
 
                     activeElement.sendKeys(Keys.chord(Keys.CONTROL, "a"));
                     activeElement.sendKeys(Keys.DELETE);
@@ -1218,7 +1218,7 @@ public class AjustarOffSetMtx3 {
             }
 
             // Verificar se foi aplicado
-            System.out.println(MAGENTA + "Verificando offset aplicado..." + RESET);
+            System.out.println(BLUE + "Verificando offset aplicado..." + RESET);
             Thread.sleep(2000);
 
             internal3.click();
@@ -1243,7 +1243,7 @@ public class AjustarOffSetMtx3 {
 
                 offsetAtual = offsetAtual.replaceAll("[^0-9-]", "").trim();
 
-                System.out.println(MAGENTA + "Offset lido após configuração: " + offsetAtual + RESET);
+                System.out.println(BLUE + "Offset lido após configuração: " + offsetAtual + RESET);
 
             } catch (Exception e) {
                 System.err.println("Não foi possível ler offset atual do MTX3: " + e.getMessage());
@@ -1256,7 +1256,7 @@ public class AjustarOffSetMtx3 {
             resposta.put("offset_aplicado", offsetAtual.isEmpty() ? offset : offsetAtual);
             resposta.put("hora_aplicacao", LocalDateTime.now().toString());
 
-            System.out.println(MAGENTA + "=== OFFSET MTX3 CONFIGURADO COM SUCESSO ===" + RESET);
+            System.out.println(BLUE + "=== OFFSET MTX3 CONFIGURADO COM SUCESSO ===" + RESET);
 
             return ResponseEntity.ok(resposta);
 
@@ -1274,7 +1274,7 @@ public class AjustarOffSetMtx3 {
             if (driver != null) {
                 try {
                     driver.quit();
-                    System.out.println(MAGENTA + "Driver finalizado" + RESET);
+                    System.out.println(BLUE + "Driver finalizado" + RESET);
                 } catch (Exception e) {
                     System.err.println("Erro ao finalizar driver: " + e.getMessage());
                 }
@@ -1333,7 +1333,7 @@ public class AjustarOffSetMtx3 {
     public ResponseEntity<Map<String, Object>> cancelarOffsetMtx3() {
         Map<String, Object> resposta = new HashMap<>();
 
-        System.out.println(MAGENTA + "Solicitação de cancelamento de offset MTX3 recebida" + RESET);
+        System.out.println(BLUE + "Solicitação de cancelamento de offset MTX3 recebida" + RESET);
 
         resposta.put("status", "sucesso");
         resposta.put("mensagem", "Solicitação de cancelamento MTX3 recebida");
