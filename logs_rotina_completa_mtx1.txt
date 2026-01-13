@@ -1,0 +1,1 @@
+2026-01-13T10:45:50.034875100 | MTX1 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -5 | Iterações: 6 | Status: sucesso
