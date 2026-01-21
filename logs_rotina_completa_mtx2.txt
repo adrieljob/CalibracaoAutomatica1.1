@@ -3,3 +3,4 @@
 2026-01-07T11:18:10.574238400 | MTX2 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -5 | Iterações: 6 | Status: sucesso
 2026-01-07T14:45:18.777205200 | MTX2 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 71 | Offset: -6 | Iterações: 1 | Status: sucesso
 2026-01-13T10:06:42.431342900 | MTX2 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 69 | Offset: -2 | Iterações: 3 | Status: sucesso
+2026-01-21T12:38:08.131238300 | MTX2 | Canal: 14 | Antes: 14 | Depois: 14 | Potência: 72443.0 | Corrente: 70 | Offset: -7 | Iterações: 13 | Status: sucesso

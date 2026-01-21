@@ -13,3 +13,5 @@
 2026-01-12T17:29:59.253404700 | Entrada: 51 | Configurado: 51 | Esperado: 151 | Antes: 134 | Depois: 151 | Correto: SIM
 2026-01-13T10:55:35.561401900 | Entrada: 34 | Configurado: 34 | Esperado: 134 | Antes: 114 | Depois: 134 | Correto: SIM
 2026-01-13T10:55:39.652775700 | Entrada: 14 | Configurado: 14 | Esperado: 114 | Antes: 10 | Depois: 114 | Correto: SIM
+2026-01-13T16:28:37.034100500 | Entrada: 34 | Configurado: 34 | Esperado: 134 | Antes: 114 | Depois: 134 | Correto: SIM
+2026-01-21T11:28:06.698635200 | Entrada: 14 | Configurado: 14 | Esperado: 114 | Antes: 114 | Depois: 114 | Correto: SIM

@@ -589,6 +589,7 @@
 </div>
 
 <h1>Calibração Automática 1.3</h1>
+
 <!--
  CONTROLES GERAIS
 <h1>Controle GERAL - TODOS MTXs</h1>
@@ -719,7 +720,7 @@
     </div>
 
     <!-- Container para PROCEDIMENTO COMPLETO -->
-    <div class="procedimento-todos-container">
+    <div class="procedimento-completo-container">
         <button class="procedimento-todos-btn" onclick="iniciarProcedimentoCompleto('1')" id="procedimentoCompletoBtn1">
             ROTINA PRINCIPAL COMPLETA
         </button>
@@ -889,6 +890,17 @@
         </button>
     </div>
 
+    <!-- Container para PROCEDIMENTO COMPLETO -->
+    <div class="procedimento-completo-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoCompleto('2')" id="procedimentoCompletoBtn2">
+            ROTINA PRINCIPAL COMPLETA
+        </button>
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoCompleto('2')"
+                id="cancelarProcedimentoCompletoBtn2" style="display: none;">
+            CANCELAR
+        </button>
+    </div>
+
     <!-- Container para OFFSET PARA CANAL ATUAL -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarOffsetCanalAtual('2')" id="comecarOffsetCanalBtn2">
@@ -917,6 +929,8 @@
     <div class="loop-status" id="loopPotencia2"></div>
     <div class="loop-status" id="loopPotenciageral2"></div>
     <div class="loop-status" id="loopLinearizacao2"></div>
+    <div class="loop-status" id="procedimentoStatus2"></div>
+    <div class="loop-status" id="procedimentoTodosStatus2"></div>
 
     <!-- Container para CONFIGURAR OFFSET INICIAL MTX2 -->
     <div class="offset-config-container"
@@ -1046,6 +1060,17 @@
         </button>
     </div>
 
+    <!-- Container para PROCEDIMENTO COMPLETO -->
+    <div class="procedimento-completo-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoCompleto('3')" id="procedimentoCompletoBtn3">
+            ROTINA PRINCIPAL COMPLETA
+        </button>
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoCompleto('3')"
+                id="cancelarProcedimentoCompletoBtn3" style="display: none;">
+            CANCELAR
+        </button>
+    </div>
+
     <!-- Container para OFFSET PARA CANAL ATUAL -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarOffsetCanalAtual('3')" id="comecarOffsetCanalBtn3">
@@ -1074,6 +1099,8 @@
     <div class="loop-status" id="loopPotencia3"></div>
     <div class="loop-status" id="loopPotenciageral3"></div>
     <div class="loop-status" id="loopLinearizacao3"></div>
+    <div class="loop-status" id="procedimentoStatus3"></div>
+    <div class="loop-status" id="procedimentoTodosStatus3"></div>
 
     <!-- Container para CONFIGURAR OFFSET INICIAL MTX3 -->
     <div class="offset-config-container"
@@ -1203,6 +1230,17 @@
         </button>
     </div>
 
+    <!-- Container para PROCEDIMENTO COMPLETO -->
+    <div class="procedimento-completo-container">
+        <button class="procedimento-todos-btn" onclick="iniciarProcedimentoCompleto('4')" id="procedimentoCompletoBtn4">
+            ROTINA PRINCIPAL COMPLETA
+        </button>
+        <button class="procedimento-todos-btn parar" onclick="cancelarProcedimentoCompleto('4')"
+                id="cancelarProcedimentoCompletoBtn4" style="display: none;">
+            CANCELAR
+        </button>
+    </div>
+
     <!-- Container para OFFSET PARA CANAL ATUAL -->
     <div class="potencia-geral-container">
         <button class="loop-btn" onclick="iniciarOffsetCanalAtual('4')" id="comecarOffsetCanalBtn4">
@@ -1231,6 +1269,8 @@
     <div class="loop-status" id="loopPotencia4"></div>
     <div class="loop-status" id="loopPotenciageral4"></div>
     <div class="loop-status" id="looplinearizacao4"></div>
+    <div class="loop-status" id="procedimentoStatus4"></div>
+    <div class="loop-status" id="procedimentoTodosStatus4"></div>
 
     <!-- Container para CONFIGURAR OFFSET INICIAL MTX4 -->
     <div class="offset-config-container"
@@ -1351,6 +1391,14 @@
         '2': false,
         '3': false,
         '4': false
+    };
+
+    // ============ VARIÁVEIS PARA MONITORAMENTO ============
+    let pollingStatus = {
+        '1': { ativo: false, tipo: null, intervalo: null },
+        '2': { ativo: false, tipo: null, intervalo: null },
+        '3': { ativo: false, tipo: null, intervalo: null },
+        '4': { ativo: false, tipo: null, intervalo: null }
     };
 
     // ============ FUNÇÕES AUXILIARES ============
@@ -1718,13 +1766,13 @@
         const cancelarBtn = document.getElementById('cancelarProcedimentoTodosMTXsBtn');
 
         // Mostra confirmação
-        if (!confirm('ATENÇÃO: Esta operação executará o procedimento completo em TODOS os 4 MTXs simultaneamente.\n\nEsta operação pode levar várias horas.\nDeseja continuar?')) {
-            return;
-        }
+        //if (!confirm('ATENÇÃO: Esta operação executará o procedimento completo em TODOS os 4 MTXs simultaneamente.\n\nEsta operação pode levar várias horas.\nDeseja continuar?')) {
+        //    return;
+        //}
 
         mostrarStatusGeral(
             'Iniciando procedimento completo em TODOS os MTXs simultaneamente...<br>' +
-            '<strong>ATENÇÃO: Esta operação pode levar várias horas!</strong><br>' +
+        //    '<strong>ATENÇÃO: Esta operação pode levar várias horas!</strong><br>' +
             'Não feche esta página durante a execução.',
             'loading'
         );
@@ -1814,7 +1862,7 @@
     // 7. Função para OFFSET em TODOS MTXs
     async function iniciarOffsetTodosCanaisTodosMTXs() {
         mostrarStatusGeral(
-            'ATENÇÃO: Esta função executa OFFSET em TODOS os MTXs simultaneamente.<br>' +
+        //    'ATENÇÃO: Esta função executa OFFSET em TODOS os MTXs simultaneamente.<br>' +
             'Para executar em cada MTX individualmente, use os botões específicos abaixo.',
             'warning'
         );
@@ -1862,9 +1910,9 @@
 
     // 9. Função para LINEARIZAÇÃO em TODOS MTXs
     async function iniciarLinearizacaoTodosCanaisTodosMTXs() {
-        if (!confirm('ATENÇÃO: Iniciar linearização em TODOS os MTXs simultaneamente?\n\nEsta operação pode levar várias horas.')) {
-            return;
-        }
+        //if (!confirm('ATENÇÃO: Iniciar linearização em TODOS os MTXs simultaneamente?\n\nEsta operação pode levar várias horas.')) {
+        //    return;
+        //}
 
         mostrarStatusGeral('Iniciando linearização em todos MTXs...', 'loading');
 
@@ -2046,7 +2094,229 @@
         }
     }
 
-    // ============ FUNÇÕES PARA PROCEDIMENTO COMPLETO ============
+    // ============ FUNÇÕES PARA PROCEDIMENTO COMPLETO (3 CANAIS) ============
+
+    // Função para iniciar procedimento completo (14 → 34 → 51)
+    async function iniciarProcedimentoCompleto(mtx) {
+        //if (!confirm(`ATENÇÃO: Iniciar procedimento completo para MTX${mtx}?\n\nEsta rotina executará os 3 canais sequencialmente:\n• Canal 14\n• Canal 34\n• Canal 51\n\nDuração estimada: ~40 minutos.`)) {
+        //    return;
+        //}
+
+        mostrarProcedimentoCompletoStatus(mtx, 'Iniciando rotina principal completa...', 'loading');
+
+        try {
+            // Mostra botões
+            const iniciarBtn = document.getElementById(`procedimentoCompletoBtn${mtx}`);
+            const cancelarBtn = document.getElementById(`cancelarProcedimentoCompletoBtn${mtx}`);
+
+            if (iniciarBtn && cancelarBtn) {
+                iniciarBtn.style.display = 'none';
+                cancelarBtn.style.display = 'inline-block';
+                cancelarBtn.classList.add('ativo');
+            }
+
+            // Chama endpoint do procedimento completo (ajuste offset + linearização + checagem para 3 canais)
+            const response = await fetch(`/executar-procedimento-completo-mtx${mtx}`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarProcedimentoCompletoStatus(mtx,
+                    `<strong>ROTINA PRINCIPAL INICIADA!</strong><br>` +
+                    `Sequência: 14 → 34 → 51<br>` +
+                    `Hora início: ${resultado.hora_inicio || new Date().toLocaleString()}<br>` +
+                    `Status: ${resultado.mensagem}<br><br>` +
+                    `<small>Monitorando progresso...</small>`,
+                    'success'
+                );
+
+                // INICIA MONITORAMENTO ESPECÍFICO
+                iniciarMonitoramentoProcedimentoCompleto(mtx);
+
+                // Atualiza dados periodicamente
+                const atualizarInterval = setInterval(() => {
+                    carregarDados();
+                }, 30000); // Atualiza a cada 30 segundos
+
+                // Fallback: para após 3 horas (segurança)
+                setTimeout(() => {
+                    clearInterval(atualizarInterval);
+                    if (document.getElementById(`procedimentoCompletoBtn${mtx}`).style.display === 'none') {
+                        finalizarProcedimentoCompleto(mtx);
+                    }
+                }, 10800000);
+
+            } else {
+                mostrarProcedimentoCompletoStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+                resetarBotoesProcedimentoCompleto(mtx);
+            }
+
+        } catch (error) {
+            mostrarProcedimentoCompletoStatus(mtx, 'Erro de conexão com o servidor', 'error');
+            console.error('Erro ao iniciar procedimento completo:', error);
+            resetarBotoesProcedimentoCompleto(mtx);
+        }
+    }
+
+    // Função para cancelar procedimento completo
+    async function cancelarProcedimentoCompleto(mtx) {
+        if (!confirm('Tem certeza que deseja cancelar a rotina principal completa?')) {
+            return;
+        }
+
+        mostrarProcedimentoCompletoStatus(mtx, 'Cancelando rotina principal...', 'loading');
+
+        try {
+            const response = await fetch(`/cancelar-procedimento-mtx${mtx}`, {
+                method: 'POST'
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok && resultado.status === 'sucesso') {
+                mostrarProcedimentoCompletoStatus(mtx, 'Rotina principal cancelada!', 'success');
+            } else {
+                mostrarProcedimentoCompletoStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
+            }
+
+        } catch (error) {
+            mostrarProcedimentoCompletoStatus(mtx, 'Erro de conexão ao cancelar', 'error');
+            console.error('Erro ao cancelar procedimento completo:', error);
+        } finally {
+            resetarBotoesProcedimentoCompleto(mtx);
+        }
+    }
+    // mudar a cor aqui
+    // Função para monitorar o progresso do procedimento completo
+    async function iniciarMonitoramentoProcedimentoCompleto(mtx) {
+        const statusElement = document.getElementById(`procedimentoTodosStatus${mtx}`);
+
+        // Função de atualização de status
+        const atualizarStatus = async () => {
+            try {
+                const response = await fetch(`/status-procedimento-mtx${mtx}`);
+                if (!response.ok) return;
+
+                const status = await response.json();
+
+                if (status.ativo) {
+                    let mensagem = `<strong>ROTINA PRINCIPAL EM ANDAMENTO</strong><br>`;
+                    mensagem += `Status: ${status.status || 'executando'}<br>`;
+                    mensagem += `Canal atual: ${status.canal || 'N/A'}<br>`;
+                    mensagem += `Etapa: ${status.etapa || 'N/A'}<br>`;
+                    mensagem += `Início: ${status.hora_inicio || 'N/A'}<br>`;
+                    mensagem += `Última atualização: ${status.ultima_atualizacao || 'N/A'}`;
+
+                    if (statusElement) {
+                        statusElement.innerHTML = mensagem;
+                        statusElement.className = 'loop-status status-warning';
+                        statusElement.style.display = 'block';
+                    }
+                } else {
+                    // Procedimento terminou
+                    finalizarProcedimentoCompleto(mtx);
+                }
+            } catch (error) {
+                console.error('Erro ao monitorar procedimento:', error);
+            }
+        };
+
+        // Atualiza a cada 10 segundos
+        const monitorInterval = setInterval(atualizarStatus, 10000);
+
+        // Primeira atualização
+        atualizarStatus();
+
+        // Guarda o intervalo para limpar depois
+        window[`procedimentoCompletoMonitor${mtx}`] = monitorInterval;
+    }
+
+    // Função para finalizar procedimento completo
+    function finalizarProcedimentoCompleto(mtx) {
+        // Limpa o monitoramento
+        if (window[`procedimentoCompletoMonitor${mtx}`]) {
+            clearInterval(window[`procedimentoCompletoMonitor${mtx}`]);
+            delete window[`procedimentoCompletoMonitor${mtx}`];
+        }
+
+        // Mostra mensagem de conclusão
+        const statusElement = document.getElementById(`procedimentoTodosStatus${mtx}`);
+        if (statusElement) {
+            statusElement.innerHTML = `<strong>ROTINA PRINCIPAL CONCLUÍDA!</strong><br>Procedimento completo finalizado para todos os canais.`;
+            statusElement.className = 'loop-status status-success';
+            statusElement.style.display = 'block';
+
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 10000);
+        }
+
+        // Resetar botões
+        resetarBotoesProcedimentoCompleto(mtx);
+
+        // Forçar atualização de dados
+        setTimeout(() => {
+            carregarDados();
+        }, 3000);
+    }
+
+    // Função para mostrar status do procedimento completo
+    function mostrarProcedimentoCompletoStatus(mtx, mensagem, tipo) {
+        const statusElement = document.getElementById(`procedimentoTodosStatus${mtx}`);
+
+        if (!statusElement) {
+            console.error(`Elemento procedimentoTodosStatus${mtx} não encontrado`);
+            return;
+        }
+
+        statusElement.innerHTML = mensagem;
+        statusElement.className = `loop-status`;
+
+        if (tipo === 'success') {
+            statusElement.classList.add('status-success');
+        } else if (tipo === 'error') {
+            statusElement.classList.add('status-error');
+        } else if (tipo === 'loading') {
+            statusElement.classList.add('status-loading');
+        } else if (tipo === 'warning') {
+            statusElement.classList.add('status-warning');
+        }
+
+        statusElement.style.display = 'block';
+
+        // Se for erro, adicionar botão de tentar novamente
+        if (tipo === 'error') {
+            const tentarNovamenteBtn = document.createElement('button');
+            tentarNovamenteBtn.textContent = 'Tentar novamente';
+            tentarNovamenteBtn.className = 'tentar-novamente-btn';
+            tentarNovamenteBtn.onclick = () => iniciarProcedimentoCompleto(mtx);
+            statusElement.appendChild(document.createElement('br'));
+            statusElement.appendChild(tentarNovamenteBtn);
+        }
+
+        // Não esconde automaticamente quando é warning (monitoramento ativo)
+        if (tipo !== 'warning' && tipo !== 'loading') {
+            setTimeout(() => {
+                statusElement.style.display = 'none';
+            }, 10000);
+        }
+    }
+
+    // Função para resetar botões do procedimento completo
+    function resetarBotoesProcedimentoCompleto(mtx) {
+        const iniciarBtn = document.getElementById(`procedimentoCompletoBtn${mtx}`);
+        const cancelarBtn = document.getElementById(`cancelarProcedimentoCompletoBtn${mtx}`);
+
+        if (iniciarBtn && cancelarBtn) {
+            iniciarBtn.style.display = 'inline-block';
+            cancelarBtn.style.display = 'none';
+            cancelarBtn.classList.remove('ativo');
+        }
+    }
+
+    // ============ FUNÇÕES PARA PROCEDIMENTO PARA CANAL ATUAL ============
 
     // Função para iniciar procedimento para canal ATUAL
     async function iniciarProcedimentoCanalAtual(mtx) {
@@ -2172,7 +2442,9 @@
         }
     }
 
-   // ============ FUNÇÃO PARA APLICAR OFFSET ============
+    // ============ FUNÇÕES PARA APLICAR OFFSET ============
+
+    // Função para aplicar offset em MTX específico
     async function aplicarOffsetMTX(mtx) {
         const inputElement = document.getElementById(`offsetInicialMtx${mtx}`);
         const btnElement = document.getElementById(`btnAplicarOffsetMTX${mtx}`);
@@ -2277,7 +2549,7 @@
         }
     }
 
-    // Adicione também uma função para aplicar offset em todos os MTXs
+    // Função para aplicar offset em todos os MTXs
     async function aplicarOffsetTodosMTXs() {
         const valorOffset = prompt("Digite o valor do offset para aplicar em TODOS os MTXs:");
 
@@ -2292,10 +2564,10 @@
             return;
         }
 
-        if (!confirm(`ATENÇÃO: Você vai aplicar offset ${valorOffset} em TODOS os 4 MTXs simultaneamente.\n\nDeseja continuar?`)) {
-            mostrarStatusGeral("Operação cancelada", "warning");
-            return;
-        }
+        //if (!confirm(`ATENÇÃO: Você vai aplicar offset ${valorOffset} em TODOS os 4 MTXs simultaneamente.\n\nDeseja continuar?`)) {
+        //    mostrarStatusGeral("Operação cancelada", "warning");
+        //    return;
+        //}
 
         mostrarStatusGeral(`Aplicando offset ${valorOffset} em todos MTXs...`, 'loading');
 
@@ -2351,33 +2623,6 @@
             }, 5000);
         }
     }
-
-    // Adicione este botão na seção de controle geral
-    function adicionarBotaoOffsetGeral() {
-        const html = `
-            <div class="offset-config-container" style="margin: 20px 0; padding: 15px; background: #1a1a1a; border-radius: 8px; border: 1px solid #ff9900;">
-                <h3 style="color: #ff9900; margin-bottom: 10px;">APLICAR OFFSET EM TODOS MTXs</h3>
-                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                    <button onclick="aplicarOffsetTodosMTXs()"
-                            style="padding: 8px 16px; background: #ff9900; color: #000; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
-                        APLICAR MESMO OFFSET EM TODOS
-                    </button>
-                    <span style="font-size: 12px; color: #aaa;">
-                        Aplica o mesmo valor em todos os MTXs
-                    </span>
-                </div>
-            </div>
-        `;
-
-        // Insira na seção de controle geral
-        const controleGeral = document.querySelector('.controle-geral-section');
-        if (controleGeral) {
-            controleGeral.insertAdjacentHTML('beforeend', html);
-        }
-    }
-
-    // Chame quando a página carregar
-    window.addEventListener('load', adicionarBotaoOffsetGeral);
 
     // ============ FUNÇÕES PARA OFFSET CANAL ATUAL ============
 
@@ -2592,6 +2837,189 @@
         }
     }
 
+    // ============ FUNÇÕES DE MONITORAMENTO DE STATUS ============
+
+    // Verifica o status de uma rotina específica
+    async function verificarStatusRotina(mtx, tipoRotina) {
+        try {
+            let endpoint = '';
+
+            switch(tipoRotina) {
+                case 'procedimento':
+                    endpoint = `/status-procedimento-mtx${mtx}`;
+                    break;
+                case 'offset':
+                    endpoint = `/status-offset-mtx${mtx}`;
+                    break;
+                case 'linearizacao':
+                    endpoint = `/status-linearizacao-mtx${mtx}`;
+                    break;
+                default:
+                    return false;
+            }
+
+            const response = await fetch(endpoint);
+            if (!response.ok) return false;
+
+            const resultado = await response.json();
+            return resultado.status === 'executando';
+
+        } catch (error) {
+            console.error(`Erro ao verificar status MTX${mtx}:`, error);
+            return false;
+        }
+    }
+
+    // Inicia o monitoramento de uma rotina
+    function iniciarMonitoramento(mtx, tipoRotina) {
+        // Para qualquer monitoramento anterior
+        if (pollingStatus[mtx].ativo && pollingStatus[mtx].intervalo) {
+            clearInterval(pollingStatus[mtx].intervalo);
+        }
+
+        pollingStatus[mtx] = {
+            ativo: true,
+            tipo: tipoRotina,
+            intervalo: null
+        };
+
+        // Função de verificação periódica
+        const verificarEAtualizar = async () => {
+            const aindaAtivo = await verificarStatusRotina(mtx, tipoRotina);
+
+            if (!aindaAtivo) {
+                // Rotina terminou, resetar botões
+                resetarBotoesPorTipo(mtx, tipoRotina);
+                pararMonitoramento(mtx);
+            }
+        };
+
+        // Verifica a cada 5 segundos
+        pollingStatus[mtx].intervalo = setInterval(verificarEAtualizar, 5000);
+
+        // Primeira verificação após 2 segundos
+        setTimeout(verificarEAtualizar, 2000);
+    }
+
+    // Para o monitoramento
+    function pararMonitoramento(mtx) {
+        if (pollingStatus[mtx].intervalo) {
+            clearInterval(pollingStatus[mtx].intervalo);
+        }
+
+        pollingStatus[mtx] = {
+            ativo: false,
+            tipo: null,
+            intervalo: null
+        };
+    }
+
+    // Função para resetar botões baseado no tipo
+    function resetarBotoesPorTipo(mtx, tipo) {
+        switch(tipo) {
+            case 'procedimento':
+                resetarBotoesProcedimento(mtx);
+                break;
+            case 'offset':
+                resetarBotoesOffset(mtx);
+                break;
+            case 'linearizacao':
+                resetarBotoesLinearizacao(mtx);
+                break;
+        }
+    }
+
+    // ============ VERIFICAÇÃO INICIAL ============
+
+    // Verifica o status inicial de todas as rotinas
+    async function verificarStatusInicial() {
+        const mtxs = ['1', '2', '3', '4'];
+        const tipos = ['procedimento', 'offset', 'linearizacao'];
+
+        for (const mtx of mtxs) {
+            for (const tipo of tipos) {
+                try {
+                    const ativo = await verificarStatusRotina(mtx, tipo);
+                    if (ativo) {
+                        // Se estiver ativo, mostra botão de parar
+                        mostrarBotaoPararPorTipo(mtx, tipo);
+                        iniciarMonitoramento(mtx, tipo);
+                    } else {
+                        // Se não estiver ativo, mostra botão de iniciar
+                        mostrarBotaoIniciarPorTipo(mtx, tipo);
+                    }
+                } catch (error) {
+                    console.error(`Erro ao verificar ${tipo} MTX${mtx}:`, error);
+                }
+            }
+        }
+    }
+
+    // Função auxiliar para mostrar botão correto baseado no tipo
+    function mostrarBotaoIniciarPorTipo(mtx, tipo) {
+        switch(tipo) {
+            case 'procedimento':
+                const procedimentoIniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+                const procedimentoCancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+                if (procedimentoIniciarBtn && procedimentoCancelarBtn) {
+                    procedimentoIniciarBtn.style.display = 'inline-block';
+                    procedimentoCancelarBtn.style.display = 'none';
+                    procedimentoCancelarBtn.classList.remove('ativo');
+                }
+                break;
+            case 'offset':
+                const offsetIniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
+                const offsetCancelarBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
+                if (offsetIniciarBtn && offsetCancelarBtn) {
+                    offsetIniciarBtn.style.display = 'inline-block';
+                    offsetCancelarBtn.style.display = 'none';
+                    offsetCancelarBtn.classList.remove('ativo');
+                }
+                break;
+            case 'linearizacao':
+                const linearizacaoIniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
+                const linearizacaoCancelarBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
+                if (linearizacaoIniciarBtn && linearizacaoCancelarBtn) {
+                    linearizacaoIniciarBtn.style.display = 'inline-block';
+                    linearizacaoCancelarBtn.style.display = 'none';
+                    linearizacaoCancelarBtn.classList.remove('ativo');
+                }
+                break;
+        }
+    }
+
+    function mostrarBotaoPararPorTipo(mtx, tipo) {
+        switch(tipo) {
+            case 'procedimento':
+                const procedimentoIniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
+                const procedimentoCancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
+                if (procedimentoIniciarBtn && procedimentoCancelarBtn) {
+                    procedimentoIniciarBtn.style.display = 'none';
+                    procedimentoCancelarBtn.style.display = 'inline-block';
+                    procedimentoCancelarBtn.classList.add('ativo');
+                }
+                break;
+            case 'offset':
+                const offsetIniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
+                const offsetCancelarBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
+                if (offsetIniciarBtn && offsetCancelarBtn) {
+                    offsetIniciarBtn.style.display = 'none';
+                    offsetCancelarBtn.style.display = 'inline-block';
+                    offsetCancelarBtn.classList.add('ativo');
+                }
+                break;
+            case 'linearizacao':
+                const linearizacaoIniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
+                const linearizacaoCancelarBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
+                if (linearizacaoIniciarBtn && linearizacaoCancelarBtn) {
+                    linearizacaoIniciarBtn.style.display = 'none';
+                    linearizacaoCancelarBtn.style.display = 'inline-block';
+                    linearizacaoCancelarBtn.classList.add('ativo');
+                }
+                break;
+        }
+    }
+
     // ============ FUNÇÕES PARA DROPDOWNS ============
     function toggleDropdown(tipo) {
         // Encontra o dropdown específico
@@ -2675,6 +3103,7 @@
             console.error('Erro:', error);
         }
     }
+
     async function setarCanalDropdown(mtx, canal, label) {
         // Mostra mensagem de carregamento
         mostrarCanalStatus(mtx, 'Aplicando...', 'loading');
@@ -2984,395 +3413,6 @@
         }
     }
 
-    // ============ VARIÁVEIS PARA MONITORAMENTO ============
-let pollingStatus = {
-    '1': { ativo: false, tipo: null, intervalo: null },
-    '2': { ativo: false, tipo: null, intervalo: null },
-    '3': { ativo: false, tipo: null, intervalo: null },
-    '4': { ativo: false, tipo: null, intervalo: null }
-};
-
-// ============ FUNÇÕES PARA MONITORAMENTO DE STATUS ============
-
-// Verifica o status de uma rotina específica
-async function verificarStatusRotina(mtx, tipoRotina) {
-    try {
-        let endpoint = '';
-
-        switch(tipoRotina) {
-            case 'procedimento':
-                endpoint = `/status-procedimento-mtx${mtx}`;
-                break;
-            case 'offset':
-                endpoint = `/status-offset-mtx${mtx}`;
-                break;
-            case 'linearizacao':
-                endpoint = `/status-linearizacao-mtx${mtx}`;
-                break;
-            default:
-                return false;
-        }
-
-        const response = await fetch(endpoint);
-        if (!response.ok) return false;
-
-        const resultado = await response.json();
-        return resultado.status === 'executando';
-
-    } catch (error) {
-        console.error(`Erro ao verificar status MTX${mtx}:`, error);
-        return false;
-    }
-}
-
-// Inicia o monitoramento de uma rotina
-function iniciarMonitoramento(mtx, tipoRotina) {
-    // Para qualquer monitoramento anterior
-    if (pollingStatus[mtx].ativo && pollingStatus[mtx].intervalo) {
-        clearInterval(pollingStatus[mtx].intervalo);
-    }
-
-    pollingStatus[mtx] = {
-        ativo: true,
-        tipo: tipoRotina,
-        intervalo: null
-    };
-
-    // Função de verificação periódica
-    const verificarEAtualizar = async () => {
-        const aindaAtivo = await verificarStatusRotina(mtx, tipoRotina);
-
-        if (!aindaAtivo) {
-            // Rotina terminou, resetar botões
-            resetarBotoesPorTipo(mtx, tipoRotina);
-            pararMonitoramento(mtx);
-        }
-    };
-
-    // Verifica a cada 5 segundos
-    pollingStatus[mtx].intervalo = setInterval(verificarEAtualizar, 5000);
-
-    // Primeira verificação após 2 segundos
-    setTimeout(verificarEAtualizar, 2000);
-}
-
-// Para o monitoramento
-function pararMonitoramento(mtx) {
-    if (pollingStatus[mtx].intervalo) {
-        clearInterval(pollingStatus[mtx].intervalo);
-    }
-
-    pollingStatus[mtx] = {
-        ativo: false,
-        tipo: null,
-        intervalo: null
-    };
-}
-
-// ============ FUNÇÕES MODIFICADAS COM MONITORAMENTO ============
-
-// 1. Procedimento para canal atual (MODIFICADA)
-async function iniciarProcedimentoCanalAtual(mtx) {
-    const canal = obterCanalAtual(mtx);
-
-    mostrarProcedimentoStatus(mtx, `Iniciando procedimento completo para canal ${canal}...`, 'loading');
-
-    try {
-        // Mostra botões
-        const iniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
-        const cancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
-
-        if (iniciarBtn && cancelarBtn) {
-            iniciarBtn.style.display = 'none';
-            cancelarBtn.style.display = 'inline-block';
-            cancelarBtn.classList.add('ativo');
-        }
-
-        // Chama endpoint com canal específico
-        const response = await fetch(`/executar-procedimento-canal-mtx${mtx}?canal=${canal}`, {
-            method: 'POST'
-        });
-
-        const resultado = await response.json();
-
-        if (response.ok && resultado.status === 'sucesso') {
-            mostrarProcedimentoStatus(mtx,
-                `<strong>PROCEDIMENTO INICIADO!</strong><br>` +
-                `Canal: ${canal}<br>` +
-                `Status: ${resultado.mensagem}`,
-                'success'
-            );
-
-            // INICIA MONITORAMENTO
-            iniciarMonitoramento(mtx, 'procedimento');
-
-            // Atualiza dados periodicamente
-            const atualizarInterval = setInterval(() => {
-                carregarDados();
-            }, 10000);
-
-            // Para de atualizar após 1 hora (fallback)
-            setTimeout(() => {
-                clearInterval(atualizarInterval);
-                if (pollingStatus[mtx].ativo) {
-                    resetarBotoesProcedimento(mtx);
-                    pararMonitoramento(mtx);
-                }
-            }, 3600000);
-
-        } else {
-            mostrarProcedimentoStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
-            resetarBotoesProcedimento(mtx);
-        }
-
-    } catch (error) {
-        mostrarProcedimentoStatus(mtx, 'Erro de conexão', 'error');
-        console.error('Erro ao iniciar procedimento:', error);
-        resetarBotoesProcedimento(mtx);
-    }
-}
-
-// 2. Função para offset (MODIFICADA)
-async function iniciarOffsetCanalAtual(mtx) {
-    const canal = obterCanalAtual(mtx);
-    const potenciaDAC = obterPotenciaAtual(mtx);
-
-    mostrarMtxStatus(mtx, `Iniciando offset para canal ${canal}...`, 'loading');
-
-    try {
-        // Mostra botões
-        const iniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
-        const pararBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
-
-        if (iniciarBtn && pararBtn) {
-            iniciarBtn.style.display = 'none';
-            pararBtn.style.display = 'inline-block';
-            pararBtn.classList.add('ativo');
-        }
-
-        // Chama endpoint com canal e potência específicos
-        const response = await fetch(`/executar-offset-canal-mtx${mtx}?canal=${canal}&potencia=${potenciaDAC}`, {
-            method: 'POST'
-        });
-
-        const resultado = await response.json();
-
-        if (response.ok && resultado.status === 'sucesso') {
-            mostrarMtxStatus(mtx,
-                `<strong>OFFSET INICIADO!</strong><br>` +
-                `Canal: ${canal}<br>` +
-                `Potência: ${resultado.potencia || 'N/A'}W<br>` +
-                `Status: ${resultado.mensagem}`,
-                'success'
-            );
-
-            // INICIA MONITORAMENTO
-            iniciarMonitoramento(mtx, 'offset');
-
-            // Fallback: reset após 30 minutos máximo
-            setTimeout(() => {
-                if (pollingStatus[mtx].ativo && pollingStatus[mtx].tipo === 'offset') {
-                    resetarBotoesOffset(mtx);
-                    pararMonitoramento(mtx);
-                }
-            }, 1800000);
-
-        } else {
-            mostrarMtxStatus(mtx, `Erro: ${resultado.mensagem}`, 'error');
-            resetarBotoesOffset(mtx);
-        }
-
-    } catch (error) {
-        mostrarMtxStatus(mtx, 'Erro de conexão', 'error');
-        console.error('Erro ao iniciar offset:', error);
-        resetarBotoesOffset(mtx);
-    }
-}
-
-// 3. Função para linearização (MODIFICADA)
-async function iniciarLinearizacaoCanalAtual(mtx) {
-    const canal = obterCanalAtual(mtx);
-
-    mostrarMtxStatusLinearizacao(mtx, `Iniciando linearização para canal ${canal}...`, 'loading');
-
-    try {
-        // Mostra botões
-        const iniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
-        const pararBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
-
-        if (iniciarBtn && pararBtn) {
-            iniciarBtn.style.display = 'none';
-            pararBtn.style.display = 'inline-block';
-            pararBtn.classList.add('ativo');
-        }
-
-        // Chama endpoint com canal específico
-        const response = await fetch(`/executar-linearizacao-canal-mtx${mtx}?canal=${canal}`, {
-            method: 'POST'
-        });
-
-        const resultado = await response.json();
-
-        if (response.ok && resultado.status === 'sucesso') {
-            mostrarMtxStatusLinearizacao(mtx,
-                `<strong>LINEARIZAÇÃO INICIADA!</strong><br>` +
-                `Canal: ${canal}<br>` +
-                `Status: ${resultado.mensagem}<br>` +
-                `Tempo estimado: ${resultado.tempo_estimado || 'N/A'}`,
-                'success'
-            );
-
-            // INICIA MONITORAMENTO
-            iniciarMonitoramento(mtx, 'linearizacao');
-
-            // Fallback: reset após 2 horas máximo
-            setTimeout(() => {
-                if (pollingStatus[mtx].ativo && pollingStatus[mtx].tipo === 'linearizacao') {
-                    resetarBotoesLinearizacao(mtx);
-                    pararMonitoramento(mtx);
-                }
-            }, 7200000);
-
-        } else {
-            mostrarMtxStatusLinearizacao(mtx, `Erro: ${resultado.mensagem}`, 'error');
-            resetarBotoesLinearizacao(mtx);
-        }
-
-    } catch (error) {
-        mostrarMtxStatusLinearizacao(mtx, 'Erro de conexão', 'error');
-        console.error('Erro ao iniciar linearização:', error);
-        resetarBotoesLinearizacao(mtx);
-    }
-}
-
-// ============ FUNÇÕES DE RESET GENÉRICAS ============
-
-// Função para resetar botões baseado no tipo
-function resetarBotoesPorTipo(mtx, tipo) {
-    switch(tipo) {
-        case 'procedimento':
-            resetarBotoesProcedimento(mtx);
-            break;
-        case 'offset':
-            resetarBotoesOffset(mtx);
-            break;
-        case 'linearizacao':
-            resetarBotoesLinearizacao(mtx);
-            break;
-    }
-}
-
-// Reset específico para procedimento (já existe, vamos garantir que notifique)
-function resetarBotoesProcedimento(mtx) {
-    const iniciarBtn = document.getElementById(`procedimentoCanalBtn${mtx}`);
-    const cancelarBtn = document.getElementById(`cancelarProcedimentoCanalBtn${mtx}`);
-    const statusElement = document.getElementById(`procedimentoStatus${mtx}`);
-
-    if (iniciarBtn && cancelarBtn) {
-        iniciarBtn.style.display = 'inline-block';
-        cancelarBtn.style.display = 'none';
-        cancelarBtn.classList.remove('ativo');
-    }
-
-    if (statusElement) {
-        statusElement.innerHTML = '<strong>PROCEDIMENTO CONCLUÍDO!</strong><br>Rotina principal finalizada com sucesso.';
-        statusElement.className = 'loop-status status-success';
-        statusElement.style.display = 'block';
-
-        // Esconde após 5 segundos
-        setTimeout(() => {
-            statusElement.style.display = 'none';
-        }, 5000);
-    }
-}
-
-// Reset específico para offset (modificada para notificar)
-function resetarBotoesOffset(mtx) {
-    const iniciarBtn = document.getElementById(`comecarOffsetCanalBtn${mtx}`);
-    const pararBtn = document.getElementById(`pararOffsetCanalBtn${mtx}`);
-    const statusElement = document.getElementById(`mtxStatus${mtx}`);
-
-    if (iniciarBtn && pararBtn) {
-        iniciarBtn.style.display = 'inline-block';
-        pararBtn.style.display = 'none';
-        pararBtn.classList.remove('ativo');
-    }
-
-    if (statusElement) {
-        statusElement.innerHTML = '<strong>OFFSET CONCLUÍDO!</strong><br>Calibração de offset finalizada.';
-        statusElement.className = 'loop-status status-success';
-        statusElement.style.display = 'block';
-
-        setTimeout(() => {
-            statusElement.style.display = 'none';
-        }, 5000);
-    }
-}
-
-// Reset específico para linearização (modificada para notificar)
-function resetarBotoesLinearizacao(mtx) {
-    const iniciarBtn = document.getElementById(`comecarLinearizacaoCanalBtn${mtx}`);
-    const pararBtn = document.getElementById(`pararLinearizacaoCanalBtn${mtx}`);
-    const statusElement = document.getElementById(`loopLinearizacao${mtx}`);
-
-    if (iniciarBtn && pararBtn) {
-        iniciarBtn.style.display = 'inline-block';
-        pararBtn.style.display = 'none';
-        pararBtn.classList.remove('ativo');
-    }
-
-    if (statusElement) {
-        statusElement.innerHTML = '<strong>LINEARIZAÇÃO CONCLUÍDA!</strong><br>Processo de linearização finalizado.';
-        statusElement.className = 'loop-status status-success';
-        statusElement.style.display = 'block';
-
-        setTimeout(() => {
-            statusElement.style.display = 'none';
-        }, 5000);
-    }
-}
-
-// ============ VERIFICAÇÃO INICIAL NA CARGA DA PÁGINA ============
-
-// Verifica o status de todas as rotinas ao carregar a página
-async function verificarStatusInicial() {
-    const mtxs = ['1', '2', '3', '4'];
-    const tipos = ['procedimento', 'offset', 'linearizacao'];
-
-    for (const mtx of mtxs) {
-        for (const tipo of tipos) {
-            try {
-                const ativo = await verificarStatusRotina(mtx, tipo);
-                if (ativo) {
-                    // Se estiver ativo, mostra botão de parar
-                    mostrarBotaoPararPorTipo(mtx, tipo);
-                    iniciarMonitoramento(mtx, tipo);
-                } else {
-                    // Se não estiver ativo, mostra botão de iniciar
-                    mostrarBotaoIniciarPorTipo(mtx, tipo);
-                }
-            } catch (error) {
-                console.error(`Erro ao verificar ${tipo} MTX${mtx}:`, error);
-            }
-        }
-    }
-}
-
-// Função auxiliar para mostrar botão correto baseado no tipo
-function mostrarBotaoIniciarPorTipo(mtx, tipo) {
-    // Implementação similar às funções resetarBotoes...
-}
-
-function mostrarBotaoPararPorTipo(mtx, tipo) {
-    // Implementação similar...
-}
-
-// Chamar na inicialização
-window.addEventListener('load', () => {
-    verificarStatusInicial();
-    // ... resto do código existente
-});
-
     // ============ INICIALIZAÇÃO ============
     window.onload = function() {
         // Seleciona a opção padrão (30s)
@@ -3382,6 +3422,9 @@ window.addEventListener('load', () => {
                 opcao.classList.add('selected');
             }
         });
+
+        // Verifica status inicial das rotinas
+        verificarStatusInicial();
 
         carregarDados();
         reiniciarTimerAtualizacao();

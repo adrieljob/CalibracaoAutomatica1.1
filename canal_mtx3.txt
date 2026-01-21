@@ -8,3 +8,9 @@
 2026-01-12T17:42:21.988692900 | Entrada: 51 | Configurado: 51 | Esperado: 351 | Antes: 334 | Depois: 351 | Correto: SIM
 2026-01-13T10:55:30.668837500 | Entrada: 34 | Configurado: 34 | Esperado: 334 | Antes: 314 | Depois: 334 | Correto: SIM
 2026-01-13T10:55:42.459970300 | Entrada: 14 | Configurado: 14 | Esperado: 314 | Antes: 334 | Depois: 314 | Correto: SIM
+2026-01-13T16:28:30.913234600 | Entrada: 34 | Configurado: 34 | Esperado: 334 | Antes: 314 | Depois: 334 | Correto: SIM
+2026-01-20T16:53:05.113254700 | Entrada: 34 | Configurado: 34 | Esperado: 334 | Antes: 314 | Depois: 334 | Correto: SIM
+2026-01-20T17:23:50.088618500 | Entrada: 34 | Configurado: 34 | Esperado: 334 | Antes: 334 | Depois: 334 | Correto: SIM
+2026-01-20T18:00:55.071932500 | Entrada: 34 | Configurado: 34 | Esperado: 334 | Antes: 334 | Depois: 334 | Correto: SIM
+2026-01-20T22:12:24.561009900 | Entrada: 51 | Configurado: 51 | Esperado: 351 | Antes: 334 | Depois: 351 | Correto: SIM
+2026-01-21T11:28:09.231975400 | Entrada: 14 | Configurado: 14 | Esperado: 314 | Antes: 314 | Depois: 314 | Correto: SIM

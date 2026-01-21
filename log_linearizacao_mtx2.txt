@@ -1,2 +1,6 @@
 2025-12-17T15:18:45.841458900 | P_Inicial: 486W | P_Final: -6W | T_Inicial: 43°C | T_Final: 27°C | Ultima_Potencia: 483W | Status: COMPLETO
 2026-01-07T15:19:38.923082400 | P_Inicial: -6W | P_Final: 486W | T_Inicial: 37°C | T_Final: 37°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-20T16:20:20.108020 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 33°C | T_Final: 52°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-20T18:30:27.646500500 | P_Inicial: 370W | P_Final: 483W | T_Inicial: 33°C | T_Final: 46°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-20T23:03:13.676191800 | P_Inicial: 483W | P_Final: 483W | T_Inicial: 50°C | T_Final: 50°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-21T12:19:03.294378400 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 52°C | T_Final: 49°C | Ultima_Potencia: 483W | Status: COMPLETO

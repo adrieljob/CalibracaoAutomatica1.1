@@ -23,7 +23,7 @@ public class AjustarOffSetMtx3 {
 
     // Códigos de cores para console (BLUE para MTX3)
     private static final String RESET = "\u001B[0m";
-    private static final String BLUE = "\u001B[33m";
+    private static final String BLUE = "\u001B[34m";
 
     // Credenciais de login (configuráveis via application.properties)
     @Value("${app.username:admin}")

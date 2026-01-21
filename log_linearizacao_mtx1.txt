@@ -36,3 +36,4 @@
 2026-01-08T09:48:25.492846 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 36°C | T_Final: 39°C | Ultima_Potencia: 483W | Status: COMPLETO
 2026-01-08T11:03:04.044112300 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 29°C | T_Final: 36°C | Ultima_Potencia: 483W | Status: COMPLETO
 2026-01-08T11:16:30.467603200 | P_Inicial: 486W | P_Final: 483W | T_Inicial: 34°C | T_Final: 36°C | Ultima_Potencia: 483W | Status: COMPLETO
+2026-01-21T12:18:58.819203600 | P_Inicial: 486W | P_Final: 436W | T_Inicial: 43°C | T_Final: 57°C | Ultima_Potencia: 483W | Status: COMPLETO
